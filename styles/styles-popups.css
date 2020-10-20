@@ -1,0 +1,202 @@
+
+/*POP UP*/
+.popup.ext {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(107, 89, 122, 0.5);
+	z-index: 1001;
+}
+
+.popup.int {
+	margin: auto;
+	max-width: 896px;
+	height: calc(100% - 11.25em);
+	margin-top: 4em;
+	background-color: #fff;
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+}
+.popup.int > button.close {
+	position: absolute;
+	top: 4em;
+	background-color: #fff;
+	color: inherit;
+	box-shadow: none;
+	transition: none;
+	transform: none;
+}
+.popup.int > button.close i {
+	padding:  0.2em;
+	font-size: 1.5em;
+}
+
+.popup.int .pop-content {
+	padding: 4em 2.5em;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+.popup.int form { height: inherit; }
+
+.popup.int h1 {
+	padding-bottom: 0px;
+	max-width: calc(100% - 4em);
+}
+
+.popup.int .data { width: fit-content; }
+.popup.int .data, .popup.int #client-data {
+	padding:  1em;
+	margin: 0px auto;
+	justify-content: center;
+	align-items: center;
+	max-width: 100%;
+}
+.popup.int .data label {
+	margin: 1em 0px;
+	justify-content: flex-start;
+	align-items: center;
+}
+.popup.int .data label span:first-child { width: 10em; }
+.popup.int .data label button i { color: inherit; margin: 0px; padding: 0px;}
+.popup.int .data label > :not(:first-child) { margin-left: 1em !important; }
+.popup.int .data label > input[readonly]:not(:nth-child(2)) { margin-left: 0px !important; }
+.popup.int .data label > textarea { width: calc(100% - 11.5em); }
+
+.popup.int hr { margin: 0.5em; }
+
+/*.popup.int #client-data { margin-bottom: 2em; }*/
+.popup.int #client-data .top { align-items: baseline; }
+.popup.int #client-data .details { column-count: 2; column-gap:  4em; }
+.popup.int #client-data label span { 
+	margin-left: 0.5em;
+	font-weight: bold;
+}
+
+.popup.int .footer {
+	position: fixed;
+	align-self: flex-end !important;
+	bottom: 4em;
+	margin-left: -2.5em;
+	width: 100%;
+	max-width: 896px;
+	align-items: stretch;
+	align-content: stretch;
+	justify-content: stretch;
+	z-index: 1000;
+}
+.popup.int .footer button {
+	max-width: 100%;
+	margin: 0px;
+	border-radius: 0px;
+}
+.popup.int .footer.a1 button { width: 100%; }
+.popup.int .footer.a2 button { width: 50%; }
+.popup.int .footer.a3 button { width: 33.33%; }
+
+
+/*cards*/
+
+.card.receip .top {
+	font-size: 1.1em;
+	padding: 2em 2.5em;
+}
+.card.receip .top h1 { font-size: 1.5em; }
+.card.receip .subTop {
+	background-color: #ccc;
+	padding: 0.5em 2.5em;
+}
+.card.receip .subTop span { font-size: 1.25em; }
+.card.receip .details {
+	flex-wrap: wrap;
+	padding: 2em 2.5em;
+}
+.card.receip .details > div {
+	display: flex;
+	flex-flow: row;
+	justify-content: space-between;
+	min-width: calc(50% - 4em);
+	margin-bottom: 0.5em;
+}
+.card.receip .details > div span { margin-left: 0.5em; }
+/*
+
+.card .details div span { display: block; font-size: 1.25em; }
+.card .details div.client span { color: #49AFC9; font-size: 1.5em; }
+.card .details div.money.debt span { color: #F67280; font-size: 2em; }
+.card .details div.money.payment span { color: #FFB169; font-size: 2em; }
+.card .details div.money { padding-right: 1em; }
+*/
+@media (max-width: 830px) {
+	.card.receip .details > div { min-width: calc(50% - 2em); }
+	.card.receip .top { flex-flow: column; }
+	.card.receip .top h1 {
+		line-height: 1.1em;
+		font-size: 1.5em;
+		margin-bottom: 0.25em;
+	}
+}
+
+@media (max-width: 740px) {
+	.popup.ext input, .popup.ext select, .popup.ext .select { width: 11em; }
+	.popup.ext .data label[for="client"] .select { width: 18em; }
+	.popup.ext .data form label > span { margin-right: 0px; }
+}
+
+@media (max-width: 670px) {
+	.popup.int .data label span:first-child { width: 9em; }
+	.popup.int .data label input[type="number"] { width: 9em; }
+	.popup.int .data label input[type="number"][readonly] { min-width: 5em !important; width: 8em !important; }
+	.popup.int .data label button#new-client {max-width: 7em; padding: 0.25em; }
+}
+
+@media (max-width: 615px) {
+	.card.receip .details { flex-flow: column; }
+	.card.receip .details > div { min-width: 100%; }
+}
+
+@media (max-width: 580px) {
+	.popup.int {
+		margin: 2em;
+		height: calc(100% - 7.25em);
+	}
+	.popup.int h1 {
+		line-height: 1.1em;
+    font-size: 1.5em;
+  }
+	.popup.int > button.close { top: 2em;}
+	.popup.int > .pop-content { padding: 2.5em; }
+	.popup.int .data label {
+    flex-flow: column;
+    align-items: flex-start;
+	}
+	.popup.int .data label:not(.row-always) > :not(:first-child) {
+		margin-left: 0px !important;
+		margin-bottom: 0.5em !important;
+	}
+	.popup.int .data label span:first-child {
+		width: fit-content;
+		margin: 0px auto;
+	}
+	.popup.ext input, .popup.int .data label > textarea, .popup.ext select, .popup.ext .select, .popup.int .data label input[type="number"] { width: 100% !important; }
+	.popup.int .data label input[type="number"][readonly] { min-width: 100% !important; }
+	.popup.int .data label button { padding: 0.5em; }
+	.popup.int .data label button, .popup.int .data label button#new-client {max-width: 100%; width: 100%; }
+
+	.popup.int #client-data .details {
+		column-count: 2;
+    column-gap: initial;
+	}
+
+	.popup.int .footer {
+		width: calc(100% - 4em );
+		bottom: 2em;
+	}
+}
+
+@media (max-width: 420px) {
+	.card.receip .details > div { flex-flow: column; }
+	.card.receip .details > div span { margin-left: 0px; }
+}

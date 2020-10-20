@@ -1,0 +1,55 @@
+<div class="page first">
+	<h1 id="dd">Nueva suscripción a Delivery</h1>
+	<br>
+	<form action="" method="post" id="frm-newSuscriptionD">
+		<div class="data">
+			<label for="client"><span>Cliente</span>
+				<select name="client" id="client"  required>
+					<option value="none">Elegir cliente</option>
+					<option value="codpublicocli1">Cliente1</option>
+					<option value="codpublicocli2">Cliente2</option>
+				</select>
+				<button id="new-client" class="color-secondary-bg">Nuevo Cliente</button>
+			</label>
+			<label><span>Periodo</span>
+				<select name="period" id="period" required>
+					<option value="360">Anual</option>
+					<option value="180">Semestral</option>
+					<option value="120">Cuatrimestral</option>
+					<option value="90">Trimestral</option>
+					<option value="60">Bimestral</option>
+					<option value="30" selected>Mensual</option>
+					<option value="15">Quincenal</option>
+					<option value="7">Semanal</option>
+				</select>
+			</label>
+			<label for="date"><span>Fecha de emisión</span><input type="date" value="now" required></label>
+			<label><span>Monto a cobrar</span>
+				<select name="currency" id="currency" required>
+					<option value="soles">S/ Soles Peruanos</option>
+					<option value="usdollar">$ Dólares Estadounidenses</option>
+				</select>
+				<input type="number" required>
+			</label>
+		</div>
+	</form>
+	<div class="footer a2 row">
+		<button name="action" value="cancel" class="close" form="frm-newSuscriptionD">Cancelar</button>
+		<button name="action" value="accept" class="psub color-accent-bg" form="frm-newSuscriptionD">Aceptar</button>
+	</div>
+</div>
+
+<div class="page popup-sub ext">
+	<div class="popup-sub int">
+		<h1>Suscripción Realizada</h1>
+		<div class="pop-content">
+			<label>Cliente <span>Nombre_completo_cliente</span></label>
+			<label>Periodo <span>Mesual</span></label>
+			<label>Fecha de emisión <span>dd/mm/aaaa</span></label>
+			<label>Monto a cobrar <span>S/xx.xx</span></label>
+		</div>
+		<div class="footer a1 row">
+			<button name="action" value="accept" class="psub color-accent-bg" form="frm-newSuscriptionD">Aceptar</button>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,85 @@
+<html>
+<head>
+	<title>Aprende más - Yupana</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv=”Content-Language” content=”es”/>
+	<meta name="theme-color" content="#6B597A">
+
+	<script src="../scripts/jquery.min.js"></script>
+	<script src="../scripts/jquery-3.5.1.min.js"></script>
+	 <script src="../scripts/setting-ui.js"></script>
+	<script src="../scripts/view.js"></script>
+
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"/>
+	<link rel="stylesheet" type="text/css" href="../styles/styles.css">
+	<link rel="stylesheet" type="text/css" href="../styles/styles-pages.css">
+	<link rel="stylesheet" type="text/css" href="../styles/styles-toogle.css">
+</head>
+<body>
+<div class="content app">
+
+
+<main class="container">
+	<h1>Aprende más</h1>
+
+	<div class="info">
+		<h1>¿Qué son las Tasas de Interés?</h1>
+		<div>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+			<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="info" open>
+		<h1>¿Qué son las Tasas de Interés Simple?</h1>
+		<div>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+			<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="info" open>
+		<h1>¿Qué son las Tasas Compuestas?</h1>
+		<div>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+			<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="info" open>
+		<h1>¿Qué son las Tasas de Interés Nominales?</h1>
+		<div>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+			<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="info">
+		<h1>¿Qué es la Capitalización?</h1>
+		<div>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+			<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</div>
+	</div>
+
+</main>
+
+
+</div>
+<script>
+	$('.info h1').click(function(event) {
+		$(this).parent().children('div').slideToggle("fast");
+	});
+</script>
+</body>
+</html>

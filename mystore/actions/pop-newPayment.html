@@ -1,0 +1,68 @@
+<div class="page first">
+	<h1>Nueva amortización / Pago de deuda	</h1>
+	<form action="" method="post" id="frm-newPayment">
+		<div class="data">
+			<label for="date"><span>Fecha de registro</span><input type="date" value="now" required></label>
+			<label for="client"><span>Cliente</span>
+				<select name="client" id="client" required>
+					<option value="none">Elegir cliente</option>
+					<option value="codpublicocli1">Cliente1</option>
+					<option value="codpublicocli2">Cliente2</option>
+				</select>
+				<button id="new-client" class="color-secondary-bg">Nuevo Cliente</button>
+			</label>
+			<label><span>Total de deuda</span>
+				<input type="text" size="6" readonly value="S/ (PE)">
+				<input type="number" readonly>
+			</label>
+			<label><span>Monto a pagar*</span>
+				<select name="currency" id="currency" required>
+					<option value="soles">S/ Soles Peruanos</option>
+					<option value="usdollar">$ Dólares Estadounidenses</option>
+				</select>
+				<input type="number" required>
+				<button><i class="fas fa-calculator"></i></button>
+			</label>
+			<label><span>Descripción</span>
+				<textarea name="description" id="description" cols="64" rows="2" maxlength="60"></textarea>
+			</label>
+			<label><span>Monto restante</span>
+				<input type="text" size="6" readonly value="S/ (PE)">
+				<input type="number" readonly>
+			</label>
+			<p><br>*El pago será actualizado al tipo de moneda registrada para el cliente</p>
+		</div>
+	</form>
+	<div class="footer a2 row">
+		<button name="action" value="cancel" class="close" form="frm-newPayment">Cancelar</button>
+		<button name="action" value="accept" class="next color-accent-bg" form="frm-newPayment">Aceptar</button>
+	</div>
+</div>
+
+<div class="page c-receip">
+	<h1>Nueva amortización / Pago de deuda realizada</h1>
+	<div class="data">
+		<div class="card receip">
+			<div class="top">
+				<h1>Recibo generado por Yupana</h1>
+				<div  class="r-code">Código de registro <span>NM18239812</span></div>
+			</div>
+			<div class="subTop">Fecha de inscripción: <span>dd/mm/aaaa</span></div>
+			<div class="details">
+				<div>Cliente <span>Nombre_cliente</span></div>
+				<div>Tipo de tasa <span>Tasa Nominal</span></div>
+				<div>Periodo <span>Mensual</span></div>
+				<div>Capitalización <span>Mensual</span></div>
+				<div>Tasa de interés <span>xx.xxxxxxx%</span></div>
+				<div>Deuda a la fecha <span>S/ xx.xx</span></div>
+				<div>Pago / Amort. de deuda <span>S/ xx.xx</span></div>
+				<div>Deuda restante <span>S/xx.xx</span></div>
+				<div class="merge">Descripción <span class="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></div>
+			</div>
+		</div><!--receip-->'
+	</div><!--data-->
+	<div class="footer a2 row">
+		<button class="color-secondary-bg">Exportar</button>
+		<button class="close color-accent-bg">Ir a Registros</button>
+	'</div>
+</div>

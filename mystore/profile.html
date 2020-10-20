@@ -1,0 +1,79 @@
+<html>
+<head>
+	<title>Perfil - Yupana</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv=”Content-Language” content=”es”/>
+	<meta name="theme-color" content="#6B597A">
+	
+	<script src="../scripts/jquery.min.js"></script>
+	<script src="../scripts/jquery-3.5.1.min.js"></script>
+	 <script src="../scripts/setting-ui.js"></script>
+	<script src="../scripts/view.js"></script>
+
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"/>
+	<link rel="stylesheet" type="text/css" href="../styles/styles.css">
+	<link rel="stylesheet" type="text/css" href="../styles/styles-pages.css">
+	<link rel="stylesheet" type="text/css" href="../styles/styles-popups.css">
+</head>
+<body>
+<div class="content app">
+
+<main class="container">
+	<h1>Perfil</h1>
+	<p>Requeridos*</p><br>
+
+	<h2>Datos de usuario</h2>
+	<form action="" method="put" class="center">
+		<label for="nombres"><span>Nombres*</span>
+		<input type="text" name="nombres" placeholder="Nombres Completos" required/></label>
+		<br/>
+		<label for="apepat"><span>Apellido Paterno*</span>
+		<input type="text" name="apepat" placeholder="Apellido Paterno" required/></label>
+		<br/>
+		<label for="apemat"><span>Apellido Materno*</span>
+		<input type="text" name="apemat" placeholder="Apellido Materno" required/></label>
+		<br/>
+		<label for="docTipo"><span>Tipo de documento</span>
+			<select name="docTipo" id="">
+				<option value="dni">DNI</option>
+				<option value="pasaporte">Pasaporte</option>
+				<option value="ce">CE</option>
+			</select>
+		</label>
+		<br/>
+		<label for="documento"><span>Número de documento</span>
+		<input type="text" name="documento" maxlength="15" /></label>
+		<br/>
+		<label for="celular"><span>Celular</span>
+		<input type="text" name="celular" maxlength="11"></label>
+
+		<br/><br/><p class="txt-center"><button class="color-accent-bg">Guardar cambios</button></p>
+	</form>
+
+	<hr>
+
+	<h2>Datos de cuenta</h2>
+	<form action="" method="put" class="center">
+		<label for="username"><span>Nombre de usuario*</span>
+			<input type="text" name="username" placeholder="usuario" required/></label>
+			<br/>
+			<label for="email"><span>Correo electrónico*</span>
+			<input type="email" name="email" placeholder="correo@ejemplo.com" required/></label>
+			<br/>
+			<label for="password"><span>Contraseña*</span>
+			<input type="password" name="password" pattern=".{5,}" required/></label>
+			<br/>
+			<label for="confirm-password" ><span>Confirmar contraseña*</span>
+			<input type="password"  name="confirm-password" pattern=".{5,}" required/></label>
+			
+			<br/><br/><p class="txt-center"><button class="color-accent-bg">Guardar cambios</button></p>
+	</form>
+
+</main>
+
+
+</div>
+</body>
+</html>
