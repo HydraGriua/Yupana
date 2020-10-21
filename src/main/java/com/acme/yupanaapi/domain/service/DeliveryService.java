@@ -9,8 +9,10 @@ import com.acme.yupanaapi.domain.model.Delivery;
 public interface DeliveryService{
 	Delivery save(Delivery deliveryEntity) throws Exception;
 	Delivery update(Delivery deliveryEntity, Long Id);
-	void deleteById(Long DeliveryId) throws Exception;
+	void delete(Long DeliveryId) throws Exception;
 	List<Delivery> findAll() throws Exception;
 	Optional<Delivery> findById(Long DeliveryId) throws Exception;
-	List<Delivery> findByDeliveryDate(Date deliveryDate) throws Exception;
+	List<Delivery> findAllByDeliveryDate(Date deliveryDate) throws Exception;
+
+	//TODO: agregar el nombre de la entidad luego del metodo
 }

@@ -39,7 +39,7 @@ public class DeliveryServiceImpl implements DeliveryService {
 	}
 
 	@Override
-	public void deleteById(Long deliveryId) throws Exception {
+	public void delete(Long deliveryId) throws Exception {
 		deliveryRepository.deleteById(deliveryId);
 	}
 
@@ -57,8 +57,12 @@ public class DeliveryServiceImpl implements DeliveryService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<Delivery> findByDeliveryDate(Date deliveryDate) throws Exception{
-		return deliveryRepository.findByDeliveryDate(deliveryDate);
+	public List<Delivery> findAllByDeliveryDate(Date deliveryDate) throws Exception{
+		return deliveryRepository.findAllByDeliveryDate(deliveryDate);
 	}
 
+	//TODO: corregir los exception y agregar el resourcenf, quitar los trans extras
+
+
+	//TODO: historias de usuario
 }

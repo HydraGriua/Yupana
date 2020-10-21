@@ -10,7 +10,6 @@ import com.acme.yupanaapi.domain.model.Delivery;
 
 
 public interface  DeliveryRepository extends JpaRepository<Delivery, Long> {
-		Optional<Delivery> findById(Long id) ;
-		List<Delivery> findByDeliveryDate(Date deliveryDate);
+	List<Delivery> findAllByDeliveryDate(Date deliveryDate);
 }
 
