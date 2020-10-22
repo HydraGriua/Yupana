@@ -29,7 +29,7 @@ public class FlowServiceImpl implements FlowService {
     public Flow updateFlow(Long flowId, Flow flowRequest) {
         Flow flow = flowRepository.findById(flowId)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "User not found with Id " + flowId));
+                        "Flow not found with Id " + flowId));
         flow.setDeadLine(flowRequest.getDeadLine());
         flow.setCurrentInterestRate(flowRequest.getCurrentInterestRate());
         flow.setCurrentRatePeriod(flowRequest.getCurrentRatePeriod());
