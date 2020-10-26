@@ -52,9 +52,11 @@ public class FlowServiceImpl implements FlowService {
         flowRepository.delete(flow);
         return ResponseEntity.ok().build();
     }
+    @Override
     public List<Flow> getAllByWalletId(Long walletId) {
     	return flowRepository.findAllByWalletId(walletId);
     }
+    @Override
     public List<Flow> getAllByDate(Date date) {
     	return flowRepository.findAllByDate(date);
     }
