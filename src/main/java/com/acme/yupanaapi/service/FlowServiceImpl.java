@@ -55,7 +55,7 @@ public class FlowServiceImpl implements FlowService {
     public List<Flow> getAllByWalletId(Long walletId) {
     	return flowRepository.findAllByWalletId(walletId);
     }
-    public List<Flow> getByDate(Date date) {
+    public List<Flow> getAllByDate(Date date) {
     	return flowRepository.findAllByDate(date);
     }
 }
