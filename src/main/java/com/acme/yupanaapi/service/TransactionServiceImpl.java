@@ -1,4 +1,4 @@
-package com.acme.yupanaapi.services;
+package com.acme.yupanaapi.service;
 
 import java.util.Date;
 import java.util.List;
@@ -39,7 +39,7 @@ public class TransactionServiceImpl implements TransactionService {
 		transaction.setRateType(transactionEntity.getRateType());
 		return transactionRepository.save(transaction);
 	}
-
+	
 	@Override
 	public ResponseEntity<?> deleteTransaction(Long transactionId) {
 		Transaction transaction = transactionRepository.findById(transactionId)
@@ -47,12 +47,16 @@ public class TransactionServiceImpl implements TransactionService {
 		transactionRepository.delete(transaction);
 		return ResponseEntity.ok().build();
 	}
-
+	
 	@Transactional(readOnly = true)
 	@Override
 	public Transaction getTransactionById(Long transactionId) {
 		return transactionRepository.findById(transactionId)
 				.orElseThrow(() -> new ResourceNotFoundException("Transaction not found with Id " + transactionId));
 	}
-
+	
+	@Override
+	public List<Transaction> getAllByWalletId(Long walletId){
+		return transactionRepository.findAllByWalletId(walletId);
+	}
 }
