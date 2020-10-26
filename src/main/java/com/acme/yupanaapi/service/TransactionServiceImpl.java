@@ -28,7 +28,8 @@ public class TransactionServiceImpl implements TransactionService {
 	@Override
 	public Transaction updateTransaction(Transaction transactionEntity, Long transactionId) {
 		Transaction transaction = transactionRepository.findById(transactionId)
-				.orElseThrow(() -> new ResourceNotFoundException("Transaction not found with Id " + transactionId));
+				.orElseThrow(() -> new ResourceNotFoundException(
+						"Transaction not found with Id " + transactionId));
 		transaction.setTransactionName(transactionEntity.getTransactionName());
 		transaction.setTransactionDate(transactionEntity.getTransactionDate());
 		transaction.setAmount(transactionEntity.getAmount());
@@ -38,12 +39,14 @@ public class TransactionServiceImpl implements TransactionService {
 		transaction.setRatePeriod(transactionEntity.getRatePeriod());
 		transaction.setRateType(transactionEntity.getRateType());
 		return transactionRepository.save(transaction);
+		//TODO: verificar posible metodo con mapping
 	}
 	
 	@Override
 	public ResponseEntity<?> deleteTransaction(Long transactionId) {
 		Transaction transaction = transactionRepository.findById(transactionId)
-				.orElseThrow(() -> new ResourceNotFoundException("Transaction not found with Id " + transactionId));
+				.orElseThrow(() -> new ResourceNotFoundException(
+						"Transaction not found with Id " + transactionId));
 		transactionRepository.delete(transaction);
 		return ResponseEntity.ok().build();
 	}
@@ -52,7 +55,8 @@ public class TransactionServiceImpl implements TransactionService {
 	@Override
 	public Transaction getTransactionById(Long transactionId) {
 		return transactionRepository.findById(transactionId)
-				.orElseThrow(() -> new ResourceNotFoundException("Transaction not found with Id " + transactionId));
+				.orElseThrow(() -> new ResourceNotFoundException(
+						"Transaction not found with Id " + transactionId));
 	}
 	
 	@Override

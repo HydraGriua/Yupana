@@ -13,5 +13,6 @@ public interface WalletService {
 	Wallet updateWallet(Wallet entity, Long walletId);
 	ResponseEntity<?> deleteWallet(Long walletId);
 	Wallet getWalletById(Long walletId);
+	Wallet getWalletByIdAndUserId(Long walletId, Long userId);
 	List<Wallet> getAllBySellerId(Long sellerId);
 }

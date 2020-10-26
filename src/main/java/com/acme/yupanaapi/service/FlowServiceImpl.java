@@ -41,6 +41,7 @@ public class FlowServiceImpl implements FlowService {
         flow.setCreditLine(flowRequest.getCreditLine());
         flow.setTotalDebt(flowRequest.getTotalDebt());
         return flowRepository.save(flow);
+        //TODO: verificar posible metodo con mapping
 
     }
 

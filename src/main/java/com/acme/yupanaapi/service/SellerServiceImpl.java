@@ -19,7 +19,7 @@ public class SellerServiceImpl implements SellerService {
     public Seller getSellerByIdAndUserId(Long sellerId, Long userId) {
         return sellerRepository.findByIdAndUserId(sellerId,userId)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "Comment not found with Id " + sellerId +
+                        "Seller not found with Id " + sellerId +
                                 " and UserId " + userId));
     }
 

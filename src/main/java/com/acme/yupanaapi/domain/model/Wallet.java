@@ -50,4 +50,9 @@ public class Wallet {
 	@JoinColumn(name = "seller_id", nullable = false)
 	@JsonIgnore
 	private Seller seller;
+
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "user_id", nullable = false)
+	@JsonIgnore
+	private User user;
 }

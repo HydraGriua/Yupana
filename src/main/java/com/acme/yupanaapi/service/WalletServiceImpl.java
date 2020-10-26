@@ -29,7 +29,8 @@ public class WalletServiceImpl implements WalletService {
 
 	@Override
 	public Wallet updateWallet(Wallet entity, Long walletId) {
-		Wallet wallet = walletRepository.findById(walletId).orElseThrow(()-> new ResourceNotFoundException("Wallet not found with Id" + walletId));
+		Wallet wallet = walletRepository.findById(walletId)
+				.orElseThrow(()-> new ResourceNotFoundException("Wallet not found with Id" + walletId));
 		wallet.setMaintenancePrice(entity.getMaintenancePrice());
 		wallet.setState(entity.getState());
 		wallet.setCreationDate(entity.getCreationDate());
@@ -37,13 +38,15 @@ public class WalletServiceImpl implements WalletService {
 		wallet.setType(entity.getType());
 		wallet.setCurrencyType(entity.getCurrencyType());
 		return walletRepository.save(wallet);
+		//TODO: verificar posible metodo con mapping
 	}
 	
 
 
 	@Override
 	public ResponseEntity<?> deleteWallet(Long walletId) {
-		Wallet wallet = walletRepository.findById(walletId).orElseThrow(()->new ResourceNotFoundException("Wallet not found with Id" + walletId));
+		Wallet wallet = walletRepository.findById(walletId)
+				.orElseThrow(()->new ResourceNotFoundException("Wallet not found with Id" + walletId));
 		walletRepository.delete(wallet);
 		return ResponseEntity.ok().build();	
 	}
@@ -51,12 +54,22 @@ public class WalletServiceImpl implements WalletService {
 	@Transactional(readOnly = true)
 	@Override
 	public Wallet getWalletById(Long walletId) {
-		return walletRepository.findById(walletId).orElseThrow(()-> new ResourceNotFoundException("Wallet not found with Id" + walletId));
+		return walletRepository.findById(walletId)
+				.orElseThrow(()-> new ResourceNotFoundException(
+						"Wallet not found with Id" + walletId));
 	}
 
-		@Override
-		public List<Wallet> getAllBySellerId(Long sellerId) {
-			return walletRepository.findAllBySellerId(sellerId);
-		}
+	@Override
+	public Wallet getWalletByIdAndUserId(Long walletId, Long userId) {
+		return walletRepository.findByIdAndUserId(walletId,userId)
+				.orElseThrow(() -> new ResourceNotFoundException(
+						"Wallet not found with Id " + walletId +
+								" and UserId " + userId));
+	}
+
+	@Override
+	public List<Wallet> getAllBySellerId(Long sellerId) {
+		return walletRepository.findAllBySellerId(sellerId);
+	}
 
 	}

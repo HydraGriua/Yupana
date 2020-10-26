@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
         user.setDocumentType(userRequest.getDocumentType());
         user.setDocumentNumber(userRequest.getDocumentNumber());
         return userRepository.save(user);
-
+        //TODO: verificar posible metodo con mapping
     }
 
     @Override

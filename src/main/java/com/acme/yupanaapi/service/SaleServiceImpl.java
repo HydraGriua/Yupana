@@ -36,6 +36,7 @@ public class SaleServiceImpl implements SaleService{
 		 sale.setSalePaid(saleEntity.getSalePaid());
 		 sale.setSaleTime(saleEntity.getSaleTime());
 		 return saleRepository.save(sale);
+		//TODO: verificar posible metodo con mapping
 	}
 
 	@Override

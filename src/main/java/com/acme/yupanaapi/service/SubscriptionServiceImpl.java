@@ -29,12 +29,15 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
 	@Override
 	public Subscription updateSubscription(Subscription subscriptionEntity, Long subscriptionId) {
-		Subscription subscription = subscriptionRepository.findById(subscriptionId).orElseThrow(()-> new ResourceNotFoundException("Subscription not found with Id"+ subscriptionId));
+		Subscription subscription = subscriptionRepository.findById(subscriptionId)
+				.orElseThrow(()-> new ResourceNotFoundException(
+						"Subscription not found with Id"+ subscriptionId));
 		subscription.setCreationDate(subscriptionEntity.getCreationDate());
 		subscription.setExpirationDate(subscriptionEntity.getExpirationDate());
 		subscription.setAmount(subscriptionEntity.getAmount());
 		subscription.setSubscriptionType(subscriptionEntity.getSubscriptionType());
 		return subscriptionRepository.save(subscription);
+		//TODO: verificar posible metodo con mapping
 	}
 
 	@Override
