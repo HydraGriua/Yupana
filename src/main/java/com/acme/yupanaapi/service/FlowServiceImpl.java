@@ -3,6 +3,10 @@ import com.acme.yupanaapi.domain.model.Flow;
 import com.acme.yupanaapi.domain.repository.FlowRepository;
 import com.acme.yupanaapi.domain.service.FlowService;
 import com.acme.yupanaapi.exception.ResourceNotFoundException;
+
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -48,5 +52,10 @@ public class FlowServiceImpl implements FlowService {
         flowRepository.delete(flow);
         return ResponseEntity.ok().build();
     }
-
+    public List<Flow> getAllByWalletId(Long walletId) {
+    	return flowRepository.findAllByWalletId(walletId);
+    }
+    public List<Flow> getByDate(Date date) {
+    	return flowRepository.findAllByDate(date);
+    }
 }
