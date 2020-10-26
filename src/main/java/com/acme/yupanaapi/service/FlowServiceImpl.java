@@ -34,7 +34,7 @@ public class FlowServiceImpl implements FlowService {
         Flow flow = flowRepository.findById(flowId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Flow not found with Id " + flowId));
-        flow.setDeadLine(flowRequest.getDeadLine());
+        flow.setDeadlineDate(flowRequest.getDeadlineDate());
         flow.setCurrentInterestRate(flowRequest.getCurrentInterestRate());
         flow.setCurrentRatePeriod(flowRequest.getCurrentRatePeriod());
         flow.setCurrentRateType(flowRequest.getCurrentRateType());
@@ -57,7 +57,7 @@ public class FlowServiceImpl implements FlowService {
     	return flowRepository.findAllByWalletId(walletId);
     }
     @Override
-    public List<Flow> getAllByDate(Date date) {
-    	return flowRepository.findAllByDate(date);
+    public List<Flow> getAllByDeadlineDate(Date date) {
+    	return flowRepository.findAllByDeadlineDate(date);
     }
 }

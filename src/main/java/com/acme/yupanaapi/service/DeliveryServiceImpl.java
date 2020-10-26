@@ -60,7 +60,5 @@ public class DeliveryServiceImpl implements DeliveryService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Delivery not found with Id " + deliveryId));
 	}
-	
-	//TODO: corregir los exception y agregar el resourcenf, quitar los trans extras -> Hecho
-	//TODO: historias de usuario -> HECHO 
+
 }

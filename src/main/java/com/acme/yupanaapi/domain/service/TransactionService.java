@@ -11,5 +11,5 @@ public interface TransactionService {
 	Transaction updateTransaction(Transaction transactionEntity, Long transactionId);
 	ResponseEntity<?> deleteTransaction(Long transactionId);
 	Transaction getTransactionById(Long transactionId);
-	List<Transaction> getAllByWalletId(Long walletId);
+	List<Transaction> getAllByFlowId(Long flowId);
 }

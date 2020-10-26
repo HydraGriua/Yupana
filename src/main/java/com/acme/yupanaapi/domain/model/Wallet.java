@@ -10,6 +10,7 @@ import java.sql.Date;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 
 @Data
@@ -17,34 +18,36 @@ import javax.validation.constraints.NotNull;
 @Builder
 @Entity
 @AllArgsConstructor
-@Table(name = "flows")
-public class Flow {
+@Table(name = "wallets")
+public class Wallet {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@Temporal(TemporalType.DATE)
+	
+	@Lob
 	@NotNull
-	private Date deadlineDate;
-
+	private String type;
+	
+	@Lob
 	@NotNull
-	private Float currentInterestRate;
-
+	private String currencyType;
+	
 	@NotNull
-	private String currentRatePeriod;
-
+	@Temporal(TemporalType.TIME)
+	private Date creationDate;
+	
+	@Lob
 	@NotNull
-	private String currentRateType;
-
+	private String state;
+	
 	@NotNull
-	private Float creditLine;
-
+	private Float balance;
+	
 	@NotNull
-	private Float totalDebt;
+	private Float maintenancePrice;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "wallet_id", nullable = false)
+	@JoinColumn(name = "seller_id", nullable = false)
 	@JsonIgnore
-	private Wallet wallet;
-
+	private Seller seller;
 }

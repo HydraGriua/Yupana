@@ -56,7 +56,7 @@ public class TransactionServiceImpl implements TransactionService {
 	}
 	
 	@Override
-	public List<Transaction> getAllByWalletId(Long walletId){
-		return transactionRepository.findAllByWalletId(walletId);
+	public List<Transaction> getAllByFlowId(Long flowId){
+		return transactionRepository.findAllByFlowId(flowId);
 	}
 }

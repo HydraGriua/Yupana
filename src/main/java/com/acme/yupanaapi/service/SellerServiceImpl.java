@@ -17,8 +17,10 @@ public class SellerServiceImpl implements SellerService {
 
     @Override
     public Seller getSellerByIdAndUserId(Long sellerId, Long userId) {
-        return null;
-        //TODO
+        return sellerRepository.findByIdAndUserId(sellerId,userId)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Comment not found with Id " + sellerId +
+                                " and UserId " + userId));
     }
 
     @Transactional(readOnly = true)
