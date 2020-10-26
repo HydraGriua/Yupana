@@ -1,4 +1,4 @@
-	package com.acme.services.impl;
+	package com.acme.yupanaapi.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,10 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.acme.entities.Monedero;
-import com.acme.repositories.MonederoRepository;
-import com.acme.services.MonederoService;
+import com.acme.yupanaapi.domain.model.Monedero;
+import com.acme.yupanaapi.domain.repository.MonederoRepository;
+import com.acme.yupanaapi.domain.service.MonederoService;
 import com.acme.yupanaapi.exception.ResourceNotFoundException;
+
+
 
 
 

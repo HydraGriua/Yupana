@@ -1,17 +1,16 @@
-package com.acme.services.impl;
+package com.acme.yupanaapi.service;
 
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.acme.entities.Suscripcion;
-import com.acme.repositories.SuscripcionRepository;
-import com.acme.services.SuscripcionService;
+import com.acme.yupanaapi.domain.model.Suscripcion;
+import com.acme.yupanaapi.domain.repository.SuscripcionRepository;
+import com.acme.yupanaapi.domain.service.SuscripcionService;
 import com.acme.yupanaapi.exception.ResourceNotFoundException;
+
 
 
 
@@ -48,6 +47,7 @@ public class SuscripcionServiceImpl implements SuscripcionService{
 		
 	}
 
+	@Transactional(readOnly =true)
 	@Override
 	public Suscripcion getSuscripcionById(Long suscbripcionId) {
 		return suscripcionRepository.findById(suscbripcionId)

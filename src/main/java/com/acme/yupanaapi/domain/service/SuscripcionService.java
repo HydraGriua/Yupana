@@ -1,8 +1,9 @@
-package com.acme.services;
+package com.acme.yupanaapi.domain.service;
 
 import org.springframework.http.ResponseEntity;
 
-import com.acme.entities.Suscripcion;
+import com.acme.yupanaapi.domain.model.Suscripcion;
+
 
 
 

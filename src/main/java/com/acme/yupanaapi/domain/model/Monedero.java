@@ -1,4 +1,4 @@
-package com.acme.entities;
+package com.acme.yupanaapi.domain.model;
 
 import java.sql.Date;
 
