@@ -8,6 +8,6 @@ import com.acme.entities.Suscripcion;
 
 
 @Repository
-public interface SuscripcionRepository extends JpaRepository<Suscripcion, Integer>{
+public interface SuscripcionRepository extends JpaRepository<Suscripcion, Long>{
 
 }

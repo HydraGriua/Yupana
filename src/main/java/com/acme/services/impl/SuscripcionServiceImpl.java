@@ -1,56 +1,61 @@
 package com.acme.services.impl;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.acme.entities.Suscripcion;
 import com.acme.repositories.SuscripcionRepository;
 import com.acme.services.SuscripcionService;
+import com.acme.yupanaapi.exception.ResourceNotFoundException;
 
 
 
 @Service
-public class SuscripcionServiceImpl implements SuscripcionService, Serializable{
+public class SuscripcionServiceImpl implements SuscripcionService{
 
-	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private SuscripcionRepository suscripcionRepository;
+
+	@Override
+	public Suscripcion save(Suscripcion suscripcionEntity) {
+		return suscripcionRepository.save(suscripcionEntity);
+		
+	}
+
+	@Override
+	public Suscripcion update(Suscripcion suscripcionEntity, Long suscbripcionId) {
+		Suscripcion suscripcion = suscripcionRepository.findById(suscbripcionId).orElseThrow(()-> new ResourceNotFoundException("Subscription not found with Id"+ suscbripcionId));
+		suscripcion.setFechaEmision(suscripcionEntity.getFechaEmision());
+		suscripcion.setFechaVencimiento(suscripcionEntity.getFechaVencimiento());
+		suscripcion.setMonto(suscripcionEntity.getMonto());
+		suscripcion.setTipoSuscripcion(suscripcionEntity.getTipoSuscripcion());
+		return suscripcionRepository.save(suscripcion);
+	}
+
+	@Override
+	public ResponseEntity<?> deleteEntity(Long suscbripcionId) {
+		Suscripcion suscripcion = suscripcionRepository.findById(suscbripcionId)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Subscription not found with Id " + suscbripcionId));
+		suscripcionRepository.delete(suscripcion);
+        return ResponseEntity.ok().build();
+		
+	}
+
+	@Override
+	public Suscripcion getSuscripcionById(Long suscbripcionId) {
+		return suscripcionRepository.findById(suscbripcionId)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Subscription not found with Id " + suscbripcionId));
+	}
+
 	
-	@Transactional
-	@Override
-	public Suscripcion save(Suscripcion entity) throws Exception {
-		return suscripcionRepository.save(entity);
-	}
 
-	@Transactional
-	@Override
-	public Suscripcion update(Suscripcion entity) throws Exception {
-		return suscripcionRepository.save(entity);
-	}
-
-	@Transactional
-	@Override
-	public void deleteById(Integer id) throws Exception {
-		suscripcionRepository.deleteById(id);
-	}
-
-	@Transactional(readOnly = true)
-	@Override
-	public List<Suscripcion> findAll() throws Exception {
-		return suscripcionRepository.findAll();
-	}
-
-	@Transactional(readOnly = true)
-	@Override
-	public Optional<Suscripcion> findById(Integer id) throws Exception {
-		return suscripcionRepository.findById(id);
-	}
-	
 
 }

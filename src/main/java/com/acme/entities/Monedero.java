@@ -2,38 +2,113 @@ package com.acme.entities;
 
 import java.sql.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+
 
 @Entity
 @Table(name = "monederos")
 public class Monedero {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
-	@Column(name = "tipo", length = 12, nullable = false)
+	@Lob
+	@NotNull
 	private String tipo;
 	
-	@Column(name = "tipo_moneda", length = 12, nullable = false)
+	@Lob
+	@NotNull
 	private String tipoMoneda;
 	
-	@Column(name = "fecha_emision", nullable = false)
+	@NotNull
 	@Temporal(TemporalType.TIME)
 	private Date fechaEmision;
 	
-	@Column(name = "estado", length = 10, nullable = false)
+	@Lob
+	@NotNull
 	private String estado;
 	
-	@Column(name = "saldo", nullable = false)
+	@NotNull
 	private Float saldo;
 	
-	@Column(name = "costo_mantenimiento", nullable = false)
+	@NotNull
 	private Float costoMantenimiento;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getTipoMoneda() {
+		return tipoMoneda;
+	}
+
+	public void setTipoMoneda(String tipoMoneda) {
+		this.tipoMoneda = tipoMoneda;
+	}
+
+	public Date getFechaEmision() {
+		return fechaEmision;
+	}
+
+	public void setFechaEmision(Date fechaEmision) {
+		this.fechaEmision = fechaEmision;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public Float getSaldo() {
+		return saldo;
+	}
+
+	public void setSaldo(Float saldo) {
+		this.saldo = saldo;
+	}
+
+	public Float getCostoMantenimiento() {
+		return costoMantenimiento;
+	}
+
+	public void setCostoMantenimiento(Float costoMantenimiento) {
+		this.costoMantenimiento = costoMantenimiento;
+	}
+
+	public Monedero(@NotNull String tipo, @NotNull String tipoMoneda, @Null Date fechaEmision, @NotNull String estado, @NotNull Float saldo, @NotNull Float costoMantenimiento) {
+		this.tipo = tipo;
+		this.tipoMoneda = tipoMoneda;
+		this.fechaEmision = fechaEmision;
+		this.estado = estado;
+		this.saldo = saldo;
+		this.costoMantenimiento = costoMantenimiento;
+	}
+
+	
+	
+	
 }

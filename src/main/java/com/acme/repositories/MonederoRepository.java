@@ -8,6 +8,6 @@ import com.acme.entities.Monedero;
 
 
 @Repository
-public interface MonederoRepository extends JpaRepository<Monedero, Integer>{
+public interface MonederoRepository extends JpaRepository<Monedero, Long>{
 
 }
