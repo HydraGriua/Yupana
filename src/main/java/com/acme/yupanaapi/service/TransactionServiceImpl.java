@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import com.acme.yupanaapi.domain.model.Flow;
+import com.acme.yupanaapi.domain.repository.FlowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,10 +22,17 @@ public class TransactionServiceImpl implements TransactionService {
 	@Autowired
 	TransactionRepository transactionRepository;
 
+	@Autowired
+	FlowRepository flowRepository;
+
 	@Transactional
 	@Override
-	public Transaction saveTransaction(Transaction transactionEntity) {
+	public Transaction createTransaction(Transaction transactionEntity, Long flowId) {
+		Flow flow = flowRepository.findById(flowId).orElseThrow(() -> new ResourceNotFoundException(
+				"Flow not found with Id " + flowId));
+		transactionEntity.setFlow(flow);
 		return transactionRepository.save(transactionEntity);
+		//TODO: revisar si depende de la venta y posible redifinicion de la BD
 	}
 
 	@Transactional

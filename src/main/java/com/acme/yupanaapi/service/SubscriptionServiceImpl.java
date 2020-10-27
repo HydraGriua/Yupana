@@ -1,6 +1,8 @@
 package com.acme.yupanaapi.service;
 
 
+import com.acme.yupanaapi.domain.model.Wallet;
+import com.acme.yupanaapi.domain.repository.WalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,25 +23,34 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 	@Autowired
 	private SubscriptionRepository subscriptionRepository;
 
+	@Autowired
+	private WalletRepository walletRepository;
+
 	@Transactional
 	@Override
-	public Subscription createSubscription(Subscription subscription) {
+	public Subscription createSubscription(Subscription subscription, Long walletId, Long sellerId) {
+		Wallet wallet = walletRepository.findByIdAndUserId(walletId,sellerId)
+				.orElseThrow(() -> new ResourceNotFoundException("wallet not found with Id " + walletId +
+						" and SellerId " + sellerId));
+		subscription.setWallet(wallet);
 		return subscriptionRepository.save(subscription);
-		
 	}
 
 	@Transactional
 	@Override
-	public Subscription updateSubscription(Subscription subscriptionEntity, Long subscriptionId) {
-		Subscription subscription = subscriptionRepository.findById(subscriptionId)
-				.orElseThrow(()-> new ResourceNotFoundException(
+	public Subscription updateSubscription(Subscription subscriptionEntity, Long subscriptionId, Long walletId, Long sellerId) {
+		if(!walletRepository.existsByIdAndSellerId(walletId,sellerId))
+			throw new ResourceNotFoundException("wallet not found with Id " + walletId +
+					" and SellerId " + sellerId);
+
+		return subscriptionRepository.findById(subscriptionId).map(subscription -> {
+			subscription.setCreationDate(subscriptionEntity.getCreationDate());
+			subscription.setExpirationDate(subscriptionEntity.getExpirationDate());
+			subscription.setAmount(subscriptionEntity.getAmount());
+			subscription.setSubscriptionType(subscriptionEntity.getSubscriptionType());
+			return subscriptionRepository.save(subscription);
+		}).orElseThrow(()-> new ResourceNotFoundException(
 						"Subscription not found with Id"+ subscriptionId));
-		subscription.setCreationDate(subscriptionEntity.getCreationDate());
-		subscription.setExpirationDate(subscriptionEntity.getExpirationDate());
-		subscription.setAmount(subscriptionEntity.getAmount());
-		subscription.setSubscriptionType(subscriptionEntity.getSubscriptionType());
-		return subscriptionRepository.save(subscription);
-		//TODO: verificar posible metodo con mapping
 	}
 
 	@Transactional

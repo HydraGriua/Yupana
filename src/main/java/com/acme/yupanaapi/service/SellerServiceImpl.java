@@ -1,7 +1,9 @@
 package com.acme.yupanaapi.service;
 
 import com.acme.yupanaapi.domain.model.Seller;
+import com.acme.yupanaapi.domain.model.User;
 import com.acme.yupanaapi.domain.repository.SellerRepository;
+import com.acme.yupanaapi.domain.repository.UserRepository;
 import com.acme.yupanaapi.domain.service.SellerService;
 import com.acme.yupanaapi.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ public class SellerServiceImpl implements SellerService {
     @Autowired
     SellerRepository sellerRepository;
 
+    @Autowired
+    UserRepository userRepository;
 
     @Transactional(readOnly = true)
     @Override
@@ -42,24 +46,27 @@ public class SellerServiceImpl implements SellerService {
 
     @Transactional
     @Override
-    public Seller createSeller(Seller seller) {
+    public Seller createSeller(Seller seller, Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException(
+                "User", "Id", userId));
+        seller.setUser(user);
         return sellerRepository.save(seller);
     }
 
     @Transactional
     @Override
-    public Seller updateSeller(Long sellerId, Seller sellerRequest) {
-        Seller seller = sellerRepository.findById(sellerId)
-                .orElseThrow(() -> new ResourceNotFoundException(
+    public Seller updateSeller(Long sellerId, Long userId, Seller sellerRequest) {
+        if(!userRepository.existsById(userId))
+            throw  new ResourceNotFoundException("User", "Id", userId);
+        return sellerRepository.findById(sellerId).map(seller -> {
+            seller.setEmail(sellerRequest.getEmail());
+            seller.setOldPassword(seller.getActualPassword());
+            seller.setActualPassword(sellerRequest.getActualPassword());
+            seller.setStoreAdress(sellerRequest.getStoreAdress());
+            seller.setBusinessName(sellerRequest.getBusinessName());
+            return sellerRepository.save(seller);
+        }).orElseThrow(() -> new ResourceNotFoundException(
                         "Seller", "Id", sellerId));
-        seller.setEmail(sellerRequest.getEmail());
-        seller.setOldPassword(seller.getActualPassword());
-        seller.setActualPassword(sellerRequest.getActualPassword());
-        seller.setStoreAdress(sellerRequest.getStoreAdress());
-        seller.setBusinessName(sellerRequest.getBusinessName());
-        return sellerRepository.save(seller);
-
-        //TODO: verificar posible metodo con mapping
     }
 
     @Transactional

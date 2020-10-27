@@ -1,6 +1,10 @@
 	package com.acme.yupanaapi.service;
 
 
+import com.acme.yupanaapi.domain.model.Seller;
+import com.acme.yupanaapi.domain.model.User;
+import com.acme.yupanaapi.domain.repository.SellerRepository;
+import com.acme.yupanaapi.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,25 +25,40 @@ public class WalletServiceImpl implements WalletService {
 	@Autowired
 	private WalletRepository walletRepository;
 
+	@Autowired
+	private SellerRepository sellerRepository;
+
+	@Autowired
+	private UserRepository userRepository;
+
 	@Transactional
 	@Override
-	public Wallet createWallet(Wallet entity){
+	public Wallet createWallet(Wallet entity, Long sellerId, Long userId){
+		Seller seller = sellerRepository.findById(sellerId)
+				.orElseThrow(()-> new ResourceNotFoundException("Seller not found with Id" + sellerId));
+		User user = userRepository.findById(userId)
+				.orElseThrow(()-> new ResourceNotFoundException("User not found with Id" + userId));
+		entity.setSeller(seller);
+		entity.setUser(user);
 		return walletRepository.save(entity);
 	}
 
 	@Transactional
 	@Override
-	public Wallet updateWallet(Wallet entity, Long walletId) {
-		Wallet wallet = walletRepository.findById(walletId)
-				.orElseThrow(()-> new ResourceNotFoundException("Wallet not found with Id" + walletId));
-		wallet.setMaintenancePrice(entity.getMaintenancePrice());
-		wallet.setState(entity.getState());
-		wallet.setCreationDate(entity.getCreationDate());
-		wallet.setBalance(entity.getBalance());
-		wallet.setType(entity.getType());
-		wallet.setCurrencyType(entity.getCurrencyType());
-		return walletRepository.save(wallet);
-		//TODO: verificar posible metodo con mapping
+	public Wallet updateWallet(Wallet entity, Long walletId, Long sellerId, Long userId) {
+		if(!sellerRepository.existsById(sellerId))
+			throw  new ResourceNotFoundException("Seller not found with Id" + sellerId);
+		if(!userRepository.existsById(userId))
+			throw  new ResourceNotFoundException("User not found with Id" + userId);
+		return walletRepository.findById(walletId).map(wallet -> {
+			wallet.setMaintenancePrice(entity.getMaintenancePrice());
+			wallet.setState(entity.getState());
+			wallet.setCreationDate(entity.getCreationDate());
+			wallet.setBalance(entity.getBalance());
+			wallet.setType(entity.getType());
+			wallet.setCurrencyType(entity.getCurrencyType());
+			return walletRepository.save(wallet);
+		}).orElseThrow(()-> new ResourceNotFoundException("Wallet not found with Id" + walletId));
 	}
 
 	@Transactional

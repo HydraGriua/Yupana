@@ -9,8 +9,8 @@ import java.util.List;
 
 
 public interface WalletService {
-	Wallet createWallet(Wallet entity);
-	Wallet updateWallet(Wallet entity, Long walletId);
+	Wallet createWallet(Wallet entity, Long sellerId, Long userId);
+	Wallet updateWallet(Wallet entity, Long walletId, Long sellerId, Long userId);
 	ResponseEntity<?> deleteWallet(Long walletId);
 	Wallet getWalletById(Long walletId);
 	Wallet getWalletByIdAndUserId(Long walletId, Long userId);

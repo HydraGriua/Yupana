@@ -38,18 +38,17 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public User updateUser(Long userId, User userRequest) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException(
+        return userRepository.findById(userId).map(user -> {
+            user.setCellphone(userRequest.getCellphone());
+            user.setDescription(userRequest.getDescription());
+            user.setSecondLastname(userRequest.getSecondLastname());
+            user.setFirstLastname(userRequest.getFirstLastname());
+            user.setName(userRequest.getName());
+            user.setDocumentType(userRequest.getDocumentType());
+            user.setDocumentNumber(userRequest.getDocumentNumber());
+            return userRepository.save(user);
+        }).orElseThrow(() -> new ResourceNotFoundException(
                         "User not found with Id " + userId));
-        user.setCellphone(userRequest.getCellphone());
-        user.setDescription(userRequest.getDescription());
-        user.setSecondLastname(userRequest.getSecondLastname());
-        user.setFirstLastname(userRequest.getFirstLastname());
-        user.setName(userRequest.getName());
-        user.setDocumentType(userRequest.getDocumentType());
-        user.setDocumentNumber(userRequest.getDocumentNumber());
-        return userRepository.save(user);
-        //TODO: verificar posible metodo con mapping
     }
 
     @Transactional
