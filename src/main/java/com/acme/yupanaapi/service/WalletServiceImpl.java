@@ -20,13 +20,14 @@ public class WalletServiceImpl implements WalletService {
 	
 	@Autowired
 	private WalletRepository walletRepository;
-	
-	
+
+	@Transactional
 	@Override
 	public Wallet createWallet(Wallet entity){
 		return walletRepository.save(entity);
 	}
 
+	@Transactional
 	@Override
 	public Wallet updateWallet(Wallet entity, Long walletId) {
 		Wallet wallet = walletRepository.findById(walletId)
@@ -40,9 +41,8 @@ public class WalletServiceImpl implements WalletService {
 		return walletRepository.save(wallet);
 		//TODO: verificar posible metodo con mapping
 	}
-	
 
-
+	@Transactional
 	@Override
 	public ResponseEntity<?> deleteWallet(Long walletId) {
 		Wallet wallet = walletRepository.findById(walletId)
@@ -59,6 +59,7 @@ public class WalletServiceImpl implements WalletService {
 						"Wallet not found with Id" + walletId));
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public Wallet getWalletByIdAndUserId(Long walletId, Long userId) {
 		return walletRepository.findByIdAndUserId(walletId,userId)
@@ -67,6 +68,7 @@ public class WalletServiceImpl implements WalletService {
 								" and UserId " + userId));
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public List<Wallet> getAllBySellerId(Long sellerId) {
 		return walletRepository.findAllBySellerId(sellerId);

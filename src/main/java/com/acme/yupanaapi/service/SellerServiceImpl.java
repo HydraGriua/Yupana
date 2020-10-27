@@ -15,6 +15,7 @@ public class SellerServiceImpl implements SellerService {
     SellerRepository sellerRepository;
 
 
+    @Transactional(readOnly = true)
     @Override
     public Seller getSellerByIdAndUserId(Long sellerId, Long userId) {
         return sellerRepository.findByIdAndUserId(sellerId,userId)
@@ -39,11 +40,13 @@ public class SellerServiceImpl implements SellerService {
                         "Seller", "Business Name", businessName));
     }
 
+    @Transactional
     @Override
     public Seller createSeller(Seller seller) {
         return sellerRepository.save(seller);
     }
 
+    @Transactional
     @Override
     public Seller updateSeller(Long sellerId, Seller sellerRequest) {
         Seller seller = sellerRepository.findById(sellerId)
@@ -59,6 +62,7 @@ public class SellerServiceImpl implements SellerService {
         //TODO: verificar posible metodo con mapping
     }
 
+    @Transactional
     @Override
     public ResponseEntity<?> deleteSeller(Long sellerId) {
         Seller seller = sellerRepository.findById(sellerId)

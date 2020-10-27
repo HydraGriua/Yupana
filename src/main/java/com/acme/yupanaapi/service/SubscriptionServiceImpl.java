@@ -21,12 +21,14 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 	@Autowired
 	private SubscriptionRepository subscriptionRepository;
 
+	@Transactional
 	@Override
 	public Subscription createSubscription(Subscription subscription) {
 		return subscriptionRepository.save(subscription);
 		
 	}
 
+	@Transactional
 	@Override
 	public Subscription updateSubscription(Subscription subscriptionEntity, Long subscriptionId) {
 		Subscription subscription = subscriptionRepository.findById(subscriptionId)
@@ -40,6 +42,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 		//TODO: verificar posible metodo con mapping
 	}
 
+	@Transactional
 	@Override
 	public ResponseEntity<?> deleteSubscription(Long subscriptionId) {
 		Subscription subscription = subscriptionRepository.findById(subscriptionId)
@@ -58,6 +61,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
                         "Subscription not found with Id " + subscriptionId));
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public List<Subscription> getAllByWalletId(Long walletId) {
 		return subscriptionRepository.findAllByWalletId(walletId);

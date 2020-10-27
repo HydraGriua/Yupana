@@ -51,8 +51,8 @@ public class Transaction {
 	@JsonIgnore
 	private Flow flow;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "sale_id", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "sale_id")
 	@JsonIgnore
 	private Sale sale;
 }

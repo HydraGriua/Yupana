@@ -18,27 +18,29 @@ public class SaleServiceImpl implements SaleService{
 
 	@Autowired
 	private SaleRepository saleRepository;
-	
+
+	@Transactional
 	@Override
 	public Sale save(Sale saleEntity) {
 		return saleRepository.save(saleEntity);
 	}
 
+	@Transactional
 	@Override
 	public Sale update(Sale saleEntity, Long saleId) {
-		 Sale sale = saleRepository.findById(saleId)
+		 return saleRepository.findById(saleId).map(sale -> {
+		 	 sale.setDescription(saleEntity.getDescription());
+			 sale.setNetAmount(saleEntity.getNetAmount());
+			 sale.setPaymentPay(saleEntity.getPaymentPay());
+			 sale.setSaleDate(saleEntity.getSaleDate());
+			 sale.setSalePaid(saleEntity.getSalePaid());
+			 sale.setSaleTime(saleEntity.getSaleTime());
+			 return saleRepository.save(sale);})
 	                .orElseThrow(() -> new ResourceNotFoundException(
 	                        "Sale not found with Id " + saleId));
-		 sale.setDescription(saleEntity.getDescription());
-		 sale.setNetAmount(saleEntity.getNetAmount());
-		 sale.setPaymentPay(saleEntity.getPaymentPay());
-		 sale.setSaleDate(saleEntity.getSaleDate());
-		 sale.setSalePaid(saleEntity.getSalePaid());
-		 sale.setSaleTime(saleEntity.getSaleTime());
-		 return saleRepository.save(sale);
-		//TODO: verificar posible metodo con mapping
 	}
 
+	@Transactional
 	@Override
 	public ResponseEntity<?> deleteUser(Long saleId) {
 		Sale sale = saleRepository.findById(saleId)

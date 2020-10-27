@@ -29,11 +29,13 @@ public class UserServiceImpl implements UserService {
                         "User not found with Document Number " + documentNumber));
     }
 
+    @Transactional
     @Override
     public User createUser(User user) {
         return userRepository.save(user);
     }
 
+    @Transactional
     @Override
     public User updateUser(Long userId, User userRequest) {
         User user = userRepository.findById(userId)
@@ -50,6 +52,7 @@ public class UserServiceImpl implements UserService {
         //TODO: verificar posible metodo con mapping
     }
 
+    @Transactional
     @Override
     public ResponseEntity<?> deleteUser(Long userId) {
         User user = userRepository.findById(userId)

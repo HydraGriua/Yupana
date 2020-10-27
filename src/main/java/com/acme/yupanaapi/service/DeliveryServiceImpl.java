@@ -3,6 +3,7 @@ package com.acme.yupanaapi.service;
 import java.util.Date;
 import java.util.List;
 
+import com.acme.yupanaapi.domain.repository.SaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,32 +20,38 @@ public class DeliveryServiceImpl implements DeliveryService {
 	@Autowired
 	DeliveryRepository deliveryRepository;
 
+	@Autowired
+	SaleRepository saleRepository;
+
+	@Transactional
 	@Override
 	public Delivery saveDelivery(Delivery deliveryEntity) {
 		return deliveryRepository.save(deliveryEntity);
 	}
 
+	@Transactional
 	@Override
-	public Delivery updateDelivery(Delivery deliveryEntity, Long deliveryId) {
-		 Delivery delivery = deliveryRepository.findById(deliveryId)
-	                .orElseThrow(() -> new ResourceNotFoundException(
-	                        "Delivery not found with Id " + deliveryId));
-		 delivery.setDeliveryDate(deliveryEntity.getDeliveryDate());
-		 delivery.setDeliveryHour(deliveryEntity.getDeliveryHour());
-		 delivery.setDeliveryPrice(deliveryEntity.getDeliveryPrice());
-		 delivery.setDescription(deliveryEntity.getDescription());
-		 delivery.setDirection(deliveryEntity.getDescription());
-		 return deliveryRepository.save(delivery);
-	        //TODO: verificar posible metodo con mapping
+	public Delivery updateDelivery(Delivery deliveryEntity, Long saleId, Long deliveryId) {
+		if (!saleRepository.existsById(saleId))
+			throw new ResourceNotFoundException("Sale", "Id", saleId);
+		return deliveryRepository.findById(deliveryId).map(delivery -> {
+			delivery.setDeliveryDate(deliveryEntity.getDeliveryDate());
+			delivery.setDeliveryHour(deliveryEntity.getDeliveryHour());
+			delivery.setDeliveryPrice(deliveryEntity.getDeliveryPrice());
+			delivery.setDescription(deliveryEntity.getDescription());
+			delivery.setDirection(deliveryEntity.getDescription());
+			return deliveryRepository.save(delivery);
+		}).orElseThrow(() -> new ResourceNotFoundException("Delivery not found with Id " + deliveryId));
 	}
 
+	@Transactional
 	@Override
 	public ResponseEntity<?> deleteDelivery(Long deliveryId) {
 		Delivery delivery = deliveryRepository.findById(deliveryId)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "Delivery not found with Id " + deliveryId));
-        deliveryRepository.delete(delivery);
-        return ResponseEntity.ok().build();
+				.orElseThrow(() -> new ResourceNotFoundException(
+						"Delivery not found with Id " + deliveryId));
+		deliveryRepository.delete(delivery);
+		return ResponseEntity.ok().build();
 	}
 
 	@Transactional(readOnly = true)
@@ -57,8 +64,8 @@ public class DeliveryServiceImpl implements DeliveryService {
 	@Override
 	public Delivery getDeliveryById(Long deliveryId) {
 		return deliveryRepository.findById(deliveryId)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "Delivery not found with Id " + deliveryId));
+				.orElseThrow(() -> new ResourceNotFoundException(
+						"Delivery not found with Id " + deliveryId));
 	}
 
 }

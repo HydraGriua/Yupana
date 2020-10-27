@@ -20,11 +20,13 @@ public class TransactionServiceImpl implements TransactionService {
 	@Autowired
 	TransactionRepository transactionRepository;
 
+	@Transactional
 	@Override
 	public Transaction saveTransaction(Transaction transactionEntity) {
 		return transactionRepository.save(transactionEntity);
 	}
 
+	@Transactional
 	@Override
 	public Transaction updateTransaction(Transaction transactionEntity, Long transactionId) {
 		Transaction transaction = transactionRepository.findById(transactionId)
@@ -41,7 +43,8 @@ public class TransactionServiceImpl implements TransactionService {
 		return transactionRepository.save(transaction);
 		//TODO: verificar posible metodo con mapping
 	}
-	
+
+	@Transactional
 	@Override
 	public ResponseEntity<?> deleteTransaction(Long transactionId) {
 		Transaction transaction = transactionRepository.findById(transactionId)
@@ -58,7 +61,8 @@ public class TransactionServiceImpl implements TransactionService {
 				.orElseThrow(() -> new ResourceNotFoundException(
 						"Transaction not found with Id " + transactionId));
 	}
-	
+
+	@Transactional(readOnly = true)
 	@Override
 	public List<Transaction> getAllByFlowId(Long flowId){
 		return transactionRepository.findAllByFlowId(flowId);
