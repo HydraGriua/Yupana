@@ -33,6 +33,8 @@ public class TransactionServiceImpl implements TransactionService {
 		transactionEntity.setFlow(flow);
 		return transactionRepository.save(transactionEntity);
 		//TODO: revisar si depende de la venta y posible redifinicion de la BD
+		// se debe copiar la tasa del flow y los datos del flow que no tenga el resource, tambien validar si es compra o pago
+		// ademas de aqui actualizar el flow o sino en el controller, verificar los cambios de tasa que no incluyen pagos ni compras
 	}
 
 	@Transactional
