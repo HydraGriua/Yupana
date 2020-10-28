@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -27,11 +27,18 @@ public class Flow {
 	@NotNull
 	private Date deadlineDate;
 
+	@Temporal(TemporalType.DATE)
+	@NotNull
+	private Date lastTransactionDate;
+
 	@NotNull
 	private Float currentInterestRate;
 
 	@NotNull
-	private String currentRatePeriod;
+	private int currentRatePeriod;
+
+	@NotNull
+	private int currentCapitalization;
 
 	@NotNull
 	private String currentRateType;

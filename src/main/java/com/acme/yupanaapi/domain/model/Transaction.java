@@ -35,13 +35,13 @@ public class Transaction {
 	private Float interestRate;
 
 	@NotNull
-	private String capitalization;
+	private int capitalization;
 
 	@NotNull
 	private String currencyType;
 
 	@NotNull
-	private String ratePeriod;
+	private int ratePeriod;
 
 	@NotNull
 	private String rateType;

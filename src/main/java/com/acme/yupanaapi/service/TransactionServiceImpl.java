@@ -1,16 +1,11 @@
 package com.acme.yupanaapi.service;
-
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-
 import com.acme.yupanaapi.domain.model.Flow;
 import com.acme.yupanaapi.domain.repository.FlowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.acme.yupanaapi.domain.model.Transaction;
 import com.acme.yupanaapi.domain.repository.TransactionRepository;
 import com.acme.yupanaapi.domain.service.TransactionService;
@@ -28,13 +23,39 @@ public class TransactionServiceImpl implements TransactionService {
 	@Transactional
 	@Override
 	public Transaction createTransaction(Transaction transactionEntity, Long flowId) {
+		//Obtenemos el flow al que pertenecera
 		Flow flow = flowRepository.findById(flowId).orElseThrow(() -> new ResourceNotFoundException(
 				"Flow not found with Id " + flowId));
+
+		//Actualizamos los datos del flow
+		String tipo = flow.getCurrentRateType();
+		Float newQuant;
+		int dias = (int)((transactionEntity.getTransactionDate().getTime()-flow.getLastTransactionDate().getTime())/86400000);
+		switch (tipo) {
+			case "simple":
+				newQuant = flow.getTotalDebt() * (1+(flow.getCurrentInterestRate()*dias));
+				flow.setTotalDebt(newQuant+transactionEntity.getAmount());
+				break;
+			case "Nominal":
+				newQuant = flow.getTotalDebt() * (float)Math.pow((1+ (flow.getCurrentInterestRate()/ ((float)flow.getCurrentRatePeriod()/flow.getCurrentCapitalization()))),((float)dias/flow.getCurrentCapitalization()));
+				flow.setTotalDebt(newQuant+transactionEntity.getAmount());
+				break;
+			case "Efectiva":
+				newQuant = flow.getTotalDebt() * (float)Math.pow((1+ flow.getCurrentInterestRate()),(float)(dias/flow.getCurrentRatePeriod()));
+				flow.setTotalDebt(newQuant+transactionEntity.getAmount());
+		}
+
+		flow.setCurrentInterestRate(transactionEntity.getInterestRate());
+		flow.setCurrentRatePeriod(transactionEntity.getRatePeriod());
+		flow.setCurrentRateType(transactionEntity.getRateType());
+		flow.setCurrentCapitalization(transactionEntity.getCapitalization());
+		flow.setCreditLine(flow.getCreditLine()+transactionEntity.getAmount());
+		flowRepository.save(flow);
+		//guardamos la transaccion
 		transactionEntity.setFlow(flow);
+		//if(transactionEntity.getSale() != null)
+			//TODO: agregar la venta en caso exista
 		return transactionRepository.save(transactionEntity);
-		//TODO: revisar si depende de la venta y posible redifinicion de la BD
-		// se debe copiar la tasa del flow y los datos del flow que no tenga el resource, tambien validar si es compra o pago
-		// ademas de aqui actualizar el flow o sino en el controller, verificar los cambios de tasa que no incluyen pagos ni compras
 	}
 
 	@Transactional
