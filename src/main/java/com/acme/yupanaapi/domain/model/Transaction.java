@@ -22,10 +22,10 @@ public class Transaction {
 	private Long id;
 
 	@NotNull
-	@Temporal(TemporalType.DATE)
 	private String transactionName;
 
 	@NotNull
+	@Temporal(TemporalType.DATE)
 	private Date transactionDate;
 
 	@NotNull

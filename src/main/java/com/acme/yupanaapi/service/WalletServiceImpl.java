@@ -18,7 +18,7 @@ import com.acme.yupanaapi.exception.ResourceNotFoundException;
 import java.util.List;
 
 
-	@Service
+@Service
 public class WalletServiceImpl implements WalletService {
 
 	
