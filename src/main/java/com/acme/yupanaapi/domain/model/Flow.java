@@ -45,7 +45,10 @@ public class Flow {
 
 	@NotNull
 	private Float creditLine;
-
+	
+	@NotNull
+	private Float currentCreditLine; 
+	
 	@NotNull
 	private Float totalDebt;
 

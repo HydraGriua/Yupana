@@ -8,6 +8,7 @@ class YupanaApiApplicationTests {
 
     @Test
     void contextLoads() {
+    	
     }
 
 }

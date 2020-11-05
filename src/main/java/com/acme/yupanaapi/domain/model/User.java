@@ -41,6 +41,4 @@ public class User {
     @Lob
     @NotNull
     private String description;
-
-
 }

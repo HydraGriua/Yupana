@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
         }).orElseThrow(() -> new ResourceNotFoundException(
                         "User not found with Id " + userId));
     }
-
+    
     @Transactional
     @Override
     public ResponseEntity<?> deleteUser(Long userId) {
