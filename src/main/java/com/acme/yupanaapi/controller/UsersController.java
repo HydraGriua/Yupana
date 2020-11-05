@@ -4,6 +4,10 @@ import com.acme.yupanaapi.domain.model.User;
 import com.acme.yupanaapi.domain.service.UserService;
 import com.acme.yupanaapi.resource.SaveUserResource;
 import com.acme.yupanaapi.resource.UserResource;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +33,10 @@ public class UsersController {
     ////////////////////////////////////////////////////////////
     //Metodos crud para las llamadas
 
+    @Operation(summary = "Get user",description = "Get user by given id",tags = {"users"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get user by given id",content =@Content(mediaType = "application/json") )
+    })
     @GetMapping("/users/{id}")
     public UserResource getUserById(@PathVariable(name = "id") Long userId){
         return convertToResource(userService.getUserById(userId));
