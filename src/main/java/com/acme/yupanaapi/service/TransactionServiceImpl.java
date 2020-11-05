@@ -26,7 +26,7 @@ public class TransactionServiceImpl implements TransactionService {
 		//Obtenemos el flow al que pertenecera
 		Flow flow = flowRepository.findById(flowId).orElseThrow(() -> new ResourceNotFoundException(
 				"Flow not found with Id " + flowId));
-
+		
 		//Actualizamos los datos del flow
 		String tipo = flow.getCurrentRateType();
 		Float newQuant;
@@ -44,12 +44,11 @@ public class TransactionServiceImpl implements TransactionService {
 				newQuant = flow.getTotalDebt() * (float)Math.pow((1+ flow.getCurrentInterestRate()),(float)(dias/flow.getCurrentRatePeriod()));
 				flow.setTotalDebt(newQuant+transactionEntity.getAmount());
 		}
-
 		flow.setCurrentInterestRate(transactionEntity.getInterestRate());
 		flow.setCurrentRatePeriod(transactionEntity.getRatePeriod());
 		flow.setCurrentRateType(transactionEntity.getRateType());
 		flow.setCurrentCapitalization(transactionEntity.getCapitalization());
-		flow.setCreditLine(flow.getCreditLine()+transactionEntity.getAmount());
+		flow.setCreditLine(flow.getCreditLine()-transactionEntity.getAmount());
 		flowRepository.save(flow);
 		//guardamos la transaccion
 		transactionEntity.setFlow(flow);
