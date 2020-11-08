@@ -28,20 +28,18 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
 	@Transactional
 	@Override
-	public Subscription createSubscription(Subscription subscription, Long walletId, Long sellerId) {
-		Wallet wallet = walletRepository.findByIdAndUserId(walletId,sellerId)
-				.orElseThrow(() -> new ResourceNotFoundException("wallet not found with Id " + walletId +
-						" and SellerId " + sellerId));
+	public Subscription createSubscription(Subscription subscription, Long walletId) {
+		Wallet wallet = walletRepository.findById(walletId)
+				.orElseThrow(() -> new ResourceNotFoundException("wallet not found with Id " + walletId));
 		subscription.setWallet(wallet);
 		return subscriptionRepository.save(subscription);
 	}
 
 	@Transactional
 	@Override
-	public Subscription updateSubscription(Subscription subscriptionEntity, Long subscriptionId, Long walletId, Long sellerId) {
-		if(!walletRepository.existsByIdAndSellerId(walletId,sellerId))
-			throw new ResourceNotFoundException("wallet not found with Id " + walletId +
-					" and SellerId " + sellerId);
+	public Subscription updateSubscription(Subscription subscriptionEntity, Long subscriptionId, Long walletId) {
+		if(!walletRepository.existsById(walletId))
+			throw new ResourceNotFoundException("wallet not found with Id " + walletId);
 
 		return subscriptionRepository.findById(subscriptionId).map(subscription -> {
 			subscription.setCreationDate(subscriptionEntity.getCreationDate());
