@@ -45,11 +45,9 @@ public class WalletServiceImpl implements WalletService {
 
 	@Transactional
 	@Override
-	public Wallet updateWallet(Wallet entity, Long walletId, Long sellerId, Long userId) {
+	public Wallet updateWallet(Wallet entity, Long walletId, Long sellerId) {
 		if(!sellerRepository.existsById(sellerId))
 			throw  new ResourceNotFoundException("Seller not found with Id" + sellerId);
-		if(!userRepository.existsById(userId))
-			throw  new ResourceNotFoundException("User not found with Id" + userId);
 		return walletRepository.findById(walletId).map(wallet -> {
 			wallet.setMaintenancePrice(entity.getMaintenancePrice());
 			wallet.setState(entity.getState());
