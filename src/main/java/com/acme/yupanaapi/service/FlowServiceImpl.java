@@ -1,9 +1,11 @@
 package com.acme.yupanaapi.service;
 import com.acme.yupanaapi.domain.model.Flow;
+import com.acme.yupanaapi.domain.model.Transaction;
 import com.acme.yupanaapi.domain.model.Wallet;
 import com.acme.yupanaapi.domain.repository.FlowRepository;
 import com.acme.yupanaapi.domain.repository.WalletRepository;
 import com.acme.yupanaapi.domain.service.FlowService;
+import com.acme.yupanaapi.domain.service.TransactionService;
 import com.acme.yupanaapi.exception.ResourceNotFoundException;
 
 import java.util.Date;
@@ -21,7 +23,9 @@ public class FlowServiceImpl implements FlowService {
 
     @Autowired
     private WalletRepository walletRepository;
-
+    
+    @Autowired
+    private TransactionService transactionService;
     @Transactional(readOnly = true)
     @Override
     public Flow getFlowById(Long flowId) {
@@ -79,5 +83,10 @@ public class FlowServiceImpl implements FlowService {
     @Override
     public List<Flow> getAllByDeadlineDate(Date date) {
     	return flowRepository.findAllByDeadlineDate(date);
+    }
+    @Transactional(readOnly = true)
+    @Override
+    public List<Transaction> getAllTransactionByFlowId(Long flowId) {
+    	return transactionService.getAllByFlowId(flowId) ;
     }
 }
