@@ -1,6 +1,7 @@
 package com.acme.yupanaapi.domain.service;
 
 import com.acme.yupanaapi.domain.model.Flow;
+import com.acme.yupanaapi.domain.model.Transaction;
 
 import java.util.Date;
 import java.util.List;
@@ -14,4 +15,5 @@ public interface FlowService {
     ResponseEntity<?> deleteFlow(Long flowId);
     List<Flow> getAllByWalletId(Long walletId);
     List<Flow> getAllByDeadlineDate(Date date);
+    List<Transaction> getAllTransactionByFlowId(Long flowId);
 }
