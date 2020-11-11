@@ -48,27 +48,27 @@ public class SubscriptionsController {
     	return subscriptionService.getAllByWalletId(walletId).stream().map(this::convertToResource).collect(Collectors.toList());
     }
 	
-    @Operation(summary = "Create Subscription",description = "Create Subcription for a Wallet",tags = {"subscriptions"})
+    @Operation(summary = "Create Subscription",description = "Create Subscription for a Wallet",tags = {"subscriptions"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Create Subcription for a Wallet",content =@Content(mediaType = "application/json"))
+            @ApiResponse(responseCode = "200", description = "Create Subscription for a Wallet",content =@Content(mediaType = "application/json"))
     })
     @PostMapping("/wallets/{walletId}/subscriptions")
     public SubscriptionResource createSubscription( @PathVariable(name = "walletId") Long walletId, @Valid @RequestBody SaveSubscriptionResource resource){
         return convertToResource(subscriptionService.createSubscription( convertToEntity(resource),walletId));
     }
     
-    @Operation(summary = "Update Subscription",description = "Update Subcription By Id and Wallet Id",tags = {"subscriptions"})
+    @Operation(summary = "Update Subscription",description = "Update Subscription By Id and Wallet Id",tags = {"subscriptions"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Update Subcription By Id and Wallet Id",content =@Content(mediaType = "application/json"))
+            @ApiResponse(responseCode = "200", description = "Update Subscription By Id and Wallet Id",content =@Content(mediaType = "application/json"))
     })
     @PutMapping("/wallets/{walletId}/subscriptions/{subscriptionId}")
     public SubscriptionResource updateSubscription( @PathVariable(name ="walletId") Long walletId, @PathVariable(name="subscriptionId") Long subscriptionId, @Valid @RequestBody SaveSubscriptionResource resource){
     	return convertToResource( subscriptionService.updateSubscription(convertToEntity(resource), subscriptionId, walletId));
     }
     
-    @Operation(summary = "Delete Subscription",description = "Delete Subcription By Id",tags = {"subscriptions"})
+    @Operation(summary = "Delete Subscription",description = "Delete Subscription By Id",tags = {"subscriptions"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Delete Subcription By Id",content =@Content(mediaType = "application/json"))
+            @ApiResponse(responseCode = "200", description = "Delete Subscription By Id",content =@Content(mediaType = "application/json"))
     })
     @DeleteMapping("/subscriptions/{subscriptionId}")
     public ResponseEntity<?> deleteSubscription(@PathVariable(name ="subscriptionId") Long subscriptionId){

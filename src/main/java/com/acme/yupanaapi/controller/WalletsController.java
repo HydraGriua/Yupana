@@ -31,13 +31,13 @@ public class WalletsController {
     @Autowired
     private WalletService walletService;
 
-    @Operation(summary = "Get wallet by sellerId",description = "Get wallet by given sellerId",tags = {"wallets"})
+    @Operation(summary = "Get all wallets by sellerId",description = "Get All wallets by given sellerId",tags = {"wallets"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Get wallet by given sellerId",content =@Content(mediaType = "application/json") )
+            @ApiResponse(responseCode = "200", description = "Get all wallet by given sellerId",content =@Content(mediaType = "application/json") )
     })
     @GetMapping("/sellers/{sellerId}/wallets")
-    public List<WalletResource> getWalletBySellerId(@PathVariable(name = "id") Long userId){
-        return walletService.getAllBySellerId(userId).stream().map(this::convertToResource).collect(Collectors.toList());
+    public List<WalletResource> getAllWalletsBySellerId(@PathVariable(name = "sellerId") Long sellerId){
+        return walletService.getAllBySellerId(sellerId).stream().map(this::convertToResource).collect(Collectors.toList());
     }
 
     @Operation(summary = "Create Wallet",description = "Create Wallet by user and seller",tags = {"wallets"})

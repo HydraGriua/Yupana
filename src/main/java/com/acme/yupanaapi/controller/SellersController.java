@@ -37,21 +37,21 @@ public class SellersController {
         return convertToResource(sellerService.getSellerById(sellerId));
     }
 
-    @GetMapping("/sellers/dni={dni}")
-    public SellerResource getSellerByIdAndUserId(@PathVariable(name = "dni") Long sellerId,  @PathVariable(name = "userId") Long userId){
+    @GetMapping("/sellers/id={id}/userId={userId}")
+    public SellerResource getSellerByIdAndUserId(@PathVariable(name = "id") Long sellerId,  @PathVariable(name = "userId") Long userId){
         return convertToResource(sellerService.getSellerByIdAndUserId(sellerId, userId));
     }
     
-    @GetMapping("/sellers/{id}")
-    public SellerResource getSellerByBusinessName(@PathVariable(name = "id") String string){
-        return convertToResource(sellerService.getSellerByBusinessName(string));
+    @GetMapping("/sellers/{name}")
+    public SellerResource getSellerByBusinessName(@PathVariable(name = "name") String name){
+        return convertToResource(sellerService.getSellerByBusinessName(name));
     }
-    @PostMapping("/sellers")
+    @PostMapping("/users/{userId}/sellers")
     public SellerResource createSeller(@Valid @RequestBody SaveSellerResource resource, @PathVariable(name = "userId") Long userId){
         return convertToResource(sellerService.createSeller(convertToEntity(resource),userId));
     }
 
-    @PutMapping("/sellers/{id}")
+    @PutMapping("/users/{userId}/sellers/{id}")
     public SellerResource updateSeller(@PathVariable(name = "id") Long sellerId, @PathVariable(name = "userId") Long userId,@Valid @RequestBody SaveSellerResource resource){
         return convertToResource(sellerService.updateSeller(sellerId,userId,convertToEntity(resource)));
     }

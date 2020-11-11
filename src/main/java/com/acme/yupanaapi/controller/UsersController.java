@@ -35,8 +35,8 @@ public class UsersController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get user by given id",content =@Content(mediaType = "application/json") )
     })
-    @GetMapping("/users/{id}")
-    public UserResource getUserById(@PathVariable(name = "id") Long userId){
+    @GetMapping("/users/{userId}")
+    public UserResource getUserById(@PathVariable(name = "userId") Long userId){
         return convertToResource(userService.getUserById(userId));
     }
 
@@ -50,13 +50,13 @@ public class UsersController {
         return convertToResource(userService.createUser(convertToEntity(resource)));
     }
 
-    @PutMapping("/users/{id}")
-    public UserResource updateUser(@PathVariable(name = "id") Long userId, @Valid @RequestBody SaveUserResource resource){
+    @PutMapping("/users/{userId}")
+    public UserResource updateUser(@PathVariable(name = "userId") Long userId, @Valid @RequestBody SaveUserResource resource){
         return convertToResource(userService.updateUser(userId,convertToEntity(resource)));
     }
 
-    @DeleteMapping("/users/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable(name="id") Long userId){
+    @DeleteMapping("/users/{userId}")
+    public ResponseEntity<?> deleteUser(@PathVariable(name="userId") Long userId){
         return userService.deleteUser(userId);
     }
     /////////////////////////////////////////////////////////////////////////

@@ -30,8 +30,8 @@ public class SalesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get Sale by given id",content =@Content(mediaType = "application/json") )
     })
-    @GetMapping("/sales/{id}")
-    public SaleResource getSaleById(@PathVariable(name = "id") Long saleId){
+    @GetMapping("/sales/{saleId}")
+    public SaleResource getSaleById(@PathVariable(name = "saleId") Long saleId){
         return convertToResource(saleService.getSaleById(saleId));
     }
 
@@ -48,8 +48,8 @@ public class SalesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Delete Sale by given id",content =@Content(mediaType = "application/json") )
     })
-    @DeleteMapping("/sales/{id}")
-    public ResponseEntity<?> deleteSale(@PathVariable(name="id") Long saleId){
+    @DeleteMapping("/sales/{saleId}")
+    public ResponseEntity<?> deleteSale(@PathVariable(name="salesId") Long saleId){
         return saleService.deleteSale(saleId);
     }
 

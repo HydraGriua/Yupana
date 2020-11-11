@@ -33,7 +33,7 @@ public class FlowServiceImpl implements FlowService {
     @Transactional
     @Override
     public Flow createFlow(Flow flow, Long walletId, Long sellerId) {
-        Wallet wallet = walletRepository.findByIdAndUserId(walletId,sellerId)
+        Wallet wallet = walletRepository.findByIdAndSellerId(walletId,sellerId)
                 .orElseThrow(() -> new ResourceNotFoundException("wallet not found with Id " + walletId +
                         " and SellerId " + sellerId));
         flow.setWallet(wallet);
