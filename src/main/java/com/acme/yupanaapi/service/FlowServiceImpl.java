@@ -84,6 +84,7 @@ public class FlowServiceImpl implements FlowService {
     public List<Flow> getAllByDeadlineDate(Date date) {
     	return flowRepository.findAllByDeadlineDate(date);
     }
+    
     @Transactional(readOnly = true)
     @Override
     public List<Transaction> getAllTransactionByFlowId(Long flowId) {
