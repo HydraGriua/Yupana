@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.acme.yupanaapi.domain.model.Delivery;
+import com.acme.yupanaapi.domain.model.Sale;
 import com.acme.yupanaapi.domain.repository.DeliveryRepository;
 import com.acme.yupanaapi.domain.service.DeliveryService;
 import com.acme.yupanaapi.exception.ResourceNotFoundException;
@@ -27,6 +28,15 @@ public class DeliveryServiceImpl implements DeliveryService {
 	@Override
 	public Delivery saveDelivery(Delivery deliveryEntity) {
 		return deliveryRepository.save(deliveryEntity);
+	}
+
+	@Transactional
+	@Override
+	public Delivery createDelivery(Delivery delivery, Long saleId) {
+		Sale sale = saleRepository.findById(saleId)
+				.orElseThrow(()-> new ResourceNotFoundException("sale not found with Id " + saleId));
+		delivery.setSale(sale);
+		return deliveryRepository.save(delivery);
 	}
 
 	@Transactional
@@ -66,6 +76,12 @@ public class DeliveryServiceImpl implements DeliveryService {
 		return deliveryRepository.findById(deliveryId)
 				.orElseThrow(() -> new ResourceNotFoundException(
 						"Delivery not found with Id " + deliveryId));
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<Delivery> getAllBySaleId(Long saleId) {
+		return deliveryRepository.findAllBySaleId(saleId);
 	}
 
 }

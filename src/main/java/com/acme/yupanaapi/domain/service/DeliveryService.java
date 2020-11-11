@@ -14,5 +14,7 @@ public interface DeliveryService{
 	ResponseEntity<?> deleteDelivery(Long deliveryId);
 	List<Delivery> getAllByDeliveryDate(Date deliveryDate);
 	Delivery getDeliveryById(Long deliveryId);
+	Delivery createDelivery(Delivery delivery, Long saleId);
+	List<Delivery> getAllBySaleId(Long saleId);
 
 }
