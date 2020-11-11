@@ -1,11 +1,8 @@
 package com.acme.yupanaapi.controller;
 
-import com.acme.yupanaapi.domain.model.User;
 import com.acme.yupanaapi.domain.model.Wallet;
 import com.acme.yupanaapi.domain.service.WalletService;
-import com.acme.yupanaapi.resource.SaveUserResource;
 import com.acme.yupanaapi.resource.SaveWalletResource;
-import com.acme.yupanaapi.resource.UserResource;
 import com.acme.yupanaapi.resource.WalletResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @RestController

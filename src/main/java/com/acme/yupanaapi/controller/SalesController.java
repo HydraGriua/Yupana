@@ -4,8 +4,6 @@ import com.acme.yupanaapi.domain.model.Sale;
 import com.acme.yupanaapi.domain.service.SaleService;
 import com.acme.yupanaapi.resource.SaleResource;
 import com.acme.yupanaapi.resource.SaveSaleResource;
-import com.acme.yupanaapi.resource.SaveUserResource;
-import com.acme.yupanaapi.resource.UserResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -52,6 +50,10 @@ public class SalesController {
     public ResponseEntity<?> deleteSale(@PathVariable(name="salesId") Long saleId){
         return saleService.deleteSale(saleId);
     }
+    
+    
+    /////////////////////////////////////////////////////////////////////////
+
 
     private Sale convertToEntity(SaveSaleResource resource) {
         return mapper.map(resource, Sale.class);

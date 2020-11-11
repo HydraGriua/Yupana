@@ -39,7 +39,7 @@ public class SubscriptionsController {
     private SubscriptionService subscriptionService;
     
     
-    @Operation(summary = "Get All Subscription",description = "Get All Subscription",tags = {"subscriptions"})
+    @Operation(summary = "Get all Subscription",description = "Get All Subscription",tags = {"subscriptions"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get All Subscription",content =@Content(mediaType = "application/json"))
     })
