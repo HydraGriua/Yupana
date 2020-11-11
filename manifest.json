@@ -3,8 +3,8 @@
   "name": "Yupana - App para Comerciantes",
   "icons": [
     {
-      "src": "launcher-icon-4x.png",
-      "sizes": "192x192",
+      "src": "/images/Yupana-logo_fc_128x128.png",
+      "sizes": "128x128",
       "type": "image/png"
     }
   ],

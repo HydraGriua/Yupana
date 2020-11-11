@@ -1,6 +1,6 @@
 var setStylishUI = function(container) {
-
-	//Select
+	
+  //Select
 	$(container + ' select').each(function(index, element) {
 		var replaceSelectHtml = '<div class="select';
 		if ($(element).parent("label").attr('class') != null) {
@@ -35,13 +35,18 @@ var setStylishUI = function(container) {
 
 	$(container + ' .select').click(function(event) {
 		if ($(this).hasClass('opened')) {
+			//$('*').off("click", slideToogleHide);
 			$(this).removeClass('opened');
 			$(this).children('ul').slideUp("fast");
 		} else {
 			$(this).addClass('opened');
 			$(this).children('ul').slideDown("fast");
+			clickAnywButItem(container + ' .select.opened' , container + ' .select.opened ul', "sTHide", function(){
+				$(container +' .select.opened' ).removeClass('opened');
+			});
 		}
 	});
+
 	$(container + '  .select ul li.option').click(function(event) {
 		$(this).parent().children('.select ul li.option').removeClass('selected');
 		$(this).parent().parent().children('div.selected').attr('value', $(this).attr('value'));
@@ -83,7 +88,7 @@ var setStylishUI = function(container) {
 var setActivePage = function() {
 	var arr_pathname = window.location.pathname.split("/");
 	var path = arr_pathname[arr_pathname.length-1];
-	$('a[href$="'+ path + '"] li').addClass('active');
+	$('a[href$="'+ path + '"]').children().addClass('active');
 };
 
 
@@ -106,6 +111,49 @@ $('button').click(function(event) {
 		event.preventDefault();
 });
 
+
+/**/
+var clickAnywButItem = function(eSender,itemToHide,typeFunc,functionAdd){
+	//Click Anywere to Hide One Time
+	var anyButItem = $( "*" ).not( $(itemToHide).find("*") ).not( $(itemToHide) )
+																	.not( $(eSender).find("*") ).not($(eSender));
+	//anyButItem.css('color', 'red');
+	switch(typeFunc){
+		case "sTHide":
+		anyButItem.on("click",{fx:functionAdd, ihide:$(itemToHide)},slideToogleHide);
+		break;
+		case "sTSideHide":
+		anyButItem.on("click",{fx:functionAdd, ihide:$(itemToHide)},slideToogleSideHide);
+		break;
+		case "hidePop":
+		anyButItem.on("click",{fx:functionAdd, ihide:$(itemToHide)},popHide);
+		break;
+	}
+		
+};
+
+function slideToogleHide(e){
+	if(e.target != e.currentTarget) return;
+	if($(e.target).is('select')) return;
+	if (e.data.ihide.css("display")=="block")
+		e.data.ihide.slideUp("fast");
+	e.data.fx();
+	$('*').off("click", slideToogleHide);
+};
+function slideToogleSideHide(e){
+	if(e.target != e.currentTarget) return;
+	if (e.data.ihide.css("display")=="block")
+		e.data.ihide.slideUp("fast").css('width','0px').fadeOut(250);
+	e.data.fx();
+	$('*').off("click", slideToogleSideHide);
+};
+function popHide(e){
+	if(e.target != e.currentTarget) return;
+	if (e.data.ihide.css("display")=="block")
+		e.data.ihide.slideUp("fast").fadeOut("fast");
+	e.data.fx();
+	$('*').off("click", popHide);
+};
 
 /*POP ups*/
 
