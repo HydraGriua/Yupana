@@ -61,10 +61,6 @@ public class SellersController {
         return sellerService.deleteSeller(sellerId);
     }
     
-    @DeleteMapping("/sellers/{userId}")
-    public ResponseEntity<?> deleteUser(@PathVariable(name="userId") Long userId){
-        return sellerService.deleteUser(userId);
-    }
     
     
     /////////////////////////////////////////////////////////////////////////

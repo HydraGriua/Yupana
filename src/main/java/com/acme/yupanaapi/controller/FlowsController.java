@@ -39,10 +39,6 @@ public class FlowsController {
 	public List<FlowResource> getAllByWalletId(@PathVariable(name = "id") Long walletId) {
 		return flowService.getAllByWalletId(walletId).stream().map(this::convertToResource).collect(Collectors.toList());
 	}
-//	@GetMapping("/wallet/flows/{id}")
-//	public List<TransactionResource> .getAllTransactionByFlowId(@PathVariable(name = "id") Long flowId) {
-//		return flowService.getAllTransactionByFlowId(flowId).stream().map(this::convertToResource).collect(Collectors.toList());
-//	}
 	
 	@GetMapping("/wallet/flows/flowId={flowId}")
 	public FlowResource getFlowById(@PathVariable(name = "dni") Long flowId) {

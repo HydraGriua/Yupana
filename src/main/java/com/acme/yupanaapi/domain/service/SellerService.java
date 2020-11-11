@@ -10,6 +10,5 @@ public interface SellerService {
     Seller createSeller(Seller seller, Long userId);
     Seller updateSeller(Long sellerId, Long userId, Seller sellerRequest);
     ResponseEntity<?> deleteSeller(Long sellerId);
-    ResponseEntity<?> deleteUser(Long userId);
 }
 

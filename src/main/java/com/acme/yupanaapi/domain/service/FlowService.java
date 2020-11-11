@@ -15,5 +15,4 @@ public interface FlowService {
     ResponseEntity<?> deleteFlow(Long flowId);
     List<Flow> getAllByWalletId(Long walletId);
     List<Flow> getAllByDeadlineDate(Date date);
-    List<Transaction> getAllTransactionByFlowId(Long flowId);
 }

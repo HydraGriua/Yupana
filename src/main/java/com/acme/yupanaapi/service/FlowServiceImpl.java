@@ -23,9 +23,6 @@ public class FlowServiceImpl implements FlowService {
 
     @Autowired
     private WalletRepository walletRepository;
-    
-    @Autowired
-    private TransactionService transactionService;
     @Transactional(readOnly = true)
     @Override
     public Flow getFlowById(Long flowId) {
@@ -85,9 +82,4 @@ public class FlowServiceImpl implements FlowService {
     	return flowRepository.findAllByDeadlineDate(date);
     }
     
-    @Transactional(readOnly = true)
-    @Override
-    public List<Transaction> getAllTransactionByFlowId(Long flowId) {
-    	return transactionService.getAllByFlowId(flowId) ;
-    }
 }

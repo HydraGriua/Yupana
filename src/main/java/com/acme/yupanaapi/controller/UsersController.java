@@ -28,8 +28,6 @@ public class UsersController {
     private UserService userService;
 
 
-
-
     ////////////////////////////////////////////////////////////
     //Metodos crud para las llamadas
 
@@ -42,37 +40,21 @@ public class UsersController {
         return convertToResource(userService.getUserById(userId));
     }
 
-    @Operation(summary = "Get user",description = "Get user by given document number",tags = {"users"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Get user by given document number",content =@Content(mediaType = "application/json") )
-    })
     @GetMapping("/users/dni={dni}")
     public UserResource getUserByDocumentNumber(@PathVariable(name = "dni") String dni){
         return convertToResource(userService.getUserByDocumentNumber(dni));
     }
 
-    @Operation(summary = "Create user",description = "Create user",tags = {"users"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Create user",content =@Content(mediaType = "application/json") )
-    })
     @PostMapping("/users")
     public UserResource createUser(@Valid @RequestBody SaveUserResource resource){
         return convertToResource(userService.createUser(convertToEntity(resource)));
     }
 
-    @Operation(summary = "Update user",description = "Update user by given id",tags = {"users"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Update user by given id",content =@Content(mediaType = "application/json") )
-    })
     @PutMapping("/users/{id}")
     public UserResource updateUser(@PathVariable(name = "id") Long userId, @Valid @RequestBody SaveUserResource resource){
         return convertToResource(userService.updateUser(userId,convertToEntity(resource)));
     }
 
-    @Operation(summary = "Delete user",description = "Delete user by given id",tags = {"users"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Delete user by given id",content =@Content(mediaType = "application/json") )
-    })
     @DeleteMapping("/users/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable(name="id") Long userId){
         return userService.deleteUser(userId);
