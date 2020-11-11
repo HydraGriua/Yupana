@@ -42,7 +42,7 @@ public class SaleServiceImpl implements SaleService{
 
 	@Transactional
 	@Override
-	public ResponseEntity<?> deleteUser(Long saleId) {
+	public ResponseEntity<?> deleteSale(Long saleId) {
 		Sale sale = saleRepository.findById(saleId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Sale not found with Id " + saleId));

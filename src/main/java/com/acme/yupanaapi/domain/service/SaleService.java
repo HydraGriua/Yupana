@@ -10,7 +10,7 @@ import com.acme.yupanaapi.domain.model.Sale;
 public interface SaleService {
 	Sale save(Sale saleEntity) ;
 	Sale update(Sale saleEntity, Long saleId);
-	ResponseEntity<?> deleteUser(Long saleId);
+	ResponseEntity<?> deleteSale(Long saleId);
 	Sale getSaleById(Long saleId);
 	List<Sale> getAllBySaleDate(Date saleDate);
 }
