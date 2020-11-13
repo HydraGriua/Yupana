@@ -16,9 +16,10 @@ section.filters {
 	flex-flow: column;
 	background-color: #fff;
 	height:  100%;
-	max-width: 25em;
+	/*max-width: 25em;*/
+	max-width: 320px;
 	/*padding: 1em;*/
-	padding-top: 3.25em;
+	margin-top: 3.25em;
 	z-index: 150;
 	transition: 0.5s;
 	overflow-x: hidden;
@@ -28,17 +29,23 @@ section.filters > div:first-child {
 	color: #ffffff;
 	height: 3em;
 	position: fixed;
-	width: inherit;
- }
- section.filters > div:first-child button:last-child { margin-right: 1em; }
+	/*width: inherit;*/
+	width: 320px;
+	z-index: 100;
+}
+section.filters > div:first-child button#close-filters {
+	margin-right: 1em;
+	display: none;
+}
 section.filters > div:first-child h2 { padding-bottom: 0; }
 .filters form {
 	display: flex;
 	flex-flow: column;
 	justify-content: space-between;
 	align-items: center;
-	margin: 2em 0px;
-	padding: 2em;
+	/*margin: 2em 0px;*/
+	/*padding: 2em;*/
+	padding: 5em 2em 10em;
 }
 .filters form div, .filters form label { width: 100%; }
 .filters form label {
@@ -61,6 +68,7 @@ section.filters > div:first-child h2 { padding-bottom: 0; }
 	width: 320px;
 	max-width: inherit;
 	border-radius: 0px;
+	z-index: 100;
 }
 /*
 .filters form > span { width: 5em; display: inline-block; }
@@ -98,7 +106,8 @@ section.filters > div:first-child h2 { padding-bottom: 0; }
 	color:  #ffffff;
 	flex-flow: row;
 	justify-content: center;
-	padding: 0.5em 2em;
+	padding: 0.5em 0px;
+	z-index: 1;
 }
 .actions, .actions form { align-items: center; }
 .actions form {
@@ -114,19 +123,23 @@ section.filters > div:first-child h2 { padding-bottom: 0; }
 .actions div button.big { max-width: 17em ;}
 
 .actions, main.container {
-	width: calc(100% - 31em);
-	margin-left: 27em;
+	width: calc(100% - 320px);
+	margin-left: 320px;
 }
 
-/**/
+/* Main */
 main.container {
 	margin-top: 7em;
-	padding: 1em 2em;
+	padding: 2em;
 }
-/**/
 
+
+/* Card */
 section.cards { padding-right: 4em; }
 .card {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
 	max-width: 800px;
 	margin-bottom: 2em;
 	-webkit-box-shadow: 0px 2px 4px -2px rgba(0,0,0,0.5);
@@ -149,6 +162,7 @@ section.cards { padding-right: 4em; }
 	padding: 0.5em 1.5em;
 	font-size: 0.9em;
 	text-align: center;
+	width: 100%;
 }
 .card h1 {
 	font-size: 1.1em; 
@@ -161,12 +175,10 @@ section.cards { padding-right: 4em; }
 	display: flex;
 	flex-flow: row;
 	justify-content: space-between;
-	column-gap:  4em;
 	align-items: center;
+	width: 100%;
+	column-gap: 2em;
 }
-.card .details .client { order: 1; }
-.card .details .date { order: 2; }
-.card .details .money { order: 3; }
 .card .details > div {
 	display: flex;
 	flex-flow: column;
@@ -182,40 +194,102 @@ section.cards { padding-right: 4em; }
 
 /*detalle*/
 .card.det .details { flex-wrap: wrap; justify-content: flex-start; }
-.card.det .details .client { order: 1; }
-.card.det .details .tInterest { order: 2; }
-.card.det .details .money { order: 3; }
-.card.det .details .date { order: 4; }
-.card.det .details .ti { order: 5; }
-.card.det .details .descrip { order: 6; }
-
-
 .card.det .details > div:not(:last-child) { margin-bottom: 1em; }
 
 .card .details .subDet {
 	text-transform: uppercase;
 	font-size: 0.8em;
+	column-gap: 1em;
 }
 .card.det .details .tonormal, .card .details .subDet {
 	display: flex;
 	flex-flow: row;
 	justify-content: space-between;
 }
-.card.det .details .tonormal span, .card .details div.subDet span {
-	font-size: 1em !important;
-	margin-left: 0.5em;
-}
+.card.det .details .tonormal span, .card .details div.subDet span { font-size: 1em !important; /*margin-left: 0.5em;*/ }
 
+.card.det .details > div:not(.descrip) { width: calc(33% - 3em); }
 .card .details .merge { column-span: all; }
 .card .details .merge span { font-size: 1.1em; }
 
 /*.card .details div.client { min-height: 4em; }*/
 .card .details div.client span { color: #49AFC9; font-size: 1.25em; }
-.card .details div.money.debt span { color: #F67280; font-size: 2em; }
-.card .details div.money.payment span { color: #FFB169; font-size: 2em; }
-.card .details div.money { padding-right: 1em; }
+.card .details div.money.debt span, .card .details div.money.payment span { font-size: 2em; }
+.card .details div.money.debt span { color: #F67280; }
+.card .details div.money.payment span { color: #FFB169; }
+
+/* Cards: Solo records */
+.cards.records .card .details .client { order: 1; }
+.cards.records .card .details .date { order: 2; }
+.cards.records .card .details .money { order: 3; padding-right: 1em; }
+
+.cards.records .card.det .details { column-gap:  4em; }
+.cards.records .card.det .details .client { order: 1; }
+.cards.records .card.det .details .tInterest { order: 2; }
+.cards.records .card.det .details .money { order: 3; margin-bottom: 0px; }
+.cards.records .card.det .details .date { order: 4; }
+.cards.records .card.det .details .ti { order: 5; }
+.cards.records .card.det .details .descrip { order: 6; }
 
 
+/* Cards: Solo clients */
+.cards.clients .details {
+	justify-content: space-between;
+	width: calc(67% - 3em);
+}
+.cards.clients .details > div { padding-right: 1em; }
+.cards.clients .details .credleft > div {
+	display: flex;
+	flex-flow: row;
+	justify-content: space-between;
+	column-gap: 0.5em;
+}
+.cards.clients .card.easy .details button.delete i, .cards.clients .card.easy .details button.edit i, .cards.clients .card.easy .details button.new i { padding-left: 0px; }
+
+.cards.clients .card .details .client { order: 1; }
+.cards.clients .card .details .acum { order: 2; }
+.cards.clients .card .details .client-actions { order: 3; }
+
+.cards.clients .card.det .details > div:not(.descrip) { width: calc(50% - 2em); }
+.cards.clients .card.det .details .acum > div { display: flex; justify-content: space-between; }
+.cards.clients .card.det .details .acum > div, .cards.clients .card.det .details .ti { flex-flow: row; align-items: center; }
+.cards.clients .card.det .details .credleft > span:last-child, .cards.clients .card.det .details .acum > span:last-child, .cards.clients .card.det .details .ti > span:last-child { margin-left: 0.5em; }
+.cards.clients .card.det .details .new, .cards.clients .card.det .details .receipts { width: calc(33% - 1.75em); }
+.cards.clients .card.det .details .delete, .cards.clients .card.det .details .edit {padding-left: 1em;
+    padding-right: 1em;}
+
+.cards.clients .card.det .details .client { order: 1; }
+.cards.clients .card.det .details .credleft { order: 2; }
+.cards.clients .card.det .details .tInterest { order: 3; }
+.cards.clients .card.det .details .acum { order: 4; }
+/*.cards.clients .card.det .details .ti { order: 4; }*/
+.cards.clients .card.det .details .delivery { order: 5; }
+.cards.clients .card.det .details .mantenimiento { order: 5; }
+.cards.clients .card.det .details .descrip { order: 6; }
+.cards.clients .card.det .details .client-actions { order: 7; }
+
+.cards.clients .card .client-actions { 
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+}
+.cards.clients .card.easy .client-actions .delete span, .cards.clients .card.easy .client-actions .edit span, .cards.clients .card.easy .client-actions .new span { display: none; }
+.cards.clients .card.det .client-actions .delete span, .cards.clients .card.det .client-actions .edit span, .cards.clients .card.det .client-actions .new span { display: block; }
+
+.cards.clients .card.easy .details { width: calc(50% - 2em); }
+.cards.clients .card.easy .client-actions { max-width: 50%; margin: 2em 1em 2em 0px; }
+.cards.clients .card.easy .client-actions button:not(.receipts) i { padding-left: 0px }
+
+.cards.clients .card.det .client-actions {
+    width: calc(33% - 2em);
+    margin: 1.5em 1.5em 1.5em 0px;
+    justify-content: space-evenly;
+    flex-flow: column;
+}
+.cards.clients .card.det .client-actions button { width: 100%; }
+
+/* pagination */
 .pagination {
 	margin-top: 1em;
 	max-width: 100%;
@@ -260,6 +334,7 @@ section.cards { padding-right: 4em; }
 	background: linear-gradient(45deg, rgba(73,175,201,1) 0%, rgba(255,177,105,1) 100%);
 }
 .fast-access {
+	display: none;
 	position: fixed;
 	bottom: 2em;
 	right: 1.5em;
@@ -271,7 +346,10 @@ section.cards { padding-right: 4em; }
 	font-size: 2em;
 	padding: 0px;
 }
-.fast-access button#f-new { border-radius: 50%; z-index: 99; }
+.fast-access > button {
+	border-radius: 50%;
+	z-index: 99;
+}
 .fast-access button i { padding: 0px; }
 .fast-access .submenu {
 	display: none;
@@ -282,6 +360,11 @@ section.cards { padding-right: 4em; }
 	width: 14em;
 	margin-right: 4.5em;
 	z-index: 90;
+	background: linear-gradient(90deg, rgba(73,175,201,0) 0%, rgba(73,175,201,0.5) 25%, rgba(255,177,105,0.5) 75%, rgba(255,177,105,0) 100%);
+	transition: background 0.25s;
+}
+.fast-access .submenu:hover, .fast-access .submenu:active {
+	background: linear-gradient(90deg, rgba(73,175,201,0) 0%, rgba(73,175,201,0.75) 25%, rgba(255,177,105,0.75) 75%, rgba(255,177,105,0) 100%);
 }
 /*.fast-access .submenu.displayed {display: flex;}*/
 .fast-access .submenu button {
@@ -291,9 +374,11 @@ section.cards { padding-right: 4em; }
 	width: 100%;
 	height: 2.5em;
 	padding-right: 0.75em;
-	margin-top: 0.5em;
-	background: rgba(107, 89, 122, 1);
+	background: rgba(107, 89, 122, 0.75);
+	transition: background 0.25s;
 }
+.fast-access .submenu button:hover, .fast-access .submenu button:active { background: rgba(107, 89, 122, 1); }
+.fast-access .submenu button:not(:first-child) {margin-top: 0.5em;}
 .fast-access .submenu button i {
 	height: 1.5em;
 	width: 1.5em;
@@ -307,6 +392,7 @@ section.cards { padding-right: 4em; }
 	-webkit-box-shadow: 2px 0px 4px -2px rgba(0,0,0,0.5);
 	-moz-box-shadow: 2px 0px 4px -2px rgba(0,0,0,0.5);
 	box-shadow: 2px 0px 4px -2px rgba(0,0,0,0.5);
+	transition: background 0.2s;
 }
 .fast-access .submenu button:hover i, .fast-access .submenu button:active i { background-color: #FFB169; }
 
@@ -344,6 +430,7 @@ section.cards { padding-right: 4em; }
 		width: 0px;
 		display: none;
 	}
+	section.filters > div:first-child button#close-filters { display: block; }
 	.filters form button {
 		max-width: 8.5em;
 		padding: 1em 1.25em;
@@ -374,18 +461,19 @@ section.cards { padding-right: 4em; }
 		margin-left: 0.25em;
 		width: 15em;
 	}*/
+	.actions #show-filter span { display: none; }
+	.actions button#show-filter i { padding-left: 0px }
 }
 
 
 @media (max-width: 830px) {
-	.actions .row > :not(:first-child) {
-	    margin-left: 0.5em;
-	}
-	.actions div button.big {
-		max-width: 15em;
-	}
-	.card .details { column-gap: 2em; }
-	.card .details div.money { padding-right: 1em; }
+	/*.actions .row > :not(:first-child) { margin-left: 0.5em; }*/
+	section.actions #new-more { display: none; }
+	.fast-access { display: block; }
+	/*section.actions .new { margin-left: 3em; }*/
+	.actions div button.big { max-width: 15em; }
+	.cards.records .card .details { column-gap: 2em; }
+	.cards.records .card .details div.money { padding-right: 1em; }
 }
 
 
@@ -400,21 +488,26 @@ section.cards { padding-right: 4em; }
 	.filters form label[for='orderby'] .select { width: calc(100% - 7em); }
 	.actions { width: 100%; }
 
-	.card.det .details {
-		column-gap: 4em;
-		justify-content: space-around;
+	.cards.clients .details { width: calc(75% - 3em); }
+	.cards.clients .card.det .client-actions { width: calc(25% - 2em); }
+
+	.cards.clients .card.easy .details { width: 100%; }
+	.cards.clients .card.easy .client-actions {
+		max-width: 100%;
+		width: 100%;
+    /*column-gap: 0.25em;*/
+		justify-content: space-between;
+		align-items: stretch;
+		margin: 0px;
 	}
-	.card.det .details > div { min-width: calc(50% - 4em); }
-	.card.det .details .descrip { max-width: calc(50% - 4em); }
-	.card.det .details .descrip span { font-size: 1em; }
-
-	.card.det .details .client { order: 1; }
-	.card.det .details .tInterest { order: 2; }
-	.card.det .details .date { order: 3; }
-	.card.det .details .ti { order: 4; }
-	.card.det .details .money { order: 5; }
-	.card.det .details .descrip { order: 6; }
-
+	.cards.clients .card.easy .client-actions button, .cards.clients .card.easy .client-actions a {
+    width: 25%;
+    min-height: 3em;
+  }
+  .cards.clients .card.easy .client-actions button { padding: 0.5em; }
+  .cards.clients .card.easy .client-actions button.receipts { width: 100%; height: 100%; }
+  .cards.clients .card.easy .client-actions .delete span, .cards.clients .card.easy .client-actions .edit span, .cards.clients .card.easy .client-actions .new span { display: block; }
+  .cards.clients .card.easy .client-actions button i { padding-left: 0.5em }
 
 	.pagination .row > :not(:last-child) { margin: 0.5em; 	}
 }
@@ -431,25 +524,99 @@ section.cards { padding-right: 4em; }
 	/*form#frm-filter label > span input[type="date"] { width: 10em; }*/
 	.filters form label > span:last-child { margin-right: 0px; }
 	section.filters label.select-3:last-child { margin-top: 0px; }
-	.card .details div.money { padding-right: 0px; }
+
+	.card.det .details {
+		column-gap: 4em;
+		justify-content: space-around;
+	}
+	.card .details div.money.debt span, .card .details div.money.payment span {
+    font-size: 1em;
+    font-weight: bold;
+  }
+	/*.card.det .details > div { min-width: calc(50% - 4em); }*/
+	.card .details > div, .card.det .details > div:not(.descrip), .cards.clients .card.det .details > div:not(.descrip), .cards.records .card .details .money > :last-child {
+		width: 100%;
+		align-items: baseline;
+		column-gap: 1em;
+	}
+	
+	.card .details > div, .card.det .details > div:not(.descrip), .cards.clients .card.det .details > div:not(.descrip) { justify-content: start; }
+	.card.easy .details > div, .cards.records .card.easy .details .money div, .cards.clients .card.easy .details .acum div {
+		justify-content: space-between;
+		/*align-items: center;*/
+	}
+	.card .details > div > div { margin-bottom: 0px; }
+	
+	.card .details > div span { font-size: 1.1em; }
+	/*.card.det .details .descrip { max-width: calc(50% - 4em); }*/
+	.card.det .details .descrip span { font-size: 1em; }
+	.cards.records .card .details div.money { padding-right: 0px; }
+	.cards.records .card .details .money div, .cards.clients .card .details .acum div, .cards.clients .card.det .tInterest {
+		display: flex;
+		flex-flow: row;
+		column-gap: 1em;
+		flex-wrap: wrap;
+	}
+
+	.cards.records .card.det .details .client { order: 1; }
+	.cards.records .card.det .details .tInterest { order: 2; }
+	.cards.records .card.det .details .date { order: 3; }
+	.cards.records .card.det .details .ti { order: 4; }
+	.cards.records .card.det .details .money { order: 5; }
+	.cards.records .card.det .details .descrip { order: 6; }
+
+	.cards.clients .details > div { padding-right: 0px; }
+	.cards.clients .card.det .details { max-width: 18em; }
+	.cards.clients .card.easy .details .acum > div { width: 100%; margin-bottom: 0px; }
+	.cards.clients .card.det .details .acum div.money.debt {  margin: -0.5em 0px 0px; }
+
+	.cards.clients .card.det .details .client { order: 1; }
+	.cards.clients .card.det .details .credleft { order: 2; }
+	.cards.clients .card.det .details .acum { order: 3; }
+	.cards.clients .card.det .details .tInterest { order: 4; }
+	.cards.clients .card.det .details .delivery { order: 5; }
+	.cards.clients .card.det .details .mantenimiento { order: 6; }
+	.cards.clients .card.det .details .descrip { order: 7; }
+	.cards.clients .card.det .details .delete { order: 8; }
+	.cards.clients .card.det .details .edit { order: 9; }
+	.cards.clients .card.det .details .new { order: 10; }
+	.cards.clients .card.det .details .receipts { order: 11; }
+
+	.cards.clients .card.det .client-actions { width: calc(33% - 2em); }
 }
 
 
 @media (max-width: 615px) {
 	/*.filters form div { width: calc(100% - 9em); }*/
 
-	.filters form button { width: fit-content; }
-	.filters button span { display: none; }
+	/*.filters form button { width: fit-content; }*/
+	.filters form button#filter { margin-bottom: 4em; }
 	.filters button i { padding-left: 0px; }
+	section.actions { margin-top: 3.75em; }
+	section.actions .cards {
+		position: fixed;
+    bottom: 2em;
+    left: 1em;
+  }
+  section.actions .cards button { margin-right: 0.5em; }
+  section.actions form { width: calc(100% - 4em); font-size: 1.1em; }
+  section.actions form input[name="search"] { width: 100%; }
 
-	.card.det .details > div { min-width: calc(50% - 2em);  max-width: calc(50% - 2em); }
+	/*.card.det .details > div { min-width: calc(50% - 2em);  max-width: calc(50% - 2em); }
 	.card.det .details > div, .card.det .details .tonormal, .card .details .subDet { flex-flow: column; }
-	.card.det .details .tonormal span, .card .details div.subDet span { margin-left: 0px; }
+	.card.det .details .tonormal span, .card .details div.subDet span { margin-left: 0px; }*/
+
+	.fast-access .submenu {
+    bottom: 4.5em;
+    margin-right: 0px;
+  }
 }
 
 
 @media (max-width: 550px) {
-	.fast-access { bottom: 5em; }
+	.fast-access, section.actions .cards  { bottom: 5em; }
+	section.filters { padding-top: 0px; }
+	section.actions { margin-top: 0px; }
 
 /*
 	section.filters {
@@ -474,7 +641,10 @@ section.cards { padding-right: 4em; }
 	section.filters form#frm-search label {  flex-flow: row; }
 */
 
-	main.container { margin-top: 4em; }
+	main.container {
+		margin-top: 3.5em;
+		padding: 2em 1em 6em;
+	}
 }
 
 
@@ -483,6 +653,20 @@ section.cards { padding-right: 4em; }
 	/*form#frm-filter label > span input[type="date"] { width: 15em; }*/
 	.card .top { flex-flow: column; }
 	.pagination .row > :not(:last-child) { margin: 0.2em;	}
+}
+
+@media (max-width: 450px) {
+	.cards.clients .card.det .client-actions {
+		width: 100%;
+		justify-content: space-between;
+		align-items: stretch;
+		margin: 0px;
+		flex-flow: row;
+	}
+	.cards.clients .card.det .client-actions button {
+    width: 25%;
+    padding: 0.5em;
+  }
 }
 
 @media (max-width: 420px) {

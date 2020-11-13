@@ -1,5 +1,20 @@
 var setStylishUI = function(container) {
-	
+
+	//$(document).tooltip();
+
+	/*var langs = [ "A# .NET", "A#", "A-0 System", "A+",
+        "A++", "ABAP", "ABC", "ABC ALGOL", "ABLE", "ABSET", "ABSYS", "Abundance", "ACC",
+        "Accent", "Ace DASL", "ACT-III", "Action!", "ActionScript", "Ada", "Adenine", "Agda",
+        "Agilent VEE", "Agora", "AIMMS", "Alef", "ALF", "ALGOL 58", "ALGOL 60", "ALGOL 68",
+        "Alice", "Alma", "AmbientTalk", "Amiga E", "AMOS", "AMPL", "APL", "AppleScript", "Arc",
+        "ARexx", "Argus", "AspectJ", "Assembly language", "ATS", "Ateji PX", 'AutoHotkey', 'Autocoder', 'AutoIt',
+        'AutoLISP / Visual LISP', 'Averest', 'AWK', 'Axum', 'B', 'Babbage', 'BAIL', 'Bash', 'BASIC',
+        'bc', 'BCPL', 'BeanShell', 'Batch', 'Bertrand', 'BETA', 'Bigwig', 'Bistro', 'BitC', 'BLISS',
+        'Blue', 'Bon', 'Boo', 'Boomerang', 'Bourne shell', 'BREW', 'BPEL', 'BUGSYS', 'BuildProfessional'];
+	$('input').autocomplete({
+		source: langs;
+	});*/
+
   //Select
 	$(container + ' select').each(function(index, element) {
 		var replaceSelectHtml = '<div class="select';
@@ -212,6 +227,8 @@ var setPopUpCloseButtons = function() {
 	});
 }
 
+
+/*tiempo y hora actual*/
 var setDateTime = function(container){
 	var now = new Date();
 
@@ -228,3 +245,22 @@ var setDateTime = function(container){
   $(container).find('input[type="time"][value="now"]').attr('value',time);
 }
 
+
+var setTabs =  function(arrTabs,arrPages) {
+	$(arrTabs[0]).siblings(".active").removeClass('active');
+	$(arrPages[0]).siblings($(arrPages[0]).get(0).nodeName).fadeOut('fast').removeClass('active');
+	$(arrPages[0]).fadeIn('fast', function() {$(this).css('display', 'flex');}).addClass('active');
+
+	if (arrTabs.length == arrPages.length) {
+		for (var i = 0; i < arrTabs.length; i++) {
+			$(arrTabs[i]).on('click', {eto: arrPages[i]}, function(event) {
+				event.preventDefault();
+				event.stopPropagation();
+				$(event.data.eto).siblings(".active").fadeOut('fast').removeClass('active');
+				$(event.data.eto).fadeIn('fast', function() {$(this).css('display', 'flex');}).addClass('active');
+				$(this).siblings(".active").removeClass('active');
+				$(this).addClass('active');
+			});
+		}
+	}
+};

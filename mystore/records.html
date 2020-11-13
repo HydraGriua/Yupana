@@ -85,7 +85,7 @@
 	</section>
 
 <section class="actions row">
-	<button id="show-filter">Filtrar <i class="fas fa-filter"></i></button>
+	<button id="show-filter"><span>Filtrar</span> <i class="fas fa-filter"></i></button>
 		<form action="" method="get" id="frm-search" class="row">
 			<label for="search"><input type="text" name="search" value="" placeholder="Código de registro o nombre del cliente"><i class="fas fa-search"></i>
 				<!--button type="submit"><span>Buscar</span> <i class="fas fa-search"></i></button-->
@@ -101,7 +101,7 @@
 		</div>
 		<div class="cards row">
 			<button id="view" value="todet">Mostrar detalles <i class="fas fa-eye"></i></button>
-			<button id="export">Exportar <i class="fas fa-file-download"></i></button>
+			<button id="export">Exportar <i class="fas fa-download"></i></button>
 		</div>
 	</section>
 
@@ -109,7 +109,11 @@
 <main class="container">
 	<h1>Registros</h1>
 	<br>
-	<section class="cards">
+
+	<!-- cards -->
+	<section class="cards records">
+
+		<!-- card -->
 		<div class="card easy center"><!--det o easy-->
 			<div class="top">
 				<h1>Registro de venta al crédito</h1>
@@ -136,7 +140,7 @@
 						<div class="subDet">Monto de venta <span>s/xx.xx</span></div>
 						<div class="subDet">Monto de delivery <span>s/xx.xx</span></div>
 					</div>
-					Monto a dado a crédito <span>S/XX.XX</span>
+					<div>Monto a dado a crédito <span>S/XX.XX</span></div>
 				</div>
 				<div class="descrip merge tohide">
 					Descripción:

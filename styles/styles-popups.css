@@ -7,7 +7,7 @@
 	left: 0;
 	right: 0;
 	background-color: rgba(107, 89, 122, 0.5);
-	z-index: 1001;
+	z-index: 1200;
 }
 
 .popup.int {
@@ -85,6 +85,7 @@
 	align-items: stretch;
 	align-content: stretch;
 	justify-content: stretch;
+	column-gap: 0px;
 	z-index: 1000;
 }
 .popup.int .footer button {

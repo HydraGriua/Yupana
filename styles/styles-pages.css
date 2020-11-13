@@ -16,7 +16,7 @@ header {
 	left: 0;
 	right: 0;
 	align-items: stretch;
-	z-index: 200;
+	z-index: 1120;
 	background: rgb(73,175,201);
 	background: linear-gradient(90deg, rgba(73,175,201,1) 0%, rgba(255,177,105,1) 100%);
 	color: #fff;
@@ -78,6 +78,7 @@ header #nav-user div {}
 main.container {
 	margin: 3em auto 0px;
 	width: calc(100% - 6em);
+	z-index: 0;
 }
 
 footer {
@@ -136,7 +137,8 @@ footer {
 	main.container {
 		max-width: calc(100% - 2em);
 		margin: 0px;
-		padding: 2em 1em;
+		margin-bottom: 3.4em;
+		padding: 2em 1em 6em;
 	}
 	footer {
 		width: 100%;

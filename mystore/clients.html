@@ -82,7 +82,7 @@
 	</section>
 
 <section class="actions row">
-	<button id="show-filter">Filtrar <i class="fas fa-filter"></i></button>
+	<button id="show-filter"><span>Filtrar</span> <i class="fas fa-filter"></i></button>
 		<form action="" method="get" id="frm-search" class="row">
 			<label for="search"><input type="text" name="search" value="" placeholder="Nombre del cliente"><i class="fas fa-search"></i>
 				<!--button type="submit"><span>Buscar</span> <i class="fas fa-search"></i></button-->
@@ -98,7 +98,7 @@
 		</div>
 		<div class="cards row">
 			<button id="view" value="todet">Mostrar detalles <i class="fas fa-eye"></i></button>
-			<button id="export">Exportar <i class="fas fa-file-download"></i></button>
+			<button id="export">Exportar <i class="fas fa-download"></i></i></button>
 		</div>
 	</section>
 
@@ -106,7 +106,9 @@
 	<h1>Clientes</h1>
 	<!--cards-->
 
-	<section class="cards">
+	<section class="cards clients">
+
+		<!-- card -->
 		<div class="card easy center"><!--det o easy-->
 			<div class="top">
 				<h1>Cliente con delivery</h1>
@@ -121,7 +123,7 @@
 					<span>Tasa Simple Anual</span>
 					<span class="subDet">sin capitalización</span>
 				</div>
-				<div class="tInterest tohide">
+				<div class="delivery tohide">
 					Delivery
 					<div class="row"><span>Periodo</span>
 					<span>S/xx.xx</span></div>
@@ -129,18 +131,15 @@
 						Próximo pago: <span>dd/mm/aaaa</span>
 					</div>
 				</div>
-				<div class="tohide"><!--debt o payment-->
-					Crédito restante <span>S/XX.XX</span>
+				<div class="credleft tohide"><!--debt o payment-->
+					<div>Crédito restante <span>S/XX.XX</span></div>
 					<div class="subDet">Crédito otorgado <span>S/XX.XX</span></div>
 				</div>
-				<div class="money debt">
-					Monto acumulado a cobrar <span>S/XX.XX</span>
+				<div class="acum">
+					<div class="money debt">Monto acumulado a cobrar <span>S/XX.XX</span></div>
+					<div  class="ti tohide">Tasa de interés <span>xx.xxxxxxx%</span></div>
 				</div>
-				<div  class="ti tohide">
-					Tasa de interés
-					<span>xx.xxxxxxx%</span>
-				</div>
-				<div class="money tohide">
+				<div class="mantenimiento money tohide">
 					Mantenimiento de cuenta
 					<div class="row">Periodo <span>S/XX.XX</span></div>
 					<div class="subDet">
@@ -151,6 +150,12 @@
 					Descripción:
 					<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</span>
 				</div>
+			</div>
+			<div class="client-actions">
+				<button class="delete color-alarm-bg"><span>Eliminar</span> <i class="fas fa-trash-alt"></i></button>
+				<button class="edit"><span>Editar</span> <i class="fas fa-edit"></i></button>
+				<button class="new color-accent-bg"><span>Nuevo registro </span> <i class="fas fa-plus"></i></button>
+				<a href="client-details.html"><button class="receipts color-secondary-bg">Ver detalle <i class="fas fa-clipboard-list"></i></button></a>
 			</div>
 		</div>
 

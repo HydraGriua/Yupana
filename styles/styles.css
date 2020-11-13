@@ -9,7 +9,8 @@
 	font-family: 'Open Sans', 'Two Cent Men', 'Questrial', Helvetica, sans-serif;
 }
 /*
-#6B597A		morado
+#6B597A		morado  rgba(107, 89, 122, 0.1)
+rgb(240,238,241) morado con bblanco
 #F8F8F8     casi blanco
 #FFB169			acento naranja
 #49AFC9			turquesa
@@ -40,9 +41,37 @@ h3, legend { font-size: 1em; }
 h4 { font-size: 0.9em; }
 /*a, i,b,strong, span { color:  inherit; }*/
 
+
+/* scroll */
+
+::-webkit-scrollbar {
+	width: 0.75em;     /* Tamaño del scroll en vertical */
+	height: 0.75em;    /* Tamaño del scroll en horizontal */
+    /*display: none;  /* Ocultar scroll */*/
+}
+::-webkit-scrollbar-thumb { /* adelante */
+	/*background: #49AFC9;*/
+	background: rgb(73,175,201);
+	background: linear-gradient(rgba(255,177,105,1) 0%, rgba(73,175,201,1) 100%);
+	border-radius: 1em;
+	border: 1px solid #F8F8F8;
+	-webkit-box-shadow: 0px 0px 4px rgba(107, 89, 122, 0.5);
+	-moz-box-shadow: 0px 0px 4px rgba(107, 89, 122, 0.5);
+	box-shadow: 0px 0px 4px rgba(107, 89, 122, 0.5);
+}
+::-webkit-scrollbar-track { /* atras */
+	/*background-color: rgba(107, 89, 122, 0.5);*/
+	/*background-color: rgb(240,238,241);*/
+	background-color: #bcb2c4;
+}
+
+
+/* seleccion */
+
 ::-moz-selection { background: #49AFC9; color:#fff; }
 ::selection { background: #49AFC9; color:#fff; }
 input[type="date"]::selection { background: #49AFC9; color:#fff; }
+
 
 .ui-tooltip {
 	background: #4a4a4a;
@@ -68,6 +97,7 @@ input[type="date"]::selection { background: #49AFC9; color:#fff; }
 	margin:  0px auto;
 	display: flex;
 	flex-direction: row;
+	max-width: 100%;
 	width: 100%;
 	height: 100%;
 	/*align-items: stretch;*/
@@ -90,15 +120,15 @@ input[type="date"]::selection { background: #49AFC9; color:#fff; }
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: space-between;
-	/*justify-content: space-around; */
 	/*align-items: baseline;*/
 	align-items: center;	
+	column-gap: 0.5em;
 }
 .row-always {
 	flex-direction: row !important;
 	flex-flow: row !important;
 }
-.row > :not(:first-child) { margin-left: 2em; 	}
+/*.row > :not(:first-child) { margin-left: 2em; 	}*/
 
 .center {
 	align-self: center;
@@ -178,7 +208,7 @@ button {
 	box-shadow: 0px 2px 4px -2px rgba(0,0,0,0.5);
 
 	transform: scale(1);
-	transition: transform 0.25s;
+	transition: 0.25s;
 }
 button:hover, button:active {
 	-webkit-box-shadow: 0px 4px 8px -4px rgba(0,0,0,0.33);
@@ -217,6 +247,7 @@ input, select, .select, textarea {
 	transition: background-color 0.25s;
 	z-index: 20;
 	color: #6B597A;
+	font-size: 1em;
 }
 input, select, textarea{
 	padding-inline-end: 0.5em;
@@ -348,7 +379,7 @@ table th {
 @media (max-width: 720px) {
 	.content { flex-direction: column; }
 	.container { 	padding: 2em; }
-	.row > :not(:first-child) { margin: 0px; 	}
+	/*.row > :not(:first-child) { margin: 0px; 	}*/
 	.alert {	 margin-left: -2.5em; margin-top: -12.5em; width: 6.5em; }
 }
 
