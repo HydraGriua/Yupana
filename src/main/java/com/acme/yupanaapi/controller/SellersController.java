@@ -42,8 +42,8 @@ public class SellersController {
         return convertToResource(sellerService.getSellerByIdAndUserId(sellerId, userId));
     }
     
-    @GetMapping("/sellers/{id}")
-    public SellerResource getSellerByBusinessName(@PathVariable(name = "id") String string){
+    @GetMapping("/sellers/{name}")
+    public SellerResource getSellerByBusinessName(@PathVariable(name = "name") String string){
         return convertToResource(sellerService.getSellerByBusinessName(string));
     }
     @PostMapping("/sellers")
