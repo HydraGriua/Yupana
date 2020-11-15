@@ -5,6 +5,7 @@ import com.acme.yupanaapi.domain.model.User;
 import com.acme.yupanaapi.domain.repository.SellerRepository;
 import com.acme.yupanaapi.domain.repository.UserRepository;
 import com.acme.yupanaapi.domain.service.SellerService;
+import com.acme.yupanaapi.domain.service.UserService;
 import com.acme.yupanaapi.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,9 @@ public class SellerServiceImpl implements SellerService {
 
     @Autowired
     UserRepository userRepository;
+    
+    @Autowired
+    UserService userService;
 
     @Transactional(readOnly = true)
     @Override
@@ -78,4 +82,11 @@ public class SellerServiceImpl implements SellerService {
         sellerRepository.delete(seller);
         return ResponseEntity.ok().build();
     }
+    
+    @Transactional
+    @Override
+    public ResponseEntity<?> deleteUser(Long userId) {
+    	return userService.deleteUser(userId);
+    }
+    
 }
