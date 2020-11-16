@@ -31,13 +31,22 @@ public class WalletsController {
     @Autowired
     private WalletService walletService;
 
-    @Operation(summary = "Get wallet by sellerId",description = "Get wallet by given sellerId",tags = {"wallets"})
+    @Operation(summary = "Get all wallets by sellerId",description = "Get all wallet by given sellerId",tags = {"wallets"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Get wallet by given sellerId",content =@Content(mediaType = "application/json") )
+            @ApiResponse(responseCode = "200", description = "Get all wallet by given sellerId",content =@Content(mediaType = "application/json") )
     })
     @GetMapping("/sellers/{sellerId}/wallets")
-    public List<WalletResource> getWalletBySellerId(@PathVariable(name = "id") Long userId){
-        return walletService.getAllBySellerId(userId).stream().map(this::convertToResource).collect(Collectors.toList());
+    public List<WalletResource> getAllWalletBySellerId(@PathVariable(name = "sellerId") Long sellerId){
+        return walletService.getAllBySellerId(sellerId).stream().map(this::convertToResource).collect(Collectors.toList());
+    }
+
+    @Operation(summary = "Get wallet by Id",description = "Get wallet by given Id",tags = {"wallets"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get wallet by given Id",content =@Content(mediaType = "application/json") )
+    })
+    @GetMapping("/wallets/{walletId}")
+    public WalletResource getWalletById(@PathVariable(name = "walletId") Long walletId){
+        return convertToResource(walletService.getWalletById(walletId));
     }
 
     @Operation(summary = "Create Wallet",description = "Create Wallet by user and seller",tags = {"wallets"})

@@ -38,6 +38,4 @@ public class SaveUserResource {
     @NotNull
     @Size(max = 200)
     private String description;
-    
-    private SaveUserResource saveUserResource;
 }

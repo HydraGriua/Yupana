@@ -36,7 +36,7 @@ public class FlowServiceImpl implements FlowService {
     @Transactional
     @Override
     public Flow createFlow(Flow flow, Long walletId, Long sellerId) {
-        Wallet wallet = walletRepository.findByIdAndUserId(walletId,sellerId)
+        Wallet wallet = walletRepository.findByIdAndSellerId(walletId,sellerId)
                 .orElseThrow(() -> new ResourceNotFoundException("wallet not found with Id " + walletId +
                         " and SellerId " + sellerId));
         flow.setWallet(wallet);
@@ -81,13 +81,7 @@ public class FlowServiceImpl implements FlowService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Flow> getAllByDeadlineDate(Date date) {
-    	return flowRepository.findAllByDeadlineDate(date);
-    }
-    
-    @Transactional(readOnly = true)
-    @Override
-    public List<Transaction> getAllTransactionByFlowId(Long flowId) {
-    	return transactionService.getAllByFlowId(flowId) ;
+    public List<Flow> getAllByWalletIdAndDeadlineDate(Long walletId, Date date) {
+    	return flowRepository.findAllByWalletIdAndDeadlineDate(walletId,date);
     }
 }

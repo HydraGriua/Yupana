@@ -69,7 +69,7 @@ public class DeliveryController {
 			@ApiResponse(responseCode = "200", description = "Create deliveries for a Sale", content =@Content(mediaType = "application/json"))
 	})
 	@PostMapping("/sales/{saleId}/deliveries")
-	public DeliveryResource creaDelivery (@PathVariable(name = "saleId") Long saleId, @Valid @RequestBody SaveDeliveryResource resource){
+	public DeliveryResource createDelivery (@PathVariable(name = "saleId") Long saleId, @Valid @RequestBody SaveDeliveryResource resource){
 		return convertToResource(deliveryService.createDelivery(convertToEntity(resource), saleId));
 	}
 	

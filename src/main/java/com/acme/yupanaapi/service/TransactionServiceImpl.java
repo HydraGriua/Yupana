@@ -35,7 +35,7 @@ public class TransactionServiceImpl implements TransactionService {
 			int dias = (int) ((transactionEntity.getTransactionDate().getTime()
 					- flow.getLastTransactionDate().getTime()) / 86400000);
 			switch (tipo) {
-			case "simple":
+			case "Simple":
 				newQuant = flow.getTotalDebt() * (1 + (flow.getCurrentInterestRate() * dias));
 				flow.setTotalDebt(newQuant + transactionEntity.getAmount());
 				break;

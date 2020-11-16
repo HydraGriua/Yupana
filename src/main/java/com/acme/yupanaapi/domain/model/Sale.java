@@ -36,14 +36,11 @@ public class Sale {
 	
 	@NotNull
 	private Float salePaid;
-	
-	@Lob
+
 	@NotNull
 	private String paymentPay;
-	
-	@Lob
+
 	@NotNull
 	private String description;
 
-	
 }

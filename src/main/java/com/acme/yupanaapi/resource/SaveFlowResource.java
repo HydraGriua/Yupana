@@ -11,24 +11,30 @@ import lombok.Setter;
 @Setter
 public class SaveFlowResource {
 	@NotNull
-	@Size(max = 10)
 	private Date deadlineDate;
+
 	@NotNull
-	@Size(max = 10)
 	private Date lastTransactionDate;
+
 	@NotNull
 	private Float currentInterestRate;
+
 	@NotNull
 	private int currentRatePeriod;
+
 	@NotNull
 	private int currentCapitalization;
+
 	@NotNull
 	@Size(max = 30)
 	private String currentRateType;
+
 	@NotNull
 	private Float creditLine;
+
 	@NotNull
 	private Float currentCreditLine;
+
 	@NotNull
 	private Float totalDebt;
 }

@@ -5,13 +5,7 @@ import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.acme.yupanaapi.domain.model.Seller;
 import com.acme.yupanaapi.domain.service.SellerService;
@@ -20,6 +14,7 @@ import com.acme.yupanaapi.resource.SellerResource;
 
 
 @RestController
+@RequestMapping("/api")
 public class SellersController {
 	  //Mapeador de entidad con resource
     @Autowired
@@ -32,40 +27,34 @@ public class SellersController {
     ////////////////////////////////////////////////////////////
     //Metodos crud para las llamadas
 
-    @GetMapping("/sellers/{id}")
-    public SellerResource getSellerById(@PathVariable(name = "id") Long sellerId){
+    @GetMapping("/sellers/{sellerId}")
+    public SellerResource getSellerById(@PathVariable(name = "sellerId") Long sellerId){
         return convertToResource(sellerService.getSellerById(sellerId));
     }
 
-    @GetMapping("/sellers/dni={dni}")
-    public SellerResource getSellerByIdAndUserId(@PathVariable(name = "dni") Long sellerId,  @PathVariable(name = "userId") Long userId){
+    @GetMapping("/users/{userId}/sellers/{sellerId}")
+    public SellerResource getSellerByIdAndUserId(@PathVariable(name = "sellerId") Long sellerId,  @PathVariable(name = "userId") Long userId){
         return convertToResource(sellerService.getSellerByIdAndUserId(sellerId, userId));
     }
     
-    @GetMapping("/sellers/{name}")
-    public SellerResource getSellerByBusinessName(@PathVariable(name = "name") String string){
-        return convertToResource(sellerService.getSellerByBusinessName(string));
+    @GetMapping("/sellers/BusinessName={name}")
+    public SellerResource getSellerByBusinessName(@PathVariable(name = "name") String name){
+        return convertToResource(sellerService.getSellerByBusinessName(name));
     }
-    @PostMapping("/sellers")
+    @PostMapping("/users/{userId}/sellers")
     public SellerResource createSeller(@Valid @RequestBody SaveSellerResource resource, @PathVariable(name = "userId") Long userId){
         return convertToResource(sellerService.createSeller(convertToEntity(resource),userId));
     }
 
-    @PutMapping("/sellers/{id}")
-    public SellerResource updateSeller(@PathVariable(name = "id") Long sellerId, @PathVariable(name = "userId") Long userId,@Valid @RequestBody SaveSellerResource resource){
+    @PutMapping("/users/{userId}/sellers/{sellerId}")
+    public SellerResource updateSeller(@PathVariable(name = "sellerId") Long sellerId, @PathVariable(name = "userId") Long userId,@Valid @RequestBody SaveSellerResource resource){
         return convertToResource(sellerService.updateSeller(sellerId,userId,convertToEntity(resource)));
     }
 
-    @DeleteMapping("/sellers/{id}")
+    @DeleteMapping("/sellers/{sellerId}")
     public ResponseEntity<?> deleteSeller(@PathVariable(name="id") Long sellerId){
         return sellerService.deleteSeller(sellerId);
     }
-    
-    @DeleteMapping("/sellers/{userId}")
-    public ResponseEntity<?> deleteUser(@PathVariable(name="userId") Long userId){
-        return sellerService.deleteUser(userId);
-    }
-    
     
     /////////////////////////////////////////////////////////////////////////
 
