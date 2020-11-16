@@ -20,9 +20,6 @@ public class SellerServiceImpl implements SellerService {
     @Autowired
     UserRepository userRepository;
     
-    @Autowired
-    UserService userService;
-
     @Transactional(readOnly = true)
     @Override
     public Seller getSellerByIdAndUserId(Long sellerId, Long userId) {
@@ -81,12 +78,6 @@ public class SellerServiceImpl implements SellerService {
                         "Seller not found with Id " + sellerId));
         sellerRepository.delete(seller);
         return ResponseEntity.ok().build();
-    }
-    
-    @Transactional
-    @Override
-    public ResponseEntity<?> deleteUser(Long userId) {
-    	return userService.deleteUser(userId);
     }
     
 }

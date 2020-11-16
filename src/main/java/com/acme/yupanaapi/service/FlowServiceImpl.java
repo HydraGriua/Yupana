@@ -23,9 +23,6 @@ public class FlowServiceImpl implements FlowService {
 
     @Autowired
     private WalletRepository walletRepository;
-    
-    @Autowired
-    private TransactionService transactionService;
     @Transactional(readOnly = true)
     @Override
     public Flow getFlowById(Long flowId) {

@@ -11,5 +11,4 @@ public class SellerResource {
     private String storeAdress;
     private String businessName;
     private String email;
-    private UserResource userResource;
 }

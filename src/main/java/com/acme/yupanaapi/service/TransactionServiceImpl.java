@@ -2,7 +2,9 @@ package com.acme.yupanaapi.service;
 
 import java.util.List;
 import com.acme.yupanaapi.domain.model.Flow;
+import com.acme.yupanaapi.domain.model.Sale;
 import com.acme.yupanaapi.domain.repository.FlowRepository;
+import com.acme.yupanaapi.domain.repository.SaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Autowired
 	FlowRepository flowRepository;
+
+	@Autowired
+	SaleRepository saleRepository;
 
 	@Transactional
 	@Override
@@ -67,6 +72,14 @@ public class TransactionServiceImpl implements TransactionService {
 		else {
 			throw new LockedActionException("Superaste tu linea de credito");
 		}
+	}
+
+	@Override
+	public Transaction createTransactionWithSale(Transaction transactionEntity, Long flowId, Long saleId) {
+		Sale sale = saleRepository.findById(saleId)
+				.orElseThrow(() -> new ResourceNotFoundException("Sale not found with Id " + saleId));
+		transactionEntity.setSale(sale);
+		return createTransaction(transactionEntity,flowId);
 	}
 
 	@Transactional
