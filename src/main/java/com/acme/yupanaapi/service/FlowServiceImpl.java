@@ -81,4 +81,11 @@ public class FlowServiceImpl implements FlowService {
     public List<Flow> getAllByWalletIdAndDeadlineDate(Long walletId, Date date) {
     	return flowRepository.findAllByWalletIdAndDeadlineDate(walletId,date);
     }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Flow getLastFlow(Long walletId){
+        List<Flow> lista = flowRepository.findAllByWalletId(walletId);
+        return lista.get(lista.size()-1);
+    }
 }

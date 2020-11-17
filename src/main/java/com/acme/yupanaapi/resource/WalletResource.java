@@ -1,5 +1,6 @@
 package com.acme.yupanaapi.resource;
 
+import com.acme.yupanaapi.domain.model.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,4 +16,5 @@ public class WalletResource {
     private String state;
     private Float balance;
     private Float maintenancePrice;
+    private User user;
 }

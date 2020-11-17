@@ -49,7 +49,15 @@ public class FlowsController {
 	public List<FlowResource> getAllByWalletId(@PathVariable(name = "walletId") Long walletId) {
 		return flowService.getAllByWalletId(walletId).stream().map(this::convertToResource).collect(Collectors.toList());
 	}
-	
+	@Operation(summary = "Get last flow by walletId", description ="Get last flow by walletId", tags = {"flows"})
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Get last flow by walletId", content =@Content(mediaType = "application/json") )
+	})
+	@GetMapping("/wallets/{walletId}/LastFlow")
+	public FlowResource getLastFlow(@PathVariable(name = "walletId") Long walletId){
+		return convertToResource(flowService.getLastFlow(walletId));
+	}
+
 	@Operation(summary = "Get flow by Id", description ="Get flow given Id", tags = {"flows"})
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Get flow given Id", content =@Content(mediaType = "application/json") )
