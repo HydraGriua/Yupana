@@ -56,11 +56,12 @@ public class TransactionServiceImpl implements TransactionService {
 						(float) (dias / flow.getCurrentRatePeriod()));
 				flow.setTotalDebt(newQuant + transactionEntity.getAmount());
 			}
+			flow.setLastTransactionDate(transactionEntity.getTransactionDate());
 			flow.setCurrentInterestRate(transactionEntity.getInterestRate());
 			flow.setCurrentRatePeriod(transactionEntity.getRatePeriod());
 			flow.setCurrentRateType(transactionEntity.getRateType());
 			flow.setCurrentCapitalization(transactionEntity.getCapitalization());
-			flow.setCreditLine(flow.getCurrentCreditLine() - transactionEntity.getAmount());
+			flow.setCurrentCreditLine(flow.getCurrentCreditLine() - transactionEntity.getAmount());
 			flowRepository.save(flow);
 			// guardamos la transaccion
 			transactionEntity.setFlow(flow);

@@ -44,6 +44,10 @@ public class SalesController {
         return convertToResource(saleService.save(convertToEntity(resource)));
     }
 
+    @Operation(summary = "Update Sale",description = "Update Sale",tags = {"sales"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Update Sale",content =@Content(mediaType = "application/json") )
+    })
     @PutMapping("/sales/{saleId}")
     public SaleResource updateSale(@PathVariable(name = "saleId") Long saleId, @Valid @RequestBody SaveSaleResource resource){
         return convertToResource(saleService.update(convertToEntity(resource),saleId));
@@ -58,6 +62,10 @@ public class SalesController {
         return saleService.deleteSale(saleId);
     }
 
+    @Operation(summary = "Get Sales by date",description = "Get Sales by date",tags = {"sales"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get Sales by date",content =@Content(mediaType = "application/json") )
+    })
     @GetMapping("/sales/Date={saleDate}")
     public List<SaleResource> getAllBySaleDate(@PathVariable(name = "saleDate") Date saleDate) {
         return saleService.getAllBySaleDate(saleDate).stream().map(this::convertToResource).collect(Collectors.toList());

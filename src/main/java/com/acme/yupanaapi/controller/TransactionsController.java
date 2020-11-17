@@ -47,6 +47,10 @@ public class TransactionsController {
         return convertToResource(transactionService.createTransaction(convertToEntity(resource), flowId));
     }
 
+    @Operation(summary = "Update transaction",description = "Update transaction",tags = {"transactions"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description ="Update transaction",content =@Content(mediaType = "application/json"))
+    })
     @PutMapping("/transactions/{transactionId}")
     public TransactionResource updateTransaction(@PathVariable(name = "transactionId") Long transactionId, @Valid @RequestBody SaveTransactionResource resource){
         return convertToResource(transactionService.updateTransaction(convertToEntity(resource),transactionId));
@@ -70,11 +74,11 @@ public class TransactionsController {
         return transactionService.getAllByFlowId(flowId).stream().map(this::convertToResource).collect(Collectors.toList());
     }
 
-    @Operation(summary = "Update transaction",description = "Update transaction given flowId and saleId",tags = {"transactions"})
+    @Operation(summary = "Create transaction with Sale",description = "Create transaction given flowId and saleId",tags = {"transactions"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description ="Update transaction given flowId and saleId",content =@Content(mediaType = "application/json"))
+            @ApiResponse(responseCode = "200", description ="Create transaction given flowId and saleId",content =@Content(mediaType = "application/json"))
     })
-    @PostMapping("flows/{flowId}/saleId={saleId}/transactions")
+    @PostMapping("flows/{flowId}/transactions/saleId={saleId}")
     public TransactionResource createTransactionWithSale(@PathVariable(name = "flowId") Long flowId, @PathVariable(name = "saleId") Long saleId, @Valid @RequestBody SaveTransactionResource resource){
         return convertToResource(transactionService.createTransactionWithSale(convertToEntity(resource),flowId,saleId));
     }

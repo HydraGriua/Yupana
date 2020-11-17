@@ -37,7 +37,7 @@ public class FlowsController {
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Get all flows given dead line date", content =@Content(mediaType = "application/json") )
 	})
-	@GetMapping("/wallets/{walletId}/flows/{date}")
+	@GetMapping("/wallets/{walletId}/flows/DeadLineDate={date}")
 	public List<FlowResource> getAllByDeadlineDate(@PathVariable(name = "walletId") Long walletId,@PathVariable(name = "date") Date date) {
 		return flowService.getAllByWalletIdAndDeadlineDate(walletId,date).stream().map(this::convertToResource).collect(Collectors.toList());
 	}
@@ -45,14 +45,14 @@ public class FlowsController {
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Get all flows given walletId", content =@Content(mediaType = "application/json") )
 	})
-	@GetMapping("/wallet/{walletId}/flows")
+	@GetMapping("/wallets/{walletId}/flows")
 	public List<FlowResource> getAllByWalletId(@PathVariable(name = "walletId") Long walletId) {
 		return flowService.getAllByWalletId(walletId).stream().map(this::convertToResource).collect(Collectors.toList());
 	}
 	
-	@Operation(summary = "Get all flows by Id", description ="Get all flows given Id", tags = {"flows"})
+	@Operation(summary = "Get flow by Id", description ="Get flow given Id", tags = {"flows"})
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Get all flows given Id", content =@Content(mediaType = "application/json") )
+			@ApiResponse(responseCode = "200", description = "Get flow given Id", content =@Content(mediaType = "application/json") )
 	})
 	@GetMapping("/flows/{flowId}")
 	public FlowResource getFlowById(@PathVariable(name = "flowId") Long flowId) {

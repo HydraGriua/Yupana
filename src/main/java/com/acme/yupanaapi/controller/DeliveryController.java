@@ -57,7 +57,7 @@ public class DeliveryController {
 	@ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get Deliveries by Date",content =@Content(mediaType = "application/json"))
     })
-	@GetMapping("/deliveries/{deliveryDate}")
+	@GetMapping("/deliveries/Date={deliveryDate}")
 	public List<DeliveryResource> getAllDeliveriesByDate (@PathVariable(name = "deliveryDate") Date deliveryDate){
 		
 		return deliveryService.getAllByDeliveryDate(deliveryDate).stream().map(this::convertToResource).collect(Collectors.toList());

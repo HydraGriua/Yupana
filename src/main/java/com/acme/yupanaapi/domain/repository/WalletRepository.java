@@ -10,5 +10,4 @@ public interface WalletRepository extends JpaRepository<Wallet, Long>{
     Optional<Wallet> findByIdAndUserId(Long id,Long userId);
     Optional<Wallet> findByIdAndSellerId(Long id,Long sellerId);
     Boolean existsByIdAndSellerId(Long id, Long sellerId);
-    Optional<Wallet> findByIdAndSellerId(Long id,Long sellerId);
 }
