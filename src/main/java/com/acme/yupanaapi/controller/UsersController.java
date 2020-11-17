@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@CrossOrigin(origins = "https://yupana.herokuapp.com/")
+@CrossOrigin
 @RequestMapping("/api")
 public class UsersController {
 
