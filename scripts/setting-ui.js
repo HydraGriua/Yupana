@@ -236,6 +236,8 @@ var setDateTime = function(container){
 	var month = ("0" + (now.getMonth() + 1)).slice(-2);
 	var today = now.getFullYear() + "-" + (month) + "-" + (day);
 	$(container).find('input[type="date"][value="now"]').attr('value',today);
+	var hoy = (day) + "/" + (month) + "/" + now.getFullYear();
+	$(container).find('span[value="now"]').html(hoy);
 
 	var hour = now.getHours();
 	var mins = now.getMinutes();
@@ -243,7 +245,7 @@ var setDateTime = function(container){
   if(mins < 10) mins = '0' + mins; 
   var time = hour + ':' + mins;
   $(container).find('input[type="time"][value="now"]').attr('value',time);
-}
+};
 
 
 var setTabs =  function(arrTabs,arrPages) {

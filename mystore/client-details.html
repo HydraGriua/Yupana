@@ -149,6 +149,7 @@
 				<div>
 					<div class="r-code">Código de registro <span>NM1238913</span></div>
 					<h1>Registro de venta al crédito</h1>
+					<span class="subDet">sin delivery</span>
 				</div>
 				<div class="date tosmall"><!--tonormal-->
 					Fecha de emisión: <span>dd/mm/aaaa</span>
@@ -209,45 +210,47 @@
 <section id="h-credito">
 <main class="container">
 	<h1>Historial de condiciones de crédito</h1>
-	<section class="short-filter">
-		Rango de fecha: <input type="date"> - <input type="date" value="now"> <button id="export-hc">Exportar <i class="fas fa-download"></i></button>
+	<section class="time-actions">
+		<div  class="short-filter">
+			Rango de fecha: <input type="date"> - <input type="date" value="now">
+		</div>
+		<button id="export-hc">Exportar <i class="fas fa-download"></i></button>
 	</section>
-	<div>
-		<div>Actual <span>dd/mm/aaaa</span></div>
-		<div class="ran-line">
-			<div class="circle"></div>
-			<div class="rectangle"></div>
-			<div class="circle"></div>
-		</div>
-		<div>Inicio <span>dd/mm/aaaa</span></div>
-	</div><!-- timeline line -->
-
-	<section class="cards c-credit">
-		<!-- card -->
-		<div class="card center"><!--det o easy-->
-			<div class="details">
-				<div>
-					Línea de crédito
-					<strong>S/xxx.xx</strong>
-				</div>
-				<div class="date"><!--tonormal-->
-					Fecha de emisión: <span>dd/mm/aaaa</span>
-				</div>
-				<div class="tInterest">
-					Tipo de interés
-					<span>Tasa Simple Anual</span>
-					<span class="subDet">sin capitalización</span>
-				</div>
-				<div  class="ti">
-					Tasa de interés
-					<span>xx.xxxxxxx%</span>
-				</div>
-				<div class="money"><!--debt o payment-->
-					Deuda hasta la fecha actual <span>S/XX.XX</span>
-				</div>
+	<section class="timeline">
+		<div class="history-line">
+			<div>Actual <span value="now">dd/mm/aaaa</span></div>
+			<div class="ran-line">
+				<div class="circle"></div>
+				<div class="rectangle"></div>
+				<div class="circle"></div>
 			</div>
-		</div>
-
+			<div>Inicio <span>dd/mm/aaaa</span></div>
+		</div><!-- history line -->
+		<section class="cards c-credit">
+			<div class="card center"><!--det o easy-->
+				<div class="details">
+					<div>
+						Línea de crédito
+						<strong>S/xxx.xx</strong>
+					</div>
+					<div class="date"><!--tonormal-->
+						Fecha de emisión: <span>dd/mm/aaaa</span>
+					</div>
+					<div class="tInterest">
+						Tipo de interés
+						<span>Tasa Simple Anual</span>
+						<span class="subDet">sin capitalización</span>
+					</div>
+					<div  class="ti">
+						Tasa de interés
+						<span>xx.xxxxxxx%</span>
+					</div>
+					<div class="money"><!--debt o payment-->
+						Deuda hasta la fecha actual <span>S/XX.XX</span>
+					</div>
+				</div>
+			</div><!-- card -->
+		</section><!--cards-->
 	</section>
 </main>
 </section><!--#h-credito-->
@@ -256,36 +259,40 @@
 <section id="h-delivery">
 <main class="container">
 	<h1>Historial de condiciones de crédito</h1>
-	<section class="short-filter">
-		Rango de fecha: <input type="date"> - <input type="date" value="now"> <button id="export-hc">Exportar <i class="fas fa-download"></i></button>
+	<section class="time-actions">
+		<div  class="short-filter">
+			Rango de fecha: <input type="date"> - <input type="date" value="now">
+		</div>
+		<button id="export-hc">Exportar <i class="fas fa-download"></i></button>
 	</section>
-	<div>
-		<div>Actual <span>dd/mm/aaaa</span></div>
-		<div class="ran-line">
-			<div class="circle"></div>
-			<div class="rectangle"></div>
-			<div class="circle"></div>
-		</div>
-		<div>Inicio <span>dd/mm/aaaa</span></div>
-	</div><!-- timeline line -->
 
-	<section class="cards c-delivery">
-		<!-- card -->
-		<div class="card center"><!--det o easy-->
-			<div class="details">
-				<div>
-					Suscripción a delivery
-					<strong>ESTADO</strong>
-				</div>
-				<div class="date"><!--tonormal-->
-					Fecha de <span>cancelacion</span> <span>dd/mm/aaaa</span>
-				</div>
-				<div class="money"><!--debt o payment-->
-					Monto acordado <span>S/XX.XX</span>
-				</div>
+	<section class="timeline">
+		<div class="history-line">
+			<div>Actual <span value="now">dd/mm/aaaa</span></div>
+			<div class="ran-line">
+				<div class="circle"></div>
+				<div class="rectangle"></div>
+				<div class="circle"></div>
 			</div>
-		</div>
-
+			<div>Inicio <span>dd/mm/aaaa</span></div>
+		</div><!-- history line -->
+		
+		<section class="cards c-delivery">
+			<div class="card center"><!--det o easy-->
+				<div class="details">
+					<div>
+						Suscripción a delivery
+						<strong>ESTADO</strong>
+					</div>
+					<div class="date"><!--tonormal-->
+						Fecha de <span>cancelacion</span> <span>dd/mm/aaaa</span>
+					</div>
+					<div class="money"><!--debt o payment-->
+						Monto acordado <span>S/XX.XX</span>
+					</div>
+				</div>
+			</div><!-- card -->
+		</section><!-- cards-->
 	</section>
 </main>
 </section><!--#h-delivery-->
