@@ -40,7 +40,7 @@ public class WalletServiceImpl implements WalletService {
 				.orElseThrow(()-> new ResourceNotFoundException("User not found with Id" + userId));
 		entity.setSeller(seller);
 		entity.setUser(user);
-		entity.setUserId(user.getId());
+		entity.setIdOfUser(user.getId());
 		return walletRepository.save(entity);
 	}
 

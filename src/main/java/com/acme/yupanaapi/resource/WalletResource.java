@@ -16,5 +16,5 @@ public class WalletResource {
     private String state;
     private Float balance;
     private Float maintenancePrice;
-    private Long userId;
+    private Long idOfUser;
 }
