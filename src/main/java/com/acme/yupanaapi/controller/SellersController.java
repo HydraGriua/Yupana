@@ -19,6 +19,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class SellersController {
 	  //Mapeador de entidad con resource

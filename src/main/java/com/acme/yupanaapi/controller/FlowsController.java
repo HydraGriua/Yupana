@@ -1,6 +1,5 @@
 package com.acme.yupanaapi.controller;
-
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +21,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class FlowsController {
 	@Autowired
