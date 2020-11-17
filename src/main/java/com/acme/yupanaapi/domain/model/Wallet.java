@@ -46,6 +46,9 @@ public class Wallet {
 	@NotNull
 	private Float maintenancePrice;
 
+	@NotNull
+	private Long userId;
+
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "seller_id", nullable = false)
 	@JsonIgnore
