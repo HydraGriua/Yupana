@@ -50,7 +50,7 @@ public class WalletsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Create Wallet by user and seller",content =@Content(mediaType = "application/json"))
     })
-    @PostMapping("sellers/{sellerId}/userId={userId}")
+    @PostMapping("users/{userId}/sellers/{sellerId}/wallets")
     public WalletResource createWallet(@PathVariable(name = "sellerId") Long sellerId, @PathVariable(name = "userId") Long userId, @Valid @RequestBody SaveWalletResource resource){
         return convertToResource(walletService.createWallet(convertToEntity(resource), sellerId, userId));
     }
