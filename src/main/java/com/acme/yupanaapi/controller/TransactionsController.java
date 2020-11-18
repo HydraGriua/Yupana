@@ -88,7 +88,7 @@ public class TransactionsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description ="Assign transaction given Id and saleId",content =@Content(mediaType = "application/json"))
     })
-    @PostMapping("transactions/{transactionId}/saleId={saleId}")
+    @PutMapping("transactions/{transactionId}/saleId={saleId}")
     public TransactionResource AssignTransactionWithSale(@PathVariable(name = "transactionId") Long transactionId, @PathVariable(name = "saleId") Long saleId){
         return convertToResource(transactionService.AssignTransactionWithSale(transactionId,saleId));
     }
