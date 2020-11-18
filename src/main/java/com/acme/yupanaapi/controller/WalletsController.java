@@ -42,8 +42,8 @@ public class WalletsController {
             @ApiResponse(responseCode = "200", description = "Get wallet by given Id",content =@Content(mediaType = "application/json") )
     })
     @GetMapping("/wallets/{walletId}")
-    public WalletResource getWalletById(@PathVariable(name = "walletId") Long walletId){
-        return convertToResource(walletService.getWalletById(walletId));
+    public Wallet getWalletById(@PathVariable(name = "walletId") Long walletId){
+        return walletService.getWalletById(walletId);
     }
 
     @Operation(summary = "Create Wallet",description = "Create Wallet by user and seller",tags = {"wallets"})
