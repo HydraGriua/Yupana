@@ -11,6 +11,7 @@ import com.acme.yupanaapi.exception.ResourceNotFoundException;
 import java.util.Date;
 import java.util.List;
 
+import com.acme.yupanaapi.resource.UserWalletResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -87,5 +88,36 @@ public class FlowServiceImpl implements FlowService {
     public Flow getLastFlow(Long walletId){
         List<Flow> lista = flowRepository.findAllByWalletId(walletId);
         return lista.get(lista.size()-1);
+    }
+    @Override
+    public UserWalletResource getData(Long walletId) {
+        List<Flow> lista = flowRepository.findAllByWalletId(walletId);
+        Flow flow = lista.get(lista.size()-1);
+
+        UserWalletResource userWalletResource = new UserWalletResource();
+        userWalletResource.setUserId(flow.getWallet().getUser().getId());
+        userWalletResource.setWalletId(flow.getWallet().getId());
+        userWalletResource.setFlowId(flow.getId());
+        userWalletResource.setDocumentNumber(flow.getWallet().getUser().getDocumentNumber());
+        userWalletResource.setName(flow.getWallet().getUser().getName());
+        userWalletResource.setFirstLastname(flow.getWallet().getUser().getFirstLastname());
+        userWalletResource.setSecondLastname(flow.getWallet().getUser().getSecondLastname());
+        userWalletResource.setCellphone(flow.getWallet().getUser().getCellphone());
+        userWalletResource.setCreationDate(flow.getWallet().getCreationDate());
+        userWalletResource.setMaintenancePrice(flow.getWallet().getMaintenancePrice());
+        userWalletResource.setBalance(flow.getWallet().getBalance());
+        userWalletResource.setState(flow.getWallet().getState());
+        userWalletResource.setType(flow.getWallet().getType());
+        userWalletResource.setDeadlineDate(flow.getDeadlineDate());
+        userWalletResource.setLastTransactionDate(flow.getLastTransactionDate());
+        userWalletResource.setCurrentInterestRate(flow.getCurrentInterestRate());
+        userWalletResource.setCurrentRatePeriod(flow.getCurrentRatePeriod());
+        userWalletResource.setCurrentCapitalization(flow.getCurrentCapitalization());
+        userWalletResource.setCurrentRateType(flow.getCurrentRateType());
+        userWalletResource.setCreditLine(flow.getCreditLine());
+        userWalletResource.setCurrentCreditLine(flow.getCurrentCreditLine());
+        userWalletResource.setTotalDebt(flow.getTotalDebt());
+
+        return userWalletResource;
     }
 }

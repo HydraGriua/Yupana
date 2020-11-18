@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.acme.yupanaapi.resource.UserWalletResource;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -56,6 +57,15 @@ public class FlowsController {
 	@GetMapping("/wallets/{walletId}/LastFlow")
 	public FlowResource getLastFlow(@PathVariable(name = "walletId") Long walletId){
 		return convertToResource(flowService.getLastFlow(walletId));
+	}
+
+	@Operation(summary = "Get all data from last flow by walletId", description ="Get all data from last flow by walletId", tags = {"wallets"})
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Get all data from last flow by walletId", content =@Content(mediaType = "application/json") )
+	})
+	@GetMapping("/wallets/{walletId}/LastData")
+	public UserWalletResource getDataFromFlow(@PathVariable(name = "walletId") Long walletId){
+		return flowService.getData(walletId);
 	}
 
 	@Operation(summary = "Get flow by Id", description ="Get flow given Id", tags = {"flows"})
