@@ -1,8 +1,10 @@
 package com.acme.yupanaapi.service;
 import com.acme.yupanaapi.domain.model.Flow;
 import com.acme.yupanaapi.domain.model.Transaction;
+import com.acme.yupanaapi.domain.model.User;
 import com.acme.yupanaapi.domain.model.Wallet;
 import com.acme.yupanaapi.domain.repository.FlowRepository;
+import com.acme.yupanaapi.domain.repository.UserRepository;
 import com.acme.yupanaapi.domain.repository.WalletRepository;
 import com.acme.yupanaapi.domain.service.FlowService;
 import com.acme.yupanaapi.domain.service.TransactionService;
@@ -24,6 +26,10 @@ public class FlowServiceImpl implements FlowService {
 
     @Autowired
     private WalletRepository walletRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
     @Transactional(readOnly = true)
     @Override
     public Flow getFlowById(Long flowId) {
@@ -94,20 +100,26 @@ public class FlowServiceImpl implements FlowService {
         List<Flow> lista = flowRepository.findAllByWalletId(walletId);
         Flow flow = lista.get(lista.size()-1);
 
+        Wallet wallet = walletRepository.findById(walletId)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                "Wallet not found with Id "));
+        User user = userRepository.findById(wallet.getIdOfUser()).orElseThrow(() -> new ResourceNotFoundException(
+                "User not found with Id "));
+
         UserWalletResource userWalletResource = new UserWalletResource();
-        userWalletResource.setUserId(flow.getWallet().getUser().getId());
-        userWalletResource.setWalletId(flow.getWallet().getId());
+        userWalletResource.setUserId(user.getId());
+        userWalletResource.setWalletId(wallet.getId());
         userWalletResource.setFlowId(flow.getId());
-        userWalletResource.setDocumentNumber(flow.getWallet().getUser().getDocumentNumber());
-        userWalletResource.setName(flow.getWallet().getUser().getName());
-        userWalletResource.setFirstLastname(flow.getWallet().getUser().getFirstLastname());
-        userWalletResource.setSecondLastname(flow.getWallet().getUser().getSecondLastname());
-        userWalletResource.setCellphone(flow.getWallet().getUser().getCellphone());
-        userWalletResource.setCreationDate(flow.getWallet().getCreationDate());
-        userWalletResource.setMaintenancePrice(flow.getWallet().getMaintenancePrice());
-        userWalletResource.setBalance(flow.getWallet().getBalance());
-        userWalletResource.setState(flow.getWallet().getState());
-        userWalletResource.setType(flow.getWallet().getType());
+        userWalletResource.setDocumentNumber(user.getDocumentNumber());
+        userWalletResource.setName(user.getName());
+        userWalletResource.setFirstLastname(user.getFirstLastname());
+        userWalletResource.setSecondLastname(user.getSecondLastname());
+        userWalletResource.setCellphone(user.getCellphone());
+        userWalletResource.setCreationDate(wallet.getCreationDate());
+        userWalletResource.setMaintenancePrice(wallet.getMaintenancePrice());
+        userWalletResource.setBalance(wallet.getBalance());
+        userWalletResource.setState(wallet.getState());
+        userWalletResource.setType(wallet.getType());
         userWalletResource.setDeadlineDate(flow.getDeadlineDate());
         userWalletResource.setLastTransactionDate(flow.getLastTransactionDate());
         userWalletResource.setCurrentInterestRate(flow.getCurrentInterestRate());
