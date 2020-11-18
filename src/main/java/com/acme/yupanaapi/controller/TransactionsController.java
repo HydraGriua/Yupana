@@ -84,13 +84,13 @@ public class TransactionsController {
         return transactionService.getAllByHistorialId(historialId).stream().map(this::convertToResource).collect(Collectors.toList());
     }
 
-    @Operation(summary = "Create transaction with Sale",description = "Create transaction given flowId and saleId",tags = {"transactions"})
+    @Operation(summary = "Assign transaction with Sale",description = "Assign transaction given Id and saleId",tags = {"transactions"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description ="Create transaction given flowId and saleId",content =@Content(mediaType = "application/json"))
+            @ApiResponse(responseCode = "200", description ="Assign transaction given Id and saleId",content =@Content(mediaType = "application/json"))
     })
-    @PostMapping("flows/{flowId}/saleId={saleId}/transactions")
-    public TransactionResource createTransactionWithSale(@PathVariable(name = "flowId") Long flowId, @PathVariable(name = "saleId") Long saleId, @Valid @RequestBody SaveTransactionResource resource){
-        return convertToResource(transactionService.createTransactionWithSale(convertToEntity(resource),flowId,saleId));
+    @PostMapping("transactions/{transactionId}/saleId={saleId}")
+    public TransactionResource AssignTransactionWithSale(@PathVariable(name = "transactionId") Long transactionId, @PathVariable(name = "saleId") Long saleId){
+        return convertToResource(transactionService.AssignTransactionWithSale(transactionId,saleId));
     }
 
     private Transaction convertToEntity(SaveTransactionResource resource) {
