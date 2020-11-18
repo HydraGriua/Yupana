@@ -88,7 +88,7 @@ public class TransactionsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description ="Create transaction given flowId and saleId",content =@Content(mediaType = "application/json"))
     })
-    @PostMapping("flows/{flowId}/transactions/saleId={saleId}")
+    @PostMapping("flows/{flowId}/saleId={saleId}/transactions")
     public TransactionResource createTransactionWithSale(@PathVariable(name = "flowId") Long flowId, @PathVariable(name = "saleId") Long saleId, @Valid @RequestBody SaveTransactionResource resource){
         return convertToResource(transactionService.createTransactionWithSale(convertToEntity(resource),flowId,saleId));
     }
