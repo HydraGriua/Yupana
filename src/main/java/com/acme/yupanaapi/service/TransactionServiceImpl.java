@@ -71,7 +71,8 @@ public class TransactionServiceImpl implements TransactionService {
 			// guardamos la transaccion
 			transactionEntity.setFlow(flow);
 			List<Historial> lista = historialRepository.findBySellerId(flow.getWallet().getSeller().getId());
-			transactionEntity.setHistorial(lista.get(lista.size()-1));
+			Historial historial = lista.get(lista.size()-1);
+			transactionEntity.setHistorial(historial);
 			// if(transactionEntity.getSale() != null)
 			// TODO: agregar la venta en caso exista
 			return transactionRepository.save(transactionEntity);
