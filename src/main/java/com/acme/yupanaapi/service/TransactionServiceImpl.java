@@ -84,10 +84,10 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Override
 	public Transaction createTransactionWithSale(Transaction transactionEntity, Long flowId, Long saleId) {
-		Sale sale = saleRepository.findById(saleId)
-				.orElseThrow(() -> new ResourceNotFoundException("Sale not found with Id " + saleId));
-		transactionEntity.setSale(sale);
-		return createTransaction(transactionEntity,flowId);
+		return saleRepository.findById(saleId).map(sale -> {
+			transactionEntity.setSale(sale);
+			return createTransaction(transactionEntity,flowId);
+		}).orElseThrow(() -> new ResourceNotFoundException("Sale not found with Id " + saleId));
 	}
 
 	@Transactional
