@@ -33,8 +33,8 @@ public class WalletsController {
             @ApiResponse(responseCode = "200", description = "Get all wallet by given sellerId",content =@Content(mediaType = "application/json") )
     })
     @GetMapping("/sellers/{sellerId}/wallets")
-    public List<WalletResource> getAllWalletBySellerId(@PathVariable(name = "sellerId") Long sellerId){
-        return walletService.getAllBySellerId(sellerId).stream().map(this::convertToResource).collect(Collectors.toList());
+    public List<Wallet> getAllWalletBySellerId(@PathVariable(name = "sellerId") Long sellerId){
+        return walletService.getAllBySellerId(sellerId);//.stream().map(this::convertToResource).collect(Collectors.toList());
     }
 
     @Operation(summary = "Get wallet by Id",description = "Get wallet by given Id",tags = {"wallets"})
