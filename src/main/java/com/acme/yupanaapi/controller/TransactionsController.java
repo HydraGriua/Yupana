@@ -75,6 +75,15 @@ public class TransactionsController {
         return transactionService.getAllByFlowId(flowId).stream().map(this::convertToResource).collect(Collectors.toList());
     }
 
+    @Operation(summary = "Get all transactions by historialId",description = "Get all transactions by historialId",tags = {"historials"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get all transactions by historialId",content =@Content(mediaType = "application/json"))
+    })
+    @GetMapping("/historials/{historialId}/transactions")
+    public List<TransactionResource> getAllByHistorialId(@PathVariable(name = "historialId") Long historialId) {
+        return transactionService.getAllByHistorialId(historialId).stream().map(this::convertToResource).collect(Collectors.toList());
+    }
+
     @Operation(summary = "Create transaction with Sale",description = "Create transaction given flowId and saleId",tags = {"transactions"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description ="Create transaction given flowId and saleId",content =@Content(mediaType = "application/json"))

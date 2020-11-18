@@ -2,8 +2,10 @@ package com.acme.yupanaapi.service;
 
 import java.util.List;
 import com.acme.yupanaapi.domain.model.Flow;
+import com.acme.yupanaapi.domain.model.Historial;
 import com.acme.yupanaapi.domain.model.Sale;
 import com.acme.yupanaapi.domain.repository.FlowRepository;
+import com.acme.yupanaapi.domain.repository.HistorialRepository;
 import com.acme.yupanaapi.domain.repository.SaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,9 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Autowired
 	SaleRepository saleRepository;
+
+	@Autowired
+	HistorialRepository historialRepository;
 
 	@Transactional
 	@Override
@@ -65,7 +70,8 @@ public class TransactionServiceImpl implements TransactionService {
 			flowRepository.save(flow);
 			// guardamos la transaccion
 			transactionEntity.setFlow(flow);
-
+			List<Historial> lista = historialRepository.findBySellerId(flow.getWallet().getSeller().getId());
+			transactionEntity.setHistorial(lista.get(lista.size()-1));
 			// if(transactionEntity.getSale() != null)
 			// TODO: agregar la venta en caso exista
 			return transactionRepository.save(transactionEntity);
@@ -120,5 +126,10 @@ public class TransactionServiceImpl implements TransactionService {
 	@Override
 	public List<Transaction> getAllByFlowId(Long flowId) {
 		return transactionRepository.findAllByFlowId(flowId);
+	}
+
+	@Override
+	public List<Transaction> getAllByHistorialId(Long historialId) {
+		return transactionRepository.findAllByHistorialId(historialId);
 	}
 }

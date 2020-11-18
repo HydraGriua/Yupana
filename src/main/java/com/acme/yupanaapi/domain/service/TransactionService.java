@@ -13,4 +13,5 @@ public interface TransactionService {
 	ResponseEntity<?> deleteTransaction(Long transactionId);
 	Transaction getTransactionById(Long transactionId);
 	List<Transaction> getAllByFlowId(Long flowId);
+	List<Transaction> getAllByHistorialId(Long historialId);
 }

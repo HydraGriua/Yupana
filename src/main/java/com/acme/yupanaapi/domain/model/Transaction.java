@@ -55,4 +55,9 @@ public class Transaction {
 	@JoinColumn(name = "sale_id")
 	@JsonIgnore
 	private Sale sale;
+
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "historial_id", nullable = false)
+	@JsonIgnore
+	private Historial historial;
 }
