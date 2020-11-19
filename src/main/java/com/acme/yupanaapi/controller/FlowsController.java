@@ -1,16 +1,13 @@
 package com.acme.yupanaapi.controller;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import com.acme.yupanaapi.domain.model.Subscription;
-import com.acme.yupanaapi.domain.model.Transaction;
-import com.acme.yupanaapi.domain.model.Wallet;
 import com.acme.yupanaapi.domain.service.SubscriptionService;
-import com.acme.yupanaapi.resource.UserWalletResource;
+import com.acme.yupanaapi.resource.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.acme.yupanaapi.domain.model.Flow;
 import com.acme.yupanaapi.domain.service.FlowService;
-import com.acme.yupanaapi.resource.FlowResource;
-import com.acme.yupanaapi.resource.SaveFlowResource;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -84,15 +79,6 @@ public class FlowsController {
 		return resource;
 	}
 
-	@Operation(summary = "Get all details from last flow by walletId", description ="Get all details from last flow by walletId", tags = {"wallets"})
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Get all details from last flow by walletId", content =@Content(mediaType = "application/json") )
-	})
-	@GetMapping("/wallets/{walletId}/Details")
-	public Map<Wallet, Transaction> getDetailsFromWallet(@PathVariable(name = "walletId") Long walletId) {
-		return flowService.getDetail(walletId);
-	}
-
 	@Operation(summary = "Get flow by Id", description ="Get flow given Id", tags = {"flows"})
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Get flow given Id", content =@Content(mediaType = "application/json") )
@@ -140,5 +126,4 @@ public class FlowsController {
 	private FlowResource convertToResource(Flow entity) {
 		return mapper.map(entity, FlowResource.class);
 	}
-
 }

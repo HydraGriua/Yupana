@@ -20,5 +20,4 @@ public interface FlowService {
     List<Flow> getAllByWalletIdAndDeadlineDate(Long walletId, Date date);
     Flow getLastFlow(Long walletId);
     UserWalletResource getData(Long walletId);
-    Map<Wallet, Transaction> getDetail(Long walletId);
 }

@@ -96,19 +96,6 @@ public class FlowServiceImpl implements FlowService {
         return lista.get(lista.size()-1);
     }
 
-    public Map<Wallet,Transaction> getDetail(Long walletId){
-        Wallet wallet = walletRepository.findById(walletId)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "Wallet not found with Id "));
-        Flow flow = getLastFlow(walletId);
-        List<Transaction> transactions =  transactionRepository.findAllByFlowId(flow.getId());
-        Map<Wallet,Transaction> map =new HashMap<>();
-        for (Transaction transaction : transactions) {
-            map.put(wallet, transaction);
-        }
-        return map;
-    }
-
     @Override
     public UserWalletResource getData(Long walletId) {
         List<Flow> listaF = flowRepository.findAllByWalletId(walletId);
