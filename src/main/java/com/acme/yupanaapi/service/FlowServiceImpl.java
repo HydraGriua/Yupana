@@ -134,10 +134,10 @@ public class FlowServiceImpl implements FlowService {
         userWalletResource.setCreditLine(flow.getCreditLine());
         userWalletResource.setCurrentCreditLine(flow.getCurrentCreditLine());
         userWalletResource.setTotalDebt(flow.getTotalDebt());
-        userWalletResource.setSubscriptionAmount(subscription.getAmount());
-        userWalletResource.setSubscriptionCreationDate(subscription.getCreationDate());
-        userWalletResource.setSubscriptionExpirationDate(subscription.getExpirationDate());
-        userWalletResource.setSubscriptionType(subscription.getSubscriptionType());
+        userWalletResource.setSAmount(subscription.getAmount());
+        userWalletResource.setSCreationDate(subscription.getCreationDate());
+        userWalletResource.setSExpirationDate(subscription.getExpirationDate());
+        userWalletResource.setSType(subscription.getSubscriptionType());
 
         return userWalletResource;
     }
