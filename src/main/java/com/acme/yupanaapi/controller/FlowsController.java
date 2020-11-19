@@ -1,11 +1,14 @@
 package com.acme.yupanaapi.controller;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import com.acme.yupanaapi.domain.model.Subscription;
+import com.acme.yupanaapi.domain.model.Transaction;
+import com.acme.yupanaapi.domain.model.Wallet;
 import com.acme.yupanaapi.domain.service.SubscriptionService;
 import com.acme.yupanaapi.resource.UserWalletResource;
 import org.modelmapper.ModelMapper;
@@ -79,6 +82,15 @@ public class FlowsController {
 		resource.setSExpirationDate(subscription.getExpirationDate());
 		resource.setSType(subscription.getSubscriptionType());
 		return resource;
+	}
+
+	@Operation(summary = "Get all details from last flow by walletId", description ="Get all details from last flow by walletId", tags = {"wallets"})
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Get all details from last flow by walletId", content =@Content(mediaType = "application/json") )
+	})
+	@GetMapping("/wallets/{walletId}/Details")
+	public Map<Wallet, Transaction> getDetailsFromWallet(@PathVariable(name = "walletId") Long walletId) {
+		return flowService.getDetail(walletId);
 	}
 
 	@Operation(summary = "Get flow by Id", description ="Get flow given Id", tags = {"flows"})

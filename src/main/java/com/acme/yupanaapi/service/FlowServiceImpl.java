@@ -1,15 +1,14 @@
 package com.acme.yupanaapi.service;
 import com.acme.yupanaapi.domain.model.*;
-import com.acme.yupanaapi.domain.repository.FlowRepository;
-import com.acme.yupanaapi.domain.repository.SubscriptionRepository;
-import com.acme.yupanaapi.domain.repository.UserRepository;
-import com.acme.yupanaapi.domain.repository.WalletRepository;
+import com.acme.yupanaapi.domain.repository.*;
 import com.acme.yupanaapi.domain.service.FlowService;
 import com.acme.yupanaapi.domain.service.TransactionService;
 import com.acme.yupanaapi.exception.ResourceNotFoundException;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.acme.yupanaapi.resource.UserWalletResource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ public class FlowServiceImpl implements FlowService {
     private UserRepository userRepository;
 
     @Autowired
-    private SubscriptionRepository subscriptionRepository;
+    private TransactionRepository transactionRepository;
 
     @Transactional(readOnly = true)
     @Override
@@ -96,6 +95,20 @@ public class FlowServiceImpl implements FlowService {
         List<Flow> lista = flowRepository.findAllByWalletId(walletId);
         return lista.get(lista.size()-1);
     }
+
+    public Map<Wallet,Transaction> getDetail(Long walletId){
+        Wallet wallet = walletRepository.findById(walletId)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Wallet not found with Id "));
+        Flow flow = getLastFlow(walletId);
+        List<Transaction> transactions =  transactionRepository.findAllByFlowId(flow.getId());
+        Map<Wallet,Transaction> map =new HashMap<>();
+        for (Transaction transaction : transactions) {
+            map.put(wallet, transaction);
+        }
+        return map;
+    }
+
     @Override
     public UserWalletResource getData(Long walletId) {
         List<Flow> listaF = flowRepository.findAllByWalletId(walletId);
