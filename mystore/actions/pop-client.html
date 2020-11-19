@@ -8,7 +8,7 @@
 	</ul></nav>
 </div>
 
-<div class="page first">
+<div class="page first" id="datos-ini">
 	<div class="data">
 		<form action="" method="PUT" id="frm-newClient">
 			<label for="nombres"><span>Nombres*</span>
@@ -35,11 +35,11 @@
 	</div>
 	<div class="footer a2 row">
 		<button name="action" value="cancel" class="close" form="frm-newPayment">Cancelar</button>
-		<button name="action" value="accept" class="next color-accent-bg" form="frm-newPayment">Aceptar</button>
+		<button name="action" value="accept" class="next color-accent-bg" form="frm-newPayment" href="#cred-cond">Aceptar</button>
 	</div>
 </div>
 
-<div class="page">
+<div class="page" id="cred-cond">
 	<h2>Valores de crédito</h2>
 	<p>Estos valores aparecerán por defecto cuando se cree un nuevo registro para este cliente.</p>
 	<div class="data">
@@ -94,12 +94,12 @@
 		</form>
 	</div><!--data-->
 	<div class="footer a2 row">
-		<button name="action" value="cancel" class="close color-secondary-bg" form="frm-newPayment">Anterior</button>
-		<button name="action" value="accept" class="next color-accent-bg" form="frm-newPayment">Aceptar</button>
+		<button name="action" value="update" class="prev color-secondary-bg" form="frm-newPayment" href="#datos-ini">Anterior</button>
+		<button name="action" value="accept" class="next color-accent-bg" form="frm-newPayment" href="#cuenta-mant">Aceptar</button>
 	'</div>
 </div>
 
-<div class="page">
+<div class="page" id="cuenta-mant">
 	<div class="data">
 		<h2>Mantenimiento de cuenta</h2>
 		<form action="frm-mantc">
@@ -128,12 +128,12 @@
 		</form>
 	</div><!--data-->
 	<div class="footer a2 row">
-		<button name="action" value="cancel" class="close color-secondary-bg" form="frm-newPayment">Anterior</button>
-		<button name="action" value="accept" class="next color-accent-bg" form="frm-newPayment">Aceptar</button>
+		<button name="action" value="update" class="prev color-secondary-bg" form="frm-newPayment" href="#cred-cond">Anterior</button>
+		<button name="action" value="accept" class="next color-accent-bg" form="frm-newPayment" href="#delivery-susc">Aceptar</button>
 	'</div>
 </div>
 
-<div class="page">
+<div class="page" id="delivery-susc">
 	<div class="data">
 		<h2><input type="checkbox"> Suscripción a delivery</h2>
 		<form action="d-suscrip">
@@ -162,9 +162,7 @@
 		</form>
 	</div><!--data-->
 	<div class="footer a2 row">
-		<button name="action" value="cancel" class="close color-secondary-bg" form="frm-newPayment">Anterior</button>
-		<button name="action" value="accept" class="next color-accent-bg" form="frm-newPayment">Aceptar</button>
-		<button class="color-secondary-bg">Exportar</button>
-		<button class="close color-accent-bg">Ir a Registros</button>
+		<button name="action" value="update" class="prev color-secondary-bg" form="frm-newPayment"  href="#cuenta-mant">Anterior</button>
+		<button name="action" value="accept" class="close color-accent-bg" form="frm-newPayment">Crear cliente</button>
 	'</div>
 </div>

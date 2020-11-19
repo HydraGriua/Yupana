@@ -195,7 +195,7 @@ if($("#c-clients").html() != undefined){
 					aux_html += '<span class="subDet">Capitaliza cada ' + jsonAux.currentCapitalization + ' días</span> </div>';
 				}
 				aux_html += '<div class="delivery tohide">Delivery'
-						+ '<div class="row"><span>Periodo</span>'
+						+ '<div class="row"><span>' + periodos['d' + 30] + '</span>'
 						+ '<span>S/' + jsonAux.samount + '</span></div>'
 						+ '<div class="subDet"><!--class="date tosmall" -- tonormal-->'
 						+ 'Próximo pago: <span>' + jsonAux.sexpirationDate + '</span>'
@@ -210,7 +210,7 @@ if($("#c-clients").html() != undefined){
 						+ '<div  class="ti tohide">Tasa de interés <span>'+ jsonAux.currentInterestRate +'%</span></div>'
 						+ '</div>'
 						+ '<div class="mantenimiento money tohide">Mantenimiento de cuenta'
-						+ '<div class="row">Periodo <span>S/'+ jsonAux.maintenancePrice +'</span></div>'
+						+ '<div class="row">' + periodos['d' + 30] + '<span>S/'+ jsonAux.maintenancePrice +'</span></div>'
 						+ '<div class="subDet"> Próximo pago: <span>'+ jsonAux.deadlineDate +'</span></div>'
 						+ '</div>'
 						+ '<div class="descrip merge tohide">Descripción'
@@ -235,6 +235,30 @@ if($("#c-clients").html() != undefined){
 		alert("Ocurrió el siguiente error: " + err.message );
 	});
 }
+
+
+var sendcli = function(walletid){
+	sessionStorage.setItem('cliente', walletid);
+}
+
+if(sessionStorage.getItem('cliente') != null) {
+	if($("#h-registros").html() != undefined){
+		$("#h-registros").ready(function(){
+			//sessionStorage.getItem('cliente');
+			//setCard();
+			//tipoventa
+			//tuvo delivery
+			//fecha de emision
+			//tasa de interes tipo, periodo capitalizacion %
+			//monto de venta, de delivery, total
+			//descripcion
+		});
+	}
+	setCard();
+}
+
+setCard();
+
 
 
 

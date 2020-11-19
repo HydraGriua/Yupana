@@ -205,6 +205,13 @@ var popup = function(container, idBtnPopup, content){
 						$('.page:nth-child('+ ($(this).parent().parent().index() + 2) +')').fadeIn("fast");
 					});
 				}
+				if ($('.page:nth-child('+ (i+1) +') .footer .prev').length > 0) {
+					$('.page:nth-child('+ (i+1) +') .footer .prev').click(function(event) {
+						event.preventDefault();
+						$(this).parent().parent().fadeOut("fast");
+						$('.page:nth-child('+ ($(this).parent().parent().index()) +')').fadeIn("fast");
+					});
+				}
 			}
 		}
 

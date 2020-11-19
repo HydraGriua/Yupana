@@ -130,6 +130,25 @@
 .card .details div.money.payment span { color: #FFB169; font-size: 2em; }
 .card .details div.money { padding-right: 1em; }
 */
+
+/*#77727c*/
+.p-constant nav {
+	background-color: #77727c;
+	color: #ffffff;
+	font-weight: bold;
+	width: calc(100% + 5em);
+	margin-left: -2.5em;
+}
+.p-constant nav ul {
+	display:  flex;
+	justify-items: stretch;
+}
+.p-constant nav ul li {
+	width: 25%;
+	padding: 1em;
+	text-align: center;
+}
+
 @media (max-width: 830px) {
 	.card.receip .details > div { min-width: calc(50% - 2em); }
 	.card.receip .top { flex-flow: column; }

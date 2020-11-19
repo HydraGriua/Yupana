@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Poppins:wght@600&display=swap');
+@import url('https://use.fontawesome.com/releases/v5.11.2/css/all.css');
+
+
 *{
 	margin:  0px;
 	padding: 0px;
@@ -11,6 +15,7 @@
 /*
 #6B597A		morado  rgba(107, 89, 122, 0.1)
 rgb(240,238,241) morado con bblanco
+#77727c morado verdoso
 #F8F8F8     casi blanco
 #FFB169			acento naranja
 #49AFC9			turquesa

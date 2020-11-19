@@ -80,6 +80,9 @@ $(".actions #new-more").click(function(event) {
 	$('.actions .new').slideToggle("fast");
 	clickAnywButItem(".actions #new-more" , ".actions .new", "sTHide");
 });
+$(".actions #newClient").click(function(event) {
+	setPopup($(this).attr('id'));
+});
 
 
 /*FAST ACCESS btn*/
