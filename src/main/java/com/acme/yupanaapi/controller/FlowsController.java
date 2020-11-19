@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.acme.yupanaapi.domain.model.Subscription;
+import com.acme.yupanaapi.domain.service.SubscriptionService;
 import com.acme.yupanaapi.resource.UserWalletResource;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class FlowsController {
 
 	@Autowired
 	private FlowService flowService;
+
+	@Autowired
+	private SubscriptionService subscriptionService;
 
 ////////////////////////////////////////////////////////////
 //Metodos crud para las llamadas
@@ -65,8 +70,15 @@ public class FlowsController {
 	})
 	@GetMapping("/wallets/{walletId}/LastData")
 	public UserWalletResource getDataFromFlow(@PathVariable(name = "walletId") Long walletId){
-		
-		return flowService.getData(walletId);
+		List<Subscription> lista = subscriptionService.getAllByWalletId(walletId);
+		Subscription subscription = lista.get(lista.size()-1);
+		UserWalletResource resource = flowService.getData(walletId);
+		resource.setSubscriptionId(subscription.getId());
+		resource.setSAmount(subscription.getAmount());
+		resource.setSCreationDate(subscription.getCreationDate());
+		resource.setSExpirationDate(subscription.getExpirationDate());
+		resource.setSType(subscription.getSubscriptionType());
+		return resource;
 	}
 
 	@Operation(summary = "Get flow by Id", description ="Get flow given Id", tags = {"flows"})
