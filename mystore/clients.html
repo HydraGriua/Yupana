@@ -9,8 +9,9 @@
 
 	<script src="../scripts/jquery.min.js"></script>
 	<script src="../scripts/jquery-3.5.1.min.js"></script>
-	 <script src="../scripts/setting-ui.js"></script>
+	<script src="../scripts/setting-ui.js"></script>
 	<script src="../scripts/view.js"></script>
+	<script src="../scripts/contr.js"></script>
 
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"/>
@@ -89,13 +90,7 @@
 			</label>
 			<button type="submit" class="btn-icon"><i class="fas fa-search"></i></button>
 		</form>
-		<button id="new-more">Nuevo<i class="fas fa-plus"></i> </button>
-		<div class="new">
-			<button id="newSell">Nueva venta <i class="fas fa-cart-plus"></i></button>
-			<button id="newPayment">Nueva amortización / pago de deuda <i class="fas fa-hand-holding-usd"></i></button>
-			<button id="newDelivery">Nuevo delivery <i class="fas fa-truck"></i></button>
-			<button id="newSuscriptionD">Nueva suscripción a delivery <i class="fas fa-clipboard"></i></button>
-		</div>
+		<button id="newClient">Nuevo cliente<i class="fas fa-plus"></i> </button>
 		<div class="cards row">
 			<button id="view" value="todet">Mostrar detalles <i class="fas fa-eye"></i></button>
 			<button id="export">Exportar <i class="fas fa-download"></i></i></button>
@@ -104,13 +99,11 @@
 
 <main class="container">
 	<h1>Clientes</h1>
-	<!--cards-->
+	<div id="loading" class="center"><img src="../images/loading.gif" alt="Cargando..." width="100"></div>
+	<section class="cards" id="c-clients">
 
-	<section class="cards clients">
-
-		<!-- card -->
-		<div class="card easy center"><!--det o easy-->
-			<div class="top">
+		<!--div class="card easy center"--><!--det o easy-->
+			<!--div class="top">
 				<h1>Cliente con delivery</h1>
 				<div class="r-code">Código de registro <span>NM1238913</span></div>
 			</div>
@@ -127,12 +120,12 @@
 					Delivery
 					<div class="row"><span>Periodo</span>
 					<span>S/xx.xx</span></div>
-					<div class="subDet"><!--class="date tosmall" -- tonormal-->
-						Próximo pago: <span>dd/mm/aaaa</span>
+					<div class="subDet"--><!--class="date tosmall" -- tonormal-->
+						<!--Próximo pago: <span>dd/mm/aaaa</span>
 					</div>
 				</div>
-				<div class="credleft tohide"><!--debt o payment-->
-					<div>Crédito restante <span>S/XX.XX</span></div>
+				<div class="credleft tohide"--><!--debt o payment-->
+					<!--div>Crédito restante <span>S/XX.XX</span></div>
 					<div class="subDet">Crédito otorgado <span>S/XX.XX</span></div>
 				</div>
 				<div class="acum">
@@ -157,11 +150,9 @@
 				<button class="new color-accent-bg"><span>Nuevo registro </span> <i class="fas fa-plus"></i></button>
 				<a href="client-details.html"><button class="receipts color-secondary-bg">Ver detalle <i class="fas fa-clipboard-list"></i></button></a>
 			</div>
-		</div>
+		</div--><!-- card -->
 
-
-		<!--más cards-->
-	</section>
+	</section><!--cards-->
 
 
 

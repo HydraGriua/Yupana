@@ -266,3 +266,43 @@ var setTabs =  function(arrTabs,arrPages) {
 		}
 	}
 };
+
+
+/*CARDS*/
+//Vista simple a Vista detalle
+var setCard = function() {
+	$('.cards .card .tohide').hide();
+	$('.actions .cards button#view').click(function(event) {
+		if ($(this).attr('value') == 'todet') {
+			$('.cards .card').addClass('det');
+			$('.cards .card .tohide').show("fast");
+			$('.cards .card .details .tosmall').addClass('tonormal');
+			$('.cards .card .details .tosmall').removeClass('tosmall');
+			$('.cards .card').removeClass('easy');
+			$(this).html('Ocultar detalles <i class="fas fa-eye-slash"></i>');
+			$(this).attr('value', 'toeasy');
+		} else {
+			$('.cards .card').addClass('easy');
+			$('.cards .card .details .tonormal').addClass('tonormal');
+			$('.cards .card .details .tonormal').removeClass('tonormal');
+			$('.cards .card .tohide').hide("fast");
+			$('.cards .card').removeClass('det');
+			$(this).html('Mostrar detalles <i class="fas fa-eye"></i>');
+			$(this).attr('value', 'todet');
+		}
+	});
+};
+
+
+var periodos = {
+	d1: 'Diario',
+	d7: 'Semanal',
+	d15: 'Quincenal',
+	d30: 'Mensual',
+	d60: 'Bimestral',
+	d90: 'Trimestral',
+	d120: 'Cuatrimestral',
+	d180: 'Semestral',
+	d360: 'Anual'
+};
+

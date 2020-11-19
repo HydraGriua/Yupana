@@ -9,6 +9,7 @@
 	
 	<script src="../scripts/jquery.min.js"></script>
 	<script src="../scripts/jquery-3.5.1.min.js"></script>
+	<script src="../scripts/contr.js"></script>
 	 <script src="../scripts/setting-ui.js"></script>
 	<script src="../scripts/view.js"></script>
 
@@ -28,7 +29,7 @@
 	<p>Requeridos*</p><br>
 
 	<h2>Datos de usuario</h2>
-	<form action="" method="put" class="center">
+	<form action="" method="PUT" class="center" id="user_data">
 		<label for="nombres"><span>Nombres*</span>
 		<input type="text" name="nombres" placeholder="Nombres Completos" required/></label>
 		<br/>
@@ -39,7 +40,7 @@
 		<input type="text" name="apemat" placeholder="Apellido Materno" required/></label>
 		<br/>
 		<label for="docTipo"><span>Tipo de documento</span>
-			<select name="docTipo" id="">
+			<select name="docTipo">
 				<option value="dni">DNI</option>
 				<option value="pasaporte">Pasaporte</option>
 				<option value="ce">CE</option>

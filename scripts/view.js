@@ -1,13 +1,10 @@
 $(document).ready(function() {
 
-/*
-var commonHead = '';
-$('head').append(commonHead);
-*/
-
-setStylishUI('main');
-setStylishUI('.filters');
-setDateTime('html');
+var user = "";
+if(localStorage.getItem('userY') != null) {
+	user = localStorage.getItem('userY');
+	user = JSON.parse(user);
+}
 
 //Colocando el copyright a todas las páginas en el main
 $('main').append('<footer class="copyright">	&copy; Todos los derechos reservados, Yupana 2020 </footer>');
@@ -15,10 +12,10 @@ $('main').append('<footer class="copyright">	&copy; Todos los derechos reservado
 //Colocando el navegador
 var navHtml = '<header>' 
 	+ '<div id="nav-user">'
-	+ '<div id="profile-more" class="hide-mobile"><i class="fas fa-user-circle"></i> <span id="t-username">Nomusuario</span></div>'
-	+ '<a href="profile.html"><div class="mobile"><i class="fas fa-user-circle"></i> <span>Nomusuario<span></div></a>'
+	+ '<div id="profile-more" class="hide-mobile"><i class="fas fa-user-circle"></i> <span id="t-username">'+user.name+'</span></div>'
+	+ '<a href="profile.html"><div class="mobile"><i class="fas fa-user-circle"></i> <span>'+user.name+'<span></div></a>'
 	+ '<div class="more hide-mobile">'
-	+ '<a href="profile.html"><div><i class="fas fa-chart-bar"></i> Ir a perfil</div></a>'
+	+ '<a href="profile.html"><div><i class="fas fa-id-badge"></i>Ir a perfil</div></a>'
 	+ '<a href="../index.html" id="log-out"><div><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión </span></div></a>' 
 	+ '</div>'
 	+ '</div>'
@@ -32,6 +29,18 @@ var navHtml = '<header>'
 	+ '</div>'
 	+ '</header>';
 $('.content.app').prepend(navHtml);
+
+
+/*
+var commonHead = '';
+$('head').append(commonHead);
+*/
+setStylishUI('header');
+setStylishUI('.filters');
+setStylishUI('.actions');
+setStylishUI('main');
+setDateTime('html');
+
 setActivePage();
 
 $('#profile-more').click(function(event) {
@@ -71,33 +80,6 @@ $(".actions #new-more").click(function(event) {
 	$('.actions .new').slideToggle("fast");
 	clickAnywButItem(".actions #new-more" , ".actions .new", "sTHide");
 });
-
-
-/*CARDS*/
-//Vista simple a Vista detalle
-$('.cards .card .tohide').hide();
-$('.actions .cards button#view').click(function(event) {
-	if ($(this).attr('value') == 'todet') {
-		$('.cards .card').addClass('det');
-		$('.cards .card .tohide').show("fast");
-		$('.cards .card .details .tosmall').addClass('tonormal');
-		$('.cards .card .details .tosmall').removeClass('tosmall');
-		$('.cards .card').removeClass('easy');
-		$(this).html('Ocultar detalles <i class="fas fa-eye-slash"></i>');
-		$(this).attr('value', 'toeasy');
-	} else {
-		$('.cards .card').addClass('easy');
-		$('.cards .card .details .tonormal').addClass('tonormal');
-		$('.cards .card .details .tonormal').removeClass('tonormal');
-		$('.cards .card .tohide').hide("fast");
-		$('.cards .card').removeClass('det');
-		$(this).html('Mostrar detalles <i class="fas fa-eye"></i>');
-		$(this).attr('value', 'todet');
-	}
-});
-
-
-
 
 
 /*FAST ACCESS btn*/
@@ -146,6 +128,8 @@ function getContent(idBtnPopup) {
 		case 'newPayment': url = "actions/pop-newPayment.html"; break;
 		case 'newDelivery':  url = "actions/pop-newSell.html"; break;
 		case 'newSuscriptionD':  url = "actions/pop-newSuscriptionD.html"; break;
+		case 'newClient': url = "actions/pop-client.html"; break;
+		case 'editClient': url = "actions/pop-client.html"; break;
 		default: return null; break;
 	}
 
@@ -179,7 +163,7 @@ function initRequest() {
         isIE = true;
         return new ActiveXObject("Microsoft.XMLHTTP");
     }*/
-}
+};
 
 
 //
