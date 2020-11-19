@@ -114,6 +114,7 @@ public class FlowServiceImpl implements FlowService {
         userWalletResource.setUserId(user.getId());
         userWalletResource.setWalletId(wallet.getId());
         userWalletResource.setFlowId(flow.getId());
+        userWalletResource.setSubscriptionId(subscription.getId());
         userWalletResource.setDocumentNumber(user.getDocumentNumber());
         userWalletResource.setName(user.getName());
         userWalletResource.setFirstLastname(user.getFirstLastname());

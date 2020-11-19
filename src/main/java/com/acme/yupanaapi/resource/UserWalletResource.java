@@ -13,6 +13,7 @@ public class UserWalletResource {
     private Long walletId;
     private Long userId;
     private Long flowId;
+    private Long subscriptionId;
     private String documentNumber;
     private String name;
     private String firstLastname;
