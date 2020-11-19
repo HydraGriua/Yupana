@@ -34,7 +34,7 @@ public class Wallet {
 	private String currencyType;
 	
 	@NotNull
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.DATE)
 	private Date creationDate;
 	
 	@Lob

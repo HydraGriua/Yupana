@@ -28,7 +28,7 @@ public class Sale {
 	private Date saleDate;
 	
 	@NotNull
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.DATE)
 	private Date saleTime;
 	
 	@NotNull

@@ -26,11 +26,11 @@ public class Subscription {
 	private Float amount;
 	
 	@NotNull
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.DATE)
 	private Date creationDate;
 	
 	@NotNull
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.DATE)
 	private Date expirationDate;
 	
 	@Lob
