@@ -1,9 +1,7 @@
 package com.acme.yupanaapi.service;
-import com.acme.yupanaapi.domain.model.Flow;
-import com.acme.yupanaapi.domain.model.Transaction;
-import com.acme.yupanaapi.domain.model.User;
-import com.acme.yupanaapi.domain.model.Wallet;
+import com.acme.yupanaapi.domain.model.*;
 import com.acme.yupanaapi.domain.repository.FlowRepository;
+import com.acme.yupanaapi.domain.repository.SubscriptionRepository;
 import com.acme.yupanaapi.domain.repository.UserRepository;
 import com.acme.yupanaapi.domain.repository.WalletRepository;
 import com.acme.yupanaapi.domain.service.FlowService;
@@ -29,6 +27,9 @@ public class FlowServiceImpl implements FlowService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private SubscriptionRepository subscriptionRepository;
 
     @Transactional(readOnly = true)
     @Override
@@ -97,8 +98,11 @@ public class FlowServiceImpl implements FlowService {
     }
     @Override
     public UserWalletResource getData(Long walletId) {
-        List<Flow> lista = flowRepository.findAllByWalletId(walletId);
-        Flow flow = lista.get(lista.size()-1);
+        List<Flow> listaF = flowRepository.findAllByWalletId(walletId);
+        Flow flow = listaF.get(listaF.size()-1);
+
+        List<Subscription> listaS = subscriptionRepository.findAllByWalletId(walletId);
+        Subscription subscription = listaS.get(listaS.size()-1);
 
         Wallet wallet = walletRepository.findById(walletId)
                 .orElseThrow(() -> new ResourceNotFoundException(
@@ -129,6 +133,10 @@ public class FlowServiceImpl implements FlowService {
         userWalletResource.setCreditLine(flow.getCreditLine());
         userWalletResource.setCurrentCreditLine(flow.getCurrentCreditLine());
         userWalletResource.setTotalDebt(flow.getTotalDebt());
+        userWalletResource.setSubscriptionAmount(subscription.getAmount());
+        userWalletResource.setSubscriptionCreationDate(subscription.getCreationDate());
+        userWalletResource.setSubscriptionExpirationDate(subscription.getExpirationDate());
+        userWalletResource.setSubscriptionType(subscription.getSubscriptionType());
 
         return userWalletResource;
     }

@@ -32,4 +32,8 @@ public class UserWalletResource {
     private Float creditLine;
     private Float currentCreditLine;
     private Float totalDebt;
+    private Float subscriptionAmount;
+    private Date subscriptionCreationDate;
+    private Date subscriptionExpirationDate;
+    private String subscriptionType;
 }
