@@ -19,6 +19,7 @@ public class UserWalletResource {
     private String firstLastname;
     private String secondLastname;
     private String cellphone;
+    private String description;
     private Date creationDate;
     private Float maintenancePrice;
     private Float balance;
