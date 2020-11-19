@@ -101,9 +101,6 @@ public class FlowServiceImpl implements FlowService {
         List<Flow> listaF = flowRepository.findAllByWalletId(walletId);
         Flow flow = listaF.get(listaF.size()-1);
 
-        List<Subscription> listaS = subscriptionRepository.findAllByWalletId(walletId);
-        Subscription subscription = listaS.get(listaS.size()-1);
-
         Wallet wallet = walletRepository.findById(walletId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                 "Wallet not found with Id "));
@@ -114,7 +111,6 @@ public class FlowServiceImpl implements FlowService {
         userWalletResource.setUserId(user.getId());
         userWalletResource.setWalletId(wallet.getId());
         userWalletResource.setFlowId(flow.getId());
-        userWalletResource.setSubscriptionId(subscription.getId());
         userWalletResource.setDocumentNumber(user.getDocumentNumber());
         userWalletResource.setName(user.getName());
         userWalletResource.setFirstLastname(user.getFirstLastname());
@@ -134,11 +130,6 @@ public class FlowServiceImpl implements FlowService {
         userWalletResource.setCreditLine(flow.getCreditLine());
         userWalletResource.setCurrentCreditLine(flow.getCurrentCreditLine());
         userWalletResource.setTotalDebt(flow.getTotalDebt());
-        userWalletResource.setSAmount(subscription.getAmount());
-        userWalletResource.setSCreationDate(subscription.getCreationDate());
-        userWalletResource.setSExpirationDate(subscription.getExpirationDate());
-        userWalletResource.setSType(subscription.getSubscriptionType());
-
         return userWalletResource;
     }
 }

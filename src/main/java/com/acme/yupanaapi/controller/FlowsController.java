@@ -65,6 +65,7 @@ public class FlowsController {
 	})
 	@GetMapping("/wallets/{walletId}/LastData")
 	public UserWalletResource getDataFromFlow(@PathVariable(name = "walletId") Long walletId){
+		
 		return flowService.getData(walletId);
 	}
 
