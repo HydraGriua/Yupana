@@ -1,0 +1,168 @@
+<div class="p-constant">
+	<h1>Nuevo cliente</h1>
+	<nav id="nav-cdet"><ul>
+		<li>Datos iniciales</li>
+		<li>Condiciones de crédito</li>
+		<li>Mantimiento de cuenta</li>
+		<li>Suscripción a delivery</li>
+	</ul></nav>
+</div>
+
+<div class="page first" id="datos-ini">
+	<div class="data">
+		<form action="" method="PUT" id="frm-newClient">
+			<label for="nombres"><span>Nombres*</span>
+			<input type="text" name="nombres" placeholder="Nombres Completos" required/></label>
+			<label for="apepat"><span>Apellido Paterno*</span>
+			<input type="text" name="apepat" placeholder="Apellido Paterno" required/></label>
+			<label for="apemat"><span>Apellido Materno*</span>
+			<input type="text" name="apemat" placeholder="Apellido Materno" required/></label>
+			<label for="docTipo"><span>Tipo de documento</span>
+				<select name="docTipo">
+					<option value="dni">DNI</option>
+					<option value="pasaporte">Pasaporte</option>
+					<option value="ce">CE</option>
+				</select>
+			</label>
+			<label for="documento"><span>Número de documento</span>
+			<input type="text" name="documento" maxlength="15" /></label>
+			<label for="celular"><span>Celular</span>
+			<input type="text" name="celular" maxlength="11"></label>
+			<label><span>Descripción</span>
+				<textarea name="description" id="description" cols="64" rows="2" maxlength="60"></textarea>
+			</label>
+		</form>
+	</div>
+	<div class="footer a2 row">
+		<button name="action" value="cancel" class="close" form="frm-newPayment">Cancelar</button>
+		<button name="action" value="accept" class="next color-accent-bg" form="frm-newPayment" href="#cred-cond">Aceptar</button>
+	</div>
+</div>
+
+<div class="page" id="cred-cond">
+	<h2>Valores de crédito</h2>
+	<p>Estos valores aparecerán por defecto cuando se cree un nuevo registro para este cliente.</p>
+	<div class="data">
+		<form action="" id="frm-flujo">
+			<label for="linea-credit">
+				<span>Línea de crédito</span>
+				<input type="number" name="linea-credit">
+				<select name="tmoneda">
+					<option value="soles">Soles PE(S/.)</option>
+					<option value="dolarusa">Dólares USA($)</option>
+				</select>
+			</label>
+			<label for="ttasa">
+				<span>Tipo de tasa</span>
+				<select name="ttasa">
+					<option value="Simple">Simple</option>
+					<option value="Nominal">Nominal</option>
+				</select>
+			</label>
+			<label for="tcapitaliz">
+				<span>Capitalización</span>
+				<select name="tcapitaliz">
+					<option value="1">Diario</option>
+					<option value="7">Semanal</option>
+					<option value="15">Quincenal</option>
+					<option value="30" selected>Mensual</option>
+					<option value="60">Bimestral</option>
+					<option value="90">Trimestral</option>
+					<option value="120">Cuatrimestral</option>
+					<option value="180">Semestral</option>
+					<option value="360">Anual</option>
+				</select>
+			</label>
+			<label for="tpago">
+				<span>Periodo de pago</span>
+				<select name="tpago">
+					<option value="1">Diario</option>
+					<option value="7">Semanal</option>
+					<option value="15">Quincenal</option>
+					<option value="30" selected>Mensual</option>
+					<option value="60">Bimestral</option>
+					<option value="90">Trimestral</option>
+					<option value="120">Cuatrimestral</option>
+					<option value="180">Semestral</option>
+					<option value="360">Anual</option>
+				</select>
+			</label>
+			<label for="tinteres">
+				<span>Tasa de Interés (%)</span>
+				<input type="number" name="tinteres">
+			</label>
+		</form>
+	</div><!--data-->
+	<div class="footer a2 row">
+		<button name="action" value="update" class="prev color-secondary-bg" form="frm-newPayment" href="#datos-ini">Anterior</button>
+		<button name="action" value="accept" class="next color-accent-bg" form="frm-newPayment" href="#cuenta-mant">Aceptar</button>
+	'</div>
+</div>
+
+<div class="page" id="cuenta-mant">
+	<div class="data">
+		<h2>Mantenimiento de cuenta</h2>
+		<form action="frm-mantc">
+			<label for="mct">
+				<span>Periodo</span>
+				<select name="mctpago">
+					<option value="1">Diario</option>
+					<option value="7">Semanal</option>
+					<option value="15">Quincenal</option>
+					<option value="30" selected>Mensual</option>
+					<option value="60">Bimestral</option>
+					<option value="90">Trimestral</option>
+					<option value="120">Cuatrimestral</option>
+					<option value="180">Semestral</option>
+					<option value="360">Anual</option>
+				</select>
+			</label>
+			<label for="mcfecpago">
+				<span>Fecha de pago</span>
+				<input type="date" value="now">
+			</label>
+			<label for="mccobro">
+				<span>Monto a cobrar</span>
+				<input type="number" name="mccobro">
+			</label>
+		</form>
+	</div><!--data-->
+	<div class="footer a2 row">
+		<button name="action" value="update" class="prev color-secondary-bg" form="frm-newPayment" href="#cred-cond">Anterior</button>
+		<button name="action" value="accept" class="next color-accent-bg" form="frm-newPayment" href="#delivery-susc">Aceptar</button>
+	'</div>
+</div>
+
+<div class="page" id="delivery-susc">
+	<div class="data">
+		<h2><input type="checkbox"> Suscripción a delivery</h2>
+		<form action="d-suscrip">
+			<label for="">
+				<span>Periodo</span>
+				<select name="dtpago">
+					<option value="1">Diario</option>
+					<option value="7">Semanal</option>
+					<option value="15">Quincenal</option>
+					<option value="30" selected>Mensual</option>
+					<option value="60">Bimestral</option>
+					<option value="90">Trimestral</option>
+					<option value="120">Cuatrimestral</option>
+					<option value="180">Semestral</option>
+					<option value="360">Anual</option>
+				</select>
+			</label>
+			<label for="dfecpago">
+				<span>Fecha de pago</span>
+				<input type="date" value="now">
+			</label>
+			<label for="dcobro">
+				<span>Monto a cobrar</span>
+				<input type="number">
+			</label>
+		</form>
+	</div><!--data-->
+	<div class="footer a2 row">
+		<button name="action" value="update" class="prev color-secondary-bg" form="frm-newPayment"  href="#cuenta-mant">Anterior</button>
+		<button name="action" value="accept" class="close color-accent-bg" form="frm-newPayment">Crear cliente</button>
+	'</div>
+</div>
