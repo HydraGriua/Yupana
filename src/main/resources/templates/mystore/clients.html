@@ -1,22 +1,23 @@
-<html>
-<head>
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
 	<title>Clientes - Yupana</title>
-	<link rel="icon" href="../images/Yupana-logo_fc_128x128.png" type="image/png" sizes="32x32 64x64 128x128">
+	<link rel="icon" th:href="@{/assets/images/Yupana-logo_fc_128x128.png}" type="image/png" sizes="32x32 64x64 128x128">
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv=”Content-Language” content=”es”/>
 	<meta name="theme-color" content="#6B597A">
 
-	<script src="../scripts/jquery.min.js"></script>
-	<script src="../scripts/jquery-3.5.1.min.js"></script>
-	<script src="../scripts/setting-ui.js"></script>
-	<script src="../scripts/view.js"></script>
-	<script src="../scripts/contr.js"></script>
+	<script th:src="@{/assets/scripts/jquery.min.js}"></script>
+	<script th:src="@{/assets/scripts/jquery-3.5.1.min.js}"></script>
+	<script th:src="@{/assets/scripts/setting-ui.js}"></script>
+	<script th:src="@{/assets/scripts/view.js}"></script>
+	<script th:src="@{/assest/scripts/contr.js}"></script>
 	
-	<link rel="stylesheet" type="text/css" href="../styles/styles.css">
-	<link rel="stylesheet" type="text/css" href="../styles/styles-pages.css">
-	<link rel="stylesheet" type="text/css" href="../styles/styles-regis.css">
-	<link rel="stylesheet" type="text/css" href="../styles/styles-popups.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/styles/styles.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/styles/styles-pages.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/styles/styles-regis.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/styles/styles-popups.css">
 </head>
 <body>
 <div class="content app">
@@ -97,7 +98,7 @@
 
 <main class="container">
 	<h1>Clientes</h1>
-	<div id="loading" class="center"><img src="../images/loading.gif" alt="Cargando..." width="100"></div>
+	<div id="loading" class="center"><img th:src="@{/assets/images/loading.gif}" alt="Cargando..." width="100"></div>
 	<section class="cards" id="c-clients">
 
 		<!--div class="card easy center"--><!--det o easy-->
