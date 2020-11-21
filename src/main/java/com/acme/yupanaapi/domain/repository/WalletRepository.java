@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 
-public interface WalletRepository extends JpaRepository<Wallet, Long>{
-    List<Wallet> findAllBySellerId(Long sellerId);
-    Optional<Wallet> findByIdAndUserId(Long id,Long userId);
-    Optional<Wallet> findByIdAndSellerId(Long id,Long sellerId);
-    Boolean existsByIdAndSellerId(Long id, Long sellerId);
+public interface WalletRepository extends JpaRepository<Wallet, Integer>{
+    List<Wallet> findAllBySellerId(int sellerId);
+    Optional<Wallet> findByIdAndUserId(int id,int userId);
+    Optional<Wallet> findByIdAndSellerId(int id,int sellerId);
+    Boolean existsByIdAndSellerId(int id, int sellerId);
 }

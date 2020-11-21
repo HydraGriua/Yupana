@@ -22,7 +22,7 @@ public class SellerServiceImpl implements SellerService {
     
     @Transactional(readOnly = true)
     @Override
-    public Seller getSellerByIdAndUserId(Long sellerId, Long userId) {
+    public Seller getSellerByIdAndUserId(int sellerId, int userId) {
         return sellerRepository.findByIdAndUserId(sellerId,userId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Seller not found with Id " + sellerId +
@@ -31,7 +31,7 @@ public class SellerServiceImpl implements SellerService {
 
     @Transactional(readOnly = true)
     @Override
-    public Seller getSellerById(Long sellerId) {
+    public Seller getSellerById(int sellerId) {
         return sellerRepository.findById(sellerId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Seller", "Id", sellerId));
@@ -47,7 +47,7 @@ public class SellerServiceImpl implements SellerService {
 
     @Transactional
     @Override
-    public Seller createSeller(Seller seller, Long userId) {
+    public Seller createSeller(Seller seller, int userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException(
                 "User", "Id", userId));
         seller.setUser(user);
@@ -56,7 +56,7 @@ public class SellerServiceImpl implements SellerService {
 
     @Transactional
     @Override
-    public Seller updateSeller(Long sellerId, Long userId, Seller sellerRequest) {
+    public Seller updateSeller(int sellerId, int userId, Seller sellerRequest) {
         if(!userRepository.existsById(userId))
             throw  new ResourceNotFoundException("User", "Id", userId);
         return sellerRepository.findById(sellerId).map(seller -> {
@@ -72,7 +72,7 @@ public class SellerServiceImpl implements SellerService {
 
     @Transactional
     @Override
-    public ResponseEntity<?> deleteSeller(Long sellerId) {
+    public ResponseEntity<?> deleteSeller(int sellerId) {
         Seller seller = sellerRepository.findById(sellerId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Seller not found with Id " + sellerId));

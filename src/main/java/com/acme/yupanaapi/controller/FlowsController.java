@@ -42,7 +42,7 @@ public class FlowsController {
 			@ApiResponse(responseCode = "200", description = "Get all flows given dead line date", content =@Content(mediaType = "application/json") )
 	})
 	@GetMapping("/wallets/{walletId}/flows/DeadLineDate={date}")
-	public List<FlowResource> getAllByDeadlineDate(@PathVariable(name = "walletId") Long walletId,@PathVariable(name = "date") Date date) {
+	public List<FlowResource> getAllByDeadlineDate(@PathVariable(name = "walletId") Integer walletId,@PathVariable(name = "date") Date date) {
 		return flowService.getAllByWalletIdAndDeadlineDate(walletId,date).stream().map(this::convertToResource).collect(Collectors.toList());
 	}
 	@Operation(summary = "Get all flows by walletId", description ="Get all flows given walletId", tags = {"flows"})
@@ -50,7 +50,7 @@ public class FlowsController {
 			@ApiResponse(responseCode = "200", description = "Get all flows given walletId", content =@Content(mediaType = "application/json") )
 	})
 	@GetMapping("/wallets/{walletId}/flows")
-	public List<FlowResource> getAllByWalletId(@PathVariable(name = "walletId") Long walletId) {
+	public List<FlowResource> getAllByWalletId(@PathVariable(name = "walletId") Integer walletId) {
 		return flowService.getAllByWalletId(walletId).stream().map(this::convertToResource).collect(Collectors.toList());
 	}
 	@Operation(summary = "Get last flow by walletId", description ="Get last flow by walletId", tags = {"flows"})
@@ -58,7 +58,7 @@ public class FlowsController {
 			@ApiResponse(responseCode = "200", description = "Get last flow by walletId", content =@Content(mediaType = "application/json") )
 	})
 	@GetMapping("/wallets/{walletId}/LastFlow")
-	public FlowResource getLastFlow(@PathVariable(name = "walletId") Long walletId){
+	public FlowResource getLastFlow(@PathVariable(name = "walletId") Integer walletId){
 		return convertToResource(flowService.getLastFlow(walletId));
 	}
 
@@ -67,7 +67,7 @@ public class FlowsController {
 			@ApiResponse(responseCode = "200", description = "Get all data from last flow by walletId", content =@Content(mediaType = "application/json") )
 	})
 	@GetMapping("/wallets/{walletId}/LastData")
-	public UserWalletResource getDataFromFlow(@PathVariable(name = "walletId") Long walletId){
+	public UserWalletResource getDataFromFlow(@PathVariable(name = "walletId") Integer walletId){
 		List<Subscription> lista = subscriptionService.getAllByWalletId(walletId);
 		Subscription subscription = lista.get(lista.size()-1);
 		UserWalletResource resource = flowService.getData(walletId);
@@ -84,7 +84,7 @@ public class FlowsController {
 			@ApiResponse(responseCode = "200", description = "Get flow given Id", content =@Content(mediaType = "application/json") )
 	})
 	@GetMapping("/flows/{flowId}")
-	public FlowResource getFlowById(@PathVariable(name = "flowId") Long flowId) {
+	public FlowResource getFlowById(@PathVariable(name = "flowId") Integer flowId) {
 		return convertToResource(flowService.getFlowById(flowId));
 	}
 
@@ -94,7 +94,7 @@ public class FlowsController {
 	})
 	@PostMapping("/sellers/{sellerId}/wallets/{walletId}/flows")
 	public FlowResource createFlow(@Valid @RequestBody SaveFlowResource resource,
-			@PathVariable(name = "walletId") Long walletId, @PathVariable(name = "sellerId") Long sellerId) {
+			@PathVariable(name = "walletId") Integer walletId, @PathVariable(name = "sellerId") Integer sellerId) {
 		return convertToResource(flowService.createFlow(convertToEntity(resource), walletId, sellerId));
 	}
 	
@@ -103,8 +103,8 @@ public class FlowsController {
 			@ApiResponse(responseCode = "200", description = "Update flow given SellerId, WalletId and flowId", content =@Content(mediaType = "application/json") )
 	})
 	@PutMapping("/sellers/{sellerId}/wallets/{walletId}/flows/{flowId}")
-	public FlowResource updateFlow(@PathVariable(name = "flowId") Long flowId,@PathVariable(name = "walletId") Long walletId,
-			@PathVariable(name = "sellerId") Long sellerId,	@Valid @RequestBody SaveFlowResource resource) {
+	public FlowResource updateFlow(@PathVariable(name = "flowId") Integer flowId,@PathVariable(name = "walletId") Integer walletId,
+			@PathVariable(name = "sellerId") Integer sellerId,	@Valid @RequestBody SaveFlowResource resource) {
 		return convertToResource(flowService.updateFlow(flowId, walletId, sellerId, convertToEntity(resource)));
 	}
 
@@ -113,7 +113,7 @@ public class FlowsController {
 			@ApiResponse(responseCode = "200", description = "Delete flow given flowId", content =@Content(mediaType = "application/json") )
 	})
 	@DeleteMapping("/flows/{flowId}")
-	public ResponseEntity<?> deleteFlow(@PathVariable(name = "flowId") Long flowId) {
+	public ResponseEntity<?> deleteFlow(@PathVariable(name = "flowId") Integer flowId) {
 		return flowService.deleteFlow(flowId);
 	}
 

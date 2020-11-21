@@ -20,7 +20,7 @@ public class Delivery {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id; 
+	private int id; 
 	@Lob
 	@NotNull
 	private String direction;
@@ -45,4 +45,6 @@ public class Delivery {
 	@JoinColumn(name = "sale_id", nullable = false)
 	@JsonIgnore
 	private Sale sale;
+	
+	
 }

@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DeliveryResource {
-	private Long id; 
+	private int id; 
 	private String direction;
 	private Date deliveryDate;
 	private Date deliveryHour;	

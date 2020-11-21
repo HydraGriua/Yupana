@@ -33,7 +33,7 @@ public class WalletsController {
             @ApiResponse(responseCode = "200", description = "Get all wallet by given sellerId",content =@Content(mediaType = "application/json") )
     })
     @GetMapping("/sellers/{sellerId}/wallets")
-    public List<WalletResource> getAllWalletBySellerId(@PathVariable(name = "sellerId") Long sellerId){
+    public List<WalletResource> getAllWalletBySellerId(@PathVariable(name = "sellerId") Integer sellerId){
         return walletService.getAllBySellerId(sellerId).stream().map(this::convertToResource).collect(Collectors.toList());
     }
 
@@ -42,7 +42,7 @@ public class WalletsController {
             @ApiResponse(responseCode = "200", description = "Get wallet by given Id",content =@Content(mediaType = "application/json") )
     })
     @GetMapping("/wallets/{walletId}")
-    public WalletResource getWalletById(@PathVariable(name = "walletId") Long walletId){
+    public WalletResource getWalletById(@PathVariable(name = "walletId") Integer walletId){
         return convertToResource(walletService.getWalletById(walletId));
     }
 
@@ -51,7 +51,7 @@ public class WalletsController {
             @ApiResponse(responseCode = "200", description = "Create Wallet by user and seller",content =@Content(mediaType = "application/json"))
     })
     @PostMapping("users/{userId}/sellers/{sellerId}/wallets")
-    public WalletResource createWallet(@PathVariable(name = "sellerId") Long sellerId, @PathVariable(name = "userId") Long userId, @Valid @RequestBody SaveWalletResource resource){
+    public WalletResource createWallet(@PathVariable(name = "sellerId") Integer sellerId, @PathVariable(name = "userId") Integer userId, @Valid @RequestBody SaveWalletResource resource){
         return convertToResource(walletService.createWallet(convertToEntity(resource), sellerId, userId));
     }
 
@@ -60,7 +60,7 @@ public class WalletsController {
             @ApiResponse(responseCode = "200", description = "Update Wallet By Id and Seller Id",content =@Content(mediaType = "application/json"))
     })
     @PutMapping("/sellers/{sellerId}/wallets/{walletId}")
-    public WalletResource updateWallet(@PathVariable(name= "sellerId") Long sellerId, @PathVariable(name = "walletId") Long walletId, @Valid @RequestBody SaveWalletResource resource){
+    public WalletResource updateWallet(@PathVariable(name= "sellerId") Integer sellerId, @PathVariable(name = "walletId") Integer walletId, @Valid @RequestBody SaveWalletResource resource){
         return  convertToResource(walletService.updateWallet(convertToEntity(resource),walletId,sellerId));
     }
 
@@ -69,7 +69,7 @@ public class WalletsController {
             @ApiResponse(responseCode = "200", description = "Delete Wallet By Id",content =@Content(mediaType = "application/json"))
     })
     @DeleteMapping("/wallets/{walletId}")
-    public ResponseEntity<?> deleteWallet(@PathVariable(name ="walletId") Long walletId){
+    public ResponseEntity<?> deleteWallet(@PathVariable(name ="walletId") Integer walletId){
         return walletService.deleteWallet(walletId);
     }
 

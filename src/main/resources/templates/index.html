@@ -1,29 +1,83 @@
 <!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="Layout/ResourcesLayout :: head">
-	<meta charset="utf-8">
+<meta charset="utf-8">
 </head>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Pagina - Yupana</title>
 
-<header th:replace="Layout/MenuLayout :: header">
-	</header>
+<header th:replace="Layout/MenuLayout :: header"> </header>
 
 <body>
 	<div class="content">
 
-		<section class="container main bg-img">
-			<div class="book">
-				<h1>REGÍSTRATE</h1>
-			</div>
-		</section>
-
 
 		<section class="container main-frm">
-			
-		</section>
+			<div id="p-signin">
+				<h1>REGÍSTRATE</h1>
+				<p>Requeridos*</p>
+				<br />
+				<form action="mystore/profile.html" class="center txt-center"
+					method="post" id="signin">
 
+					<label for="username">Nombre de usuario*<br /> <input
+						type="text" name="username" placeholder="usuario" required /></label> <br />
+					<label for="email">Correo electrónico*<br /> <input
+						type="email" name="email" placeholder="correo@ejemplo.com"
+						required /></label> <br /> <label for="password">Contraseña*<br />
+						<input type="password" name="password" pattern=".{5,}" required /></label>
+					<br /> <label for="confirm-password">Confirmar contraseña*<br />
+						<input type="password" name="confirm-password" pattern=".{5,}"
+						required /></label> <span class="color-alert-txt" id="paswderror"></span>
+					<br />
+
+					<p class="txt-center">
+						<button type="submit" value="Submit" id="btn-signin"
+							class="color-accent-bg">
+							Registrarme <i class="fas fa-user-check"></i>
+						</button>
+					</p>
+				</form>
+
+				<br /> <br />
+				<p class="txt-center">
+					¿Ya tienes cuenta?<br /> <a href="#p-login" id="goto-login"
+						class="a-main">Iniciar sesión</a>
+				</p>
+			</div>
+
+
+			<div id="p-login">
+				<h1>Inicia sesión</h1>
+				<p>Requeridos*</p>
+				<br />
+				<form action="mystore/records.html" autocomplete="on"
+					class="center txt-center" method="post" id="login">
+
+					<label for="username">Nombre de usuario*<br /> <input
+						type="text" name="username" placeholder="username" maxlength="15"
+						required /></label>
+					<!--dentro del input poner propiedad value para enviar el valor del input-->
+					<br /> <label for="password">Contraseña*<br /> <input
+						type="password" name="password" required /></label> <br />
+
+					<p class="txt-center">
+						<button type="submit" value="Submit" id="btn-login"
+							class="color-accent-bg">
+							Iniciar sesión <i class="fas fa-sign-in-alt"></i>
+						</button>
+					</p>
+				</form>
+
+				<br /> <br />
+				<p class="txt-center">
+					¿No tienes cuenta?<br /> <a href="#p-signin" id="goto-signin"
+						class="a-main">Registrarme</a>
+				</p>
+			</div>
+
+		</section>
+		<footer th:replace="Layout/ResourcesLayout :: footer"></footer>
 	</div>
 </body>
-	<footer th:replace="Layout/ResourcesLayout :: footer"></footer>	
 </html>

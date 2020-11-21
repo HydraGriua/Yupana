@@ -23,7 +23,7 @@ import java.util.Date;
 public class Wallet {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private int id;
 	
 	@Lob
 	@NotNull
@@ -48,7 +48,7 @@ public class Wallet {
 	private Float maintenancePrice;
 
 	@NotNull
-	private Long idOfUser;
+	private int idOfUser;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "seller_id", nullable = false)

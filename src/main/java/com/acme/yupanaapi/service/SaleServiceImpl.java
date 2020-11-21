@@ -27,7 +27,7 @@ public class SaleServiceImpl implements SaleService{
 
 	@Transactional
 	@Override
-	public Sale update(Sale saleEntity, Long saleId) {
+	public Sale update(Sale saleEntity, int saleId) {
 		 return saleRepository.findById(saleId).map(sale -> {
 		 	 sale.setDescription(saleEntity.getDescription());
 			 sale.setNetAmount(saleEntity.getNetAmount());
@@ -42,7 +42,7 @@ public class SaleServiceImpl implements SaleService{
 
 	@Transactional
 	@Override
-	public ResponseEntity<?> deleteSale(Long saleId) {
+	public ResponseEntity<?> deleteSale(int saleId) {
 		Sale sale = saleRepository.findById(saleId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Sale not found with Id " + saleId));
@@ -52,7 +52,7 @@ public class SaleServiceImpl implements SaleService{
 
 	@Transactional(readOnly =true)
 	@Override
-	public Sale getSaleById(Long saleId) {
+	public Sale getSaleById(int saleId) {
 		return saleRepository.findById(saleId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Sale not found with Id " + saleId));

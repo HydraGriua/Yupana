@@ -6,9 +6,9 @@ import org.springframework.http.ResponseEntity;
 import java.util.Optional;
 
 public interface UserService {
-    User getUserById(Long userId);
+    User getUserById(int userId);
     User getUserByDocumentNumber(String documentNumber);
     User createUser(User user);
-    User updateUser(Long userId,User userRequest);
-    ResponseEntity<?> deleteUser(Long userId);
+    User updateUser(int userId,User userRequest);
+    ResponseEntity<?> deleteUser(int userId);
 }

@@ -19,7 +19,7 @@ public class Historial {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "seller_id", nullable = false)
@@ -27,5 +27,5 @@ public class Historial {
     private Seller seller;
 
     @NotNull
-    private Long idOfSeller;
+    private int idOfSeller;
 }

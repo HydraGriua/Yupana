@@ -37,7 +37,7 @@ public class SellersController {
 			@ApiResponse(responseCode = "200", description = "Get seller given Id", content =@Content(mediaType = "application/json") )
 	})
     @GetMapping("/sellers/{sellerId}")
-    public SellerResource getSellerById(@PathVariable(name = "sellerId") Long sellerId){
+    public SellerResource getSellerById(@PathVariable(name = "sellerId") Integer sellerId){
         return convertToResource(sellerService.getSellerById(sellerId));
     }
 
@@ -46,7 +46,7 @@ public class SellersController {
    			@ApiResponse(responseCode = "200", description = "Get seller given Id", content =@Content(mediaType = "application/json") )
    	})
     @GetMapping("/users/{userId}/sellers/{sellerId}")
-    public SellerResource getSellerByIdAndUserId(@PathVariable(name = "sellerId") Long sellerId,  @PathVariable(name = "userId") Long userId){
+    public SellerResource getSellerByIdAndUserId(@PathVariable(name = "sellerId") Integer sellerId,  @PathVariable(name = "userId") Integer userId){
         return convertToResource(sellerService.getSellerByIdAndUserId(sellerId, userId));
     }
     
@@ -64,7 +64,7 @@ public class SellersController {
    			@ApiResponse(responseCode = "200", description = "Create seller for a User", content =@Content(mediaType = "application/json") )
    	})
     @PostMapping("/users/{userId}/sellers")
-    public SellerResource createSeller(@Valid @RequestBody SaveSellerResource resource, @PathVariable(name = "userId") Long userId){
+    public SellerResource createSeller(@Valid @RequestBody SaveSellerResource resource, @PathVariable(name = "userId") Integer userId){
         return convertToResource(sellerService.createSeller(convertToEntity(resource),userId));
     }
 
@@ -73,7 +73,7 @@ public class SellersController {
    			@ApiResponse(responseCode = "200", description = "Update seller given UserId and Id", content =@Content(mediaType = "application/json") )
    	})
     @PutMapping("/users/{userId}/sellers/{sellerId}")
-    public SellerResource updateSeller(@PathVariable(name = "sellerId") Long sellerId, @PathVariable(name = "userId") Long userId,@Valid @RequestBody SaveSellerResource resource){
+    public SellerResource updateSeller(@PathVariable(name = "sellerId") Integer sellerId, @PathVariable(name = "userId") Integer userId,@Valid @RequestBody SaveSellerResource resource){
         return convertToResource(sellerService.updateSeller(sellerId,userId,convertToEntity(resource)));
     }
 
@@ -82,7 +82,7 @@ public class SellersController {
    			@ApiResponse(responseCode = "200", description = "Delete seller given Id", content =@Content(mediaType = "application/json") )
    	})
     @DeleteMapping("/sellers/{sellerId}")
-    public ResponseEntity<?> deleteSeller(@PathVariable(name="sellerId") Long sellerId){
+    public ResponseEntity<?> deleteSeller(@PathVariable(name="sellerId") Integer sellerId){
         return sellerService.deleteSeller(sellerId);
     }
     

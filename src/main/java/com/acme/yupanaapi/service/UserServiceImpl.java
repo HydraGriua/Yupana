@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(readOnly = true)
     @Override
-    public User getUserById(Long userId) {
+    public User getUserById(int userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "User not found with Id " + userId));
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public User updateUser(Long userId, User userRequest) {
+    public User updateUser(int userId, User userRequest) {
         return userRepository.findById(userId).map(user -> {
             user.setCellphone(userRequest.getCellphone());
             user.setDescription(userRequest.getDescription());
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
     
     @Transactional
     @Override
-    public ResponseEntity<?> deleteUser(Long userId) {
+    public ResponseEntity<?> deleteUser(int userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "User not found with Id " + userId));

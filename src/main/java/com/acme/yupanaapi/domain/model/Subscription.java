@@ -20,7 +20,7 @@ import java.util.Date;
 public class Subscription {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;	
+	private int id;	
 	
 	@NotNull
 	private Float amount;
