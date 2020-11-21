@@ -24,8 +24,6 @@ public class FlowServiceImpl implements FlowService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private TransactionRepository transactionRepository;
 
     @Transactional(readOnly = true)
     @Override

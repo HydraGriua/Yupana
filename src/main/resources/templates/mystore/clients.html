@@ -92,7 +92,7 @@
 			<h1>Clientes</h1>
 			<section class="cards" id="c-clients">
 
-				<div class="card easy center" th:each="cliente : ${clientes}">
+				<div class="card easy center" th:each="wallet : ${wallets}">
 					<!--det o easy-->
 					<div class="top">
 						<h1>Cliente con delivery</h1>
@@ -102,12 +102,12 @@
 					</div>
 					<div class="details">
 						<div class="client">
-							Cliente <span><a href="#" th:text="${cliente.id}">.</a></span>
+							Cliente <span><a href="#" th:text="${wallet.user.name}">.</a></span>
 						</div>
 						
 						<div class="acum">
 							<div class="money debt">
-								Monto acumulado a cobrar <span th:text="${cliente.balance}">S/XX.XX</span>
+								Monto acumulado a cobrar <span th:text="${wallet.balance}"></span>
 							</div>
 						</div>
 						

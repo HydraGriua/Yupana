@@ -14,5 +14,5 @@ public interface WalletService {
 	ResponseEntity<?> deleteWallet(int walletId);
 	Wallet getWalletById(int walletId);
 	Wallet getWalletByIdAndUserId(int walletId, int userId);
-	List<Wallet> getAllBySellerId(int sellerId);
+	List<Wallet> getAllBySellerId(int sellerId);	
 }

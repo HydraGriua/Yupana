@@ -33,7 +33,7 @@ public class Subscription {
 	@Temporal(TemporalType.DATE)
 	private Date expirationDate;
 	
-	@Lob
+
 	@NotNull
 	private String subscriptionType;
 

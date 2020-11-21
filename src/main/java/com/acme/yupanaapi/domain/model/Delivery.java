@@ -21,7 +21,7 @@ public class Delivery {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id; 
-	@Lob
+
 	@NotNull
 	private String direction;
 	
@@ -37,7 +37,7 @@ public class Delivery {
 	@NotNull
 	private Float deliveryPrice;
 	
-	@Lob
+
 	@NotNull
 	private String description;
 

@@ -38,7 +38,7 @@ public class User {
     @NotNull
     private String cellphone;
 
-    @Lob
+
     @NotNull
     private String description;
 }

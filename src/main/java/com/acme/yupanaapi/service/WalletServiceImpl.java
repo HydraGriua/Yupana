@@ -5,7 +5,7 @@ import com.acme.yupanaapi.domain.model.Seller;
 import com.acme.yupanaapi.domain.model.User;
 import com.acme.yupanaapi.domain.repository.SellerRepository;
 import com.acme.yupanaapi.domain.repository.UserRepository;
-import com.acme.yupanaapi.resource.UserWalletResource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -92,7 +92,6 @@ public class WalletServiceImpl implements WalletService {
 	public List<Wallet> getAllBySellerId(int sellerId) {
 		return walletRepository.findAllBySellerId(sellerId);
 	}
-
 
 
 }
