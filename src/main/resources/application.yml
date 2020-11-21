@@ -1,20 +1,40 @@
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: DEBUG
-        type: TRACE
+#logging:
+#  level:
+#    org:
+#      hibernate:
+#        SQL: DEBUG
+#        type: TRACE
+#spring:
+#  datasource:
+#    url: postgres://rgbqjbrqvtdfak:b5ea05e5fa8866109490ef24e93355ab82b57da340601c8a711f1eea4fce0a11@ec2-54-156-149-189.compute-1.amazonaws.com:5432/dae37jvms5dmk7
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+#springdoc:
+#  api-docs:
+#    path: /yupana-api-docs
+#  swagger-ui:
+#    path: /yupana-api-docs-ui.html
+
+# PostgreSQL
 spring:
   datasource:
-    url: postgres://rgbqjbrqvtdfak:b5ea05e5fa8866109490ef24e93355ab82b57da340601c8a711f1eea4fce0a11@ec2-54-156-149-189.compute-1.amazonaws.com:5432/dae37jvms5dmk7
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/yupana
+    username: postgres
+    password: postgres
   jpa:
+    database: postgresql
     hibernate:
       ddl-auto: update
+    show-sql: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-springdoc:
-  api-docs:
-    path: /yupana-api-docs
-  swagger-ui:
-    path: /yupana-api-docs-ui.html
+        jdbc.lob.non_contextual_creation: true
+    
+server:
+  port: 8088
