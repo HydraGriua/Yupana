@@ -1,0 +1,30 @@
+.info {
+	font-size: 1em;
+	margin-bottom: 2em;
+}
+.info h1 {
+	cursor: pointer;
+	color: #FFB169;
+	margin:  0px;
+	text-align: left;
+	font-weight: 700;
+	font-size: 1.2em;
+	line-height: 2em;
+	border-bottom: 1px solid #49AFC9;
+	margin-bottom: 0px;
+}
+.info .info h1::-webkit-details-marker {
+  display:none;
+}
+.info > .info h1:first-of-type {
+    list-style-type: none;
+}
+.info div {
+	padding: 1em;
+	column-count: 2;
+	column-gap: 2em;
+}
+
+@media (max-width: 550px) {
+	.info div { column-count: 1; }
+}
