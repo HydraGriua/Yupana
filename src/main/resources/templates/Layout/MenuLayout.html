@@ -1,10 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="Layout/FooterLayout :: head">
+<head th:replace="Layout/ResourcesLayout :: head">
 <meta charset="utf-8">
+<title>Yupana</title>
 </head>
 <body>
-	<!-- ======= Header ======= -->
 	<header id="header" class="fixed-top header-inner-pages"
 		th:fragment="header">
 		<div id="nav-user">
@@ -38,8 +38,6 @@
 				alt="texto Yupana" class="text">
 		</div>
 	</header>
-
-	<!-- End Header -->
-	<footer th:replace="Layout/FooterLayout :: footer"></footer>
 </body>
+<footer th:replace="Layout/ResourcesLayout :: footer"></footer>
 </html>
