@@ -4,7 +4,6 @@ import com.acme.yupanaapi.domain.model.Seller;
 import org.springframework.http.ResponseEntity;
 
 public interface SellerService {
-
     Seller getSellerByIdAndUserId(int sellerId, int userId);
     Seller getSellerById(int sellerId);
     Seller getSellerByBusinessName(String businessName);
