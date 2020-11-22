@@ -8,32 +8,32 @@ import java.util.Date;
 @Getter
 @Setter
 public class UserWalletResource {
-    private int walletId;
-    private int userId;
-    private int flowId;
-    private int subscriptionId;
+    private int walletId;  // 
+    private int userId;   // 
+    private int flowId;// 
+    private int subscriptionId; //
     private String documentNumber;
-    private String name;
+    private String name; //
     private String firstLastname;
     private String secondLastname;
     private String cellphone;
     private String description;
-    private Date creationDate;
+    private Date creationDate; // creacion del monedero 
     private Float maintenancePrice;
-    private Float balance;
-    private String state;
-    private String type;
-    private Date deadlineDate;
-    private Date lastTransactionDate;
-    private Float currentInterestRate;
-    private int currentRatePeriod;
-    private int currentCapitalization;
-    private String currentRateType;
-    private Float creditLine;
-    private Float currentCreditLine;
-    private Float totalDebt;
-    private Float sAmount;
-    private Date sCreationDate;
-    private Date sExpirationDate;
-    private String sType;
+    private Float balance; // inutil ---- ???
+    private String state; // activo/inactivo 
+    private String type; // cliente basico, potente etc
+    private Date deadlineDate; // vencimiento flow 
+    private Date lastTransactionDate; // ultimo dia de transaccion 
+    private Float currentInterestRate; // Tasa porcentaje actual 
+    private int currentRatePeriod; // periodo de tasa 
+    private int currentCapitalization; // periodo capitalizacion 
+    private String currentRateType; // TEA etc
+    private Float creditLine; // Inicial que te dan linea de credito 
+    private Float currentCreditLine; // Actualizacion del la linea de credito 
+    private Float totalDebt; // total de deuda 
+    private Float sAmount; // delivery costo 
+    private Date sCreationDate; // creacion del delivery 
+    private Date sExpirationDate; // expiracion del delivery
+    private String sType; // // tipo de delivery
 }

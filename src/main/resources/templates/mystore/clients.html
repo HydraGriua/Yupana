@@ -121,18 +121,18 @@
 						<div class="tInterest tohide">
 							Tipo de interés
 							<span th:text="${wallet.currentRateType}"></span>
-							<span class="subDet">sin capitalización</span>
+							<span class="subDet"> Capitalización: <span th:text="${wallet.currentCapitalization}"> </span></span>
 						</div>
 						<div class="delivery tohide">
 							Delivery
 							<div class="row" ><span>Precio</span>
-							<span> s/XXXX.XXX</span></div>
+							<span th:text="${wallet.sAmount}"> </span></div>
 							<div class="subDet"><!--class="date tosmall" -- tonormal-->
-								Próximo pago: <span> -----</span>
+								Próximo pago: <span th:text="${wallet.sExpirationDate}"> </span>
 							</div>
 						</div>
 						<div class="credleft tohide"><!--debt o payment-->
-							<div>Crédito restante <span th:text="${wallet.totalDebt}"></span></div>
+							<div>Crédito restante <span th:text="${wallet. currentCreditLine}"></span></div>
 							<div class="subDet">Crédito otorgado <span th:text="${wallet.creditLine}"></span></div>
 						</div>
 						<div class="acum">
@@ -161,7 +161,7 @@
 						<button class="new color-accent-bg">
 							<span>Nuevo registro </span> <i class="fas fa-plus"></i>
 						</button>
-						<a th:href="@{/mystore/clients/}"><button
+						<a th:href="@{/mystore/clients-details/}"><button
 								class="receipts color-secondary-bg">
 								Ver detalle <i class="fas fa-clipboard-list"></i>
 							</button></a>

@@ -3,7 +3,8 @@
 <head th:fragment="head">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Yupana</title>
-<link th:href="@{/assets/images/Yupana-logo_fc_128x128.png}" type="image/png" sizes="32x32 64x64 128x128" rel="icon">
+<link th:href="@{/assets/images/Yupana-logo_fc_128x128.png}"
+	type="image/png" sizes="32x32 64x64 128x128" rel="icon">
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv=”Content-Language” content=”es” />
@@ -33,65 +34,133 @@
 </head>
 
 <body>
-<div class="content app">
+	<div class="content app">
 
 
-<main class="container">
-	<h1>Aprende más</h1>
+		<main class="container">
+			<h1>Aprende más</h1>
 
-	<div class="info">
-		<h1>¿Qué son las Tasas de Interés?</h1>
-		<div>
-			<p>La tasa de interés es un indicador económico y financiero que señala la rentabilidad de un ahorro o inversión, o bien, el costo de un crédito. El interés representa un beneficio para quien lo ahorra o invierte en alguna institución o instrumento financiero, y representa un costo para la entidad o persona que adquiere un crédito o préstamo. En resumen, la tasa de interés es el precio del dinero.</p>
-			<p> Esta también hace referencia a la cantidad que se abona en una unidad de tiempo por cada unidad de capital invertido. También puede decirse que es el interés de una unidad de moneda en una unidad de tiempo o el rendimiento de la unidad de capital en la unidad de tiempo.</p>
-		</div>
+			<div class="info">
+				<h1>¿Qué son las Tasas de Interés?</h1>
+				<div>
+					<p>La tasa de interés es un indicador económico y financiero
+						que señala la rentabilidad de un ahorro o inversión, o bien, el
+						costo de un crédito. El interés representa un beneficio para quien
+						lo ahorra o invierte en alguna institución o instrumento
+						financiero, y representa un costo para la entidad o persona que
+						adquiere un crédito o préstamo. En resumen, la tasa de interés es
+						el precio del dinero. Esta también hace referencia a la cantidad
+						que se abona en una unidad de tiempo por cada unidad de capital
+						invertido.</p>
+					<p>Esta también hace referencia a la cantidad que se abona en
+						una unidad de tiempo por cada unidad de capital invertido. También
+						puede decirse que es el interés de una unidad de moneda en una
+						unidad de tiempo o el rendimiento de la unidad de capital en la
+						unidad de tiempo.</p>
+					<p>
+						Según esta fórmula, la cantidad de interés está dada por <b> I
+							= C*i*t</b>, donde <b> C</b> es el capital, <b> i </b> es la tasa de
+						interés anual en forma decimal, y <b> t </b>es el período de
+						tiempo expresado en años.
+					</p>
+				</div>
+			</div>
+
+			<br>
+
+			<div class="info" open>
+				<h1>¿Qué son las Tasas de Interés Simple?</h1>
+				<div>
+					<p>Se llama tasa de interés simple, cuando los intereses
+						obtenidos a vencimiento no se suman al capital para generar nuevos
+						intereses. En estos casos el dueño del capital puede cobrar los
+						intereses generados en cada período.El interés simple, se calcula
+						siempre sobre el capital inicial. En consecuencia, el interés
+						obtenido en cada período de tiempo es siempre el mismo. Esto
+						también implica que los intereses obtenidos en un período no se
+						reinvierten al siguiente período.</p>
+					<p>
+						El tipo de interés simple se aplica por lo general sobre los
+						préstamos a corto plazo de un año o menos, administrados por las
+						financieras, aplicando de igual forma sobre el dinero invertido a
+						corto plazo. El interés simple es utilizado en la capitalización
+						simple lo que permite calcular el capital luego de la inversión. <b>
+							El cálculo de esta tasa se da: I = C * i * t, donde I es el
+							interés, C el capital inicial, i la tasa de interes, t el tiempo.</b>
+					</p>
+				</div>
+			</div>
+
+			<br>
+
+			<div class="info" open>
+				<h1>¿Qué son las Tasas Compuestas o Efectivas?</h1>
+				<div>
+					<p>En el interés compuesto, los intereses que conseguimos en
+						cada período se van sumando al capital inicial, con lo que generan
+						nuevos intereses. Aquí a diferencia del interés simple, los
+						intereses no se pagan a su vencimiento, porque s evana cumulando
+						al capital. Por eso, el capital crece al final de cada uno de los
+						periodos y el interés calculado sobre un capital mayor, también
+						crece.</p>
+					<p>
+						Las principales características del Interés Compuesto son: <b>
+							El capital inicial va aumentando en cada periodo ya que los
+							intereses van acumulándose, La tasa de interés es aplicada sobre
+							el capital que irá variando, Los intereses irán incrementándose</b>
+						la fórmula del interés compuesto y sus componentes: VA = VF (1 +
+						i) ^ n, donde VF = Valor Futuro VA = Valor Actual i = Tasa de
+						interés n = Periodo de tiempo.
+					</p>
+				</div>
+			</div>
+			<br>
+
+			<div class="info" open>
+				<h1>¿Qué son las Tasas de Interés Nominales?</h1>
+				<div>
+					<p>La tasa de interés nominal es aquella que se paga por un
+						préstamo o una cuenta de ahorros y no se suma al capital, es
+						expresada en términos anuales con una frecuencia de tiempo de
+						pago, por ejemplo: Tasa nominal anual del 10% pagadera mes
+						vencido. Aplicado a una situación real en un depósito, imaginemos
+						que un banco nos da de rentabilidad el 5% de interés nominal anual
+						durante 6 años a cambio de prestarles un capital de 500.000€</p>
+					<p>
+						En pocas palabras, la tasa de interés nominal es la rentabilidad
+						obtenida en una operación financiera que se capitaliza de forma
+						simple, es decir, teniendo en cuenta tan sólo el capital
+						principal. Esta se puede calcular con la siguiente formula: <b>
+							I= VP(n*i) Donde I es el interés total nominal obtenido durante
+							toda la operación. </b>
+					</p>
+				</div>
+			</div>
+
+			<br>
+
+			<div class="info">
+				<h1>¿Qué es la Capitalización?</h1>
+				<div>
+					<p>​En el interés compuesto, la capitalización del interés
+						puede tener lugar en cualquier intervalo de tiempo de acuerdo a lo
+						que se haya acordado. Si el interés se genera anualmente y no es
+						pagado sino que se añade al capital, se dice que el interés se ha
+						capitalizado anualmente.</p>
+					<p>
+						En este caso, el período de capitalización es un año. Si el
+						interés se agrega al capital cada seis meses, se dice que se
+						capitaliza semestralmente. De igual modo, <b> el período de
+							capitalización puede ser trimestral (180), mensual(30),
+							quincenal(15) u otro.</b>
+					</p>
+				</div>
+			</div>
+		</main>
+
+
 	</div>
-
-	<br>
-
-	<div class="info" open>
-		<h1>¿Qué son las Tasas de Interés Simple?</h1>
-		<div>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-			<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		</div>
-	</div>
-
-	<br>
-
-	<div class="info" open>
-		<h1>¿Qué son las Tasas Compuestas?</h1>
-		<div>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-			<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		</div>
-	</div>
-
-	<br>
-
-	<div class="info" open>
-		<h1>¿Qué son las Tasas de Interés Nominales?</h1>
-		<div>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-			<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		</div>
-	</div>
-
-	<br>
-
-	<div class="info">
-		<h1>¿Qué es la Capitalización?</h1>
-		<div>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-			<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		</div>
-	</div>
-
-</main>
-
-
-</div>
-<script>
+	<script>
 	$('.info h1').click(function(event) {
 		$(this).parent().children('div').slideToggle("fast");
 	});
