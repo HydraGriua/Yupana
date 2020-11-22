@@ -12,7 +12,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class SaleResource {
-    private Long id;
+    private Integer id;
     private Date saleDate;
     private Date saleTime;
     private Float netAmount;

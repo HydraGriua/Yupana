@@ -20,7 +20,7 @@ public class Delivery {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id; 
+	private Integer id; 
 	@Lob
 	@NotNull
 	private String direction;

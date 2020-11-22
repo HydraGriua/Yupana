@@ -29,18 +29,21 @@ public class UsersController {
     private UserService userService;
 
 
+    
+    
+    	
+    
+    
     ////////////////////////////////////////////////////////////
     //Metodos crud para las llamadas
-
     @Operation(summary = "Get user",description = "Get user by given id",tags = {"users"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get user by given id",content =@Content(mediaType = "application/json") )
     })
     @GetMapping("/users/{userId}")
-    public UserResource getUserById(@PathVariable(name = "userId") Long userId){
+    public UserResource getUserById(@PathVariable(name = "userId") Integer userId){
         return convertToResource(userService.getUserById(userId));
     }
-
     @Operation(summary = "Get user by DNI",description = "Get user by given DNI",tags = {"users"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get user by given DNI",content =@Content(mediaType = "application/json") )
@@ -64,7 +67,6 @@ public class UsersController {
             @ApiResponse(responseCode = "200", description = "Update user",content =@Content(mediaType = "application/json") )
     })
     @PutMapping("/users/{userId}")
-    public UserResource updateUser(@PathVariable(name = "userId") Long userId, @Valid @RequestBody SaveUserResource resource){
         return convertToResource(userService.updateUser(userId,convertToEntity(resource)));
     }
 
@@ -73,14 +75,10 @@ public class UsersController {
             @ApiResponse(responseCode = "200", description = "Delete user",content =@Content(mediaType = "application/json") )
     })
     @DeleteMapping("/users/{userId}")
-    public ResponseEntity<?> deleteUser(@PathVariable(name="userId") Long userId){
         return userService.deleteUser(userId);
     }
     /////////////////////////////////////////////////////////////////////////
-
-
     //Convertidores ->>>>> MUCHO OJO (analizar su funcionamiento)
-
     private User convertToEntity(SaveUserResource resource) {
         return mapper.map(resource, User.class);
     }
@@ -88,6 +86,4 @@ public class UsersController {
     private UserResource convertToResource(User entity) {
         return mapper.map(entity, UserResource.class);
     }
-    
-    
 }

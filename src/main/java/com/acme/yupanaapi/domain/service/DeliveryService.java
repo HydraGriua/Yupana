@@ -10,11 +10,11 @@ import com.acme.yupanaapi.domain.model.Delivery;
 
 public interface DeliveryService{
 	Delivery saveDelivery(Delivery deliveryEntity);
-	Delivery updateDelivery(Delivery deliveryEntity, Long saleId, Long deliveryId);
-	ResponseEntity<?> deleteDelivery(Long deliveryId);
+	Delivery updateDelivery(Delivery deliveryEntity, Integer saleId, Integer deliveryId);
+	ResponseEntity<?> deleteDelivery(Integer deliveryId);
 	List<Delivery> getAllByDeliveryDate(Date deliveryDate);
-	Delivery getDeliveryById(Long deliveryId);
-	Delivery createDelivery(Delivery delivery, Long saleId);
-	List<Delivery> getAllBySaleId(Long saleId);
+	Delivery getDeliveryById(Integer deliveryId);
+	Delivery createDelivery(Delivery delivery, Integer saleId);
+	List<Delivery> getAllBySaleId(Integer saleId);
 
 }

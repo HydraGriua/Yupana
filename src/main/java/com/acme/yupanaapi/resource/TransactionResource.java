@@ -11,7 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class TransactionResource {
-    private Long id;
+    private Integer id;
     private String transactionName;
     private Date transactionDate;
     private Float amount;

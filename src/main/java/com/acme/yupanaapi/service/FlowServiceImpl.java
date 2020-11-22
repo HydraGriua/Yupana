@@ -32,14 +32,14 @@ public class FlowServiceImpl implements FlowService {
 
     @Transactional(readOnly = true)
     @Override
-    public Flow getFlowById(Long flowId) {
+    public Flow getFlowById(Integer flowId) {
         return flowRepository.findById(flowId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Flow not found with Id " + flowId));
     }
     @Transactional
     @Override
-    public Flow createFlow(Flow flow, Long walletId, Long sellerId) {
+    public Flow createFlow(Flow flow, Integer walletId, Integer sellerId) {
         Wallet wallet = walletRepository.findByIdAndSellerId(walletId,sellerId)
                 .orElseThrow(() -> new ResourceNotFoundException("wallet not found with Id " + walletId +
                         " and SellerId " + sellerId));
@@ -49,7 +49,7 @@ public class FlowServiceImpl implements FlowService {
 
     @Transactional
     @Override
-    public Flow updateFlow(Long flowId, Long walletId, Long sellerId, Flow flowRequest) {
+    public Flow updateFlow(Integer flowId, Integer walletId, Integer sellerId, Flow flowRequest) {
         if(!walletRepository.existsByIdAndSellerId(walletId,sellerId))
             throw new ResourceNotFoundException("wallet not found with Id " + walletId +
                     " and SellerId " + sellerId);
@@ -69,7 +69,7 @@ public class FlowServiceImpl implements FlowService {
 
     @Transactional
     @Override
-    public ResponseEntity<?> deleteFlow(Long flowId) {
+    public ResponseEntity<?> deleteFlow(Integer flowId) {
         Flow flow = flowRepository.findById(flowId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Flow not found with Id " + flowId));
@@ -79,25 +79,25 @@ public class FlowServiceImpl implements FlowService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Flow> getAllByWalletId(Long walletId) {
+    public List<Flow> getAllByWalletId(Integer walletId) {
     	return flowRepository.findAllByWalletId(walletId);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<Flow> getAllByWalletIdAndDeadlineDate(Long walletId, Date date) {
+    public List<Flow> getAllByWalletIdAndDeadlineDate(Integer walletId, Date date) {
     	return flowRepository.findAllByWalletIdAndDeadlineDate(walletId,date);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Flow getLastFlow(Long walletId){
+    public Flow getLastFlow(Integer walletId){
         List<Flow> lista = flowRepository.findAllByWalletId(walletId);
         return lista.get(lista.size()-1);
     }
 
     @Override
-    public UserWalletResource getData(Long walletId) {
+    public UserWalletResource getData(Integer walletId) {
         List<Flow> listaF = flowRepository.findAllByWalletId(walletId);
         Flow flow = listaF.get(listaF.size()-1);
 

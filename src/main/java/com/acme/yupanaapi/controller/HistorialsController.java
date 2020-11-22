@@ -34,7 +34,7 @@ public class HistorialsController {
             @ApiResponse(responseCode = "200", description ="Create historial for a seller",content =@Content(mediaType = "application/json"))
     })
     @PostMapping("/sellers/{sellerId}/historials")
-    public HistorialResource createHistorial(@PathVariable(name = "sellerId") Long sellerId, @Valid @RequestBody SaveHistorialResource resource){
+    public HistorialResource createHistorial(@PathVariable(name = "sellerId") Integer sellerId, @Valid @RequestBody SaveHistorialResource resource){
         return convertToResource(historialService.save(convertToEntity(resource), sellerId));
     }
 
@@ -43,7 +43,7 @@ public class HistorialsController {
             @ApiResponse(responseCode = "200", description = "Delete historial by given Id",content =@Content(mediaType = "application/json"))
     })
     @DeleteMapping("/historials/{historialId}")
-    public ResponseEntity<?> deleteHistorial(@PathVariable(name="historialId") Long historialId){
+    public ResponseEntity<?> deleteHistorial(@PathVariable(name="historialId") Integer historialId){
         return historialService.deleteHistorial(historialId);
     }
 
@@ -52,7 +52,7 @@ public class HistorialsController {
             @ApiResponse(responseCode = "200", description = "Get all historials by seller",content =@Content(mediaType = "application/json"))
     })
     @GetMapping("/sellers/{sellerId}/historials")
-    public List<HistorialResource> getAllBySellerId(@PathVariable(name = "sellerId") Long sellerId) {
+    public List<HistorialResource> getAllBySellerId(@PathVariable(name = "sellerId") Integer sellerId) {
         return historialService.getAllHistorialBySellerId(sellerId).stream().map(this::convertToResource).collect(Collectors.toList());
     }
 
@@ -61,7 +61,7 @@ public class HistorialsController {
             @ApiResponse(responseCode = "200", description = "Get last historial by seller",content =@Content(mediaType = "application/json"))
     })
     @GetMapping("/sellers/{sellerId}/LastHistorial")
-    public HistorialResource getLastHistorialBySellerId(@PathVariable(name = "sellerId") Long sellerId) {
+    public HistorialResource getLastHistorialBySellerId(@PathVariable(name = "sellerId") Integer sellerId) {
         return convertToResource(historialService.getLastHistorialBySellerId(sellerId));
     }
 
@@ -70,7 +70,7 @@ public class HistorialsController {
             @ApiResponse(responseCode = "200", description = "Get historial by Id",content =@Content(mediaType = "application/json"))
     })
     @GetMapping("/historials/{historialId}")
-    public HistorialResource getHistorialById(@PathVariable(name = "historialId") Long historialId) {
+    public HistorialResource getHistorialById(@PathVariable(name = "historialId") Integer historialId) {
         return convertToResource(historialService.getHistorialById(historialId));
     }
 

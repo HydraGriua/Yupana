@@ -28,7 +28,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
 	@Transactional
 	@Override
-	public Subscription createSubscription(Subscription subscription, Long walletId) {
+	public Subscription createSubscription(Subscription subscription, Integer walletId) {
 		Wallet wallet = walletRepository.findById(walletId)
 				.orElseThrow(() -> new ResourceNotFoundException("wallet not found with Id " + walletId));
 		subscription.setWallet(wallet);
@@ -37,7 +37,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
 	@Transactional
 	@Override
-	public Subscription updateSubscription(Subscription subscriptionEntity, Long subscriptionId, Long walletId) {
+	public Subscription updateSubscription(Subscription subscriptionEntity, Integer subscriptionId, Integer walletId) {
 		if(!walletRepository.existsById(walletId))
 			throw new ResourceNotFoundException("wallet not found with Id " + walletId);
 
@@ -53,7 +53,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
 	@Transactional
 	@Override
-	public ResponseEntity<?> deleteSubscription(Long subscriptionId) {
+	public ResponseEntity<?> deleteSubscription(Integer subscriptionId) {
 		Subscription subscription = subscriptionRepository.findById(subscriptionId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Subscription not found with Id " + subscriptionId));
@@ -64,7 +64,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
 	@Transactional(readOnly =true)
 	@Override
-	public Subscription getSubscriptionById(Long subscriptionId) {
+	public Subscription getSubscriptionById(Integer subscriptionId) {
 		return subscriptionRepository.findById(subscriptionId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Subscription not found with Id " + subscriptionId));
@@ -72,7 +72,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<Subscription> getAllByWalletId(Long walletId) {
+	public List<Subscription> getAllByWalletId(Integer walletId) {
 		return subscriptionRepository.findAllByWalletId(walletId);
 	}
 

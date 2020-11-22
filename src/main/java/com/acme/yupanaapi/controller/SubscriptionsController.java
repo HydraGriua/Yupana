@@ -38,7 +38,7 @@ public class SubscriptionsController {
             @ApiResponse(responseCode = "200", description = "Get All Subscription",content =@Content(mediaType = "application/json"))
     })
     @GetMapping("/wallets/{walletId}/subscriptions")
-    public List<SubscriptionResource> getAllSubscriptionByWalletId(@PathVariable(name ="walletId") Long walletId){
+    public List<SubscriptionResource> getAllSubscriptionByWalletId(@PathVariable(name ="walletId") Integer walletId){
     	return subscriptionService.getAllByWalletId(walletId).stream().map(this::convertToResource).collect(Collectors.toList());
     }
 	
@@ -47,7 +47,7 @@ public class SubscriptionsController {
             @ApiResponse(responseCode = "200", description = "Create Subscription for a Wallet",content =@Content(mediaType = "application/json"))
     })
     @PostMapping("/wallets/{walletId}/subscriptions")
-    public SubscriptionResource createSubscription( @PathVariable(name = "walletId") Long walletId, @Valid @RequestBody SaveSubscriptionResource resource){
+    public SubscriptionResource createSubscription( @PathVariable(name = "walletId") Integer walletId, @Valid @RequestBody SaveSubscriptionResource resource){
         return convertToResource(subscriptionService.createSubscription( convertToEntity(resource),walletId));
     }
     
@@ -56,7 +56,7 @@ public class SubscriptionsController {
             @ApiResponse(responseCode = "200", description = "Update Subscription By Id and Wallet Id",content =@Content(mediaType = "application/json"))
     })
     @PutMapping("/wallets/{walletId}/subscriptions/{subscriptionId}")
-    public SubscriptionResource updateSubscription( @PathVariable(name ="walletId") Long walletId, @PathVariable(name="subscriptionId") Long subscriptionId, @Valid @RequestBody SaveSubscriptionResource resource){
+    public SubscriptionResource updateSubscription( @PathVariable(name ="walletId") Integer walletId, @PathVariable(name="subscriptionId") Integer subscriptionId, @Valid @RequestBody SaveSubscriptionResource resource){
     	return convertToResource( subscriptionService.updateSubscription(convertToEntity(resource), subscriptionId, walletId));
     }
     
@@ -65,7 +65,7 @@ public class SubscriptionsController {
             @ApiResponse(responseCode = "200", description = "Delete Subscription By Id",content =@Content(mediaType = "application/json"))
     })
     @DeleteMapping("/subscriptions/{subscriptionId}")
-    public ResponseEntity<?> deleteSubscription(@PathVariable(name ="subscriptionId") Long subscriptionId){
+    public ResponseEntity<?> deleteSubscription(@PathVariable(name ="subscriptionId") Integer subscriptionId){
     	return subscriptionService.deleteSubscription(subscriptionId);
     }
     

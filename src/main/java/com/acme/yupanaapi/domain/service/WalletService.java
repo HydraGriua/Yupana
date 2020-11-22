@@ -9,10 +9,10 @@ import java.util.List;
 
 
 public interface WalletService {
-	Wallet createWallet(Wallet entity, Long sellerId, Long userId);
-	Wallet updateWallet(Wallet entity, Long walletId, Long sellerId);
-	ResponseEntity<?> deleteWallet(Long walletId);
-	Wallet getWalletById(Long walletId);
-	Wallet getWalletByIdAndUserId(Long walletId, Long userId);
-	List<Wallet> getAllBySellerId(Long sellerId);
+	Wallet createWallet(Wallet entity, Integer sellerId, Integer userId);
+	Wallet updateWallet(Wallet entity, Integer walletId, Integer sellerId);
+	ResponseEntity<?> deleteWallet(Integer walletId);
+	Wallet getWalletById(Integer walletId);
+	Wallet getWalletByIdAndUserId(Integer walletId, Integer userId);
+	List<Wallet> getAllBySellerId(Integer sellerId);
 }

@@ -40,7 +40,7 @@ public class DeliveryController {
             @ApiResponse(responseCode = "200", description = "Get Deliveries by Id",content =@Content(mediaType = "application/json"))
     })
 	@GetMapping("/sales/{saleId}/deliveries")
-	public List<DeliveryResource> getDeliveruesBySaleID(@PathVariable(name = "saleId") Long saleId){
+	public List<DeliveryResource> getDeliveruesBySaleID(@PathVariable(name = "saleId") Integer saleId){
 		return deliveryService.getAllBySaleId(saleId).stream().map(this::convertToResource).collect(Collectors.toList());
 		
 	}
@@ -62,7 +62,7 @@ public class DeliveryController {
 			@ApiResponse(responseCode = "200", description = "Create deliveries for a Sale", content =@Content(mediaType = "application/json"))
 	})
 	@PostMapping("/sales/{saleId}/deliveries")
-	public DeliveryResource createDelivery (@PathVariable(name = "saleId") Long saleId, @Valid @RequestBody SaveDeliveryResource resource){
+	public DeliveryResource createDelivery (@PathVariable(name = "saleId") Integer saleId, @Valid @RequestBody SaveDeliveryResource resource){
 		return convertToResource(deliveryService.createDelivery(convertToEntity(resource), saleId));
 	}
 	
@@ -72,7 +72,7 @@ public class DeliveryController {
 			@ApiResponse(responseCode = "200", description = "Update Delivery By Id and Sale Id", content =@Content(mediaType = "application/json"))
 	})
 	@PutMapping("/sales/{saleId}/deliveries/{deliveryId}")
-	public DeliveryResource updateDelivery(@PathVariable(name = "saleId") Long saleId, @PathVariable(name = "deliveryId") Long deliveryId,@Valid @RequestBody SaveDeliveryResource resource) {
+	public DeliveryResource updateDelivery(@PathVariable(name = "saleId") Integer saleId, @PathVariable(name = "deliveryId") Integer deliveryId,@Valid @RequestBody SaveDeliveryResource resource) {
 		return convertToResource(deliveryService.updateDelivery(convertToEntity(resource), saleId, deliveryId));
 	}
 	
@@ -82,7 +82,7 @@ public class DeliveryController {
 			@ApiResponse(responseCode = "200", description = "Delete Delivery By Id", content =@Content(mediaType = "application/json"))
 	})
 	@DeleteMapping("/deliveries/{deliveryId}")
-	public ResponseEntity<?> deleteDelivery(@PathVariable(name = "deliveryId") Long deliveryId){
+	public ResponseEntity<?> deleteDelivery(@PathVariable(name = "deliveryId") Integer deliveryId){
 		return deliveryService.deleteDelivery(deliveryId);
 	}
 	

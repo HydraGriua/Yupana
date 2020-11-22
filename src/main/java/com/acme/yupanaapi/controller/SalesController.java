@@ -32,7 +32,7 @@ public class SalesController {
             @ApiResponse(responseCode = "200", description = "Get Sale by given id",content =@Content(mediaType = "application/json") )
     })
     @GetMapping("/sales/{saleId}")
-    public SaleResource getSaleById(@PathVariable(name = "saleId") Long saleId){
+    public SaleResource getSaleById(@PathVariable(name = "saleId") Integer saleId){
         return convertToResource(saleService.getSaleById(saleId));
     }
 
@@ -50,7 +50,7 @@ public class SalesController {
             @ApiResponse(responseCode = "200", description = "Update Sale",content =@Content(mediaType = "application/json") )
     })
     @PutMapping("/sales/{saleId}")
-    public SaleResource updateSale(@PathVariable(name = "saleId") Long saleId, @Valid @RequestBody SaveSaleResource resource){
+    public SaleResource updateSale(@PathVariable(name = "saleId") Integer saleId, @Valid @RequestBody SaveSaleResource resource){
         return convertToResource(saleService.update(convertToEntity(resource),saleId));
     }
 
@@ -59,7 +59,7 @@ public class SalesController {
             @ApiResponse(responseCode = "200", description = "Delete Sale by given id",content =@Content(mediaType = "application/json") )
     })
     @DeleteMapping("/sale/{saleId}")
-    public ResponseEntity<?> deleteSale(@PathVariable(name="saleId") Long saleId){
+    public ResponseEntity<?> deleteSale(@PathVariable(name="saleId") Integer saleId){
         return saleService.deleteSale(saleId);
     }
 

@@ -21,7 +21,7 @@ public class Sale {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id; 
+	private Integer id; 
 	
 	@NotNull
 	@Temporal(TemporalType.DATE)

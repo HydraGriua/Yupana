@@ -10,10 +10,10 @@ import java.util.Date;
 @Getter
 @Setter
 public class UserWalletResource {
-    private Long walletId;
-    private Long userId;
-    private Long flowId;
-    private Long subscriptionId;
+    private Integer walletId;
+    private Integer userId;
+    private Integer flowId;
+    private Integer subscriptionId;
     private String documentNumber;
     private String name;
     private String firstLastname;

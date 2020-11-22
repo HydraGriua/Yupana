@@ -5,7 +5,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SellerResource {
-	private Long id;
+	private Integer id;
     private String actualPassword;
     private String oldPassword;
     private String storeAdress;

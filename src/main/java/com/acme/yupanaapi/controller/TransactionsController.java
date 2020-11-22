@@ -35,7 +35,7 @@ public class TransactionsController {
             @ApiResponse(responseCode = "200", description ="Get transaction given Id",content =@Content(mediaType = "application/json"))
     })
     @GetMapping("/transactions/{transactionId}")
-    public TransactionResource getTransactionById(@PathVariable(name = "transactionId") Long transactionId){
+    public TransactionResource getTransactionById(@PathVariable(name = "transactionId") Integer transactionId){
         return convertToResource(transactionService.getTransactionById(transactionId));
     }
 
@@ -44,7 +44,7 @@ public class TransactionsController {
             @ApiResponse(responseCode = "200", description ="Create transaction for a flow",content =@Content(mediaType = "application/json"))
     })
     @PostMapping("/flows/{flowId}/transactions")
-    public TransactionResource createTransaction(@PathVariable(name = "flowId") Long flowId, @Valid @RequestBody SaveTransactionResource resource){
+    public TransactionResource createTransaction(@PathVariable(name = "flowId") Integer flowId, @Valid @RequestBody SaveTransactionResource resource){
         return convertToResource(transactionService.createTransaction(convertToEntity(resource), flowId));
     }
 
@@ -53,7 +53,7 @@ public class TransactionsController {
             @ApiResponse(responseCode = "200", description ="Update transaction",content =@Content(mediaType = "application/json"))
     })
     @PutMapping("/transactions/{transactionId}")
-    public TransactionResource updateTransaction(@PathVariable(name = "transactionId") Long transactionId, @Valid @RequestBody SaveTransactionResource resource){
+    public TransactionResource updateTransaction(@PathVariable(name = "transactionId") Integer transactionId, @Valid @RequestBody SaveTransactionResource resource){
         return convertToResource(transactionService.updateTransaction(convertToEntity(resource),transactionId));
     }
 
@@ -62,7 +62,7 @@ public class TransactionsController {
             @ApiResponse(responseCode = "200", description = "Delete transaction given Id",content =@Content(mediaType = "application/json"))
     })
     @DeleteMapping("/transactions/{transactionId}")
-    public ResponseEntity<?> deleteTransaction(@PathVariable(name="transactionId") Long transactionId){
+    public ResponseEntity<?> deleteTransaction(@PathVariable(name="transactionId") Integer transactionId){
         return transactionService.deleteTransaction(transactionId);
     }
 
@@ -71,7 +71,7 @@ public class TransactionsController {
             @ApiResponse(responseCode = "200", description = "Get all transactions given flowId",content =@Content(mediaType = "application/json"))
     })
     @GetMapping("/flows/{flowId}/transactions")
-    public List<TransactionResource> getAllByFlowId(@PathVariable(name = "flowId") Long flowId) {
+    public List<TransactionResource> getAllByFlowId(@PathVariable(name = "flowId") Integer flowId) {
         return transactionService.getAllByFlowId(flowId).stream().map(this::convertToResource).collect(Collectors.toList());
     }
 
@@ -80,7 +80,7 @@ public class TransactionsController {
             @ApiResponse(responseCode = "200", description = "Get all transactions by historialId",content =@Content(mediaType = "application/json"))
     })
     @GetMapping("/historials/{historialId}/transactions")
-    public List<TransactionResource> getAllByHistorialId(@PathVariable(name = "historialId") Long historialId) {
+    public List<TransactionResource> getAllByHistorialId(@PathVariable(name = "historialId") Integer historialId) {
         return transactionService.getAllByHistorialId(historialId).stream().map(this::convertToResource).collect(Collectors.toList());
     }
 
@@ -89,7 +89,7 @@ public class TransactionsController {
             @ApiResponse(responseCode = "200", description ="Assign transaction given Id and saleId",content =@Content(mediaType = "application/json"))
     })
     @PutMapping("transactions/{transactionId}/saleId={saleId}")
-    public TransactionResource AssignTransactionWithSale(@PathVariable(name = "transactionId") Long transactionId, @PathVariable(name = "saleId") Long saleId){
+    public TransactionResource AssignTransactionWithSale(@PathVariable(name = "transactionId") Integer transactionId, @PathVariable(name = "saleId") Integer saleId){
         return convertToResource(transactionService.AssignTransactionWithSale(transactionId,saleId));
     }
 

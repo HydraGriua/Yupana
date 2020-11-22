@@ -9,7 +9,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class WalletResource {
-    private Long id;
+    private Integer id;
     private String type;
     private String currencyType;
     private Date creationDate;

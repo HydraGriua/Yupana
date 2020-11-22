@@ -4,8 +4,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.acme.yupanaapi.domain.model.Delivery;
 
-public interface  DeliveryRepository extends JpaRepository<Delivery, Long> {
+public interface  DeliveryRepository extends JpaRepository<Delivery, Integer> {
 	List<Delivery> findAllByDeliveryDate(Date deliveryDate);
-	List<Delivery> findAllBySaleId(Long saleId);
+	List<Delivery> findAllBySaleId(Integer saleId);
 }
 

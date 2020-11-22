@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 public class UserResource {
-    private Long id;
+    private Integer id;
     private String documentType;
     private String documentNumber;
     private String name;
