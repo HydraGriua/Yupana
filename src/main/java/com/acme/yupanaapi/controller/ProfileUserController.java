@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/mystore/profile")
-public class PerfilUserController {
+@RequestMapping("/mystore/profile/")
+public class ProfileUserController {
 
 
 	
@@ -18,6 +18,6 @@ public class PerfilUserController {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
 		}
-		return "/mystore/profile";
+		return "/mystore/profile/";
 	}
 }
