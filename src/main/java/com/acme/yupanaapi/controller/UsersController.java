@@ -67,6 +67,7 @@ public class UsersController {
             @ApiResponse(responseCode = "200", description = "Update user",content =@Content(mediaType = "application/json") )
     })
     @PutMapping("/users/{userId}")
+    public UserResource updateUser(@PathVariable(name = "userId") Integer userId, @Valid @RequestBody SaveUserResource resource){
         return convertToResource(userService.updateUser(userId,convertToEntity(resource)));
     }
 
@@ -75,6 +76,7 @@ public class UsersController {
             @ApiResponse(responseCode = "200", description = "Delete user",content =@Content(mediaType = "application/json") )
     })
     @DeleteMapping("/users/{userId}")
+    public ResponseEntity<?> deleteUser(@PathVariable(name="userId") Integer userId){
         return userService.deleteUser(userId);
     }
     /////////////////////////////////////////////////////////////////////////
