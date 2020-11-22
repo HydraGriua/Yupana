@@ -16,7 +16,7 @@ a.a-main {
 }
 .main.bg-img {
 	background-color: #eee;
-	background-image: url('../images/main-img.png');
+	background-image: url('/assets/images/main-img.png');
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-size: cover;
@@ -46,6 +46,7 @@ footer.main {
 
 .container.main-frm {
 	margin-left: calc(50% + 8em);
+	width: 100%;
 }
 .main-frm form label { display: block; }
 
