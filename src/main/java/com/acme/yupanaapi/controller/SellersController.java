@@ -1,17 +1,27 @@
 package com.acme.yupanaapi.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.acme.yupanaapi.domain.model.Seller;
+import com.acme.yupanaapi.domain.model.Transaction;
+import com.acme.yupanaapi.domain.model.Wallet;
+import com.acme.yupanaapi.domain.service.FlowService;
 import com.acme.yupanaapi.domain.service.SellerService;
+import com.acme.yupanaapi.domain.service.TransactionService;
+import com.acme.yupanaapi.domain.service.WalletService;
 import com.acme.yupanaapi.resource.SaveSellerResource;
 import com.acme.yupanaapi.resource.SellerResource;
+import com.acme.yupanaapi.resource.UserWalletResource;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -19,9 +29,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 
-@RestController
+@Controller
 @CrossOrigin
-@RequestMapping("/api")
+@RequestMapping("mystore")
 public class SellersController {
 	  //Mapeador de entidad con resource
     @Autowired
@@ -29,25 +39,29 @@ public class SellersController {
     
     @Autowired
     private SellerService sellerService;
-
-
+    @Autowired
+    private FlowService flowService;
+    @Autowired
+    private WalletService walletService;
+    @Autowired
+    private TransactionService transactionService;
+    
     ////////////////////////////////////////////////////////////
     //Metodos crud para las llamadas
-    @Operation(summary = "Get seller by Id", description ="Get seller given Id", tags = {"sellers"})
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Get seller given Id", content =@Content(mediaType = "application/json") )
-	})
-    @GetMapping("/sellers/{sellerId}")
-    public String getSellerById(@PathVariable(name = "sellerId") int sellerId, Model model){
+
+    @GetMapping("/records")
+    public String getSellerById(Model model){
     	try {
-    		//SellerResource
-    		model.addAttribute("seller",convertToResource(sellerService.getSellerById(sellerId)));
-    		
+    		System.out.print("hola");
+    		List<Transaction> listR = new ArrayList<>();		
+    		model.addAttribute("sellerInfo",sellerService.getSellerById(1));
+    		model.addAttribute("transactions",flowService.getAllUserTransactionById(walletService.getAllBySellerId(1)));
+    		List<UserWalletResource> x = flowService.getAllUserTransactionById(walletService.getAllBySellerId(1));
     	} catch (Exception e) {
     		e.printStackTrace();
     		System.err.print(e.getMessage());
     	}    	
-    	return "/mystore/viewRecords";
+    	return "mystore/records";
     }
 
     @Operation(summary = "Get seller by Id and UserId", description ="Get seller given Id and UserId", tags = {"sellers"})

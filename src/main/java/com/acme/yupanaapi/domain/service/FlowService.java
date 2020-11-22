@@ -21,5 +21,6 @@ public interface FlowService {
     List<Flow> getAllByWalletIdAndDeadlineDate(int walletId, Date date);
     Flow getLastFlow(int walletId);
     UserWalletResource getData(int walletId);
+    List<UserWalletResource> getAllUserTransactionById(List<Wallet> wallets);
 }
 

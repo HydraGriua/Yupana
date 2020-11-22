@@ -4,6 +4,7 @@ import com.acme.yupanaapi.domain.repository.*;
 import com.acme.yupanaapi.domain.service.FlowService;
 import com.acme.yupanaapi.exception.ResourceNotFoundException;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,9 @@ public class FlowServiceImpl implements FlowService {
 
     @Autowired
     private UserRepository userRepository;
-
+    
+    @Autowired
+    private TransactionRepository transactionRepository;
 
     @Transactional(readOnly = true)
     @Override
@@ -94,17 +97,14 @@ public class FlowServiceImpl implements FlowService {
     }
 
     @Override
-
     public UserWalletResource getData(int walletId) {
         List<Flow> listaF = flowRepository.findAllByWalletId(walletId);
         Flow flow = listaF.get(listaF.size()-1);
-
         Wallet wallet = walletRepository.findById(walletId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                 "Wallet not found with Id "));
         User user = userRepository.findById(wallet.getIdOfUser()).orElseThrow(() -> new ResourceNotFoundException(
                 "User not found with Id "));
-
         UserWalletResource userWalletResource = new UserWalletResource();
         userWalletResource.setUserId(user.getId());
         userWalletResource.setWalletId(wallet.getId());
@@ -130,5 +130,46 @@ public class FlowServiceImpl implements FlowService {
         userWalletResource.setCurrentCreditLine(flow.getCurrentCreditLine());
         userWalletResource.setTotalDebt(flow.getTotalDebt());
         return userWalletResource;
+    }
+    @Override
+    public List<UserWalletResource> getAllUserTransactionById(List<Wallet> wallets) {
+    	System.out.print("hola");
+    	List<UserWalletResource> x = new ArrayList<>();    	
+    	for(Wallet walletT : wallets) {
+    		for (Flow flow : flowRepository.findAllByWalletId(walletT.getId())) {
+    			for(Transaction transac : transactionRepository.findAllByFlowId(flow.getId())) {
+    				User user = userRepository.findById(walletT.getUser().getId()).orElseThrow(() -> new ResourceNotFoundException(
+    	                    "User not found with Id "));
+    				UserWalletResource userWalletResource = new UserWalletResource();
+    	            userWalletResource.setUserId(user.getId());
+    	            userWalletResource.setWalletId(walletT.getId());
+    	            userWalletResource.setFlowId(flow.getId());
+    	            userWalletResource.setDocumentNumber(user.getDocumentNumber());
+    	            userWalletResource.setName(user.getName());
+    	            userWalletResource.setFirstLastname(user.getFirstLastname());
+    	            userWalletResource.setSecondLastname(user.getSecondLastname());
+    	            userWalletResource.setCellphone(user.getCellphone());
+    	            userWalletResource.setDescription(user.getDescription());
+    	            userWalletResource.setCreationDate(walletT.getCreationDate());
+    	            userWalletResource.setMaintenancePrice(walletT.getMaintenancePrice());
+    	            userWalletResource.setBalance(walletT.getBalance());
+    	            userWalletResource.setState(walletT.getState());
+    	            userWalletResource.setType(walletT.getType());
+    	            userWalletResource.setDeadlineDate(flow.getDeadlineDate());
+    	            userWalletResource.setLastTransactionDate(flow.getLastTransactionDate());
+    	            userWalletResource.setCurrentInterestRate(flow.getCurrentInterestRate());
+    	            userWalletResource.setCurrentRatePeriod(flow.getCurrentRatePeriod());
+    	            userWalletResource.setCurrentCapitalization(flow.getCurrentCapitalization());
+    	            userWalletResource.setCurrentRateType(flow.getCurrentRateType());
+    	            userWalletResource.setCreditLine(flow.getCreditLine());
+    	            userWalletResource.setCurrentCreditLine(flow.getCurrentCreditLine());
+    	            userWalletResource.setTotalDebt(flow.getTotalDebt());
+    	            userWalletResource.setTransaction(transac);
+    	            
+    	            x.add(userWalletResource);
+    			}
+    		}
+    	}
+    	return x;
     }
 }

@@ -165,68 +165,13 @@ function initRequest() {
         if (navigator.userAgent.indexOf('MSIE') != -1) {
             isIE = true;
         }
-    };
+        return new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        isIE = true;
+        return new ActiveXObject("Microsoft.XMLHTTP");
+    }*/
+};
 
 
-    function getContent(idBtnPopup) {
-        var url = "";
-
-        switch (idBtnPopup) {
-            case 'newSell':
-                url = "actions/pop-newSell.html";
-                break;
-            case 'newPayment':
-                url = "actions/pop-newPayment.html";
-                break;
-            case 'newDelivery':
-                url = "actions/pop-newSell.html";
-                break;
-            case 'newSuscriptionD':
-                url = "actions/pop-newSuscriptionD.html";
-                break;
-            case 'newClient':
-                url = "actions/pop-client.html";
-                break;
-            case 'editClient':
-                url = "actions/pop-client.html";
-                break;
-            default:
-                return null;
-                break;
-        }
-
-        return $.get(url);
-    }
-
-
-    $('main form button').click(function(event) {
-        event.preventDefault();
-    });
-
-    //alert(window.location.pathname);
-    $('#frm-pagination button').click(function(event) {
-        $(this).parent().children('button').removeClass('active');
-        $(this).addClass('active');
-
-        //var url = "gotopage?page=" $(this).attr('value');
-        //req = initRequest();
-        /*req.open("GET", url, true);
-        req.onreadystatechange = callback;
-        req.send(null);*/
-    });
-
-    function initRequest() {
-        /*if (window.XMLHttpRequest) {
-            if (navigator.userAgent.indexOf('MSIE') != -1) {
-                isIE = true;
-            }
-            return new XMLHttpRequest();
-        } else if (window.ActiveXObject) {
-            isIE = true;
-            return new ActiveXObject("Microsoft.XMLHTTP");
-        }*/
-    };
-
-
-    //
+//
 });

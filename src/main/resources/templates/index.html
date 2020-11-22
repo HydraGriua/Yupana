@@ -60,94 +60,39 @@
 						class="a-main">Iniciar sesión</a>
 				</p>
 			</div>
-			<button type="submit" id="filter"><span>Filtrar</span> <i class="fas fa-filter"></i></button>
-		</form>
-	</section>
-
-<section class="actions row" style="top:-120px">
-	<button id="show-filter"><span>Filtrar</span> <i class="fas fa-filter"></i></button>
-		<form action="" method="get" id="frm-search" class="row">
-			<label for="search"><input type="text" name="search" value="" placeholder="Código de registro o nombre del cliente"><i class="fas fa-search"></i>
-				<!--button type="submit"><span>Buscar</span> <i class="fas fa-search"></i></button-->
-			</label>
-			<button type="submit" class="btn-icon"><i class="fas fa-search"></i></button>
-		</form>
-		<button id="new-more">Nuevo<i class="fas fa-plus"></i> </button>
-		<div class="new">
-			<button id="newSell">Nueva venta <i class="fas fa-cart-plus"></i></button>
-			<button id="newPayment">Nueva amortización / pago de deuda <i class="fas fa-hand-holding-usd"></i></button>
-			<button id="newDelivery">Nuevo delivery <i class="fas fa-truck"></i></button>
-			<button id="newSuscriptionD">Nueva suscripción a delivery <i class="fas fa-clipboard"></i></button>
-		</div>
-		<div class="cards row">
-			<button id="export">Exportar <i class="fas fa-download"></i></button>
-		</div>
-	</section>
 
 
-<main class="container">
-	<h1>Registros</h1>
-	<br>
-	<!-- cards -->
-	<section class="cards" id ="c-records">
+			<div id="p-login">
+				<h1>Inicia sesión</h1>
+				<p>Requeridos*</p>
+				<br />
+				<form action="mystore/records.html" autocomplete="on"
+					class="center txt-center" method="post" id="login">
 
-		<div class="card easy center"><!--det o easy-->
-			<div class="top">
-				<h1>Registro de venta al crédito</h1>
-				<div class="r-code">Código de registro <span>NM1238913</span></div>
+					<label for="username">Nombre de usuario*<br /> <input
+						type="text" name="username" placeholder="username" maxlength="15"
+						required /></label>
+					<!--dentro del input poner propiedad value para enviar el valor del input-->
+					<br /> <label for="password">Contraseña*<br /> <input
+						type="password" name="password" required /></label> <br />
+
+					<p class="txt-center">
+						<button type="submit" value="Submit" id="btn-login"
+							class="color-accent-bg">
+							Iniciar sesión <i class="fas fa-sign-in-alt"></i>
+						</button>
+					</p>
+				</form>
+
+				<br /> <br />
+				<p class="txt-center">
+					¿No tienes cuenta?<br /> <a href="#p-signin" id="goto-signin"
+						class="a-main">Registrarme</a>
+				</p>
 			</div>
-			<div class="details">
-				<div class="client">
-					Cliente <span ><a href="#">Nombre completo Cliente</a></span>
-				</div>
-				<div class="date tosmall"><!--tonormal-->
-					Fecha de emisión: <span>dd/mm/aaaa</span>
-				</div>
-				<div class="tInterest">
-					Tipo de interés
-					<span>Tasa Simple Anual</span>
-					<span class="subDet">sin capitalización</span>
-				</div>
-			</div>
-			<div class="details">
-			<div  class="ti tosmall">
-					Tasa de interés
-					<span>xx.xxxxxxx%</span>
-				</div>
-				<div class="money debt"><!--debt o payment-->
-					<div class="tohide">
-						<div class="subDet">Monto de venta <span>s/xx.xx</span></div>
-						<div class="subDet">Monto de delivery <span>s/xx.xx</span></div>
-					</div>
-					<div>Monto a dado a crédito <span>S/XX.XX</span></div>
-				</div>
-				<div class="descrip merge">
-					Descripción:
-					<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</span>
-				</div>
-			</div>
-		</div> <!-- card -->
-	</section>
-
-	<br>
-	<section class="pagination center">
-		<form action="" method="get" class="row" id="frm-pagination">
-			<button name="page" value="prev" class="color-secondary-bg"><i class="fas fa-chevron-left"></i></button>
-			<div class="pages row">
-				<button name="page" class="active" value="1">1</button>
-				<button name="page" value="2">2</button>
-				<button name="page" value="3">3</button>
-			</div>
-			<button name="page" class="color-secondary-bg" value="next"><i class="fas fa-chevron-right"></i></button>
-		</form>
-	</section>
-
 
 		</section>
 	</div>
 	<script>setPageAlternations('#p-signin','#goto-login','#p-login','#goto-signin');</script>
-
 </body>
-
-<footer th:replace="Layout/ResourcesLayout :: footer"></footer>
 </html>

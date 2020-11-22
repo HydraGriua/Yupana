@@ -33,7 +33,6 @@ public class Wallet {
 	@Temporal(TemporalType.DATE)
 	private Date creationDate;
 	
-	
 	@NotNull
 	private String state;
 	
@@ -45,7 +44,6 @@ public class Wallet {
 
 	@NotNull
 	private int idOfUser;
-
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "seller_id", nullable = false)

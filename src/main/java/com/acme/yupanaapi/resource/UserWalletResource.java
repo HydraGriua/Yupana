@@ -5,6 +5,8 @@ import lombok.Setter;
 
 import java.util.Date;
 
+import com.acme.yupanaapi.domain.model.Transaction;
+
 @Getter
 @Setter
 public class UserWalletResource {
@@ -37,4 +39,5 @@ public class UserWalletResource {
     private Date sCreationDate;
     private Date sExpirationDate;
     private String sType;
+    private Transaction transaction;
 }

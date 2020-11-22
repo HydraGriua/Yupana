@@ -1,26 +1,16 @@
-<html>
-<head>
-	<title>Registros - Yupana</title>
-	<link rel="icon" href="../images/Yupana-logo_fc_128x128.png" type="image/png" sizes="32x32 64x64 128x128">
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv=”Content-Language” content=”es”/>
-	<meta name="theme-color" content="#6B597A">
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
-	<script src="../scripts/jquery.min.js"></script>
-	<script src="../scripts/jquery-3.5.1.min.js"></script>
-	<script src="../scripts/contr.js"></script>
-	<script src="../scripts/setting-ui.js"></script>
-	<script src="../scripts/view.js"></script>
-
-	<link rel="stylesheet" type="text/css" href="../styles/styles.css">
-	<link rel="stylesheet" type="text/css" href="../styles/styles-pages.css">
-	<link rel="stylesheet" type="text/css" href="../styles/styles-regis.css">
-	<link rel="stylesheet" type="text/css" href="../styles/styles-popups.css">
+<head th:replace="Layout/ResourcesLayout :: head">
+<link th:href="@{/assets/styles/styles-client.css}" rel="stylesheet">
+<meta charset="utf-8">
 </head>
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Clientes</title>
+
+<header th:replace="Layout/MenuLayout :: header"> </header>
 <body>
 <div class="content app">
-
 <section class="filters">
 	<div class="row">
 		<h2>Filtros</h2>
@@ -110,39 +100,39 @@
 	<br>
 
 	<!-- cards -->
-	<section class="cards" id ="c-records">
+	<section class="cards" id ="c-records" >
 
-		<div class="card easy center"><!--det o easy-->
+		<div class="card easy center" th:each="registro : ${transactions}"><!--det o easy-->
 			<div class="top">
 				<h1>Registro de venta al crédito</h1>
-				<div class="r-code">Código de registro <span>NM1238913</span></div>
+				<div class="r-code">Código de registro <span th:text="${registro.transaction.id}"></span></div>
 			</div>
 			<div class="details">
 				<div class="client">
-					Cliente <span ><a href="#">Nombre completo Cliente</a></span>
+					Cliente <span ><a href="#" th:text="${registro.firstLastname}+' '+${registro.secondLastname}+' '+${registro.name}"></a></span>
 				</div>
 				<div class="date tosmall"><!--tonormal-->
-					Fecha de emisión: <span>dd/mm/aaaa</span>
+					Fecha de emisión: <span th:text= "${registro.transaction.transactionDate}"></span>
 				</div>
 				<div class="tInterest tohide">
 					Tipo de interés
-					<span>Tasa Simple Anual</span>
-					<span class="subDet">sin capitalización</span>
+					<span th:text = "${registro.transaction.rateType}"></span>
+					<span class="subDet" th:text="${registro.transaction.capitalization}"></span>
 				</div>
 				<div  class="ti tosmall tohide">
 					Tasa de interés
-					<span>xx.xxxxxxx%</span>
+					<span th:text="${registro.transaction.interestRate}"></span>
 				</div>
 				<div class="money debt"><!--debt o payment-->
 					<div class="tohide">
-						<div class="subDet">Monto de venta <span>s/xx.xx</span></div>
+						<div class="subDet">Monto de venta <span th:text="${registro.transaction.amount}">s/xx.xx</span></div>
 						<div class="subDet">Monto de delivery <span>s/xx.xx</span></div>
 					</div>
 					<div>Monto a dado a crédito <span>S/XX.XX</span></div>
 				</div>
 				<div class="descrip merge tohide">
 					Descripción:
-					<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</span>
+					<span th:text="${registro.description}"></span>
 				</div>
 			</div>
 		</div> <!-- card -->
