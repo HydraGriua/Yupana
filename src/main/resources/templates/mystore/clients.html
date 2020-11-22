@@ -99,56 +99,56 @@
 					<div class="top">
 						<h1>Cliente con delivery</h1>
 						<div class="r-code">
-							Código de registro <span>NM1238913</span>
+							Código de registro <span th:text="${wallet.userId}" >NM1238913</span>
 						</div>
 					</div>
 					<!-- div class="details">
 						<div class="client">
-							Cliente <span><a href="#" th:text="${wallet.user.name}">.</a></span>
+							Cliente <span><a href="#" th:text="${wallet.name}">.</a></span>
 						</div>
 						
 						<div class="acum">
 							<div class="money debt">
-								Monto acumulado a cobrar <span th:text="${wallet.balance}"></span>
+								Monto acumulado a cobrar <span th:text="${wallet.totalDebt}"></span>
 							</div>
 						</div>
 						
 					</div -->
 					<div class="details">
 						<div class="client">
-							Cliente <span><a href="#" th:text="${wallet.user.name}">.</a></span>
+							Cliente <span><a href="#" th:text="${wallet.name} + ' '+ ${wallet.firstLastname}"></a></span>
 						</div>
 						<div class="tInterest tohide">
 							Tipo de interés
-							<span>Tasa Simple Anual</span>
+							<span th:text="${wallet.currentRateType}"></span>
 							<span class="subDet">sin capitalización</span>
 						</div>
 						<div class="delivery tohide">
 							Delivery
-							<div class="row"><span>Periodo</span>
-							<span>S/xx.xx</span></div>
+							<div class="row" ><span>Precio</span>
+							<span> s/XXXX.XXX</span></div>
 							<div class="subDet"><!--class="date tosmall" -- tonormal-->
-								Próximo pago: <span>dd/mm/aaaa</span>
+								Próximo pago: <span> -----</span>
 							</div>
 						</div>
 						<div class="credleft tohide"><!--debt o payment-->
-							<div>Crédito restante <span>S/XX.XX</span></div>
-							<div class="subDet">Crédito otorgado <span>S/XX.XX</span></div>
+							<div>Crédito restante <span th:text="${wallet.totalDebt}"></span></div>
+							<div class="subDet">Crédito otorgado <span th:text="${wallet.creditLine}"></span></div>
 						</div>
 						<div class="acum">
-							<div class="money debt">Monto acumulado a cobrar <span th:text="${wallet.balance}"></span></div>
-							<div  class="ti tohide">Tasa de interés <span>xx.xxxxxxx%</span></div>
+							<div class="money debt">Monto acumulado a cobrar <span th:text="${wallet.totalDebt}"></span></div>
+							<div  class="ti tohide">Tasa de interés <span th:text="${wallet.currentInterestRate}"></span></div>
 						</div>
 						<div class="mantenimiento money tohide">
 							Mantenimiento de cuenta
-							<div class="row">Periodo <span>S/XX.XX</span></div>
+							<div class="row">Precio <span th:text="${wallet.maintenancePrice}"></span></div>
 							<div class="subDet">
-								Próximo pago: <span>dd/mm/aaaa</span>
+								Próximo pago: <span th:text="${wallet.deadlineDate}"></span>
 							</div>
 						</div>
 						<div class="descrip merge tohide">
 							Descripción:
-							<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</span>
+							<span th:text="${wallet.Type}"></span>
 						</div>
 					</div>
 					<div class="client-actions">
@@ -161,7 +161,7 @@
 						<button class="new color-accent-bg">
 							<span>Nuevo registro </span> <i class="fas fa-plus"></i>
 						</button>
-						<a href="client-details.html"><button
+						<a th:href="@{/mystore/clients/}"><button
 								class="receipts color-secondary-bg">
 								Ver detalle <i class="fas fa-clipboard-list"></i>
 							</button></a>

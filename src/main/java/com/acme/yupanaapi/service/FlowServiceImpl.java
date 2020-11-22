@@ -94,7 +94,7 @@ public class FlowServiceImpl implements FlowService {
     @Override
     public UserWalletResource getData(int walletId) {
         List<Flow> listaF = flowRepository.findAllByWalletId(walletId);
-        Flow flow = listaF.get(listaF.size()-1);
+        Flow flow = listaF.get(0);
 
         Wallet wallet = walletRepository.findById(walletId)
                 .orElseThrow(() -> new ResourceNotFoundException(
