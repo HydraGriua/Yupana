@@ -9,7 +9,6 @@ import java.util.Date;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 
 @Data
 @NoArgsConstructor
@@ -21,7 +20,9 @@ public class Sale {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id; 
+
+	private int id; 
+
 	
 	@NotNull
 	@Temporal(TemporalType.DATE)

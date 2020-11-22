@@ -21,7 +21,7 @@ public class HistorialServiceImpl implements HistorialService {
     private SellerRepository sellerRepository;
 
     @Override
-    public Historial save(Historial historialEntity, Integer sellerId) {
+    public Historial save(Historial historialEntity, int sellerId) {
         return sellerRepository.findById(sellerId).map(seller -> {
             historialEntity.setSeller(seller);
             historialEntity.setIdOfSeller(sellerId);
@@ -32,7 +32,7 @@ public class HistorialServiceImpl implements HistorialService {
     }
 
     @Override
-    public ResponseEntity<?> deleteHistorial(Integer historialId) {
+    public ResponseEntity<?> deleteHistorial(int historialId) {
         return historialRepository.findById(historialId).map(historial -> {
             historialRepository.delete(historial);
             return ResponseEntity.ok().build();
@@ -41,20 +41,20 @@ public class HistorialServiceImpl implements HistorialService {
     }
 
     @Override
-    public Historial getHistorialById(Integer historialId) {
+    public Historial getHistorialById(int historialId) {
         return historialRepository.findById(historialId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Historial not found with Id " + historialId));
     }
 
     @Override
-    public Historial getLastHistorialBySellerId(Integer sellerId) {
+    public Historial getLastHistorialBySellerId(int sellerId) {
         List<Historial> lista = historialRepository.findBySellerId(sellerId);
         return lista.get(lista.size()-1);
     }
 
     @Override
-    public List<Historial> getAllHistorialBySellerId(Integer sellerId) {
+    public List<Historial> getAllHistorialBySellerId(int sellerId) {
         return historialRepository.findBySellerId(sellerId);
     }
 }

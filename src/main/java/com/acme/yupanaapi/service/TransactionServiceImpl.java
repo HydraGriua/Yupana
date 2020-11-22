@@ -34,7 +34,8 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Transactional
 	@Override
-	public Transaction createTransaction(Transaction transactionEntity, Integer flowId) {
+
+	public Transaction createTransaction(Transaction transactionEntity, int flowId) {
 		// Obtenemos el flow al que pertenecera
 		Flow flow = flowRepository.findById(flowId)
 				.orElseThrow(() -> new ResourceNotFoundException("Flow not found with Id " + flowId));
@@ -83,7 +84,7 @@ public class TransactionServiceImpl implements TransactionService {
 	}
 
 	@Override
-	public Transaction AssignTransactionWithSale(Integer transactionId, Integer saleId) {
+	public Transaction AssignTransactionWithSale(int transactionId, int saleId) {
 		Sale sale = saleRepository.findById(saleId)
 				.orElseThrow(() -> new ResourceNotFoundException("Sale not found with Id " + saleId));
 		return transactionRepository.findById(transactionId).map(transaction -> {
@@ -94,7 +95,7 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Transactional
 	@Override
-	public Transaction updateTransaction(Transaction transactionEntity, Integer transactionId) {
+	public Transaction updateTransaction(Transaction transactionEntity, int transactionId) {
 		Transaction transaction = transactionRepository.findById(transactionId)
 				.orElseThrow(() -> new ResourceNotFoundException("Transaction not found with Id " + transactionId));
 		transaction.setTransactionName(transactionEntity.getTransactionName());
@@ -111,7 +112,8 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Transactional
 	@Override
-	public ResponseEntity<?> deleteTransaction(Integer transactionId) {
+
+	public ResponseEntity<?> deleteTransaction(int transactionId) {
 		Transaction transaction = transactionRepository.findById(transactionId)
 				.orElseThrow(() -> new ResourceNotFoundException("Transaction not found with Id " + transactionId));
 		transactionRepository.delete(transaction);
@@ -120,19 +122,19 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public Transaction getTransactionById(Integer transactionId) {
+	public Transaction getTransactionById(int transactionId) {
 		return transactionRepository.findById(transactionId)
 				.orElseThrow(() -> new ResourceNotFoundException("Transaction not found with Id " + transactionId));
 	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<Transaction> getAllByFlowId(Integer flowId) {
+	public List<Transaction> getAllByFlowId(int flowId) {
 		return transactionRepository.findAllByFlowId(flowId);
 	}
 
 	@Override
-	public List<Transaction> getAllByHistorialId(Integer historialId) {
+	public List<Transaction> getAllByHistorialId(int historialId) {
 		return transactionRepository.findAllByHistorialId(historialId);
 	}
 }

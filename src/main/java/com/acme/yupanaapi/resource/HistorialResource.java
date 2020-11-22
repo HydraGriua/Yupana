@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class HistorialResource {
-    private Long id;
-    private Long idOfSeller;
+    private int id;
+    private int idOfSeller;
 }

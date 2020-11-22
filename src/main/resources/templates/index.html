@@ -1,15 +1,14 @@
 <!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="Layout/ResourcesLayout :: head">
-	<meta charset="utf-8">
+<meta charset="utf-8">
 </head>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Pagina - Yupana</title>
 
-
+<header th:replace="Layout/MenuLayout :: header"> </header>
 
 <body>
-	<header th:replace="Layout/MenuLayout :: header"></header>
 <div class="content app">
 
 <section class="filters">
@@ -137,7 +136,6 @@
 				</div>
 			</div>
 		</div> <!-- card -->
-
 	</section>
 
 	<br>
@@ -169,8 +167,6 @@
 	
 	
 </body>
-
-
 
 <footer th:replace="Layout/ResourcesLayout :: footer"></footer>
 </html>

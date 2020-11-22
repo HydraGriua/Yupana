@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 public class Flow {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private int id;
 
 	@Temporal(TemporalType.DATE)
 	@NotNull

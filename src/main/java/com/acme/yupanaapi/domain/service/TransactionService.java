@@ -7,11 +7,11 @@ import org.springframework.http.ResponseEntity;
 import com.acme.yupanaapi.domain.model.Transaction;
 
 public interface TransactionService {
-	Transaction createTransaction(Transaction transactionEntity, Integer flowId);
-	Transaction AssignTransactionWithSale(Integer transactionId, Integer saleId);
-	Transaction updateTransaction(Transaction transactionEntity, Integer transactionId);
-	ResponseEntity<?> deleteTransaction(Integer transactionId);
-	Transaction getTransactionById(Integer transactionId);
-	List<Transaction> getAllByFlowId(Integer flowId);
-	List<Transaction> getAllByHistorialId(Integer historialId);
+	Transaction createTransaction(Transaction transactionEntity, int flowId);
+	Transaction AssignTransactionWithSale(int transactionId, int saleId);
+	Transaction updateTransaction(Transaction transactionEntity, int transactionId);
+	ResponseEntity<?> deleteTransaction(int transactionId);
+	Transaction getTransactionById(int transactionId);
+	List<Transaction> getAllByFlowId(int flowId);
+	List<Transaction> getAllByHistorialId(int historialId);
 }

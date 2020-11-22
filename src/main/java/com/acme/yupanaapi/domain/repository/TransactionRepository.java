@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.acme.yupanaapi.domain.model.Transaction;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Integer>{
-	List<Transaction> findAllByFlowId(Integer flowId);
-	List<Transaction> findAllByHistorialId(Integer historialId);
+	List<Transaction> findAllByFlowId(int flowId);
+	List<Transaction> findAllByHistorialId(int historialId);
 }

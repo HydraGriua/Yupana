@@ -5,7 +5,7 @@ import com.acme.yupanaapi.domain.model.Seller;
 import com.acme.yupanaapi.domain.model.User;
 import com.acme.yupanaapi.domain.repository.SellerRepository;
 import com.acme.yupanaapi.domain.repository.UserRepository;
-import com.acme.yupanaapi.resource.UserWalletResource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ public class WalletServiceImpl implements WalletService {
 
 	@Transactional
 	@Override
-	public Wallet createWallet(Wallet entity, Integer sellerId, Integer userId){
+	public Wallet createWallet(Wallet entity, int sellerId, int userId){
 		Seller seller = sellerRepository.findById(sellerId)
 				.orElseThrow(()-> new ResourceNotFoundException("Seller not found with Id" + sellerId));
 		User user = userRepository.findById(userId)
@@ -47,7 +47,7 @@ public class WalletServiceImpl implements WalletService {
 
 	@Transactional
 	@Override
-	public Wallet updateWallet(Wallet entity, Integer walletId, Integer sellerId) {
+	public Wallet updateWallet(Wallet entity, int walletId, int sellerId) {
 		if(!sellerRepository.existsById(sellerId))
 			throw  new ResourceNotFoundException("Seller not found with Id" + sellerId);
 		return walletRepository.findById(walletId).map(wallet -> {
@@ -63,7 +63,7 @@ public class WalletServiceImpl implements WalletService {
 
 	@Transactional
 	@Override
-	public ResponseEntity<?> deleteWallet(Integer walletId) {
+	public ResponseEntity<?> deleteWallet(int walletId) {
 		Wallet wallet = walletRepository.findById(walletId)
 				.orElseThrow(()->new ResourceNotFoundException("Wallet not found with Id" + walletId));
 		walletRepository.delete(wallet);
@@ -72,7 +72,7 @@ public class WalletServiceImpl implements WalletService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public Wallet getWalletById(Integer walletId) {
+	public Wallet getWalletById(int walletId) {
 		return walletRepository.findById(walletId)
 				.orElseThrow(()-> new ResourceNotFoundException(
 						"Wallet not found with Id" + walletId));
@@ -80,7 +80,7 @@ public class WalletServiceImpl implements WalletService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public Wallet getWalletByIdAndUserId(Integer walletId, Integer userId) {
+	public Wallet getWalletByIdAndUserId(int walletId, int userId) {
 		return walletRepository.findByIdAndUserId(walletId,userId)
 				.orElseThrow(() -> new ResourceNotFoundException(
 						"Wallet not found with Id " + walletId +
@@ -89,10 +89,9 @@ public class WalletServiceImpl implements WalletService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<Wallet> getAllBySellerId(Integer sellerId) {
+	public List<Wallet> getAllBySellerId(int sellerId) {
 		return walletRepository.findAllBySellerId(sellerId);
 	}
-
 
 
 }

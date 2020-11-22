@@ -12,12 +12,14 @@ import com.acme.yupanaapi.resource.UserWalletResource;
 import org.springframework.http.ResponseEntity;
 
 public interface FlowService {
-    Flow getFlowById(Integer flowId);
-    Flow createFlow(Flow flow, Integer walletId, Integer sellerId);
-    Flow updateFlow(Integer flowId,Integer walletId, Integer sellerId, Flow flowRequest);
-    ResponseEntity<?> deleteFlow(Integer flowId);
-    List<Flow> getAllByWalletId(Integer walletId);
-    List<Flow> getAllByWalletIdAndDeadlineDate(Integer walletId, Date date);
-    Flow getLastFlow(Integer walletId);
-    UserWalletResource getData(Integer walletId);
+
+    Flow getFlowById(int flowId);
+    Flow createFlow(Flow flow, int walletId, int sellerId);
+    Flow updateFlow(int flowId,int walletId, int sellerId, Flow flowRequest);
+    ResponseEntity<?> deleteFlow(int flowId);
+    List<Flow> getAllByWalletId(int walletId);
+    List<Flow> getAllByWalletIdAndDeadlineDate(int walletId, Date date);
+    Flow getLastFlow(int walletId);
+    UserWalletResource getData(int walletId);
 }
+

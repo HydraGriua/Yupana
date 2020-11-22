@@ -18,7 +18,9 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+
+    private int id;
+
 
     @NotNull
     private String documentType;
@@ -38,7 +40,7 @@ public class User {
     @NotNull
     private String cellphone;
 
-    @Lob
+
     @NotNull
     private String description;
 }

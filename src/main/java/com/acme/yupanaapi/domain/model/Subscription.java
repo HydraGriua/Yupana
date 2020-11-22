@@ -20,7 +20,8 @@ import java.util.Date;
 public class Subscription {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;	
+	private int id;	
+
 	
 	@NotNull
 	private Float amount;
@@ -33,7 +34,7 @@ public class Subscription {
 	@Temporal(TemporalType.DATE)
 	private Date expirationDate;
 	
-	@Lob
+
 	@NotNull
 	private String subscriptionType;
 

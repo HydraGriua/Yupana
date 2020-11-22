@@ -1,11 +1,9 @@
 package com.acme.yupanaapi.controller;
 
 import com.acme.yupanaapi.domain.model.Historial;
-import com.acme.yupanaapi.domain.model.Transaction;
 import com.acme.yupanaapi.domain.service.HistorialService;
 import com.acme.yupanaapi.resource.HistorialResource;
 import com.acme.yupanaapi.resource.SaveHistorialResource;
-import com.acme.yupanaapi.resource.TransactionResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

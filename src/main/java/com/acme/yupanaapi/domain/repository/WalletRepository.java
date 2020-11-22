@@ -6,8 +6,10 @@ import java.util.Optional;
 
 
 public interface WalletRepository extends JpaRepository<Wallet, Integer>{
-    List<Wallet> findAllBySellerId(Integer sellerId);
-    Optional<Wallet> findByIdAndUserId(Integer id,Integer userId);
-    Optional<Wallet> findByIdAndSellerId(Integer id,Integer sellerId);
-    Boolean existsByIdAndSellerId(Integer id, Integer sellerId);
+
+    List<Wallet> findAllBySellerId(int sellerId);
+    Optional<Wallet> findByIdAndUserId(int id,int userId);
+    Optional<Wallet> findByIdAndSellerId(int id,int sellerId);
+    Boolean existsByIdAndSellerId(int id, int sellerId);
+
 }

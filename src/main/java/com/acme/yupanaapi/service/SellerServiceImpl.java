@@ -5,7 +5,6 @@ import com.acme.yupanaapi.domain.model.User;
 import com.acme.yupanaapi.domain.repository.SellerRepository;
 import com.acme.yupanaapi.domain.repository.UserRepository;
 import com.acme.yupanaapi.domain.service.SellerService;
-import com.acme.yupanaapi.domain.service.UserService;
 import com.acme.yupanaapi.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +21,8 @@ public class SellerServiceImpl implements SellerService {
     
     @Transactional(readOnly = true)
     @Override
-    public Seller getSellerByIdAndUserId(Integer sellerId, Integer userId) {
+
+    public Seller getSellerByIdAndUserId(int sellerId, int userId) {
         return sellerRepository.findByIdAndUserId(sellerId,userId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Seller not found with Id " + sellerId +
@@ -31,7 +31,7 @@ public class SellerServiceImpl implements SellerService {
 
     @Transactional(readOnly = true)
     @Override
-    public Seller getSellerById(Integer sellerId) {
+    public Seller getSellerById(int sellerId) {
         return sellerRepository.findById(sellerId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Seller", "Id", sellerId));
@@ -47,7 +47,8 @@ public class SellerServiceImpl implements SellerService {
 
     @Transactional
     @Override
-    public Seller createSeller(Seller seller, Integer userId) {
+
+    public Seller createSeller(Seller seller, int userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException(
                 "User", "Id", userId));
         seller.setUser(user);
@@ -56,7 +57,8 @@ public class SellerServiceImpl implements SellerService {
 
     @Transactional
     @Override
-    public Seller updateSeller(Integer sellerId, Integer userId, Seller sellerRequest) {
+
+    public Seller updateSeller(int sellerId, int userId, Seller sellerRequest) {
         if(!userRepository.existsById(userId))
             throw  new ResourceNotFoundException("User", "Id", userId);
         return sellerRepository.findById(sellerId).map(seller -> {
@@ -72,7 +74,8 @@ public class SellerServiceImpl implements SellerService {
 
     @Transactional
     @Override
-    public ResponseEntity<?> deleteSeller(Integer sellerId) {
+
+    public ResponseEntity<?> deleteSeller(int sellerId) {
         Seller seller = sellerRepository.findById(sellerId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Seller not found with Id " + sellerId));

@@ -1,7 +1,5 @@
 package com.acme.yupanaapi.resource;
 
-import com.acme.yupanaapi.domain.model.User;
-import com.acme.yupanaapi.domain.model.Wallet;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,10 +8,11 @@ import java.util.Date;
 @Getter
 @Setter
 public class UserWalletResource {
-    private Integer walletId;
-    private Integer userId;
-    private Integer flowId;
-    private Integer subscriptionId;
+
+    private int walletId;
+    private int userId;
+    private int flowId;
+    private int subscriptionId;
     private String documentNumber;
     private String name;
     private String firstLastname;
