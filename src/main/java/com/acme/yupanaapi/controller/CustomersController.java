@@ -24,7 +24,7 @@ public class CustomersController {
 	@GetMapping
 	public String viewCustomers(Model model) {
 		try {
-			System.err.println("entro");
+			System.err.println("hola como estas");
 			List<Wallet> wallets = walletService.getAllBySellerId(1);
 			model.addAttribute("wallets", wallets);
 		} catch (Exception e) {

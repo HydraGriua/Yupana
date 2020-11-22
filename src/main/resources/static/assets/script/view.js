@@ -25,7 +25,7 @@ var navHtml = '<header>'
 	+	'<a href="learn_more.html"><li> <i class="fas fa-graduation-cap"></i> <span>Aprende más </span></li></a>'
 	+	'</ul></nav>'
 	+'<div class="nav-title">'
-	+ '<img src="../images/Yupana-logo_w_512x512.png" alt="logo Yupana" class="icon"> <img src="../images/Yupana-txt_w_512x256.png" alt="texto Yupana" class="text">'
+	+ '<img src="../assets/images/Yupana-logo_w_512x512.png" alt="logo Yupana" class="icon"> <img src="../assets/images/Yupana-txt_w_512x256.png" alt="texto Yupana" class="text">' 
 	+ '</div>'
 	+ '</header>';
 $('.content.app').prepend(navHtml);
@@ -40,6 +40,7 @@ setStylishUI('.filters');
 setStylishUI('.actions');
 setStylishUI('main');
 setDateTime('html');
+setCard();
 
 setActivePage();
 
@@ -103,10 +104,13 @@ $(".fast-access .submenu button").click(function(event) {
 
 /*POP UPS GRANDES*/
 function setPopup(idBtnPopup){
+	
 	var jqxhr = getContent(idBtnPopup);
+	
 
 	if (jqxhr != null) {
 		jqxhr.done(function(data){
+				alert("entro");
 			popup('.content', idBtnPopup, data);
 
 			switch (idBtnPopup) {
@@ -127,12 +131,12 @@ function getContent(idBtnPopup) {
 	var url = "";
 
 	switch (idBtnPopup) {
-		case 'newSell': url = "actions/pop-newSell.html";break;
-		case 'newPayment': url = "actions/pop-newPayment.html"; break;
-		case 'newDelivery':  url = "actions/pop-newSell.html"; break;
-		case 'newSuscriptionD':  url = "actions/pop-newSuscriptionD.html"; break;
-		case 'newClient': url = "actions/pop-client.html"; break;
-		case 'editClient': url = "actions/pop-client.html"; break;
+		case 'newSell': url = "http://localhost:8088/mystore/actions/pop-newSell.html";break;
+		case 'newPayment': url = "/actions/pop-newPayment.html"; break;
+		case 'newDelivery':  url = "/actions/pop-newSell.html"; break;
+		case 'newSuscriptionD':  url = "/actions/pop-newSuscriptionD.html"; break;
+		case 'newClient': url = "http://localhost:8088/mystore/actions/pop-client.html"; break;
+		case 'editClient': url = "/actions/pop-client.html"; break;
 		default: return null; break;
 	}
 

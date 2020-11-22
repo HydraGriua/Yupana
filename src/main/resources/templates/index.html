@@ -3,6 +3,7 @@
 <head th:replace="Layout/ResourcesLayout :: head">
 <meta charset="utf-8">
 </head>
+<link th:href="@{/assets/styles/styles-index.css}" rel="stylesheet">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Pagina - Yupana</title>
 
@@ -10,9 +11,23 @@
 
 <body>
 	<div class="content">
+		<section class="container main bg-img">
+			<div class="book">
+				<h1>
+					Registra a tus deudores <span class="color-secondary-txt">fácilmente</span>
+				</h1>
+				<p>
+					<strong><span class="color-accent-txt">Yupana</span></strong> te
+					permite registrar las deudas de tus clientes, elegir por cada deuda
+					un tipo de interés y verificar el estado de cada deuda.
+				</p>
+				<br /> <img src="" alt="logo" />
+			</div>
+		</section>
 
 
 		<section class="container main-frm">
+
 			<div id="p-signin">
 				<h1>REGÍSTRATE</h1>
 				<p>Requeridos*</p>
@@ -77,7 +92,7 @@
 			</div>
 
 		</section>
-		<footer th:replace="Layout/ResourcesLayout :: footer"></footer>
 	</div>
+	<script>setPageAlternations('#p-signin','#goto-login','#p-login','#goto-signin');</script>
 </body>
 </html>

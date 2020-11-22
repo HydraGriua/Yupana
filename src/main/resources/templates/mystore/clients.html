@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="Layout/ResourcesLayout :: head">
+<link th:href="@{/assets/styles/styles-client.css}" rel="stylesheet">
 <meta charset="utf-8">
 </head>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -62,15 +64,15 @@
 			</form>
 		</section>
 
-		<!-- section class="actions row">
+		<section class="actions row">
 			<button id="show-filter">
 				<span>Filtrar</span> <i class="fas fa-filter"></i>
 			</button>
 			<form action="" method="get" id="frm-search" class="row">
 				<label for="search"><input type="text" name="search"
 					value="" placeholder="Nombre del cliente"><i
-					class="fas fa-search"></i> <!--button type="submit"><span>Buscar</span> <i class="fas fa-search"></i></button-->
-		<!-- /label>
+					class="fas fa-search"></i> <button type="submit"><span>Buscar</span> <i class="fas fa-search"></i></button>
+		</label>
 				<button type="submit" class="btn-icon">
 					<i class="fas fa-search"></i>
 				</button>
@@ -86,7 +88,7 @@
 					Exportar <i class="fas fa-download"></i></i>
 				</button>
 			</div>  
-		</section>-->
+		</section>
 
 		<main class="container">
 			<h1>Clientes</h1>
@@ -100,7 +102,7 @@
 							Código de registro <span>NM1238913</span>
 						</div>
 					</div>
-					<div class="details">
+					<!-- div class="details">
 						<div class="client">
 							Cliente <span><a href="#" th:text="${wallet.user.name}">.</a></span>
 						</div>
@@ -111,6 +113,43 @@
 							</div>
 						</div>
 						
+					</div -->
+					<div class="details">
+						<div class="client">
+							Cliente <span><a href="#" th:text="${wallet.user.name}">.</a></span>
+						</div>
+						<div class="tInterest tohide">
+							Tipo de interés
+							<span>Tasa Simple Anual</span>
+							<span class="subDet">sin capitalización</span>
+						</div>
+						<div class="delivery tohide">
+							Delivery
+							<div class="row"><span>Periodo</span>
+							<span>S/xx.xx</span></div>
+							<div class="subDet"><!--class="date tosmall" -- tonormal-->
+								Próximo pago: <span>dd/mm/aaaa</span>
+							</div>
+						</div>
+						<div class="credleft tohide"><!--debt o payment-->
+							<div>Crédito restante <span>S/XX.XX</span></div>
+							<div class="subDet">Crédito otorgado <span>S/XX.XX</span></div>
+						</div>
+						<div class="acum">
+							<div class="money debt">Monto acumulado a cobrar <span th:text="${wallet.balance}"></span></div>
+							<div  class="ti tohide">Tasa de interés <span>xx.xxxxxxx%</span></div>
+						</div>
+						<div class="mantenimiento money tohide">
+							Mantenimiento de cuenta
+							<div class="row">Periodo <span>S/XX.XX</span></div>
+							<div class="subDet">
+								Próximo pago: <span>dd/mm/aaaa</span>
+							</div>
+						</div>
+						<div class="descrip merge tohide">
+							Descripción:
+							<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</span>
+						</div>
 					</div>
 					<div class="client-actions">
 						<button class="delete color-alarm-bg">
@@ -151,6 +190,7 @@
 					</button>
 				</form>
 			</section>
+			
 		</main>
 
 		<div class="fast-access">
@@ -162,4 +202,5 @@
 
 	</div>
 </body>
+
 </html>
