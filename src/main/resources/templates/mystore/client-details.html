@@ -48,7 +48,7 @@
 			<div class="more hide-mobile">
 				<a th:href="@{/mystore/clients/}"><div>
 						<i class="fas fa-id-badge"></i>Ir a perfil
-					</div></a> <a href="../index.html" id="log-out"><div>
+					</div></a> <a th:href="@{/index}" id="log-out"><div>
 						<i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión </span>
 					</div></a>
 			</div>
@@ -63,9 +63,9 @@
 			</ul>
 		</nav>
 		<div class="nav-title">
-			<img src="../assets/images/Yupana-logo_w_512x512.png"
+			<img src="/assets/images/Yupana-logo_w_512x512.png"
 				alt="logo Yupana" class="icon"> <img
-				src="../assets/images/Yupana-txt_w_512x256.png" alt="texto Yupana"
+				src="/assets/images/Yupana-txt_w_512x256.png" alt="texto Yupana"
 				class="text">
 		</div>
 	</header>
@@ -75,19 +75,19 @@
 			<div class="row">
 				<div class="resume">
 					<h1>
-						<a th:href="@{/mystore/clients}">Clientes</a> > Detalle de cliente: <span>Nombre_completo</span>
+						<a th:href="@{/mystore/clients}">Clientes</a> > Detalle de cliente: <span th:text="${wallets.user.name}"></span>
 					</h1>
 					<div class="row">
 						<div>
 							<div>
-								Línea de crédito dada: <span>S/</span> <span>XX.XX</span>
+								Línea de crédito dada: <span>S/</span> <span th:text="${flows.creditLine}"></span>
 							</div>
 							<div>
-								Línea de crédito resante: <span>S/</span> <span>XX.XX</span>
+								Línea de crédito resante: <span>S/</span> <span th:text="${flows.currentCreditLine}"></span>
 							</div>
 						</div>
 						<div>
-							Monto acumulado a cobrar <span>S/</span> <span>XX.XX</span>
+							Monto acumulado a cobrar <span>S/</span> <span th:text="${flows.totalDebt}"></span>
 						</div>
 					</div>
 
@@ -100,7 +100,7 @@
 						<span>Editar</span> <i class="fas fa-edit"></i>
 					</button>
 					<button class="receipts color-secondary-bg">
-						<a th:href="@{/mystore/clients/}">Ver datos completos </a> <i class="fas fa-id-card"></i>
+						<a th:href="@{/mystore/clients/}"> Ver datos completos </a> <i class="fas fa-id-card"></i>
 					</button>
 				</div>
 			</div>
@@ -222,46 +222,39 @@
 				<section class="cards client">
 
 					<!-- card -->
-					<div class="card easy center">
+					<div class="card easy center" th:each="transacion : ${transacionesT}">
 						<!--det o easy-->
 						<div class="details">
 							<div>
 								<div class="r-code">
-									Código de registro <span>NM1238913</span>
+									Código de registro <span th:text="${transacion.id}"></span>
 								</div>
 								<h1>Registro de venta al crédito</h1>
-								<span class="subDet">sin delivery</span>
 							</div>
 							<div class="date tosmall">
 								<!--tonormal-->
-								Fecha de emisión: <span>dd/mm/aaaa</span>
+								Fecha de emisión: <span th:text="${transacion.transactionDate}"></span>
 							</div>
 							<div class="tInterest tohide">
-								Tipo de interés <span>Tasa Simple Anual</span> <span
-									class="subDet">sin capitalización</span>
+								Tipo de interés <span th:text="${transacion.rateType}"></span> <span
+									class="subDet">Capitalización</span> <span th:text="${transacion.capitalization}"> </span>
 							</div>
 							<div class="ti tosmall tohide">
-								Tasa de interés <span>xx.xxxxxxx%</span>
+								Tasa de interés <span th:text="${transacion.interestRate}"></span>
 							</div>
 							<div class="money debt">
 								<!--debt o payment-->
 								<div class="tohide">
 									<div class="subDet">
-										Monto de venta <span>s/xx.xx</span>
-									</div>
-									<div class="subDet">
-										Monto de delivery <span>s/xx.xx</span>
+										Monto de venta <span>S/</span><span th:text="${transacion.amount}"></span>
 									</div>
 								</div>
 								<div>
-									Monto a dado a crédito <span>S/XX.XX</span>
+									Monto a dado a crédito<span>S/</span> <span th:text="${transacion.amount}"> </span>
 								</div>
 							</div>
 							<div class="descrip merge tohide">
-								Descripción: <span>Lorem ipsum dolor sit amet,
-									consectetur adipiscing elit, sed do eiusmod tempor incididunt
-									ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-									nostrud exercitation.</span>
+								Descripción: <span th:text="${transacion.transactionName}"></span>
 							</div>
 						</div>
 					</div>
@@ -338,27 +331,27 @@
 						</div>
 					</div>
 					<!-- history line -->
-					<section class="cards c-credit">
-						<div class="card center">
+					<section class="cards c-credit" >
+						<div class="card center" th:each="flow : ${flows}">
 							<!--det o easy-->
 							<div class="details">
 								<div>
-									Línea de crédito <strong>S/xxx.xx</strong>
+									Línea de crédito <strong th:text="${flow.creditLine}"></strong>
 								</div>
 								<div class="date">
 									<!--tonormal-->
-									Fecha de emisión: <span>dd/mm/aaaa</span>
+									Fecha de emisión: <span th:text="${flow.wallet.creationDate}" ></span>
 								</div>
 								<div class="tInterest">
-									Tipo de interés <span>Tasa Simple Anual</span> <span
-										class="subDet">sin capitalización</span>
+									Tipo de interés <span th:text="${flow.currentRateType}" ></span> <span></span>
+										<!-- class="subDet">sin capitalización</span>  -->
 								</div>
 								<div class="ti">
-									Tasa de interés <span>xx.xxxxxxx%</span>
+									Tasa de interés <span th:text="${flow.currentInterestRate}"></span>
 								</div>
 								<div class="money">
 									<!--debt o payment-->
-									Deuda hasta la fecha actual <span>S/XX.XX</span>
+									Deuda hasta la fecha actual <span th:text="${flow.currentInterestRate}" ></span>
 								</div>
 							</div>
 						</div>
@@ -433,7 +426,7 @@
 	var tabPages = [".content section#h-registros",".content section#h-credito", ".content section#h-delivery"];
 	setTabs(tabs,tabPages);
 	setCard();
-</script>
+	</script>
 
 </body>
 </html>

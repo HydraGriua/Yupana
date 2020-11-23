@@ -116,7 +116,7 @@
 					</div -->
 					<div class="details">
 						<div class="client">
-							Cliente <span><a href="#" th:text="${wallet.name} + ' '+ ${wallet.firstLastname}"></a></span>
+							Cliente <span><a th:text="${wallet.name} + ' '+ ${wallet.firstLastname}"></a></span>
 						</div>
 						<div class="tInterest tohide">
 							Tipo de interés
@@ -133,17 +133,17 @@
 						</div>
 						<div class="credleft tohide"><!--debt o payment-->
 							<div>Crédito restante <span th:text="${wallet. currentCreditLine}"></span></div>
-							<div class="subDet">Crédito otorgado <span th:text="${wallet.creditLine}"></span></div>
+							<div class="subDet">Crédito otorgado <span>S/</span> <span th:text="${wallet.creditLine}"></span></div>
 						</div>
 						<div class="acum">
-							<div class="money debt">Monto acumulado a cobrar <span th:text="${wallet.totalDebt}"></span></div>
+							<div class="money debt">Monto acumulado a cobrar <span>S/</span> <span th:text="${wallet.totalDebt}"></span></div>
 							<div  class="ti tohide">Tasa de interés <span th:text="${wallet.currentInterestRate}"></span></div>
 						</div>
 						<div class="mantenimiento money tohide">
 							Mantenimiento de cuenta
-							<div class="row">Precio <span th:text="${wallet.maintenancePrice}"></span></div>
+							<div class="row">Precio <span>S/</span> <span th:text="${wallet.maintenancePrice}"></span></div>
 							<div class="subDet">
-								Próximo pago: <span th:text="${wallet.deadlineDate}"></span>
+								Próximo pago: <span>S/</span> <span th:text="${wallet.deadlineDate}"></span>
 							</div>
 						</div>
 						<div class="descrip merge tohide">
@@ -161,7 +161,7 @@
 						<button class="new color-accent-bg">
 							<span>Nuevo registro </span> <i class="fas fa-plus"></i>
 						</button>
-						<a th:href="@{/mystore/clients-details/}"><button
+						<a th:href="@{'/mystore/client-details?id=' + ${wallet.walletId}}"><button
 								class="receipts color-secondary-bg">
 								Ver detalle <i class="fas fa-clipboard-list"></i>
 							</button></a>
