@@ -121,7 +121,7 @@ if($("#c-records").html() != undefined){
 	}).catch(function(err){
 		alert("Ocurrió el siguiente error: " + err.message );
 	});*/
-	setCard();
+	//setCard();
 	//alert(periodos['d' + 30]);
 }
 /*
@@ -257,7 +257,7 @@ if(sessionStorage.getItem('cliente') != null) {
 	setCard();
 }
 
-setCard();
+//setCard();
 
 
 

@@ -243,8 +243,7 @@ var setDateTime = function(container){
 	var month = ("0" + (now.getMonth() + 1)).slice(-2);
 	var today = now.getFullYear() + "-" + (month) + "-" + (day);
 	$(container).find('input[type="date"][value="now"]').attr('value',today);
-	var hoy = (day) + "/" + (month) + "/" + now.getFullYear();
-	$(container).find('span[value="now"]').html(hoy);
+	$(container).find('span[value="now"]').html(today);
 
 	var hour = now.getHours();
 	var mins = now.getMinutes();
@@ -277,7 +276,7 @@ var setTabs =  function(arrTabs,arrPages) {
 
 /*CARDS*/
 //Vista simple a Vista detalle
-var setCard = function() {
+var setCard = function() { 
 	$('.cards .card .tohide').hide();
 	$('.actions .cards button#view').click(function(event) {
 		if ($(this).attr('value') == 'todet') {

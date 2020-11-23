@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Yupana</title>
+<title>Clientes-detalles</title>
 <link th:href="@{/assets/images/Yupana-logo_fc_128x128.png}"
 	type="image/png" sizes="32x32 64x64 128x128" rel="icon">
 <meta charset="utf-8" />
@@ -22,12 +22,12 @@
 <!-- Template Main CSS File -->
 <link th:href="@{/assets/styles/styles.css}" rel="stylesheet">
 <link th:href="@{/assets/styles/styles-pages.css}" rel="stylesheet">
-<link th:href="@{/assets/styles/styles-toogle.css}" rel="stylesheet">
+<!--  link th:href="@{/assets/styles/styles-toogle.css}" rel="stylesheet"-->
 <link th:href="@{/assets/styles/styles-regis.css}" rel="stylesheet">
 <link th:href="@{/assets/styles/styles-client.css}" rel="stylesheet">
 
 <!-- Script JS Files -->
-<script th:src="@{/assets/script/contr.js}"></script>
+<!-- script th:src="@{/assets/script/contr.js}"></script> -->
 <script th:src="@{/assets/script/jquery.min.js}"></script>
 <script th:src="@{/assets/script/jquery-3.5.1.min.js}"></script>
 <!-- script th:src="@{/assets/script/jquery-ui.min.js}"></script-->
@@ -55,16 +55,17 @@
 		</div>
 		<nav>
 			<ul>
-				<a th:href="@{/mystore/learn_more/}"><li><i class="fas fa-book"></i> <span>Registro</span></li></a>
-                <a th:href="@{/mystore/clients/}"><li><i class="fas fa-address-book"></i>
-                        <span>Clientes</span></li></a>
-                <a th:href="@{/mystore/records/}"><li><i
-                        class="fas fa-graduation-cap"></i> <span>Aprende más </span></li></a>
+				<a th:href="@{/mystore/learn_more/}"><li><i
+						class="fas fa-book"></i> <span>Registro</span></li></a>
+				<a th:href="@{/mystore/clients/}"><li><i
+						class="fas fa-address-book"></i> <span>Clientes</span></li></a>
+				<a th:href="@{/mystore/records/}"><li><i
+						class="fas fa-graduation-cap"></i> <span>Aprende más </span></li></a>
 			</ul>
 		</nav>
 		<div class="nav-title">
-			<img src="/assets/images/Yupana-logo_w_512x512.png"
-				alt="logo Yupana" class="icon"> <img
+			<img src="/assets/images/Yupana-logo_w_512x512.png" alt="logo Yupana"
+				class="icon"> <img
 				src="/assets/images/Yupana-txt_w_512x256.png" alt="texto Yupana"
 				class="text">
 		</div>
@@ -75,19 +76,23 @@
 			<div class="row">
 				<div class="resume">
 					<h1>
-						<a th:href="@{/mystore/clients}">Clientes</a> > Detalle de cliente: <span th:text="${wallets.user.name}"></span>
+						<a th:href="@{/mystore/clients}">Clientes</a> > Detalle de
+						cliente: <span th:text="${wallets.user.name}"></span>
 					</h1>
 					<div class="row">
 						<div>
 							<div>
-								Línea de crédito dada: <span>S/</span> <span th:text="${flows.creditLine}"></span>
+								Línea de crédito dada: <span>S/</span> <span
+									th:text="${flows.creditLine}"></span>
 							</div>
 							<div>
-								Línea de crédito restante: <span>S/</span> <span th:text="${flows.currentCreditLine}"></span>
+								Línea de crédito restante: <span>S/</span> <span
+									th:text="${flows.currentCreditLine}"></span>
 							</div>
 						</div>
 						<div>
-							Monto acumulado a cobrar <span>S/</span> <span th:text="${flows.totalDebt}"></span>
+							Monto acumulado a cobrar <span>S/</span> <span
+								th:text="${flows.totalDebt}"></span>
 						</div>
 					</div>
 
@@ -99,8 +104,9 @@
 					<button class="edit">
 						<span>Editar</span> <i class="fas fa-edit"></i>
 					</button>
-					<button class="receipts color-secondary-bg">
-						<a th:href="@{/mystore/clients/}"> Ver datos completos </a> <i class="fas fa-id-card"></i>
+					<button class="receipts color-secondary-bg"
+						th:href="@{/mystore/clients/}">
+						Ver datos completos<i class="fas fa-id-card"></i>
 					</button>
 				</div>
 			</div>
@@ -222,7 +228,8 @@
 				<section class="cards client">
 
 					<!-- card -->
-					<div class="card easy center" th:each="transacion : ${transacionesT}">
+					<div class="card easy center"
+						th:each="transacion : ${transacionesT}">
 						<!--det o easy-->
 						<div class="details">
 							<div>
@@ -237,7 +244,8 @@
 							</div>
 							<div class="tInterest tohide">
 								Tipo de interés <span th:text="${transacion.rateType}"></span> <span
-									class="subDet">Capitalización</span> <span th:text="${transacion.capitalization}"> </span>
+									class="subDet">Capitalización</span> <span
+									th:text="${transacion.capitalization}"> </span>
 							</div>
 							<div class="ti tosmall tohide">
 								Tasa de interés <span th:text="${transacion.interestRate}"></span>
@@ -246,11 +254,13 @@
 								<!--debt o payment-->
 								<div class="tohide">
 									<div class="subDet">
-										Monto de venta <span>S/</span><span th:text="${transacion.amount}"></span>
+										Monto de venta <span>S/</span><span
+											th:text="${transacion.amount}"></span>
 									</div>
 								</div>
 								<div>
-									Monto a dado a crédito<span>S/</span> <span th:text="${transacion.amount}"> </span>
+									Monto a dado a crédito<span>S/</span> <span
+										th:text="${transacion.amount}"> </span>
 								</div>
 							</div>
 							<div class="descrip merge tohide">
@@ -327,11 +337,11 @@
 							<div class="circle"></div>
 						</div>
 						<div>
-							Inicio <span>dd/mm/aaaa</span>
+							Inicio <span th:text="${flows.lastTransactionDate}"></span>
 						</div>
 					</div>
 					<!-- history line -->
-					<section class="cards c-credit" >
+					<section class="cards c-credit">
 						<div class="card center" th:each="flow : ${flows}">
 							<!--det o easy-->
 							<div class="details">
@@ -340,18 +350,20 @@
 								</div>
 								<div class="date">
 									<!--tonormal-->
-									Fecha de emisión: <span th:text="${flow.wallet.creationDate}" ></span>
+									Fecha de emisión: <span th:text="${flow.wallet.creationDate}"></span>
 								</div>
 								<div class="tInterest">
-									Tipo de interés <span th:text="${flow.currentRateType}" ></span> <span></span>
-										<!-- class="subDet">sin capitalización</span>  -->
+									Tipo de interés <span th:text="${flow.currentRateType}"></span>
+									<span></span>
+									<!-- class="subDet">sin capitalización</span>  -->
 								</div>
 								<div class="ti">
 									Tasa de interés <span th:text="${flow.currentInterestRate}"></span>
 								</div>
 								<div class="money">
 									<!--debt o payment-->
-									Deuda hasta la fecha actual <span th:text="${flow.currentInterestRate}" ></span>
+									Deuda hasta la fecha actual <span
+										th:text="${flow.currentInterestRate}"></span>
 								</div>
 							</div>
 						</div>
@@ -398,11 +410,13 @@
 							<!--det o easy-->
 							<div class="details">
 								<div>
-									Suscripción a delivery <strong th:text="${delivery.subscriptionType}"></strong>
+									Suscripción a delivery <strong
+										th:text="${delivery.subscriptionType}"></strong>
 								</div>
 								<div class="date">
 									<!--tonormal-->
-									Fecha de <span>cancelacion</span> <span th:text="${delivery.expirationDate}"></span>
+									Fecha de <span>cancelacion</span> <span
+										th:text="${delivery.expirationDate}"></span>
 								</div>
 								<div class="money">
 									<!--debt o payment-->
@@ -425,7 +439,6 @@
 	var tabs = ["nav ul #gt-h-registros","nav ul #gt-h-credito", "nav ul #gt-h-delivery"];
 	var tabPages = [".content section#h-registros",".content section#h-credito", ".content section#h-delivery"];
 	setTabs(tabs,tabPages);
-	setCard();
 	</script>
 
 </body>
