@@ -8,6 +8,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class WalletResource {
+
     private int id;
     private String type;
     private String currencyType;

@@ -8,6 +8,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class SaleResource {
+
     private int id;
     private Date saleDate;
     private Date saleTime;

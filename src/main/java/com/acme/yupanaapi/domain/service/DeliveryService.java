@@ -16,5 +16,4 @@ public interface DeliveryService{
 	Delivery getDeliveryById(int deliveryId);
 	Delivery createDelivery(Delivery delivery, int saleId);
 	List<Delivery> getAllBySaleId(int saleId);
-
 }

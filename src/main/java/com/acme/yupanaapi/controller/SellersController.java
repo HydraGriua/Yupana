@@ -1,16 +1,32 @@
 package com.acme.yupanaapi.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import com.acme.yupanaapi.domain.model.Historial;
 import com.acme.yupanaapi.domain.model.Seller;
+import com.acme.yupanaapi.domain.model.Transaction;
+import com.acme.yupanaapi.domain.model.Wallet;
+import com.acme.yupanaapi.domain.service.FlowService;
+import com.acme.yupanaapi.domain.service.HistorialService;
 import com.acme.yupanaapi.domain.service.SellerService;
+import com.acme.yupanaapi.domain.service.TransactionService;
+import com.acme.yupanaapi.domain.service.UserService;
+import com.acme.yupanaapi.domain.service.WalletService;
+import com.acme.yupanaapi.resource.InfoFilter;
 import com.acme.yupanaapi.resource.SaveSellerResource;
 import com.acme.yupanaapi.resource.SellerResource;
+import com.acme.yupanaapi.resource.UserWalletResource;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -18,9 +34,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 
-@RestController
+@Controller
 @CrossOrigin
-@RequestMapping("/api")
+@RequestMapping("mystore")
 public class SellersController {
 	  //Mapeador de entidad con resource
     @Autowired
@@ -28,19 +44,76 @@ public class SellersController {
     
     @Autowired
     private SellerService sellerService;
+    @Autowired
+    private FlowService flowService;
+    @Autowired
+    private WalletService walletService;
+    @Autowired
+    private TransactionService transactionService;
+    @Autowired
+    private HistorialService historialService;
 
-
+    @Autowired
+    private UserService userService;
     ////////////////////////////////////////////////////////////
     //Metodos crud para las llamadas
-    @Operation(summary = "Get seller by Id", description ="Get seller given Id", tags = {"sellers"})
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Get seller given Id", content =@Content(mediaType = "application/json") )
-	})
-    @GetMapping("/sellers/{sellerId}")
-    public SellerResource getSellerById(@PathVariable(name = "sellerId") Integer sellerId){
-        return convertToResource(sellerService.getSellerById(sellerId));
-    }
 
+    @GetMapping("/records")
+    public String getSellerById(Model model){
+    	try {
+    		InfoFilter infoFilter = new InfoFilter();
+    		List<Transaction> t = new ArrayList<>();
+    		historialService.getAllHistorialBySellerId(1);
+    		for (Historial x :historialService.getAllHistorialBySellerId(1)) {
+    			for(Transaction transacT : transactionService.getAllByHistorialId(x.getId())) {
+    				 t.add(transacT);
+    			}
+    		}
+    		model.addAttribute("infoFilter",infoFilter);
+    		model.addAttribute("sellerInfo",sellerService.getSellerById(1));
+    		model.addAttribute("transactions",t);
+    		//List<UserWalletResource> x = flowService.getAllUserTransactionById(walletService.getAllBySellerId(1));
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		System.err.print(e.getMessage());
+    	}
+    	return "mystore/records";
+    }
+    
+    @PostMapping("/searchRecords")
+    public String searchRecords(@ModelAttribute("infoFilter") InfoFilter infoFilter, Model model){
+    	try {
+    		System.out.print(infoFilter.getOrderBy());
+    		System.out.print(infoFilter.getCurrencyBy());
+    		System.out.print(infoFilter.getPayMethodBy());
+    		System.out.print(infoFilter.getRateTypeBy());
+    		System.out.print(infoFilter.getRegisterTypeBy());
+    		//List<Historial> historials = historialService.getAllHistorialBySellerId(1);
+    		historialService.getAllHistorialBySellerId(1);
+    		List<Transaction> t = new ArrayList<>();
+    		for (Historial x :historialService.getAllHistorialBySellerId(1)) {
+    			for(Transaction transacT : transactionService.getAllByHistorialId(x.getId())) {
+    				 t.add(transacT);
+    			}
+    		}
+    		Seller sel = new Seller();
+    		sel.setEmail("s");
+    		model.addAttribute("sellerInfo",infoFilter.getCurrencyBy());
+    		//model.addAttribute("sellerInfo",sellerService.getSellerById(1));
+    		List<UserWalletResource> listT = flowService.getAllUserTransactionById(walletService.getAllBySellerId(1));
+    		if(listT != null) {
+    			Wallet x = new Wallet();
+    			
+    			model.addAttribute("transactions",transactionService.orderByObj(infoFilter, t));
+    		}
+    		
+    		//List<UserWalletResource> x = flowService.getAllUserTransactionById(walletService.getAllBySellerId(1));
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		System.err.print(e.getMessage());
+    	}
+    	return "/mystore/searchRecords";
+    }
     @Operation(summary = "Get seller by Id and UserId", description ="Get seller given Id and UserId", tags = {"sellers"})
    	@ApiResponses(value = {
    			@ApiResponse(responseCode = "200", description = "Get seller given Id", content =@Content(mediaType = "application/json") )

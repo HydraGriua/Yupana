@@ -18,7 +18,9 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int id;
+
 
     @NotNull
     private String documentType;

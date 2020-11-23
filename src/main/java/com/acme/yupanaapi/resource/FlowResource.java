@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FlowResource {
+
 	private int id;
 	private Date deadlineDate;
 	private Date lastTransactionDate;

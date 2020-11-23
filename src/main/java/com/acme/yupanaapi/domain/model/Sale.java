@@ -20,7 +20,9 @@ public class Sale {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private int id; 
+
 	
 	@NotNull
 	@Temporal(TemporalType.DATE)

@@ -5,6 +5,6 @@ import com.acme.yupanaapi.domain.model.Subscription;
 import java.util.List;
 
 public interface SubscriptionRepository extends JpaRepository<Subscription, Integer>{
-    List<Subscription> findAllByWalletId(int walletId);
 
+    List<Subscription> findAllByWalletId(int walletId);
 }

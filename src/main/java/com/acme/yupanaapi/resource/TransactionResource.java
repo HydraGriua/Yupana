@@ -8,6 +8,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class TransactionResource {
+
     private int id;
     private String transactionName;
     private Date transactionDate;

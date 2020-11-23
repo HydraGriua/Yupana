@@ -21,7 +21,6 @@ public class Delivery {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id; 
-
 	@NotNull
 	private String direction;
 	

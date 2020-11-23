@@ -75,6 +75,4 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 	public List<Subscription> getAllByWalletId(int walletId) {
 		return subscriptionRepository.findAllByWalletId(walletId);
 	}
-
-
 }

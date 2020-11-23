@@ -21,6 +21,7 @@ public class SellerServiceImpl implements SellerService {
     
     @Transactional(readOnly = true)
     @Override
+
     public Seller getSellerByIdAndUserId(int sellerId, int userId) {
         return sellerRepository.findByIdAndUserId(sellerId,userId)
                 .orElseThrow(() -> new ResourceNotFoundException(
@@ -46,6 +47,7 @@ public class SellerServiceImpl implements SellerService {
 
     @Transactional
     @Override
+
     public Seller createSeller(Seller seller, int userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException(
                 "User", "Id", userId));
@@ -55,6 +57,7 @@ public class SellerServiceImpl implements SellerService {
 
     @Transactional
     @Override
+
     public Seller updateSeller(int sellerId, int userId, Seller sellerRequest) {
         if(!userRepository.existsById(userId))
             throw  new ResourceNotFoundException("User", "Id", userId);
@@ -71,6 +74,7 @@ public class SellerServiceImpl implements SellerService {
 
     @Transactional
     @Override
+
     public ResponseEntity<?> deleteSeller(int sellerId) {
         Seller seller = sellerRepository.findById(sellerId)
                 .orElseThrow(() -> new ResourceNotFoundException(

@@ -29,9 +29,13 @@ public class UsersController {
     private UserService userService;
 
 
+    
+    
+    	
+    
+    
     ////////////////////////////////////////////////////////////
     //Metodos crud para las llamadas
-
     @Operation(summary = "Get user",description = "Get user by given id",tags = {"users"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get user by given id",content =@Content(mediaType = "application/json") )
@@ -40,7 +44,6 @@ public class UsersController {
     public UserResource getUserById(@PathVariable(name = "userId") Integer userId){
         return convertToResource(userService.getUserById(userId));
     }
-
     @Operation(summary = "Get user by DNI",description = "Get user by given DNI",tags = {"users"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get user by given DNI",content =@Content(mediaType = "application/json") )
@@ -77,10 +80,7 @@ public class UsersController {
         return userService.deleteUser(userId);
     }
     /////////////////////////////////////////////////////////////////////////
-
-
     //Convertidores ->>>>> MUCHO OJO (analizar su funcionamiento)
-
     private User convertToEntity(SaveUserResource resource) {
         return mapper.map(resource, User.class);
     }
@@ -88,6 +88,4 @@ public class UsersController {
     private UserResource convertToResource(User entity) {
         return mapper.map(entity, UserResource.class);
     }
-    
-    
 }

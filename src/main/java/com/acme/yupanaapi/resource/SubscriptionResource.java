@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SubscriptionResource {
+
 	private int id;	
 	private Float amount;
 	private Date creationDate;

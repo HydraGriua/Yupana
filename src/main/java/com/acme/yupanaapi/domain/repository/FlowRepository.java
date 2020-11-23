@@ -7,4 +7,5 @@ import com.acme.yupanaapi.domain.model.Flow;
 public interface FlowRepository extends JpaRepository<Flow, Integer>{
 	List<Flow> findAllByWalletId(int id);
 	List<Flow> findAllByWalletIdAndDeadlineDate(int walletId, Date date);
+
 }

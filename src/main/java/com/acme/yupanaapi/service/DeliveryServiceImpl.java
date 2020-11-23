@@ -32,6 +32,7 @@ public class DeliveryServiceImpl implements DeliveryService {
 
 	@Transactional
 	@Override
+
 	public Delivery createDelivery(Delivery delivery, int saleId) {
 		Sale sale = saleRepository.findById(saleId)
 				.orElseThrow(()-> new ResourceNotFoundException("sale not found with Id " + saleId));
@@ -41,6 +42,7 @@ public class DeliveryServiceImpl implements DeliveryService {
 
 	@Transactional
 	@Override
+
 	public Delivery updateDelivery(Delivery deliveryEntity, int saleId, int deliveryId) {
 		if (!saleRepository.existsById(saleId))
 			throw new ResourceNotFoundException("Sale", "Id", saleId);
@@ -56,6 +58,7 @@ public class DeliveryServiceImpl implements DeliveryService {
 
 	@Transactional
 	@Override
+
 	public ResponseEntity<?> deleteDelivery(int deliveryId) {
 		Delivery delivery = deliveryRepository.findById(deliveryId)
 				.orElseThrow(() -> new ResourceNotFoundException(
@@ -72,6 +75,7 @@ public class DeliveryServiceImpl implements DeliveryService {
 
 	@Transactional(readOnly = true)
 	@Override
+
 	public Delivery getDeliveryById(int deliveryId) {
 		return deliveryRepository.findById(deliveryId)
 				.orElseThrow(() -> new ResourceNotFoundException(
@@ -80,6 +84,7 @@ public class DeliveryServiceImpl implements DeliveryService {
 
 	@Transactional(readOnly = true)
 	@Override
+
 	public List<Delivery> getAllBySaleId(int saleId) {
 		return deliveryRepository.findAllBySaleId(saleId);
 	}

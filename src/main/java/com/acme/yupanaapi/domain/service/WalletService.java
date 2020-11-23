@@ -15,4 +15,5 @@ public interface WalletService {
 	Wallet getWalletById(int walletId);
 	Wallet getWalletByIdAndUserId(int walletId, int userId);
 	List<Wallet> getAllBySellerId(int sellerId);	
+
 }

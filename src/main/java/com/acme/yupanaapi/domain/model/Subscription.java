@@ -21,6 +21,7 @@ public class Subscription {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;	
+
 	
 	@NotNull
 	private Float amount;

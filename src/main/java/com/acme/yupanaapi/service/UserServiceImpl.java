@@ -15,6 +15,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(readOnly = true)
     @Override
+
     public User getUserById(int userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException(

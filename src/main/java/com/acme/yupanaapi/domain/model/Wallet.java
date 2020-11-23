@@ -23,7 +23,6 @@ public class Wallet {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	
 	@NotNull
 	private String type;
 	
@@ -33,7 +32,6 @@ public class Wallet {
 	@NotNull
 	@Temporal(TemporalType.DATE)
 	private Date creationDate;
-	
 	
 	@NotNull
 	private String state;

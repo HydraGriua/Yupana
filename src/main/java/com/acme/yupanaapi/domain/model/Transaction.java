@@ -21,6 +21,7 @@ public class Transaction {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+
 	@NotNull
 	private String transactionName;
 

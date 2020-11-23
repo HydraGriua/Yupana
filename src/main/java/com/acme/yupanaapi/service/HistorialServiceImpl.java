@@ -28,7 +28,6 @@ public class HistorialServiceImpl implements HistorialService {
             return historialRepository.save(historialEntity);
         }).orElseThrow(() -> new ResourceNotFoundException(
                 "Seller not found with Id " + sellerId));
-
     }
 
     @Override
