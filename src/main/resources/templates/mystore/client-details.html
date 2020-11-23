@@ -83,7 +83,7 @@
 								Línea de crédito dada: <span>S/</span> <span th:text="${flows.creditLine}"></span>
 							</div>
 							<div>
-								Línea de crédito resante: <span>S/</span> <span th:text="${flows.currentCreditLine}"></span>
+								Línea de crédito restante: <span>S/</span> <span th:text="${flows.currentCreditLine}"></span>
 							</div>
 						</div>
 						<div>
@@ -388,25 +388,25 @@
 							<div class="circle"></div>
 						</div>
 						<div>
-							Inicio <span>dd/mm/aaaa</span>
+							Inicio <span th:text="${wallets.creationDate}"></span>
 						</div>
 					</div>
 					<!-- history line -->
 
 					<section class="cards c-delivery">
-						<div class="card center">
+						<div class="card center" th:each="delivery : ${deliveries}">
 							<!--det o easy-->
 							<div class="details">
 								<div>
-									Suscripción a delivery <strong>ESTADO</strong>
+									Suscripción a delivery <strong th:text="${delivery.subscriptionType}"></strong>
 								</div>
 								<div class="date">
 									<!--tonormal-->
-									Fecha de <span>cancelacion</span> <span>dd/mm/aaaa</span>
+									Fecha de <span>cancelacion</span> <span th:text="${delivery.expirationDate}"></span>
 								</div>
 								<div class="money">
 									<!--debt o payment-->
-									Monto acordado <span>S/XX.XX</span>
+									Monto acordado <span th:text="${delivery.amount}"></span>
 								</div>
 							</div>
 						</div>

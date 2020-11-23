@@ -87,10 +87,12 @@ public class CustomersController {
 			Wallet walletT = walletService.getWalletById(id);
 			Flow flowT = flowService.getLastFlow(walletT.getId());
 			List<Transaction> transacionesT = transactionService.getAllByFlowId(flowT.getId());
+			List<Subscription> subscripcionesT = subscriptionService.getAllByWalletId(walletT.getId());
 			if(transacionesT != null) {
 				model.addAttribute("wallets", walletT);
 				model.addAttribute("flows", flowT);
 				model.addAttribute("transacionesT", transacionesT);	
+				model.addAttribute("deliveries", subscripcionesT);
 			}
 			
 		} catch (Exception e) {
