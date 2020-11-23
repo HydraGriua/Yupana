@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface HistorialService {
-
     Historial save(Historial historialEntity, int sellerId) ;
     ResponseEntity<?> deleteHistorial(int historialId);
     Historial getHistorialById(int historialId);

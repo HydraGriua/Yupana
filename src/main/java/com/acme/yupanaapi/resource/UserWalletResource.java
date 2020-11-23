@@ -10,7 +10,6 @@ import com.acme.yupanaapi.domain.model.Transaction;
 @Getter
 @Setter
 public class UserWalletResource {
-
     private int walletId;
     private int userId;
     private int flowId;

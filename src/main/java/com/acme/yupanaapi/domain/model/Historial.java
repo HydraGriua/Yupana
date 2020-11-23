@@ -19,7 +19,6 @@ public class Historial {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

@@ -92,6 +92,4 @@ public class WalletServiceImpl implements WalletService {
 	public List<Wallet> getAllBySellerId(int sellerId) {
 		return walletRepository.findAllBySellerId(sellerId);
 	}
-
-
 }

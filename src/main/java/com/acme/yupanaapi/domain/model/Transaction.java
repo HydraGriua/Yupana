@@ -19,7 +19,6 @@ import javax.validation.constraints.NotNull;
 public class Transaction {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	private int id;
 
 

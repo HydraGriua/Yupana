@@ -17,18 +17,18 @@
 			<div class="more hide-mobile">
 				<a href="profile.html"><div>
 						<i class="fas fa-id-badge"></i>Ir a perfil
-					</div></a> <a href="../index.html" id="log-out"><div>
+					</div></a> <a th:href="@{/index}" id="log-out"><div>
 						<i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión </span>
 					</div></a>
 			</div>
 		</div>
 		<nav>
 			<ul>
-				<a href="records.html"><li><i class="fas fa-book"></i> 
+				<a th:href="@{/records}"><li><i class="fas fa-book"></i> 
 						<span>Registros</span></li></a>
-				<a href="clients.html"><li><i class="fas fa-address-book"></i>
+				<a th:href="@{/clients}"><li><i class="fas fa-address-book"></i>
 						<span>Clientes</span></li></a>
-				<a href="learn_more.html"><li><i class="fas fa-graduation-cap"></i> 
+				<a th:href="@{learn_more}"><li><i class="fas fa-graduation-cap"></i> 
 						<span>Aprende más </span></li></a>
 			</ul>
 		</nav>

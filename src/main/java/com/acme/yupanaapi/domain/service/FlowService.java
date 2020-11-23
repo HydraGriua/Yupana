@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.acme.yupanaapi.domain.model.Transaction;
 import com.acme.yupanaapi.domain.model.Wallet;
+import com.acme.yupanaapi.resource.InfoFilter;
 import com.acme.yupanaapi.resource.UserWalletResource;
 import org.springframework.http.ResponseEntity;
 
