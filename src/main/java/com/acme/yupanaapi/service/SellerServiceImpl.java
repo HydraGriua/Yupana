@@ -63,8 +63,7 @@ public class SellerServiceImpl implements SellerService {
             throw  new ResourceNotFoundException("User", "Id", userId);
         return sellerRepository.findById(sellerId).map(seller -> {
             seller.setEmail(sellerRequest.getEmail());
-            seller.setOldPassword(seller.getActualPassword());
-            seller.setActualPassword(sellerRequest.getActualPassword());
+            seller.setPassword(seller.getPassword());
             seller.setStoreAdress(sellerRequest.getStoreAdress());
             seller.setBusinessName(sellerRequest.getBusinessName());
             return sellerRepository.save(seller);
