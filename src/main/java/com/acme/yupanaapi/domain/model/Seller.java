@@ -45,17 +45,5 @@ public class Seller {
     @JsonIgnore
     private User user;
     
-    @OneToMany(mappedBy = "seller", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private List<Authority> authorities;
-    public void addAuthority( String auth ) {
-		Authority authority = new Authority();
-		authority.setAuthority( auth ) ;
-		authority.setSeller( this );
-		
-		this.authorities.add( authority );
-	}
-	public Iterable<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+   
 }
