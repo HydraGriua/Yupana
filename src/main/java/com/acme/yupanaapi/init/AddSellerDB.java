@@ -28,12 +28,6 @@ public class AddSellerDB implements CommandLineRunner {
 		seller1.setEmail("holacomostas@gmail.com");
 		seller1.setPassword( password);
 		
-		/*Authority authority = new Authority();   voy a considerarlo más tarde
-		authority.setAuthority("ROLE_SELLER");
-		authority.setSeller(seller1);
-		
-		authorityRepository.save(authority);*/
-		
 		this.sellerRepository.saveAndFlush(seller1);
 	}
 
