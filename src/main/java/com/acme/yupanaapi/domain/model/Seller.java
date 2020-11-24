@@ -11,8 +11,6 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.security.core.GrantedAuthority;
-
 @Data
 @NoArgsConstructor
 @Builder
@@ -47,15 +45,4 @@ public class Seller {
     
     @OneToMany(mappedBy = "seller", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Authority> authorities;
-    public void addAuthority( String auth ) {
-		Authority authority = new Authority();
-		authority.setAuthority( auth ) ;
-		authority.setSeller( this );
-		
-		this.authorities.add( authority );
-	}
-	public Iterable<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

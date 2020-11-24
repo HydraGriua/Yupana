@@ -25,6 +25,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers("/login.html").permitAll().and().formLogin().loginProcessingUrl("/signin")
+				.loginPage("/login").usernameParameter("username").passwordParameter("password");
 		super.configure(http); // no ne necesita restricciones porque el puede usar toda la aplicacion
 	}
 
