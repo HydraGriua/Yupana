@@ -22,6 +22,7 @@ import com.acme.yupanaapi.domain.service.SubscriptionService;
 import com.acme.yupanaapi.domain.service.TransactionService;
 import com.acme.yupanaapi.domain.service.UserService;
 import com.acme.yupanaapi.domain.service.WalletService;
+import com.acme.yupanaapi.helpers.UserTesting;
 import com.acme.yupanaapi.resource.UserWalletResource;
 
 @Controller
@@ -49,20 +50,25 @@ public class CustomersController {
 	public String viewCustomers(@RequestParam(name = "id", required = false) int idSeller, Model model) {
 		try {
 			System.err.println("hola como estas");
-
-			List<Wallet> wallets = walletService.getAllBySellerId(1);
+			List<Wallet> wallets = walletService.getAllBySellerId(UserTesting.Users.getIdSeller());
 			List<UserWalletResource> walletsT = new ArrayList<>();
 			if (wallets.size()>0) {
 				System.err.println("DENTROOOOO");
 				System.err.println("SIZE" + wallets.size());
 				for (Wallet x : wallets) {
-					System.out.println(x.getId());
+					System.err.print(wallets.get(0));
+					System.out.println("\n ID_____"+x.getId());
 					UserWalletResource resource = flowService.getData(x.getId());
-					System.err.println(resource);
+					System.err.println("\n"+resource.getState());
+					
 					List<Subscription> lista = subscriptionService.getAllByWalletId(x.getId());
-					System.err.println(lista.get(0));			
+					System.err.println("\n LISTA !.:"+lista.get(0));
+					System.err.println("\n LISTA !.:"+lista.get(1));
 					if (lista.size() > 0) {
 						System.err.println("DENTROOOOODENTROLLLLLLLLLLL");
+							for(Subscription z : lista) {
+								System.err.println(z);
+							}
 							Subscription subscription = lista.get(lista.size() - 1);
 							if(subscription != null) {
 								System.err.println("A MIMIRRRRRRRRRRRRRRRRRRRRRRRRRRRRR°!!!!!!!!!!!!!!!!");
