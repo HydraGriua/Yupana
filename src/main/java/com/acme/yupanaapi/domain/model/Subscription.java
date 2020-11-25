@@ -20,8 +20,7 @@ import java.util.Date;
 public class Subscription {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;	
-
+	private int id;
 	
 	@NotNull
 	private Float amount;
@@ -34,10 +33,14 @@ public class Subscription {
 	@Temporal(TemporalType.DATE)
 	private Date expirationDate;
 	
-
 	@NotNull
-	private String subscriptionType;
-
+	private String subscriptionType; // NO SIRVE
+	
+	@NotNull
+	private Float subscriptionPeriod; // 1 
+	@NotNull
+	private String subscriptionPeriodType; // diario
+	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "wallet_id", nullable = false)
 	@JsonIgnore

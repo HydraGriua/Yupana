@@ -43,6 +43,11 @@ public class Wallet {
 	private Float maintenancePrice;
 
 	@NotNull
+	private Float maintenancePeriod;
+	@NotNull
+	private String maintenancePeriodType;
+	
+	@NotNull
 	private int idOfUser;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)

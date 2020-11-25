@@ -3,14 +3,15 @@ package com.acme.yupanaapi.service;
 import java.util.Date;
 import java.util.List;
 
-import com.acme.yupanaapi.domain.repository.SaleRepository;
+import com.acme.yupanaapi.domain.repository.TransactionRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.acme.yupanaapi.domain.model.Delivery;
-import com.acme.yupanaapi.domain.model.Sale;
+import com.acme.yupanaapi.domain.model.Transaction;
 import com.acme.yupanaapi.domain.repository.DeliveryRepository;
 import com.acme.yupanaapi.domain.service.DeliveryService;
 import com.acme.yupanaapi.exception.ResourceNotFoundException;
@@ -20,32 +21,24 @@ public class DeliveryServiceImpl implements DeliveryService {
 
 	@Autowired
 	DeliveryRepository deliveryRepository;
-
 	@Autowired
-	SaleRepository saleRepository;
+	TransactionRepository transactionRepository;
+
 
 	@Transactional
 	@Override
-	public Delivery saveDelivery(Delivery deliveryEntity) {
-		return deliveryRepository.save(deliveryEntity);
-	}
-
-	@Transactional
-	@Override
-
-	public Delivery createDelivery(Delivery delivery, int saleId) {
-		Sale sale = saleRepository.findById(saleId)
-				.orElseThrow(()-> new ResourceNotFoundException("sale not found with Id " + saleId));
-		delivery.setSale(sale);
+	public Delivery createDelivery(Delivery delivery, int transactionId) {
+		Transaction transaction = transactionRepository.findById(transactionId)
+				.orElseThrow(()-> new ResourceNotFoundException("Transaction not found with Id " + transactionId));
+		delivery.setTransaction(transaction);
 		return deliveryRepository.save(delivery);
 	}
 
 	@Transactional
 	@Override
-
-	public Delivery updateDelivery(Delivery deliveryEntity, int saleId, int deliveryId) {
-		if (!saleRepository.existsById(saleId))
-			throw new ResourceNotFoundException("Sale", "Id", saleId);
+	public Delivery updateDelivery(Delivery deliveryEntity, int transactionId, int deliveryId) {
+		if (!transactionRepository.existsById(transactionId))
+			throw new ResourceNotFoundException("Transaction", "Id", transactionId);
 		return deliveryRepository.findById(deliveryId).map(delivery -> {
 			delivery.setDeliveryDate(deliveryEntity.getDeliveryDate());
 			delivery.setDeliveryHour(deliveryEntity.getDeliveryHour());
@@ -85,8 +78,8 @@ public class DeliveryServiceImpl implements DeliveryService {
 	@Transactional(readOnly = true)
 	@Override
 
-	public List<Delivery> getAllBySaleId(int saleId) {
-		return deliveryRepository.findAllBySaleId(saleId);
+	public List<Delivery> getAllByTransactionId(int transactionId) {
+		return deliveryRepository.findAllByTransactionId(transactionId);
 	}
 
 }

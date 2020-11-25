@@ -29,57 +29,65 @@ import com.acme.yupanaapi.resource.UserWalletResource;
 public class CustomersController {
 	@Autowired
 	SellerService sellerService;
-	
+
 	@Autowired
 	SubscriptionService subscriptionService;
-	
+
 	@Autowired
 	WalletService walletService;
-	
+
 	@Autowired
 	FlowService flowService;
-	
+
 	@Autowired
 	TransactionService transactionService;
-	
+
 	@Autowired
-	UserService userService; 
-	
+	UserService userService;
+
 	@GetMapping("/clients")
-	public String viewCustomers(Model model) {
+	public String viewCustomers(@RequestParam(name = "id", required = false) int idSeller, Model model) {
 		try {
 			System.err.println("hola como estas");
-			
-			List<Wallet> wallets =  walletService.getAllBySellerId(1);
-            List<UserWalletResource>  walletsT = new ArrayList<>();
-          
-            for (Wallet x : wallets) {
-               System.out.println(x.getId());
-               UserWalletResource resource = flowService.getData(x.getId());
-               List<Subscription> lista = subscriptionService.getAllByWalletId(x.getId());
-               if(lista.size()>=1) {
-            	   Subscription subscription = lista.get(lista.size()-1);
-                   resource.setSubscriptionId(subscription.getId());
-                   resource.setSAmount(subscription.getAmount());
-                   resource.setSCreationDate(subscription.getCreationDate());
-                   resource.setSExpirationDate(subscription.getExpirationDate());
-                   resource.setSType(subscription.getSubscriptionType());
-                   walletsT.add(resource);
-               }
-                       	System.out.println("Id" + walletsT.get(0).getFlowId());
-               
-            }
-	
-			///List<Wallet> wallets = walletService.getAllBySellerId(1);
+
+			List<Wallet> wallets = walletService.getAllBySellerId(1);
+			List<UserWalletResource> walletsT = new ArrayList<>();
+			if (wallets.size()>0) {
+				System.err.println("DENTROOOOO");
+				System.err.println("SIZE" + wallets.size());
+				for (Wallet x : wallets) {
+					System.out.println(x.getId());
+					UserWalletResource resource = flowService.getData(x.getId());
+					System.err.println(resource);
+					List<Subscription> lista = subscriptionService.getAllByWalletId(x.getId());
+					System.err.println(lista.get(0));			
+					if (lista.size() > 0) {
+						System.err.println("DENTROOOOODENTROLLLLLLLLLLL");
+							Subscription subscription = lista.get(lista.size() - 1);
+							if(subscription != null) {
+								System.err.println("A MIMIRRRRRRRRRRRRRRRRRRRRRRRRRRRRR°!!!!!!!!!!!!!!!!");
+								System.err.println(subscription);
+								resource.setSubscriptionId(subscription.getId());
+								resource.setSAmount(subscription.getAmount());
+								resource.setSCreationDate(subscription.getCreationDate());
+								resource.setSExpirationDate(subscription.getExpirationDate());
+								resource.setSType(subscription.getSubscriptionType());
+								walletsT.add(resource);
+							}
+					}
+					System.out.println("Id" + walletsT.get(0).getFlowId());
+				}
+			}
+			/// List<Wallet> wallets = walletService.getAllBySellerId(1);
 			model.addAttribute("wallets", walletsT);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
 		}
-		
+
 		return "/mystore/clients";
 	}
-	
+
 	@GetMapping("/client-details")
 	public String viewLearnMore(@RequestParam(name = "id", required = false) int id, Model model) {
 		try {
@@ -88,19 +96,19 @@ public class CustomersController {
 			Flow flowT = flowService.getLastFlow(walletT.getId());
 			List<Transaction> transacionesT = transactionService.getAllByFlowId(flowT.getId());
 			List<Subscription> subscripcionesT = subscriptionService.getAllByWalletId(walletT.getId());
-			if(transacionesT != null) {
+			if (transacionesT != null) {
 				model.addAttribute("wallets", walletT);
 				model.addAttribute("flows", flowT);
-				model.addAttribute("transacionesT", transacionesT);	
+				model.addAttribute("transacionesT", transacionesT);
 				model.addAttribute("deliveries", subscripcionesT);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
 		}
-		
+
 		return "/mystore/client-details";
 	}
-	
+
 }

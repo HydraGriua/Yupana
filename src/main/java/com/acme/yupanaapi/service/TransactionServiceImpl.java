@@ -13,10 +13,8 @@ import java.util.stream.Collectors;
 
 import com.acme.yupanaapi.domain.model.Flow;
 import com.acme.yupanaapi.domain.model.Historial;
-import com.acme.yupanaapi.domain.model.Sale;
 import com.acme.yupanaapi.domain.repository.FlowRepository;
 import com.acme.yupanaapi.domain.repository.HistorialRepository;
-import com.acme.yupanaapi.domain.repository.SaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -41,9 +39,6 @@ public class TransactionServiceImpl implements TransactionService {
 	FlowRepository flowRepository;
 
 	@Autowired
-	SaleRepository saleRepository;
-
-	@Autowired
 	HistorialRepository historialRepository;
 
 	@Transactional
@@ -53,35 +48,35 @@ public class TransactionServiceImpl implements TransactionService {
 		// Obtenemos el flow al que pertenecera
 		Flow flow = flowRepository.findById(flowId)
 				.orElseThrow(() -> new ResourceNotFoundException("Flow not found with Id " + flowId));
-		if (flow.getCurrentCreditLine() - transactionEntity.getAmount() >= 0) {
+		if (flow.getCurrentCreditLine() - transactionEntity.getDebt() >= 0) {
 			// Actualizamos los datos del flow
-			String tipo = flow.getCurrentRateType();
+			String tipo = flow.getRateType();
 			Float newQuant;
 			int dias = (int) ((transactionEntity.getTransactionDate().getTime()
 					- flow.getLastTransactionDate().getTime()) / 86400000);
 			switch (tipo) {
 			case "Simple":
-				newQuant = flow.getTotalDebt() * (1 + (flow.getCurrentInterestRate() * dias));
-				flow.setTotalDebt(newQuant + transactionEntity.getAmount());
+				newQuant = flow.getTotalDebt() * (1 + (flow.getInterestRate() * dias));
+				flow.setTotalDebt(newQuant + transactionEntity.getDebt());
 				break;
 			case "Nominal":
 				newQuant = flow.getTotalDebt() * (float) Math.pow(
-						(1 + (flow.getCurrentInterestRate()
-								/ ((float) flow.getCurrentRatePeriod() / flow.getCurrentCapitalization()))),
-						((float) dias / flow.getCurrentCapitalization()));
-				flow.setTotalDebt(newQuant + transactionEntity.getAmount());
+						(1 + (flow.getInterestRate()
+								/ ((float) flow.getRatePeriod() / flow.getCapitalization()))),
+						((float) dias / flow.getCapitalization()));
+				flow.setTotalDebt(newQuant + transactionEntity.getDebt());
 				break;
 			case "Efectiva":
-				newQuant = flow.getTotalDebt() * (float) Math.pow((1 + flow.getCurrentInterestRate()),
-						(float) (dias / flow.getCurrentRatePeriod()));
-				flow.setTotalDebt(newQuant + transactionEntity.getAmount());
+				newQuant = flow.getTotalDebt() * (float) Math.pow((1 + flow.getInterestRate()),
+						(float) (dias / flow.getRatePeriod()));
+				flow.setTotalDebt(newQuant + transactionEntity.getDebt());
 			}
 			flow.setLastTransactionDate(transactionEntity.getTransactionDate());
-			flow.setCurrentInterestRate(transactionEntity.getInterestRate());
-			flow.setCurrentRatePeriod(transactionEntity.getRatePeriod());
-			flow.setCurrentRateType(transactionEntity.getRateType());
-			flow.setCurrentCapitalization(transactionEntity.getCapitalization());
-			flow.setCurrentCreditLine(flow.getCurrentCreditLine() - transactionEntity.getAmount());
+			flow.setInterestRate(transactionEntity.getInterestRate());
+			flow.setRatePeriod(transactionEntity.getRatePeriod());
+			flow.setRateType(transactionEntity.getRateType());
+			flow.setCapitalization(transactionEntity.getCapitalization());
+			flow.setCurrentCreditLine(flow.getCurrentCreditLine() - transactionEntity.getDebt());
 			flowRepository.save(flow);
 			// guardamos la transaccion
 			transactionEntity.setFlow(flow);
@@ -96,16 +91,6 @@ public class TransactionServiceImpl implements TransactionService {
 		}
 	}
 
-	@Override
-	public Transaction AssignTransactionWithSale(int transactionId, int saleId) {
-		Sale sale = saleRepository.findById(saleId)
-				.orElseThrow(() -> new ResourceNotFoundException("Sale not found with Id " + saleId));
-		return transactionRepository.findById(transactionId).map(transaction -> {
-			transaction.setSale(sale);
-			return transactionRepository.save(transaction);
-		}).orElseThrow(() -> new ResourceNotFoundException("Transaction not found with Id " + transactionId));
-	}
-
 	@Transactional
 	@Override
 	public Transaction updateTransaction(Transaction transactionEntity, int transactionId) {
@@ -113,10 +98,12 @@ public class TransactionServiceImpl implements TransactionService {
 				.orElseThrow(() -> new ResourceNotFoundException("Transaction not found with Id " + transactionId));
 		transaction.setTransactionName(transactionEntity.getTransactionName());
 		transaction.setTransactionDate(transactionEntity.getTransactionDate());
-		transaction.setAmount(transactionEntity.getAmount());
+		transaction.setNetAmount(transactionEntity.getNetAmount());
+		transaction.setAmountPaid(transactionEntity.getAmountPaid());
 		transaction.setInterestRate(transactionEntity.getInterestRate());
 		transaction.setCapitalization(transactionEntity.getCapitalization());
 		transaction.setCurrencyType(transactionEntity.getCurrencyType());
+		transaction.setDebt(transactionEntity.getDebt());
 		transaction.setRatePeriod(transactionEntity.getRatePeriod());
 		transaction.setRateType(transactionEntity.getRateType());
 		return transactionRepository.save(transaction);
@@ -146,10 +133,17 @@ public class TransactionServiceImpl implements TransactionService {
 		return transactionRepository.findAllByFlowId(flowId);
 	}
 
+	@Transactional(readOnly =true)
 	@Override
 	public List<Transaction> getAllByHistorialId(int historialId) {
 		return transactionRepository.findAllByHistorialId(historialId);
 
+	}
+
+	@Transactional(readOnly =true)
+	@Override
+	public List<Transaction> getAllByTransactionDate(Date saleDate) {
+		 return transactionRepository.findAllByTransactionDate(saleDate);
 	}
 
 	@Override
@@ -162,9 +156,9 @@ public class TransactionServiceImpl implements TransactionService {
 		for (Transaction userWaR : listAll) {
 			System.out.print("\n" + "Type3 INICIO: " + userWaR + "\n");
 			System.out.print("Type: " + userWaR.getRateType() + "\n");
-			System.out.print("Type PAYMENT: " + userWaR.getSale().getPaymentPay() + "\n");
+			System.out.print("Type PAYMENT: " + userWaR.getPayType() + "\n");
 			// System.out.print("descripcion: " + userWaR.getSale().getDescription()+"\n");
-			if (userWaR.getSale().getPaymentPay().equals("Contado") && obj.getPayMethodBy().equals("payed")) {
+			if (userWaR.getPayType().equals("Contado") && obj.getPayMethodBy().equals("payed")) {
 				if (userWaR.getCurrencyType().toString().equals(obj.getCurrencyBy())) {
 					System.out.print("Type1: " + obj.getRateTypeBy() + "\n");
 					if (obj.getRegisterTypeBy().equals("all")) {
@@ -172,7 +166,7 @@ public class TransactionServiceImpl implements TransactionService {
 						if (obj.getRateTypeBy().equals("all")) {
 							listAux.add(userWaR);
 						} else if (obj.getRateTypeBy().equals("ts")
-								&& userWaR.getSale().getDescription().equals("Tasa de Interés Simple")) {
+								&& userWaR.getDescription().equals("Tasa de Interés Simple")) {
 							System.out.print("TSType3: " + userWaR.getRateType() + "\n");
 							listAux.add(userWaR);
 						} else if (obj.getRateTypeBy().equals("tc")
@@ -184,7 +178,7 @@ public class TransactionServiceImpl implements TransactionService {
 							listAux.add(userWaR);
 						}
 					} else if (obj.getRegisterTypeBy().equals("sell")
-							&& userWaR.getSale().getDescription().equals("Registro de venta al crédito")) {
+							&& userWaR.getDescription().equals("Registro de venta al crédito")) {
 						if (obj.getRateTypeBy().equals("all")) {
 							listAux.add(userWaR);
 						} else if (obj.getRateTypeBy().equals("ts")
@@ -198,7 +192,7 @@ public class TransactionServiceImpl implements TransactionService {
 							listAux.add(userWaR);
 						}
 					} else if (obj.getRegisterTypeBy().equals("delivery")
-							&& userWaR.getSale().getDescription().equals("Registro de venta al credito con Delivery")) {
+							&& userWaR.getDescription().equals("Registro de venta al credito con Delivery")) {
 						System.out.print("Type5: " + obj.getRateTypeBy() + "\n");
 						if (obj.getRateTypeBy().equals("all")) {
 							listAux.add(userWaR);
@@ -213,7 +207,7 @@ public class TransactionServiceImpl implements TransactionService {
 							listAux.add(userWaR);
 						}
 					} else if (obj.getRegisterTypeBy().equals("mantenimiento")
-							&& userWaR.getSale().getDescription().equals("Mantenimiento de cuenta")) {
+							&& userWaR.getDescription().equals("Mantenimiento de cuenta")) {
 						System.out.print("Type4: " + obj.getRateTypeBy() + "\n");
 						if (obj.getRateTypeBy().equals("all")) {
 							listAux.add(userWaR);
@@ -228,7 +222,7 @@ public class TransactionServiceImpl implements TransactionService {
 							listAux.add(userWaR);
 						}
 					} else if (obj.getRegisterTypeBy().equals("suscripciond")
-							&& userWaR.getSale().getDescription().equals("Suscripción a Delivery")) {
+							&& userWaR.getDescription().equals("Suscripción a Delivery")) {
 						if (obj.getRateTypeBy().equals("all")) {
 							listAux.add(userWaR);
 						} else if (obj.getRateTypeBy().equals("ts")
@@ -242,7 +236,7 @@ public class TransactionServiceImpl implements TransactionService {
 							listAux.add(userWaR);
 						}
 					} else if (obj.getRegisterTypeBy().equals("amortizaciones")
-							&& userWaR.getSale().getDescription().equals("Amortizaciones de deuda")) {
+							&& userWaR.getDescription().equals("Amortizaciones de deuda")) {
 						if (obj.getRateTypeBy().equals("all")) {
 							listAux.add(userWaR);
 						} else if (obj.getRateTypeBy().equals("ts")
@@ -257,7 +251,7 @@ public class TransactionServiceImpl implements TransactionService {
 						}
 					}
 				}
-			} else if (userWaR.getSale().getPaymentPay().equals("Credito") && obj.getPayMethodBy().equals("duetoPay")) {
+			} else if (userWaR.getPayType().equals("Credito") && obj.getPayMethodBy().equals("duetoPay")) {
 				if (userWaR.getCurrencyType().toString().equals(obj.getCurrencyBy())) {
 					System.out.print("Type1: " + obj.getRateTypeBy() + "\n");
 					if (obj.getRegisterTypeBy().equals("all")) {
@@ -265,7 +259,7 @@ public class TransactionServiceImpl implements TransactionService {
 						if (obj.getRateTypeBy().equals("all")) {
 							listAux.add(userWaR);
 						} else if (obj.getRateTypeBy().equals("ts")
-								&& userWaR.getSale().getDescription().equals("Tasa de Interés Simple")) {
+								&& userWaR.getDescription().equals("Tasa de Interés Simple")) {
 							System.out.print("TSType3: " + userWaR.getRateType() + "\n");
 							listAux.add(userWaR);
 						} else if (obj.getRateTypeBy().equals("tc")
@@ -277,7 +271,7 @@ public class TransactionServiceImpl implements TransactionService {
 							listAux.add(userWaR);
 						}
 					} else if (obj.getRegisterTypeBy().equals("sell")
-							&& userWaR.getSale().getDescription().equals("Registro de venta al crédito")) {
+							&& userWaR.getDescription().equals("Registro de venta al crédito")) {
 						if (obj.getRateTypeBy().equals("all")) {
 							listAux.add(userWaR);
 						} else if (obj.getRateTypeBy().equals("ts")
@@ -291,7 +285,7 @@ public class TransactionServiceImpl implements TransactionService {
 							listAux.add(userWaR);
 						}
 					} else if (obj.getRegisterTypeBy().equals("delivery")
-							&& userWaR.getSale().getDescription().equals("Registro de venta al credito con Delivery")) {
+							&& userWaR.getDescription().equals("Registro de venta al credito con Delivery")) {
 						System.out.print("Type5: " + obj.getRateTypeBy() + "\n");
 						if (obj.getRateTypeBy().equals("all")) {
 							listAux.add(userWaR);
@@ -306,7 +300,7 @@ public class TransactionServiceImpl implements TransactionService {
 							listAux.add(userWaR);
 						}
 					} else if (obj.getRegisterTypeBy().equals("mantenimiento")
-							&& userWaR.getSale().getDescription().equals("Mantenimiento de cuenta")) {
+							&& userWaR.getDescription().equals("Mantenimiento de cuenta")) {
 						System.out.print("Type4: " + obj.getRateTypeBy() + "\n");
 						if (obj.getRateTypeBy().equals("all")) {
 							listAux.add(userWaR);
@@ -321,7 +315,7 @@ public class TransactionServiceImpl implements TransactionService {
 							listAux.add(userWaR);
 						}
 					} else if (obj.getRegisterTypeBy().equals("suscripciond")
-							&& userWaR.getSale().getDescription().equals("Suscripción a Delivery")) {
+							&& userWaR.getDescription().equals("Suscripción a Delivery")) {
 						if (obj.getRateTypeBy().equals("all")) {
 							listAux.add(userWaR);
 						} else if (obj.getRateTypeBy().equals("ts")
@@ -335,7 +329,7 @@ public class TransactionServiceImpl implements TransactionService {
 							listAux.add(userWaR);
 						}
 					} else if (obj.getRegisterTypeBy().equals("amortizaciones")
-							&& userWaR.getSale().getDescription().equals("Amortizaciones de deuda")) {
+							&& userWaR.getDescription().equals("Amortizaciones de deuda")) {
 						if (obj.getRateTypeBy().equals("all")) {
 							listAux.add(userWaR);
 						} else if (obj.getRateTypeBy().equals("ts")
@@ -358,7 +352,7 @@ public class TransactionServiceImpl implements TransactionService {
 						if (obj.getRateTypeBy().equals("all")) {
 							listAux.add(userWaR);
 						} else if (obj.getRateTypeBy().equals("ts")
-								&& userWaR.getSale().getDescription().equals("Tasa de Interés Simple")) {
+								&& userWaR.getDescription().equals("Tasa de Interés Simple")) {
 							System.out.print("TSType3: " + userWaR.getRateType() + "\n");
 							listAux.add(userWaR);
 						} else if (obj.getRateTypeBy().equals("tc")
@@ -370,7 +364,7 @@ public class TransactionServiceImpl implements TransactionService {
 							listAux.add(userWaR);
 						}
 					} else if (obj.getRegisterTypeBy().equals("sell")
-							&& userWaR.getSale().getDescription().equals("Registro de venta al crédito")) {
+							&& userWaR.getDescription().equals("Registro de venta al crédito")) {
 						if (obj.getRateTypeBy().equals("all")) {
 							listAux.add(userWaR);
 						} else if (obj.getRateTypeBy().equals("ts")
@@ -384,7 +378,7 @@ public class TransactionServiceImpl implements TransactionService {
 							listAux.add(userWaR);
 						}
 					} else if (obj.getRegisterTypeBy().equals("delivery")
-							&& userWaR.getSale().getDescription().equals("Registro de venta al credito con Delivery")) {
+							&& userWaR.getDescription().equals("Registro de venta al credito con Delivery")) {
 						System.out.print("Type5: " + obj.getRateTypeBy() + "\n");
 						if (obj.getRateTypeBy().equals("all")) {
 							listAux.add(userWaR);
@@ -399,7 +393,7 @@ public class TransactionServiceImpl implements TransactionService {
 							listAux.add(userWaR);
 						}
 					} else if (obj.getRegisterTypeBy().equals("mantenimiento")
-							&& userWaR.getSale().getDescription().equals("Mantenimiento de cuenta")) {
+							&& userWaR.getDescription().equals("Mantenimiento de cuenta")) {
 						System.out.print("Type4: " + obj.getRateTypeBy() + "\n");
 						if (obj.getRateTypeBy().equals("all")) {
 							listAux.add(userWaR);
@@ -414,7 +408,7 @@ public class TransactionServiceImpl implements TransactionService {
 							listAux.add(userWaR);
 						}
 					} else if (obj.getRegisterTypeBy().equals("suscripciond")
-							&& userWaR.getSale().getDescription().equals("Suscripción a Delivery")) {
+							&& userWaR.getDescription().equals("Suscripción a Delivery")) {
 						if (obj.getRateTypeBy().equals("all")) {
 							listAux.add(userWaR);
 						} else if (obj.getRateTypeBy().equals("ts")
@@ -428,7 +422,7 @@ public class TransactionServiceImpl implements TransactionService {
 							listAux.add(userWaR);
 						}
 					} else if (obj.getRegisterTypeBy().equals("amortizaciones")
-							&& userWaR.getSale().getDescription().equals("Amortizaciones de deuda")) {
+							&& userWaR.getDescription().equals("Amortizaciones de deuda")) {
 						if (obj.getRateTypeBy().equals("all")) {
 							listAux.add(userWaR);
 						} else if (obj.getRateTypeBy().equals("ts")
@@ -459,11 +453,12 @@ public class TransactionServiceImpl implements TransactionService {
 			for(Transaction x: listAux) {
 				System.out.print("\n Fecha 1;"+x.getTransactionDate()+"\n");
 			}
+		
 		} else if (obj.getOrderBy().equals("deudaMayor")) {
-			listAux.sort(Comparator.comparing(Transaction::getAmount).reversed());
+			listAux.sort(Comparator.comparing(Transaction::getDebt).reversed());
 
 		} else if (obj.getOrderBy().equals("deudaMenor")) {
-			listAux.sort(Comparator.comparing(Transaction::getAmount));
+			listAux.sort(Comparator.comparing(Transaction::getDebt));
 		}
 		System.out.print("\n FECHA START"+obj.getDateStart()+"\n");
 		System.out.print("\n FECHA START"+obj.getDateEnd()+"\n");

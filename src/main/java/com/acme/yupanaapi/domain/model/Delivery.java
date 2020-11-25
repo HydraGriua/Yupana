@@ -24,7 +24,6 @@ public class Delivery {
 	@NotNull
 	private String direction;
 	
-	
 	@Temporal(TemporalType.DATE)
 	@NotNull
 	private Date deliveryDate;
@@ -35,15 +34,12 @@ public class Delivery {
 	
 	@NotNull
 	private Float deliveryPrice;
-	
 
 	@NotNull
 	private String description;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "sale_id", nullable = false)
+	@JoinColumn(name = "transaction_id", nullable = false)
 	@JsonIgnore
-	private Sale sale;
-	
-	
+	private Transaction transaction;	
 }

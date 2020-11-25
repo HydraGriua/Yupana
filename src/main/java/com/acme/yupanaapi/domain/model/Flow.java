@@ -32,16 +32,20 @@ public class Flow {
 	private Date lastTransactionDate;
 
 	@NotNull
-	private Float currentInterestRate;
+	private Float interestRate;
 
 	@NotNull
-	private int currentRatePeriod;
-
+	private int ratePeriod; //Periodo de pago
 	@NotNull
-	private int currentCapitalization;
-
+	private String ratePeriodType;
+	
 	@NotNull
-	private String currentRateType;
+	private int capitalization;
+	@NotNull
+	private String capitalizationType;
+	
+	@NotNull
+	private String rateType; //Tipo de tasa
 
 	@NotNull
 	private Float creditLine;

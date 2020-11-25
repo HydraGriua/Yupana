@@ -6,8 +6,6 @@ import com.acme.yupanaapi.domain.model.Delivery;
 
 public interface  DeliveryRepository extends JpaRepository<Delivery, Integer> {
 	List<Delivery> findAllByDeliveryDate(Date deliveryDate);
-
-	List<Delivery> findAllBySaleId(int saleId);
-
+	List<Delivery> findAllByTransactionId(int transactionId);
 }
 

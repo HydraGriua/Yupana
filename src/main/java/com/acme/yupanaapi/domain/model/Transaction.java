@@ -21,16 +21,12 @@ public class Transaction {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-
 	@NotNull
 	private String transactionName;
 
 	@NotNull
 	@Temporal(TemporalType.DATE)
 	private Date transactionDate;
-
-	@NotNull
-	private Float amount;
 
 	@NotNull
 	private Float interestRate;
@@ -47,15 +43,25 @@ public class Transaction {
 	@NotNull
 	private String rateType;
 
+	@NotNull
+	private Float netAmount;
+
+	@NotNull
+	private Float amountPaid;
+
+	@NotNull
+	private String payType;
+
+	@NotNull
+	private String description;
+	
+	@NotNull
+	private Float debt;
+
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "flow_id", nullable = false)
 	@JsonIgnore
 	private Flow flow;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "sale_id")
-	@JsonIgnore
-	private Sale sale;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "historial_id", nullable = false)

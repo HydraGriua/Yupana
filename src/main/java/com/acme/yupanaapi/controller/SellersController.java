@@ -1,5 +1,7 @@
 package com.acme.yupanaapi.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.acme.yupanaapi.domain.model.Historial;
-import com.acme.yupanaapi.domain.model.Sale;
 import com.acme.yupanaapi.domain.model.Seller;
 import com.acme.yupanaapi.domain.model.Subscription;
 import com.acme.yupanaapi.domain.model.Transaction;
@@ -25,18 +26,20 @@ import com.acme.yupanaapi.domain.model.Wallet;
 import com.acme.yupanaapi.domain.service.DeliveryService;
 import com.acme.yupanaapi.domain.service.FlowService;
 import com.acme.yupanaapi.domain.service.HistorialService;
-import com.acme.yupanaapi.domain.service.SaleService;
 import com.acme.yupanaapi.domain.service.SellerService;
 import com.acme.yupanaapi.domain.service.SubscriptionService;
 import com.acme.yupanaapi.domain.service.TransactionService;
 import com.acme.yupanaapi.domain.service.UserService;
 import com.acme.yupanaapi.domain.service.WalletService;
+import com.acme.yupanaapi.helpers.UserTesting;
 import com.acme.yupanaapi.resource.InfoFilter;
 import com.acme.yupanaapi.resource.SaveSellerResource;
 import com.acme.yupanaapi.resource.SellerResource;
 import com.acme.yupanaapi.resource.UserWalletResource;
 import com.acme.yupanaapi.resource.fullInfoResource;
+import com.acme.yupanaapi.resource.NewClientResource;
 
+import ch.qos.logback.core.net.server.Client;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -60,8 +63,6 @@ public class SellersController {
 	private TransactionService transactionService;
 	@Autowired
 	private HistorialService historialService;
-	@Autowired
-	private SaleService saleService;
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -126,124 +127,209 @@ public class SellersController {
 			e.printStackTrace();
 			System.err.print(e.getMessage());
 		}
-		return "/mystore/searchRecords";
+		return "mystore/searchRecords";
 	}
-	@GetMapping("/new-client")
+
+	@GetMapping("/newClient")
 	public String viewNewClient(Model model) {
 		try {
-			fullInfoResource infoResource = new fullInfoResource();
-			model.addAttribute("infoResource",infoResource);
-		}catch(Exception e){
+			NewClientResource infoClientResource = new NewClientResource();
+			List<Wallet> listW = walletService.getAllBySellerId(UserTesting.Users.getIdSeller());
+			System.err.print("CLIENTE :;;;;;;;;;;;;" );
+			model.addAttribute("clientModel", infoClientResource);
+			model.addAttribute("listaUsuarios", listW);
+		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.print(e.getMessage());
 		}
-		return "/new-client";
+		return "mystore/newClient";
 	}
-	@GetMapping("/new-payment")
+	public String converter(float value) {
+		if(value == 1) {
+			return "Diario";
+		}else if(value == 7) {
+			return "Semanal";
+		} else if (value == 15) {
+			return "Quincenal";
+		}else if(value == 30) {
+			return "Mensual";
+		} else if (value == 60) {
+			return "Bimestral";
+		}else if(value == 90) {
+			return "Trimestral";
+		} else if (value == 120) {
+			return "Cuatrimestral";
+		}else if(value == 180) {
+			return "Semestral";
+		} else if (value == 360) {
+			return "Anual";
+		}else {
+			return "UNDEFINED";
+		}
+	}
+	@PostMapping("/registerNewClient")
+	public String registerNewClient(@ModelAttribute("clientModel") NewClientResource client, Model model) {
+		try {
+			//client.getWallet().getUser().get
+			//client.getFlow().getRatePeriod();
+			
+			client.getWallet().setMaintenancePeriodType(converter(client.getWallet().getMaintenancePeriod()));
+			client.getFlow().setCapitalizationType(converter(client.getFlow().getCapitalization()));
+			client.getFlow().setRatePeriodType(converter(client.getFlow().getRatePeriod()));
+			
+			//client.getFlow().setRateType(converter(client.getFlow().getRatePeriod()));
+			client.getWallet().setState("ACTIVE");
+			client.getFlow().setCurrentCreditLine(client.getFlow().getCreditLine());
+			client.getFlow().setTotalDebt(0F);
+			client.getWallet().setSeller(sellerService.getSellerById(UserTesting.Users.getIdSeller()));
+			client.getWallet().setType("TIPO TEMP");
+			client.getWallet().setBalance(0F);
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		    Date date = new Date();
+		    System.err.println(dateFormat.format(date));
+			client.getWallet().setCreationDate(date);
+			System.err.print("CLIENTE :;;;;;;;;;;;;" + client.getWallet().getUser());
+			System.err.print("\nCLIENTE :;;;;;;;;;;;;" + client.getWallet());
+			System.err.print("\nCLIENTE :;;;;;;;;;;;;" + client.getFlow());
+			client.getWallet().getUser().setId(0);
+			client.getFlow().setDeadlineDate(date);
+			client.getFlow().setLastTransactionDate(date);
+			Wallet walletT = walletService.createWallet(
+					client.getWallet(), 
+					UserTesting.Users.getIdSeller(),userService.createUser(client.getWallet().getUser()).getId());
+			flowService.createFlow(client.getFlow(), walletT.getId(), 
+					UserTesting.Users.getIdSeller());
+			client.setSubscriptionBool(true);
+			if(client.getSubscriptionBool()) {
+				
+				Subscription subs = new Subscription();
+				subs.setCreationDate(date);
+				subs.setExpirationDate(date);
+				subs.setSubscriptionType("TIPO");
+				subs.setSubscriptionPeriod(client.getSubscription().getSubscriptionPeriod());
+				subs.setSubscriptionPeriodType(converter(client.getSubscription().getSubscriptionPeriod()));
+				subs.setAmount(client.getSubscription().getAmount());
+				System.err.print("\nCLIENTE :;;;;;;;;;;;;" + subs);
+				subscriptionService.createSubscription(subs, walletT.getId());
+			}
+			System.err.print("\nFIN :;;;;;;;;;;;;" );
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.print(e.getMessage());
+		}
+		return "redirect:/mystore/clients?id=" + UserTesting.Users.getIdSeller();
+	}
+
+	@GetMapping("/newPayment")
 	public String viewNewPayment(Model model) {
 		try {
 			fullInfoResource infoResource = new fullInfoResource();
-			model.addAttribute("infoResource",infoResource);
-		}catch(Exception e){
+			model.addAttribute("infoResource", infoResource);
+		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.print(e.getMessage());
 		}
-		return "/new-payment";
+		return "mystore/newPayment";
 	}
-	@GetMapping("/new-sell")
+
+	@GetMapping("/newSell")
 	public String viewNewSell(Model model) {
 		try {
-			fullInfoResource infoResource = new fullInfoResource();
-			model.addAttribute("infoResource",infoResource);
-		}catch(Exception e){
+			NewClientResource infoClientResource = new NewClientResource();
+			List<Wallet> listW = walletService.getAllBySellerId(UserTesting.Users.getIdSeller());
+
+			model.addAttribute("clienteModel", infoClientResource);
+			model.addAttribute("listaUsuarios", listW);
+		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.print(e.getMessage());
 		}
-		return "/new-sell";
+		return "mystore/newSell";
 	}
-	@GetMapping("/new-suscription")
+
+	@GetMapping("/newSubscription")
 	public String viewNewSubscription(Model model) {
 		try {
 			fullInfoResource infoResource = new fullInfoResource();
-			model.addAttribute("infoResource",infoResource);
-		}catch(Exception e){
+			model.addAttribute("infoResource", infoResource);
+		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.print(e.getMessage());
 		}
-		return "/new-suscription";
+		return "mystore/newSubscription";
 	}
-	
+
 	@PostMapping("registrarVentaByWallet")
-	public String registrarVentaByWallet(@ModelAttribute("infoResource") fullInfoResource infoResource, SessionStatus status) {
+	public String registrarVentaByWallet(@ModelAttribute("infoResource") fullInfoResource infoResource,
+			SessionStatus status) {
 		try {
-			Date current = new Date();
-			if (infoResource.getSale().getPaymentPay() == "credito") {
-				//transactionService.createTransaction(transactionEntity, flowId);
-				
-				
-			} else if (infoResource.getSale().getPaymentPay() == "contado") {
-				if (infoResource.getDeliveryBool()) {
-					if (infoResource.getSubscriptionBool()) {
-						// NO TIENE SUBSCRIPCION POR ESO SE CREA UNA 
-						subscriptionService.createSubscription(infoResource.getSubscription(), infoResource.getWallet().getId());
-						//SI HAY SUSCRIPCION NO HAY MONTO DELIVERY
-						infoResource.getDelivery().setDeliveryPrice(0F);
-						Sale saleCreated = saleService.save(infoResource.getSale());
-						deliveryService.createDelivery(infoResource.getDelivery(), saleCreated.getId());
-						//transactionService.AssignTransactionWithSale(transactionId, saleCreated.getId())
-					} else {
-						//VERIFICAR SI TIENE SUBS PARA NO COBRAR DELIVERY
-						List<Subscription> subs = subscriptionService.getAllByWalletId(infoResource.getWallet().getId());
-						if(subs != null) {
-							Subscription subT = subs.get(subs.size()-1);
-							//VERIFICAR VENCIMIENTO DE SUB
-							if(subT.getExpirationDate().compareTo(current) > 0) {
-								Sale saleCreated = saleService.save(infoResource.getSale());
-								infoResource.getDelivery().setDeliveryPrice(0F);
-								deliveryService.createDelivery(infoResource.getDelivery(), saleCreated.getId());
-							//SU SUB YA VENCIO
-							} else {
-								Sale saleCreated = saleService.save(infoResource.getSale());
-								deliveryService.createDelivery(infoResource.getDelivery(), saleCreated.getId());
-							}
-						} else {
-							Sale saleCreated = saleService.save(infoResource.getSale());
-							deliveryService.createDelivery(infoResource.getDelivery(), saleCreated.getId());
-						}
-					}
-				} else {
-					//NI DELIVERY NI SUB .. SE AGREGA DIRECTO
-					saleService.save(infoResource.getSale());
-				}
-			}
-
+//			Date current = new Date();
+//			if (infoResource .getPaymentPay() == "credito") {
+//				//transactionService.createTransaction(transactionEntity, flowId);
+//				
+//			} else if (infoResource.getSale().getPaymentPay() == "contado") {
+//				if (infoResource.getDeliveryBool()) {
+//					if (infoResource.getSubscriptionBool()) {
+//						// NO TIENE SUBSCRIPCION POR ESO SE CREA UNA 
+//						subscriptionService.createSubscription(infoResource.getSubscription(), infoResource.getWallet().getId());
+//						//SI HAY SUSCRIPCION NO HAY MONTO DELIVERY
+//						infoResource.getDelivery().setDeliveryPrice(0F);
+//						Sale saleCreated = saleService.save(infoResource.getSale());
+//						deliveryService.createDelivery(infoResource.getDelivery(), saleCreated.getId());
+//						//transactionService.AssignTransactionWithSale(transactionId, saleCreated.getId())
+//					} else {
+//						//VERIFICAR SI TIENE SUBS PARA NO COBRAR DELIVERY
+//						List<Subscription> subs = subscriptionService.getAllByWalletId(infoResource.getWallet().getId());
+//						if(subs != null) {
+//							Subscription subT = subs.get(subs.size()-1);
+//							//VERIFICAR VENCIMIENTO DE SUB
+//							if(subT.getExpirationDate().compareTo(current) > 0) {
+//								Sale saleCreated = saleService.save(infoResource.getSale());
+//								infoResource.getDelivery().setDeliveryPrice(0F);
+//								deliveryService.createDelivery(infoResource.getDelivery(), saleCreated.getId());
+//							//SU SUB YA VENCIO
+//							} else {
+//								Sale saleCreated = saleService.save(infoResource.getSale());
+//								deliveryService.createDelivery(infoResource.getDelivery(), saleCreated.getId());
+//							}
+//						} else {
+//							Sale saleCreated = saleService.save(infoResource.getSale());
+//							deliveryService.createDelivery(infoResource.getDelivery(), saleCreated.getId());
+//						}
+//					}
+//				} else {
+//					//NI DELIVERY NI SUB .. SE AGREGA DIRECTO
+//					saleService.save(infoResource.getSale());
+//				}
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.print(e.getMessage());
 		}
 		return "";
 	}
+
 	@PostMapping("registrarVentaByNewClient")
-	public String registrarVentaByNewClient(@ModelAttribute("infoResource") fullInfoResource infoResource, SessionStatus status) {
+	public String registrarVentaByNewClient(@ModelAttribute("infoResource") fullInfoResource infoResource,
+			SessionStatus status) {
 		try {
-			
-			if (infoResource.getSale().getPaymentPay() == "credito") {
-				//transactionService.createTransaction(transactionEntity, flowId);
-				
-				
-			} else if (infoResource.getSale().getPaymentPay() == "contado") {
-				if (infoResource.getDeliveryBool()) {
-					if (infoResource.getSubscriptionBool()) {
-						//subscriptionService.createSubscription(subscription, walletId)
-						deliveryService.createDelivery(infoResource.getDelivery(), infoResource.getWallet().getId());
-					} else {
-						
-					}
-				} else {
 
-				}
-
-			}
+//			if (infoResource.getSale().getPaymentPay() == "credito") {
+//				//transactionService.createTransaction(transactionEntity, flowId);
+//				
+//			} else if (infoResource.getSale().getPaymentPay() == "contado") {
+//				if (infoResource.getDeliveryBool()) {
+//					if (infoResource.getSubscriptionBool()) {
+//						//subscriptionService.createSubscription(subscription, walletId)
+//						deliveryService.createDelivery(infoResource.getDelivery(), infoResource.getWallet().getId());
+//					} else {
+//						
+//						
+//					}
+//				} else {
+//
+//				}
+//			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -251,6 +337,7 @@ public class SellersController {
 		}
 		return "";
 	}
+
 	@PostMapping("registrarSubs")
 	public String registrarSubs(@ModelAttribute("infoResource") fullInfoResource infoResource, SessionStatus status) {
 		try {
@@ -262,7 +349,7 @@ public class SellersController {
 			subs.setExpirationDate(infoResource.getSubscription().getExpirationDate());
 			subs.setWallet(infoResource.getWallet());
 			subscriptionService.createSubscription(subs, infoResource.getWallet().getId());
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.print(e.getMessage());
@@ -325,3 +412,4 @@ public class SellersController {
 		return mapper.map(entity, SellerResource.class);
 	}
 }
+
