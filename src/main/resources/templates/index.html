@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="Layout/ResourcesLayout :: head">
 <meta charset="utf-8">
 </head>
@@ -67,11 +67,11 @@
 				<h1>Inicia sesión</h1>
 				<p>Requeridos*</p>
 				<br />
-				<form  th:action="@{/signin}" action="mystore/records.html" autocomplete="on"
-					class="center txt-center" method="post" id="login" >
+				<form action="mystore/records.html" autocomplete="on"
+					class="center txt-center" method="post" id="login">
 
-					<label for="username">Email*<br /> <input
-						type="email" name="username" placeholder="username" maxlength="15"
+					<label for="username">Nombre de usuario*<br /> <input
+						type="text" name="username" placeholder="username" maxlength="15"
 						required /></label>
 					<!--dentro del input poner propiedad value para enviar el valor del input-->
 					<br /> <label for="password">Contraseña*<br /> <input

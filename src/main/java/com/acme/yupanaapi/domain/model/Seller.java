@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -24,8 +22,12 @@ public class Seller {
 
     private int id;
 
+
     @NotNull
-    private String Password;
+    private String actualPassword;
+
+    @NotNull
+    private String oldPassword;
 
     @NotNull
     private String storeAdress;
@@ -33,8 +35,6 @@ public class Seller {
     @NotNull
     private String businessName;
 
-    private boolean enable;
-    
     @NotNull
     private String email;
 
@@ -42,7 +42,4 @@ public class Seller {
     @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
     private User user;
-    
-    @OneToMany(mappedBy = "seller", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private List<Authority> authorities;
 }
