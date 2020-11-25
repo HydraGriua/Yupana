@@ -28,7 +28,8 @@
         <section id="nc-datosini" class="page first">
             <main class="container">
                 <h1>Datos iniciales</h1>
-                <form id="frm-newClient" th:action="@{/mystore/registerNewClient}" method="post" th:object="${clientModel}"  class="center">
+                <form id="frm-newClient" th:action="@{/mystore/registerNewClient}" method="post" 
+                th:object="${clientModel}"  class="center">
                     <label for="nombres"><span>Nombres*</span> 
                     <input
 						type="text" name="nombres" th:field = "*{wallet.user.name}" placeholder="Nombres Completos"
@@ -99,7 +100,8 @@
                     <br>
                     <br>
                     <h1>Mantenimiento de cuenta</h1>
-                    <label for="mct"> <span>Periodo</span> <select
+                    <label for="mct"> <span>Periodo</span> 
+                    <select
 						name="mctpago" th:field="*{wallet.maintenancePeriod}">
 							<option value="1">Diario</option>
 							<option value="7">Semanal</option>
@@ -135,7 +137,6 @@
                 </form>
             </main>
             <div class="footer a2 row">
-            
                 <button name="action" value="cancel" class="close" form="frm-newPayment">Cancelar</button>
                 <button type="submit" class="next color-accent-bg" form="frm-newClient" >Registrar</button>
             </div>

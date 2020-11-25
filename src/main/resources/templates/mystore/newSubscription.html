@@ -46,18 +46,17 @@
 	<section class="page first">
 	<h1 id="dd">Nueva suscripción a Delivery</h1>
 	<br>
-	<form action="" method="post" id="frm-newSuscriptionD">
+	<form th:action="@{/mystore/newRegisterSub}" th:object = "${sub}"method="post" id="frm-newSuscriptionD">
 		<div class="data">
 			<label for="client"><span>Cliente</span>
-				<select name="client" id="client"  required>
-					<option value="none">Elegir cliente</option>
-					<option value="codpublicocli1">Cliente1</option>
-					<option value="codpublicocli2">Cliente2</option>
+				<select name="client" id="client" th:field="*{wallet.id}" required>
+					<option th:each="i : ${listWallet}" th:value="${i.id}" th:text="${i.user.name}" 
+      								th:selected="${i==1}" ></option>
 				</select>
-				<button id="new-client" class="color-secondary-bg">Nuevo Cliente</button>
+				<a id="new-client" th:href="@{'/mystore/newClient?id=' + ${idSession}}" class="color-secondary-bg">Nuevo Cliente</a>
 			</label>
 			<label><span>Periodo</span>
-				<select name="period" id="period" required>
+				<select name="period" id="period" th:field="*{subscriptionPeriod}" required>
 					<option value="360">Anual</option>
 					<option value="180">Semestral</option>
 					<option value="120">Cuatrimestral</option>
@@ -68,13 +67,8 @@
 					<option value="7">Semanal</option>
 				</select>
 			</label>
-			<label for="date"><span>Fecha de emisión</span><input type="date" value="now" required></label>
 			<label><span>Monto a cobrar</span>
-				<select name="currency" id="currency" required>
-					<option value="soles">S/ Soles Peruanos</option>
-					<option value="usdollar">$ Dólares Estadounidenses</option>
-				</select>
-				<input type="number" required>
+				<input type="number" th:field = "*{amount}" required>
 			</label>
 		</div>
 	</form>

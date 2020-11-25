@@ -46,7 +46,6 @@ public class Wallet {
 	private Float maintenancePeriod;
 	@NotNull
 	private String maintenancePeriodType;
-	
 	@NotNull
 	private int idOfUser;
 

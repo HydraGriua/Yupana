@@ -60,5 +60,4 @@ public class Flow {
 	@JoinColumn(name = "wallet_id", nullable = false)
 	@JsonIgnore
 	private Wallet wallet;
-
 }

@@ -158,7 +158,7 @@ public class TransactionServiceImpl implements TransactionService {
 			System.out.print("Type: " + userWaR.getRateType() + "\n");
 			System.out.print("Type PAYMENT: " + userWaR.getPayType() + "\n");
 			// System.out.print("descripcion: " + userWaR.getSale().getDescription()+"\n");
-			if (userWaR.getPayType().equals("Contado") && obj.getPayMethodBy().equals("payed")) {
+			if (userWaR.getPayType().equals("contado") && obj.getPayMethodBy().equals("payed")) {
 				if (userWaR.getCurrencyType().toString().equals(obj.getCurrencyBy())) {
 					System.out.print("Type1: " + obj.getRateTypeBy() + "\n");
 					if (obj.getRegisterTypeBy().equals("all")) {
@@ -250,9 +250,191 @@ public class TransactionServiceImpl implements TransactionService {
 							listAux.add(userWaR);
 						}
 					}
+				}else if(obj.getCurrencyBy().equals("all")) {
+					System.out.print("Type1: " + obj.getRateTypeBy() + "\n");
+					if (obj.getRegisterTypeBy().equals("all")) {
+						System.out.print("Type2: " + obj.getRateTypeBy() + "\n");
+						if (obj.getRateTypeBy().equals("all")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("ts")
+								&& userWaR.getDescription().equals("Tasa de Interés Simple")) {
+							System.out.print("TSType3: " + userWaR.getRateType() + "\n");
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("tc")
+								&& userWaR.getRateType().equals("Tasa de Interés Compuesta")) {
+							System.out.print("TSType3holl: " + userWaR.getRateType() + "\n");
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("te")
+								&& userWaR.getRateType().equals("Tasa de Interés Efectiva")) {
+							listAux.add(userWaR);
+						}
+					} else if (obj.getRegisterTypeBy().equals("sell")
+							&& userWaR.getDescription().equals("Registro de venta al crédito")) {
+						if (obj.getRateTypeBy().equals("all")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("ts")
+								&& userWaR.getRateType().equals("Tasa de Interés Simple")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("tc")
+								&& userWaR.getRateType().equals("Tasa de Interés Compuesta")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("te")
+								&& userWaR.getRateType().equals("Tasa de Interés Efectiva")) {
+							listAux.add(userWaR);
+						}
+					} else if (obj.getRegisterTypeBy().equals("delivery")
+							&& userWaR.getDescription().equals("Registro de venta al credito con Delivery")) {
+						System.out.print("Type5: " + obj.getRateTypeBy() + "\n");
+						if (obj.getRateTypeBy().equals("all")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("ts")
+								&& userWaR.getRateType().equals("Tasa de Interés Simple")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("tc")
+								&& userWaR.getRateType().equals("Tasa de Interés Compuesta")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("te")
+								&& userWaR.getRateType().equals("Tasa de Interés Efectiva")) {
+							listAux.add(userWaR);
+						}
+					} else if (obj.getRegisterTypeBy().equals("mantenimiento")
+							&& userWaR.getDescription().equals("Mantenimiento de cuenta")) {
+						System.out.print("Type4: " + obj.getRateTypeBy() + "\n");
+						if (obj.getRateTypeBy().equals("all")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("ts")
+								&& userWaR.getRateType().equals("Tasa de Interés Simple")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("tc")
+								&& userWaR.getRateType().equals("Tasa de Interés Compuesta")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("te")
+								&& userWaR.getRateType().equals("Tasa de Interés Efectiva")) {
+							listAux.add(userWaR);
+						}
+					} else if (obj.getRegisterTypeBy().equals("suscripciond")
+							&& userWaR.getDescription().equals("Suscripción a Delivery")) {
+						if (obj.getRateTypeBy().equals("all")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("ts")
+								&& userWaR.getRateType().equals("Tasa de Interés Simple")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("tc")
+								&& userWaR.getRateType().equals("Tasa de Interés Compuesta")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("te")
+								&& userWaR.getRateType().equals("Tasa de Interés Efectiva")) {
+							listAux.add(userWaR);
+						}
+					} else if (obj.getRegisterTypeBy().equals("amortizaciones")
+							&& userWaR.getDescription().equals("Amortizaciones de deuda")) {
+						if (obj.getRateTypeBy().equals("all")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("ts")
+								&& userWaR.getRateType().equals("Tasa de Interés Simple")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("tc")
+								&& userWaR.getRateType().equals("Tasa de Interés Compuesta")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("te")
+								&& userWaR.getRateType().equals("Tasa de Interés Efectiva")) {
+							listAux.add(userWaR);
+						}
+					}
 				}
-			} else if (userWaR.getPayType().equals("Credito") && obj.getPayMethodBy().equals("duetoPay")) {
+			} else if (userWaR.getPayType().equals("credito") && obj.getPayMethodBy().equals("duetoPay")) {
 				if (userWaR.getCurrencyType().toString().equals(obj.getCurrencyBy())) {
+					System.out.print("Type1: " + obj.getRateTypeBy() + "\n");
+					if (obj.getRegisterTypeBy().equals("all")) {
+						System.out.print("Type2: " + obj.getRateTypeBy() + "\n");
+						if (obj.getRateTypeBy().equals("all")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("ts")
+								&& userWaR.getDescription().equals("Tasa de Interés Simple")) {
+							System.out.print("TSType3: " + userWaR.getRateType() + "\n");
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("tc")
+								&& userWaR.getRateType().equals("Tasa de Interés Compuesta")) {
+							System.out.print("TSType3holl: " + userWaR.getRateType() + "\n");
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("te")
+								&& userWaR.getRateType().equals("Tasa de Interés Efectiva")) {
+							listAux.add(userWaR);
+						}
+					} else if (obj.getRegisterTypeBy().equals("sell")
+							&& userWaR.getDescription().equals("Registro de venta al crédito")) {
+						if (obj.getRateTypeBy().equals("all")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("ts")
+								&& userWaR.getRateType().equals("Tasa de Interés Simple")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("tc")
+								&& userWaR.getRateType().equals("Tasa de Interés Compuesta")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("te")
+								&& userWaR.getRateType().equals("Tasa de Interés Efectiva")) {
+							listAux.add(userWaR);
+						}
+					} else if (obj.getRegisterTypeBy().equals("delivery")
+							&& userWaR.getDescription().equals("Registro de venta al credito con Delivery")) {
+						System.out.print("Type5: " + obj.getRateTypeBy() + "\n");
+						if (obj.getRateTypeBy().equals("all")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("ts")
+								&& userWaR.getRateType().equals("Tasa de Interés Simple")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("tc")
+								&& userWaR.getRateType().equals("Tasa de Interés Compuesta")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("te")
+								&& userWaR.getRateType().equals("Tasa de Interés Efectiva")) {
+							listAux.add(userWaR);
+						}
+					} else if (obj.getRegisterTypeBy().equals("mantenimiento")
+							&& userWaR.getDescription().equals("Mantenimiento de cuenta")) {
+						System.out.print("Type4: " + obj.getRateTypeBy() + "\n");
+						if (obj.getRateTypeBy().equals("all")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("ts")
+								&& userWaR.getRateType().equals("Tasa de Interés Simple")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("tc")
+								&& userWaR.getRateType().equals("Tasa de Interés Compuesta")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("te")
+								&& userWaR.getRateType().equals("Tasa de Interés Efectiva")) {
+							listAux.add(userWaR);
+						}
+					} else if (obj.getRegisterTypeBy().equals("suscripciond")
+							&& userWaR.getDescription().equals("Suscripción a Delivery")) {
+						if (obj.getRateTypeBy().equals("all")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("ts")
+								&& userWaR.getRateType().equals("Tasa de Interés Simple")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("tc")
+								&& userWaR.getRateType().equals("Tasa de Interés Compuesta")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("te")
+								&& userWaR.getRateType().equals("Tasa de Interés Efectiva")) {
+							listAux.add(userWaR);
+						}
+					} else if (obj.getRegisterTypeBy().equals("amortizaciones")
+							&& userWaR.getDescription().equals("Amortizaciones de deuda")) {
+						if (obj.getRateTypeBy().equals("all")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("ts")
+								&& userWaR.getRateType().equals("Tasa de Interés Simple")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("tc")
+								&& userWaR.getRateType().equals("Tasa de Interés Compuesta")) {
+							listAux.add(userWaR);
+						} else if (obj.getRateTypeBy().equals("te")
+								&& userWaR.getRateType().equals("Tasa de Interés Efectiva")) {
+							listAux.add(userWaR);
+						}
+					}
+				}else if(obj.getCurrencyBy().equals("all")) {
 					System.out.print("Type1: " + obj.getRateTypeBy() + "\n");
 					if (obj.getRegisterTypeBy().equals("all")) {
 						System.out.print("Type2: " + obj.getRateTypeBy() + "\n");
@@ -345,11 +527,13 @@ public class TransactionServiceImpl implements TransactionService {
 					}
 				}
 			} else if (obj.getPayMethodBy().equals("all")) {
+				System.err.print("holaaaaaaaaaaaaaaa");
 				if (userWaR.getCurrencyType().toString().equals(obj.getCurrencyBy())) {
-					System.out.print("Type1: " + obj.getRateTypeBy() + "\n");
+					System.err.print("Type1: " + obj.getRateTypeBy() + "\n");
 					if (obj.getRegisterTypeBy().equals("all")) {
-						System.out.print("Type2: " + obj.getRateTypeBy() + "\n");
+						System.err.print("Type2: " + obj.getRateTypeBy() + "\n");
 						if (obj.getRateTypeBy().equals("all")) {
+							System.err.print("DENTRO RATE YPE ALL");
 							listAux.add(userWaR);
 						} else if (obj.getRateTypeBy().equals("ts")
 								&& userWaR.getDescription().equals("Tasa de Interés Simple")) {

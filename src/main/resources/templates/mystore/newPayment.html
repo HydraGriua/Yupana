@@ -1,11 +1,11 @@
 <html>
 <head>
-	<title>Nuevo Pago</title>
+<title>Nuevo Pago</title>
 
-	<link th:href="@{/assets/images/Yupana-logo_fc_128x128.png}"
+<link th:href="@{/assets/images/Yupana-logo_fc_128x128.png}"
 	type="image/png" sizes="32x32 64x64 128x128" rel="icon">
-	<meta charset="utf-8" />
-	<!-- Script JS Files -->
+<meta charset="utf-8" />
+<!-- Script JS Files -->
 <script th:src="@{/assets/script/jquery.min.js}"></script>
 <script th:src="@{/assets/script/jquery-3.5.1.min.js}"></script>
 <script th:src="@{/assets/script/setting-ui.js}"></script>
@@ -20,93 +20,120 @@
 </head>
 
 <body>
-<div class="content app">
+	<div class="content app">
 
-<div class="constant">
-	<div class="resume">
-		<h1>Nuevo pago</h1>
-	</div>
-</div>
-
-<main class="container">
-
-<section class="page first">
-	<h1>Nueva amortización / Pago de deuda	</h1>
-	<form action="" method="post" id="frm-newPayment">
-		<div class="data">
-			<label for="date"><span>Fecha de registro</span><input type="date" value="now" required></label>
-			<label for="client"><span>Cliente</span>
-				<select name="client" id="client" required>
-					<option value="none">Elegir cliente</option>
-					<option value="codpublicocli1">Cliente1</option>
-					<option value="codpublicocli2">Cliente2</option>
-				</select>
-				<button id="new-client" class="color-secondary-bg">Nuevo Cliente</button>
-			</label>
-			<label><span>Total de deuda</span>
-				<input type="text" size="6" readonly value="S/ (PE)">
-				<input type="number" readonly>
-			</label>
-			<label><span>Monto a pagar*</span>
-				<select name="currency" id="currency" required>
-					<option value="soles">S/ Soles Peruanos</option>
-					<option value="usdollar">$ Dólares Estadounidenses</option>
-				</select>
-				<input type="text" readonly>
-				<!--button><i class="fas fa-calculator"></i></button-->
-			<label><span>Tipo de Pago</span>
-				<select name="currency" id="currency" required>
-					<option value="credito">Crédito</option>
-					<option value="contado">Contado</option>
-				</select>
-				<input type="number" required>
-			</label>
-			<label><span>Descripción</span>
-				<textarea name="description" id="description" cols="64" rows="2" maxlength="60"></textarea>
-			</label>
-			<label><span>Monto restante</span>
-				<input type="text" size="6" readonly value="S/ (PE)">
-				<input type="number" readonly>
-			</label>
-			<p><br>*El pago será actualizado al tipo de moneda registrada para el cliente</p>
+		<div class="constant">
+			<div class="resume">
+				<h1>Nuevo pago</h1>
+			</div>
 		</div>
-	</form>
-	<div class="footer a2 row">
-		<button name="action" value="cancel" class="close" form="frm-newPayment">Cancelar</button>
-		<button name="action" value="accept" class="next color-accent-bg" form="frm-newPayment">Aceptar</button>
+
+		<main class="container">
+
+			<section class="page first">
+				<h1>Nueva amortización / Pago de deuda</h1>
+				<form id="frm-newPayment" th:action="@{/mystore/newRegisterPayment}" th:object = "${tranModel}" method="post">
+					<div class="data">
+						 <label for="client"><span>Cliente</span>
+						<select name="client" id="client" th:field="*{walletId}"
+							required>
+							<option th:each="i : ${listaCliente}" th:value="${i.id}"
+									th:text="${i.user.name}" th:selected="${i==1}"></option>
+						</select> 
+						<a id="new-client"
+							th:href="@{'/mystore/newClient?id=' + ${idSession}}"
+							class="color-secondary-bg">Nuevo Cliente</a>
+							</label> 
+							<label>
+							<span>Total	de deuda</span> 
+							<input type="text" size="6" readonly value="S/ (PE)">
+							<input type="number" readonly> 
+							</label> 
+							<label><span>Monto a pagar*</span> 
+							<input type="number"  readonly> <!--button><i class="fas fa-calculator"></i></button-->
+							<label><span>Tipo de Pago</span> 
+							<select name="currency"	id="currency" th:field="*{transaction.payType}" required>
+									<option value="credito">Crédito</option>
+									<option value="contado">Contado</option>
+							</select> <input type="number" required> </label> <label>
+							<span>Descripción</span>
+								<textarea name="description" id="description" th:field="*{transaction.description}" cols="64" rows="2"
+									maxlength="60"></textarea> </label> <label>
+								<span>Monto	restante</span> 
+								<input type="text" size="6" readonly value="S/ (PE)">
+								<input type="number" readonly> </label>
+							<p>
+								<br>*El pago será actualizado al tipo de moneda registrada
+								para el cliente
+							</p>
+					</div>
+				</form>
+				<div class="footer a2 row">
+					<button name="action" value="cancel" class="close"
+						form="frm-newPayment">Cancelar</button>
+					<button name="action" value="accept" class="next color-accent-bg"
+						form="frm-newPayment">Aceptar</button>
+				</div>
+			</section>
+
+			<section class="page c-receip">
+				<h1>Nueva amortización / Pago de deuda realizada</h1>
+				<div class="data">
+					<div class="card receip">
+						<div class="top">
+							<h1>Recibo generado por Yupana</h1>
+							<div class="r-code">
+								Código de registro <span>NM18239812</span>
+							</div>
+						</div>
+						<div class="subTop">
+							Fecha de inscripción: <span>dd/mm/aaaa</span>
+						</div>
+						<div class="details">
+							<div>
+								Cliente <span>Nombre_cliente</span>
+							</div>
+							<div>
+								Tipo de tasa <span>Tasa Nominal</span>
+							</div>
+							<div>
+								Periodo <span>Mensual</span>
+							</div>
+							<div>
+								Capitalización <span>Mensual</span>
+							</div>
+							<div>
+								Tasa de interés <span>xx.xxxxxxx%</span>
+							</div>
+							<div>
+								Deuda a la fecha <span>S/ xx.xx</span>
+							</div>
+							<div>
+								Pago / Amort. de deuda <span>S/ xx.xx</span>
+							</div>
+							<div>
+								Deuda restante <span>S/xx.xx</span>
+							</div>
+							<div class="merge">
+								Descripción <span class="small">Lorem ipsum dolor sit
+									amet, consectetur adipiscing elit, sed do eiusmod tempor
+									incididunt ut labore et dolore magna aliqua.</span>
+							</div>
+						</div>
+					</div>
+					<!--receip-->
+					'
+				</div>
+				<!--data-->
+				<div class="footer a2 row">
+					<button class="color-secondary-bg">Exportar</button>
+					<button class="close color-accent-bg">Ir a Registros</button>
+					'
+				</div>
+			</section>
+
+		</main>
 	</div>
-</section>
-
-<section class="page c-receip">
-	<h1>Nueva amortización / Pago de deuda realizada</h1>
-	<div class="data">
-		<div class="card receip">
-			<div class="top">
-				<h1>Recibo generado por Yupana</h1>
-				<div  class="r-code">Código de registro <span>NM18239812</span></div>
-			</div>
-			<div class="subTop">Fecha de inscripción: <span>dd/mm/aaaa</span></div>
-			<div class="details">
-				<div>Cliente <span>Nombre_cliente</span></div>
-				<div>Tipo de tasa <span>Tasa Nominal</span></div>
-				<div>Periodo <span>Mensual</span></div>
-				<div>Capitalización <span>Mensual</span></div>
-				<div>Tasa de interés <span>xx.xxxxxxx%</span></div>
-				<div>Deuda a la fecha <span>S/ xx.xx</span></div>
-				<div>Pago / Amort. de deuda <span>S/ xx.xx</span></div>
-				<div>Deuda restante <span>S/xx.xx</span></div>
-				<div class="merge">Descripción <span class="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></div>
-			</div>
-		</div><!--receip-->'
-	</div><!--data-->
-	<div class="footer a2 row">
-		<button class="color-secondary-bg">Exportar</button>
-		<button class="close color-accent-bg">Ir a Registros</button>
-	'</div>
-</section>
-
-</main>
-</div>
 
 </body>
-</html> 
+</html>

@@ -1,9 +1,9 @@
 <html>
 <head>
-	<title>Nueva Venta</title>
-	<link th:href="@{/assets/images/Yupana-logo_fc_128x128.png}"
+<title>Nueva Venta</title>
+<link th:href="@{/assets/images/Yupana-logo_fc_128x128.png}"
 	type="image/png" sizes="32x32 64x64 128x128" rel="icon">
-	<meta charset="utf-8" />
+<meta charset="utf-8" />
 <link th:href="@{/assets/styles/styles.css}" rel="stylesheet">
 <link th:href="@{/assets/styles/styles-pages.css}" rel="stylesheet">
 <link th:href="@{/assets/styles/styles-regis.css}" rel="stylesheet">
@@ -18,105 +18,139 @@
 </head>
 
 <body>
-<div class="content app">
+	<div class="content app">
 
-<div class="constant">
-	<div class="resume">
-		<h1>Nueva venta</h1>
+		<div class="constant">
+			<div class="resume">
+				<h1>Nueva venta</h1>
+			</div>
+		</div>
+
+		<main class="container">
+			<section>
+				<h1>Nueva venta al crédito</h1>
+				<form id="frm-newSell" th:action="@{/mystore/registerNewSell}" method="post" 
+					th:object="${sellModel}" class="center">
+					<div class="data">
+						<label for="client"><span>Cliente</span> <select
+							name="client" id="client" th:field = "*{wallet.id}" required>
+								<option th:each="i : ${listaUsuarios}" th:value="${i.id}" th:text="${i.user.name}" 
+      								th:selected="${i==1}" ></option>
+						</select> <!--button id="new-client" class="color-secondary-bg">Nuevo Cliente</button-->
+						</label> <label for="client"><span>Tipo de Pago</span> 
+						<select	name="currency" id="currency"
+							th:field="*{transaction.currencyType}" required>
+								<option value="soles">S/ (PE)</option>
+								<option value="usdollar">$ (USD)</option>
+						</select>
+						<select name="client" id="client"
+							th:field="*{transaction.payType}" required>
+								<option value="none">Tipo de Pago</option>
+								<option value="contado">Contado</option>
+								<option value="credito">Crédito</option>
+						</select> <!--button id="new-client" class="color-secondary-bg">Nuevo Cliente</button-->
+						</label> <label><span>Monto a crédito</span> <input type="number"
+							th:field="*{transaction.amountPaid}" required> <!--button><i class="fas fa-calculator"></i></button-->
+						</label> 
+						<label> <span>Tipo de registro</span> 
+						<select	name="registerTypeBy" th:field="*{transaction.description}">
+								<!--class="select-3"-->
+								<option value="sell">Registro de venta al crédito</option>
+								<option value="delivery">R. v. al crédito con Delivery</option>
+								<option value="mantenimiento">Mantenimiento de cuenta</option>
+								<option value="suscripciond">Suscripción a Delivery</option>
+								<option value="amortizaciones">Amortizaciones de deuda</option>
+						</select> <label class="row-always"> 
+						<input type="checkbox"
+								id="isdelivery"> <span>Incluir delivery</span>
+						</label> 
+							<div id="isdelivery-data">
+								<label><span>Hora de entrega</span> 
+								<input type="time"
+									name="timeD" id="timeD" value="now"></label> <label><span>Costo
+										del delivery</span> 
+										<input type="number" id="priceD" th:field="*{delivery.deliveryPrice}">
+										<span>Monto	total</span> 
+										<input type="number" id="totalD" readonly> </label> 
+										<label><span>Dirección</span>
+									<textarea name="directionD" id="directionD"  th:field="*{delivery.direction}" maxlength="60"></textarea>
+								</label> <label><span>Descripción</span> 
+								<textarea
+										name="descriptionD" id="descriptionD" th:field="*{delivery.description}" maxlength="60"></textarea>
+								</label>
+							</div>
+					</div>
+					<hr>
+					<div id="client-data">
+						<div class="top row">
+							<h2>Interés del cliente</h2>
+							<!--button action="edit" class="color-secondary-txtlink">Editar</button-->
+						</div>
+						<div class="details">
+							<label>Tipo de interés <span id="TI">Tasa nominal</span></label>
+							<label>Periodo de tasa <span id="PT">Mensual</span></label> <label>Capitalización
+								<span id="30">Mensual</span>
+							</label> <label>Tasa de interés <span id="Ti">x.xxxxxxx%</span></label>
+						</div>
+					</div>
+				</form>
+				<div class="footer a2 row">
+						<button name="action" value="cancel" form="frm-newSell"
+							class="close">Cancelar</button>
+               			<button type="submit" value="accept" class="next color-accent-bg" form="frm-newSell" >Registrar Venta</button>
+						
+					</div>
+			</section>
+
+			<section>
+				<h1>Nuevo crédito realizado</h1>
+				<div class="data">
+					<div class="card receip">
+						<div class="top">
+							<h1>Recibo generado por Yupana</h1>
+							<div class="r-code">
+								Código de registro <span>NM18239812</span>
+							</div>
+						</div>
+						<div class="subTop">
+							Fecha de inscripción: <span>dd/mm/aaaa</span>
+						</div>
+						<div class="details">
+							<div>
+								Cliente <span>Nombre_cliente</span>
+							</div>
+							<div>
+								Tipo de tasa <span>Tasa Nominal</span>
+							</div>
+							<div>
+								Periodo <span>Mensual</span>
+							</div>
+							<div>
+								Capitalización <span>Mensual</span>
+							</div>
+							<div>
+								Tasa de interés <span>xx.xxxxxxx%</span>
+							</div>
+							<div>
+								Monto dado a crédito <span>S/xx.xx</span>
+							</div>
+							<div class="merge">
+								Descripción <span class="small">Lorem ipsum dolor sit
+									amet, consectetur adipiscing elit, sed do eiusmod tempor
+									incididunt ut labore et dolore magna aliqua.</span>
+							</div>
+						</div>
+					</div>
+					<!--receip-->
+					<div class="footer a2 row">
+						<button class="color-secondary-bg">Exportar</button>
+						<button class="close color-accent-bg">Ir a Registros</button>
+					</div>
+				</div>
+				<!--data-->
+			</section>
+		</main>
+
 	</div>
-</div>
-
-<main class="container">
-	<section>
-		<h1>Nueva venta al crédito</h1>
-		<form action="" method="post" id="frm-newSell" class="center">
-			<div class="data">
-				<label for="date"><span>Fecha de emisión</span><input type="date" value="now" required></label>
-				<label for="client"><span>Cliente</span>
-					<select name="client" id="client"  required>
-						<option value="none">Elegir cliente</option>
-						<option value="codpublicocli1">Cliente1</option>
-						<option value="codpublicocli2">Cliente2</option>
-					</select>
-					<!--button id="new-client" class="color-secondary-bg">Nuevo Cliente</button-->
-				</label>
-				<label><span>Monto a crédito</span>
-					<select name="currency" id="currency" required>
-						<option value="soles">S/ (PE)</option>
-						<option value="usdollar">$ (USD)</option>
-					</select>
-					<input type="number" required>
-					<!--button><i class="fas fa-calculator"></i></button-->
-				</label>
-				<label><span>Descripción</span>
-					<textarea name="description" id="description" maxlength="60"></textarea>
-				</label>
-				<label class="row-always">
-					<input type="checkbox" id="isdelivery"> <span>Incluir delivery</span>
-				</label>
-
-				<div id="isdelivery-data">
-					<label><span>Hora de entrega</span> <input type="time" name="timeD" id="timeD" value="now"></label>
-					<label><span>Costo del delivery</span> <input type="number" id="priceD">
-						<span>Monto total</span> <input type="number" id="totalD" readonly>
-					</label>
-					<label><span>Dirección</span>
-						<textarea name="directionD" id="directionD" maxlength="60"></textarea>
-					</label>
-					<label><span>Descripción</span>
-						<textarea name="descriptionD" id="descriptionD" maxlength="60"></textarea>
-					</label>
-				</div>
-			</div>
-
-			<hr>
-
-			<div id="client-data">
-				<div class="top row">
-					<h2>Interés del cliente</h2>
-					<!--button action="edit" class="color-secondary-txtlink">Editar</button-->
-				</div>
-				<div class="details">
-					<label>Tipo de interés <span id="TI">Tasa nominal</span></label>
-					<label>Periodo de tasa <span id="PT">Mensual</span></label>
-					<label>Capitalización <span id="30">Mensual</span></label>
-					<label>Tasa de interés <span id="Ti">x.xxxxxxx%</span></label>
-				</div>
-			</div>
-			<div class="footer a2 row">
-				<button name="action" value="cancel" form="frm-newSell" class="close">Cancelar</button>
-				<button name="action" value="accept" form="frm-newSell" class="next color-accent-bg">Aceptar</button>
-			</div>
-		</form>
-	</section>
-
-	<section>
-		<h1>Nuevo crédito realizado</h1>
-	 <div class="data">
-	 	<div class="card receip">
-	 		<div class="top">
-	 			<h1>Recibo generado por Yupana</h1>
-	 			<div  class="r-code">Código de registro <span>NM18239812</span></div>
-	 		</div>
-	 		<div class="subTop">Fecha de inscripción: <span>dd/mm/aaaa</span></div>
-	 		<div class="details">
-	 			<div>Cliente <span>Nombre_cliente</span></div>
-	 			<div>Tipo de tasa <span>Tasa Nominal</span></div>
-	 			<div>Periodo <span>Mensual</span></div>
-	 			<div>Capitalización <span>Mensual</span></div>
-	 			<div>Tasa de interés <span>xx.xxxxxxx%</span></div>
-	 			<div>Monto dado a crédito <span>S/xx.xx</span></div>
-	 			<div class="merge">Descripción <span class="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></div>
-	 		</div>
-	 	</div><!--receip-->
-	 	<div class="footer a2 row">
-		 	<button class="color-secondary-bg">Exportar</button>
-		 	<button class="close color-accent-bg">Ir a Registros</button>
-		 </div>
-	 </div><!--data-->
-	</section>
-</main>
-
-</div>
 </body>
-</html> 
+</html>
