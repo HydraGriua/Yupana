@@ -3,8 +3,10 @@ package com.acme.yupanaapi.resource;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 
+import com.acme.yupanaapi.domain.model.Subscription;
 import com.acme.yupanaapi.domain.model.Transaction;
 
 @Getter
@@ -33,11 +35,16 @@ public class UserWalletResource {
     private String currentRateType; // TEA etc
     private Float creditLine; // Inicial que te dan linea de credito 
     private Float currentCreditLine; // Actualizacion del la linea de credito 
+    private String currencyType;
+    private String capitalizationType;
     private Float totalDebt; // total de deuda 
     private Float sAmount; // delivery costo 
     private Date sCreationDate; // creacion del delivery 
     private Date sExpirationDate; // expiracion del delivery
     private String sType; // // tipo de delivery
     private Transaction transaction;
+    private Subscription subscription;
+    private String userDescription;
+    private String transactionName;
 
 }

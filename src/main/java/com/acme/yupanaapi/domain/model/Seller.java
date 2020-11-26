@@ -19,9 +19,7 @@ public class Seller {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private int id;
-
 
     @NotNull
     private String actualPassword;

@@ -173,4 +173,40 @@ section .cards.c-delivery { min-width: 50%; }
 
 
 /* Forms */
+.content > main.container {
+	margin-left: auto;
+	margin-top: 7.75em;
+}
 main.container form, main.container p { max-width: 42em; }
+
+main.container > section:nth-child(2) .data {
+    width: fit-content;
+    margin: 0px auto;
+}
+
+main.container > section > form:not(#frm-pagination) {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-flow: column;
+}
+
+main.container section .footer {
+    max-width: fit-content;
+    margin: 1em auto;
+    column-gap: 4em;
+}
+
+.pop-content {
+	display: flex;
+	flex-flow: column;
+	margin: 0px auto;
+	width: fit-content;
+	row-gap: 0.5em;
+}
+.pop-content > label { font-weight: bold; }
+.pop-content > label > span {
+	font-weight: normal;
+	font-size: 1.1em;
+	margin-left: 1em;
+}

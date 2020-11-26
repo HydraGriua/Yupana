@@ -39,28 +39,33 @@
 						</select> <!--button id="new-client" class="color-secondary-bg">Nuevo Cliente</button-->
 						</label> <label for="client"><span>Tipo de Pago</span> 
 						<select	name="currency" id="currency"
-							th:field="*{transaction.currencyType}" required>
+							th:field ="*{transaction.currencyType}" required>
 								<option value="soles">S/ (PE)</option>
 								<option value="usdollar">$ (USD)</option>
 						</select>
 						<select name="client" id="client"
-							th:field="*{transaction.payType}" required>
+							th:field ="*{transaction.payType}" required>
 								<option value="none">Tipo de Pago</option>
 								<option value="contado">Contado</option>
 								<option value="credito">Crédito</option>
 						</select> <!--button id="new-client" class="color-secondary-bg">Nuevo Cliente</button-->
+						
 						</label> <label><span>Monto a crédito</span> <input type="number"
-							th:field="*{transaction.amountPaid}" required> <!--button><i class="fas fa-calculator"></i></button-->
-						</label> 
+							th:field ="*{transaction.debt}" required> <!--button><i class="fas fa-calculator"></i></button-->
+						</label>
+						</label> <label><span>Monto Pagado</span> <input type="number"
+							th:field ="*{transaction.amountPaid}" required> <!--button><i class="fas fa-calculator"></i></button-->
+						</label>
 						<label> <span>Tipo de registro</span> 
-						<select	name="registerTypeBy" th:field="*{transaction.description}">
+						<select	name="registerTypeBy" th:field="*{transaction.transactionName}">
 								<!--class="select-3"-->
 								<option value="sell">Registro de venta al crédito</option>
+								<option value="contado">Venta al contado</option>
 								<option value="delivery">R. v. al crédito con Delivery</option>
-								<option value="mantenimiento">Mantenimiento de cuenta</option>
 								<option value="suscripciond">Suscripción a Delivery</option>
-								<option value="amortizaciones">Amortizaciones de deuda</option>
-						</select> <label class="row-always"> 
+						</select>
+						</label>
+						<label class="row-always"> 
 						<input type="checkbox"
 								id="isdelivery"> <span>Incluir delivery</span>
 						</label> 

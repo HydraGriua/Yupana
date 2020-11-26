@@ -6,10 +6,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Data
@@ -22,13 +25,11 @@ public class Flow {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
-	@Temporal(TemporalType.DATE)
 	@NotNull
+	@Temporal(TemporalType.DATE)
 	private Date deadlineDate;
-
-	@Temporal(TemporalType.DATE)
 	@NotNull
+	@Temporal(TemporalType.DATE)
 	private Date lastTransactionDate;
 
 	@NotNull
@@ -55,6 +56,9 @@ public class Flow {
 	
 	@NotNull
 	private Float totalDebt;
+	
+	@NotNull
+	private String state;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "wallet_id", nullable = false)

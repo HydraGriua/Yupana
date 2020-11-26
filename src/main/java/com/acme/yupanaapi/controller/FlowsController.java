@@ -73,8 +73,8 @@ public class FlowsController {
 		UserWalletResource resource = flowService.getData(walletId);
 		resource.setSubscriptionId(subscription.getId());
 		resource.setSAmount(subscription.getAmount());
-		resource.setSCreationDate(subscription.getCreationDate());
-		resource.setSExpirationDate(subscription.getExpirationDate());
+//		resource.setSCreationDate(subscription.getCreationDate());
+//		resource.setSExpirationDate(subscription.getExpirationDate());
 		resource.setSType(subscription.getSubscriptionType());
 		return resource;
 	}

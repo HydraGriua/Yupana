@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public User createUser(User user) {
+    	user.setId(0);
         return userRepository.save(user);
     }
 

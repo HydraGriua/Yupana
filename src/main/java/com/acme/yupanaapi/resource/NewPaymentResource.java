@@ -8,6 +8,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class NewPaymentResource {
+	
 	private Transaction transaction;
-	private int walletId;
+	private String amountToPay;
+	private String description;
+	private int idSeller;
+	private int flowId;
+	private int idWallet;
+	private String transactionType;
 }

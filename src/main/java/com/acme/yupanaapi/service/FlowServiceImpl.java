@@ -29,6 +29,8 @@ public class FlowServiceImpl implements FlowService {
 
 	@Autowired
 	private TransactionRepository transactionRepository;
+	@Autowired
+	private SubscriptionRepository subscriptionRepository;
 
 	@Transactional(readOnly = true)
 	@Override
@@ -98,35 +100,52 @@ public class FlowServiceImpl implements FlowService {
 	@Override
 	public UserWalletResource getData(int walletId) {
 		List<Flow> listaF = flowRepository.findAllByWalletId(walletId);
-		Flow flow = listaF.get(0);
-		Wallet wallet = walletRepository.findById(walletId)
-				.orElseThrow(() -> new ResourceNotFoundException("Wallet not found with Id "));
-		User user = userRepository.findById(wallet.getIdOfUser())
-				.orElseThrow(() -> new ResourceNotFoundException("User not found with Id "));
+//		for(Flow x : listaF) {
+//			System.err.print(x);
+//			
+//		}
 		UserWalletResource userWalletResource = new UserWalletResource();
-		userWalletResource.setUserId(user.getId());
-		userWalletResource.setWalletId(wallet.getId());
-		userWalletResource.setFlowId(flow.getId());
-		userWalletResource.setDocumentNumber(user.getDocumentNumber());
-		userWalletResource.setName(user.getName());
-		userWalletResource.setFirstLastname(user.getFirstLastname());
-		userWalletResource.setSecondLastname(user.getSecondLastname());
-		userWalletResource.setCellphone(user.getCellphone());
-		userWalletResource.setDescription(user.getDescription());
-		userWalletResource.setCreationDate(wallet.getCreationDate());
-		userWalletResource.setMaintenancePrice(wallet.getMaintenancePrice());
-		userWalletResource.setBalance(wallet.getBalance());
-		userWalletResource.setState(wallet.getState());
-		userWalletResource.setType(wallet.getType());
-		userWalletResource.setDeadlineDate(flow.getDeadlineDate());
-		userWalletResource.setLastTransactionDate(flow.getLastTransactionDate());
-		userWalletResource.setCurrentInterestRate(flow.getInterestRate());
-		userWalletResource.setCurrentRatePeriod(flow.getRatePeriod());
-		userWalletResource.setCurrentCapitalization(flow.getCapitalization());
-		userWalletResource.setCurrentRateType(flow.getRateType());
-		userWalletResource.setCreditLine(flow.getCreditLine());
-		userWalletResource.setCurrentCreditLine(flow.getCurrentCreditLine());
-		userWalletResource.setTotalDebt(flow.getTotalDebt());
+		if (listaF.size() > 0) {
+			Flow flow = listaF.get(listaF.size()-1);
+			Wallet wallet = walletRepository.findById(walletId)
+					.orElseThrow(() -> new ResourceNotFoundException("Wallet not found with Id "));
+			User user = userRepository.findById(wallet.getIdOfUser())
+					.orElseThrow(() -> new ResourceNotFoundException("User not found with Id "));
+			userWalletResource.setUserId(user.getId());
+			userWalletResource.setWalletId(wallet.getId());
+			userWalletResource.setFlowId(flow.getId());
+			userWalletResource.setDocumentNumber(user.getDocumentNumber());
+			userWalletResource.setName(user.getName());
+			userWalletResource.setFirstLastname(user.getFirstLastname());
+			userWalletResource.setSecondLastname(user.getSecondLastname());
+			userWalletResource.setCellphone(user.getCellphone());
+			userWalletResource.setDescription(user.getDescription());
+			userWalletResource.setCreationDate(wallet.getCreationDate());
+			userWalletResource.setCurrencyType(wallet.getCurrencyType());
+			userWalletResource.setMaintenancePrice(wallet.getMaintenancePrice());
+			userWalletResource.setBalance(wallet.getBalance());
+			userWalletResource.setState(wallet.getState());
+			userWalletResource.setType(wallet.getType());
+			//userWalletResource.setTransactionName();
+			userWalletResource.setDeadlineDate(flow.getDeadlineDate());
+			userWalletResource.setLastTransactionDate(flow.getLastTransactionDate());
+			userWalletResource.setCurrentInterestRate(flow.getInterestRate());
+			userWalletResource.setCurrentRatePeriod(flow.getRatePeriod());
+			userWalletResource.setCurrentCapitalization(flow.getCapitalization());
+			userWalletResource.setCapitalizationType(flow.getCapitalizationType());
+			userWalletResource.setCurrentRateType(flow.getRateType());
+			userWalletResource.setCreditLine(flow.getCreditLine());
+			userWalletResource.setCurrentCreditLine(flow.getCurrentCreditLine());
+			userWalletResource.setTotalDebt(flow.getTotalDebt());
+			Subscription sub = new Subscription();
+			
+			List<Subscription> subL = subscriptionRepository.findAllByWalletId(walletId);
+			if(subL.size()>0) {
+				//System.err.print(subL);
+				userWalletResource.setSubscription(subL.get(subL.size()-1));	
+			}
+			//System.err.print("\n"+userWalletResource.getSubscription());
+		}
 		return userWalletResource;
 	}
 
@@ -154,6 +173,7 @@ public class FlowServiceImpl implements FlowService {
 					userWalletResource.setBalance(walletT.getBalance());
 					userWalletResource.setState(walletT.getState());
 					userWalletResource.setType(walletT.getType());
+					//userWalletResource
 					userWalletResource.setDeadlineDate(flow.getDeadlineDate());
 					userWalletResource.setLastTransactionDate(flow.getLastTransactionDate());
 					userWalletResource.setCurrentInterestRate(flow.getInterestRate());
@@ -169,5 +189,19 @@ public class FlowServiceImpl implements FlowService {
 			}
 		}
 		return x;
+	}
+	@Override
+	public Flow getActiveFlow(int walletId) {
+		System.err.print("\nDIDDDDDDDDDDD: "+ walletId);
+		List<Flow> listFlows = flowRepository.findAllByWalletId(walletId);
+		Flow flowT = new Flow(); 
+		for(Flow x : listFlows) {
+			if(x.getState().equals("ACTIVO")) {
+				flowT=x;
+				break;
+			} 
+		}
+		System.err.print("\n"+ flowT);
+		return flowT;
 	}
 }

@@ -61,13 +61,14 @@
                      <input	type="number" th:field="*{flow.creditLine}" name="linea-credit"> 
                      <select name="tmoneda" th:field="*{wallet.currencyType}">
 							<option value="soles">Soles PE(S/.)</option>
-							<option value="usdolar">Dólares USA($)</option>
+							<option value="usdollar">Dólares USA($)</option>
 					</select>
 					</label>
                     <label for="ttasa"> <span>Tipo de tasa</span> 
                     <select	name="ttasa" th:field="*{flow.rateType}">
-							<option value="Simple">Simple</option>
-							<option value="Nominal">Nominal</option>
+							<option value="simple">Simple</option>
+							<option value="nominal">Nominal</option>
+							<option value="efectiva">Efectiva</option>
 					</select>
 					</label>
                     <label for="tcapitaliz"> <span>Capitalización</span> 
@@ -99,6 +100,8 @@
 					</label>
                     <br>
                     <br>
+                    <section id="nc-cuentamant" class="page">
+		<main class="container">
                     <h1>Mantenimiento de cuenta</h1>
                     <label for="mct"> <span>Periodo</span> 
                     <select
@@ -116,10 +119,16 @@
 					</label> <label for="mccobro"> <span>Monto a cobrar</span> <input
 						type="number" th:field = "*{wallet.maintenancePrice}" name="mccobro">
 					</label>
+					</main>
+					</section>
                     <br>
                     <br>
-                    <h1>Suscripción a delivery</h1>
+                    <section id="nc-deliverysus" class="page">
+				<main class="container">
+                    <h2><input type="checkbox" name="myBooleanVariable" th:checked="${deliveryBool}"> Suscripción a delivery</h2>
                     <label for=""> <span>Periodo</span> <select name="dtpago" th:field ="*{subscription.subscriptionPeriod}">
+                    		<option value="0">Seleccionar</option>
+							<option value="1">Diario</option>
 							<option value="1">Diario</option>
 							<option value="7">Semanal</option>
 							<option value="15">Quincenal</option>
@@ -134,8 +143,12 @@
 					</label> <label for="dcobro" > <span>Monto a cobrar</span> <input
 						type="number" th:field="*{subscription.amount}">
 					</label>
+					</main>
                 </form>
             </main>
+             </main>
+            </section>
+           
             <div class="footer a2 row">
                 <button name="action" value="cancel" class="close" form="frm-newPayment">Cancelar</button>
                 <button type="submit" class="next color-accent-bg" form="frm-newClient" >Registrar</button>
@@ -148,7 +161,7 @@
 
     </div>
 
-    <script type="text/javascript">
+      <script type="text/javascript">
         var tabs = ["nav ul #gt-nc-datosini", "nav ul #gt-nc-creditcond", "nav ul #gt-nc-cuentamant", "nav ul #gt-nc-deliverysus"];
         var tabPages = [".content section#nc-datosini", ".content section#nc-creditcond", ".content section#nc-cuentamant", ".content section#nc-deliverysus"];
         setTabs(tabs, tabPages);

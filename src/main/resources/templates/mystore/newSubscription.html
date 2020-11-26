@@ -33,69 +33,73 @@
 </head>
 
 <body>
-<div class="content app">
+	<div class="content app">
 
-<div class="constant">
-	<div class="resume">
-		<h1>Nueva suscripcion</h1>
-	</div>
-</div>
-
-<main class="container">
-
-	<section class="page first">
-	<h1 id="dd">Nueva suscripción a Delivery</h1>
-	<br>
-	<form th:action="@{/mystore/newRegisterSub}" th:object = "${sub}"method="post" id="frm-newSuscriptionD">
-		<div class="data">
-			<label for="client"><span>Cliente</span>
-				<select name="client" id="client" th:field="*{wallet.id}" required>
-					<option th:each="i : ${listWallet}" th:value="${i.id}" th:text="${i.user.name}" 
-      								th:selected="${i==1}" ></option>
-				</select>
-				<a id="new-client" th:href="@{'/mystore/newClient?id=' + ${idSession}}" class="color-secondary-bg">Nuevo Cliente</a>
-			</label>
-			<label><span>Periodo</span>
-				<select name="period" id="period" th:field="*{subscriptionPeriod}" required>
-					<option value="360">Anual</option>
-					<option value="180">Semestral</option>
-					<option value="120">Cuatrimestral</option>
-					<option value="90">Trimestral</option>
-					<option value="60">Bimestral</option>
-					<option value="30" selected>Mensual</option>
-					<option value="15">Quincenal</option>
-					<option value="7">Semanal</option>
-				</select>
-			</label>
-			<label><span>Monto a cobrar</span>
-				<input type="number" th:field = "*{amount}" required>
-			</label>
+		<div class="constant">
+			<div class="resume">
+				<h1>Nueva suscripcion</h1>
+			</div>
 		</div>
-	</form>
-	<div class="footer a2 row">
-		<button name="action" value="cancel" class="close" form="frm-newSuscriptionD">Cancelar</button>
-		<button name="action" value="accept" class="psub color-accent-bg" form="frm-newSuscriptionD">Aceptar</button>
+
+		<main class="container">
+
+			<section id="new-suscription" class="page first">
+				<h1 id="dd">Nueva suscripción a Delivery</h1>
+				<br>
+				<form th:action="@{/mystore/newRegisterSub}" th:object="${sub}"
+					method="post" id="frm-newSuscriptionD">
+					<div class="data">
+						<label for="client"><span>Cliente</span> <select
+							name="client" id="client" th:field="*{wallet.id}" required>
+								<option th:each="i : ${listWallet}" th:value="${i.id}"
+									th:text="${i.user.name}" th:selected="${i==1}"></option>
+						</select> </label> <label><span>Periodo</span> <select name="period"
+							id="period" th:field="*{subscriptionPeriod}" required>
+								<option value="360">Anual</option>
+								<option value="180">Semestral</option>
+								<option value="120">Cuatrimestral</option>
+								<option value="90">Trimestral</option>
+								<option value="60">Bimestral</option>
+								<option value="30" selected>Mensual</option>
+								<option value="15">Quincenal</option>
+								<option value="7">Semanal</option>
+						</select> </label> <label><span>Monto a cobrar</span> <input type="number"
+							th:field="*{amount}" required> </label> <label><span>Descripcion</span>
+							<input type="text" th:field="*{subscriptionType}" required>
+						</label> <label for="mcfecpago"> <span>Fecha de expiración</span>
+							<input type="date" value="now">
+						</label>
+					</div>
+				</form>
+
+				<div class="footer a2 row">
+					<button name="action" value="cancel" class="close"
+						form="frm-newSuscriptionD">Cancelar</button>
+					<button name="action" value="accept" class="psub color-accent-bg"
+						form="frm-newSuscriptionD">Aceptar</button>
+				</div>
+			</section>
+			<a th:href="@{'/mystore/newClient?id=' + ${idSession}}">
+				<button id="new-client" class="color-secondary-bg">Nuevo
+					Cliente</button>
+			</a>
+			<section id="confirmation">
+				<div class="popup-sub int">
+					<h1>Suscripción Realizada</h1>
+					<div class="pop-content">
+						<label>Cliente <span>Nombre_completo_cliente</span></label> <label>Periodo
+							<span>Mesual</span>
+						</label> <label>Fecha de emisión <span>dd/mm/aaaa</span></label> <label>Monto
+							a cobrar <span>S/xx.xx</span>
+						</label>
+					</div>
+					<div class="footer a1 row">
+						<button name="action" value="accept" class="psub color-accent-bg"
+							form="frm-newSuscriptionD">Aceptar</button>
+					</div>
+				</div>
+			</section>
+		</main>
 	</div>
-</section>
-
-<section class="page popup-sub ext">
-	<div class="popup-sub int">
-		<h1>Suscripción Realizada</h1>
-		<div class="pop-content">
-			<label>Cliente <span>Nombre_completo_cliente</span></label>
-			<label>Periodo <span>Mesual</span></label>
-			<label>Fecha de emisión <span>dd/mm/aaaa</span></label>
-			<label>Monto a cobrar <span>S/xx.xx</span></label>
-		</div>
-		<div class="footer a1 row">
-			<button name="action" value="accept" class="psub color-accent-bg" form="frm-newSuscriptionD">Aceptar</button>
-		</div>
-	</div>
-</section>
-
-
-</main>
-</div>
-
 </body>
-</html> 
+</html>

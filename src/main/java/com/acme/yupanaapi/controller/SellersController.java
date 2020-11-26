@@ -2,6 +2,7 @@ package com.acme.yupanaapi.controller;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -119,16 +120,25 @@ public class SellersController {
 			historialService.getAllHistorialBySellerId(id);
 			for (Historial x : historialService.getAllHistorialBySellerId(id)) {
 				for (Transaction transacT : transactionService.getAllByHistorialId(x.getId())) {
+					System.err.print("\n PRUEBA 2" + transacT);
 					t.add(transacT);
 				}
 			}
+//			System.err.print("\n PRUEBA 3: " + transactionService.orderByObj(infoFilter, t).get(0));
+//			System.err.print("\n PRUEBA 3: " + transactionService.orderByObj(infoFilter, t).get(1));
+//			System.err.print("\n PRUEBA 3: " + transactionService.orderByObj(infoFilter, t).get(2));
+//			System.err.print("\n PRUEBA 3: " + transactionService.orderByObj(infoFilter, t).get(3));
+//			System.err.print("\n PRUEBA 3: " + transactionService.orderByObj(infoFilter, t).get(4));
+//			
 			List<UserWalletResource> listT = flowService.getAllUserTransactionById(walletService.getAllBySellerId(1));
 			if (listT.size() > 0) {
 				System.err.print("ERRORRRRRRRRRRR");
 				System.err.print(t.get(0));
 				Wallet x = new Wallet();
 				model.addAttribute("transactions", transactionService.orderByObj(infoFilter, t));
-				System.err.print(transactionService.orderByObj(infoFilter, t).get(0));
+				for(Transaction T : transactionService.orderByObj(infoFilter, t)) {
+					System.err.print("\n PRUEBA 3: " + T);
+				}
 			}
 			model.addAttribute("infoFilter", infoFilter);
 			model.addAttribute("sellerInfo", sellerService.getSellerById(id));
@@ -145,6 +155,7 @@ public class SellersController {
 		// http://localhost:8087/mystore/records?id=1&orderby=dateLasts&registerTypeBy=all&payMethodBy=payed&rateTypeBy=all&currencyBy=soles
 		return "/mystore/records";
 	}
+
 //	@GetMapping("/records/{id}/{orderby}/{registerTypeBy}/{payMethodBy}/{currencyBy}")
 //	public String setInfoOrder(@RequestParam(name = "id", required = false) int id,
 //			@RequestParam(name = "orderby", required = false) String orderby,
@@ -214,9 +225,9 @@ public class SellersController {
 //		}
 //		return "redirect:/mystore/records";
 //	}
-	//CREACION DEL WALLET
+	// CREACION DEL WALLET
 	@GetMapping("/newClient")
-	public String viewNewClient(@RequestParam(name = "id", required = false) int id,Model model) {
+	public String viewNewClient(@RequestParam(name = "id", required = false) int id, Model model) {
 		try {
 			NewClientResource infoClientResource = new NewClientResource();
 			List<Wallet> listW = walletService.getAllBySellerId(UserTesting.Users.getIdSeller());
@@ -230,6 +241,7 @@ public class SellersController {
 		}
 		return "mystore/newClient";
 	}
+
 	public String converter(float value) {
 		if (value == 1) {
 			return "Diario";
@@ -253,6 +265,19 @@ public class SellersController {
 			return "UNDEFINED";
 		}
 	}
+	public String converterTasa(String string) {
+		if(string.equals("simple")) {
+			return "Tasa de Interés Simple";
+		}
+		else if(string.equals("nominal")) {
+			return "Tasa de Interés Compuesta";
+		}
+		else if(string.equals("efectiva")) {
+			return "Tasa de Interés Efectiva";
+		}else {
+			return string;
+		}
+	}
 	@PostMapping("/registerNewClient")
 	public String registerNewClient(@ModelAttribute("clientModel") NewClientResource client, Model model) {
 		try {
@@ -267,8 +292,11 @@ public class SellersController {
 			client.getWallet().setState("ACTIVE");
 			client.getFlow().setCurrentCreditLine(client.getFlow().getCreditLine());
 			client.getFlow().setTotalDebt(0F);
+			//
+			
+			client.getFlow().setRateType(converterTasa(client.getFlow().getRateType()));
 			client.getWallet().setSeller(sellerService.getSellerById(UserTesting.Users.getIdSeller()));
-			client.getWallet().setType("TIPO TEMP");
+			client.getWallet().setType("WALLET BODEGA");
 			client.getWallet().setBalance(0F);
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 			Date date = new Date();
@@ -280,15 +308,17 @@ public class SellersController {
 			client.getWallet().getUser().setId(0);
 			client.getFlow().setDeadlineDate(date);
 			client.getFlow().setLastTransactionDate(date);
+			client.getFlow().setState("ACTIVO");
 //			Historial historialT = new Historial();
 //			historialT.setId(0);
 			// historialService.save(historialT, UserTesting.Users.getIdSeller());
-
+			client.getWallet().getUser().setId(0);
 			Wallet walletT = walletService.createWallet(client.getWallet(), UserTesting.Users.getIdSeller(),
 					userService.createUser(client.getWallet().getUser()).getId());
 			flowService.createFlow(client.getFlow(), walletT.getId(), UserTesting.Users.getIdSeller());
-			client.setSubscriptionBool(true);
-			if (client.getSubscriptionBool()) {
+			//client.setSubscriptionBool(true);
+			System.err.print("\n\n   SUSCRIPTION:"+client.getSubscription().getSubscriptionPeriod());
+			if (!client.getSubscription().getSubscriptionPeriod().equals(0.0f)) {
 				Subscription subs = new Subscription();
 				subs.setCreationDate(date);
 				subs.setExpirationDate(date);
@@ -306,16 +336,17 @@ public class SellersController {
 		}
 		return "redirect:/mystore/clients?id=" + UserTesting.Users.getIdSeller();
 	}
-	//FIN DE CREACION DE WALLET
-	//CREACION DE LA VENTA
+
+	// FIN DE CREACION DE WALLET
+	// CREACION DE LA VENTA
 	@GetMapping("/newSell")
-	public String viewNewSell(@RequestParam(name = "id", required = false) int id,Model model) {
+	public String viewNewSell(@RequestParam(name = "id", required = false) int id, Model model) {
 		try {
 			NewSellResource infoSellResource = new NewSellResource();
 			List<Wallet> listW = walletService.getAllBySellerId(1);
 			Transaction tra = new Transaction();
 			Wallet wallet = new Wallet();
-			//infoSellResource.getDelivery().setDeliveryPrice(0F);
+			// infoSellResource.getDelivery().setDeliveryPrice(0F);
 			model.addAttribute("sellModel", infoSellResource);
 			model.addAttribute("listaUsuarios", listW);
 			model.addAttribute("walletL", wallet);
@@ -325,35 +356,96 @@ public class SellersController {
 		}
 		return "mystore/newSell";
 	}
+	public String converterTranName(String string) {
+		if (string.equals("sell")) {
+			return "Registro de venta al crédito";
+		} else if (string.equals("delivery")) {
+			return "Registro de venta al crédito con Delivery";
+		} else if (string.equals("mantenimiento")) {
+			return "Mantenimiento de cuenta";
+		} else if (string.equals("suscripciond")) {
+			return "Suscripción a Delivery";
+		} else if (string.equals("amortizaciones")) {
+			return "Amortizaciones de deuda";
+		} else if (string.equals("contado")) {
+			return "Venta al contado";
+		} else {
+			return string;
+		}
+	}
+	
 	@PostMapping("/registerNewSell")
-	public String registerNewSell(@ModelAttribute("sellModel") NewSellResource sellModel,Model model) {
+	public String registerNewSell(@ModelAttribute("sellModel") NewSellResource sellModel, Model model) {
 		try {
 			System.out.print(sellModel);
 			NewSellResource infoSellResource = new NewSellResource();
 			List<Wallet> listW = walletService.getAllBySellerId(1);
 			Transaction tra = new Transaction();
 			Wallet wallet = new Wallet();
-			System.err.print(sellModel.getWallet());
-			System.err.print(sellModel.getTransaction());
-			System.err.print(sellModel.getDelivery());
+			System.err.print("\n" + sellModel.getWallet());
+
+			System.err.print("\n" + sellModel.getDelivery());
 			model.addAttribute("sellModel", infoSellResource);
 			model.addAttribute("listaUsuarios", listW);
 			model.addAttribute("walletL", wallet);
+			Flow flowT = flowService.getActiveFlow(sellModel.getWallet().getId());
+			Transaction transactionT = sellModel.getTransaction();
+			System.err.print("\n direccion delv" +sellModel.getDelivery().getDirection());
+			
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+			Date date = new Date();
+			//System.err.println(dateFormat.format(date));
+			//asignar info del flow al transac
+			transactionT.setTransactionDate(date);
+			transactionT.setInterestRate(flowT.getInterestRate());
+			transactionT.setCapitalization(flowT.getCapitalization());
+			transactionT.setCapitalizationType(flowT.getCapitalizationType());
+			transactionT.setRateType(flowT.getRateType());
+			if(sellModel.getTransaction().getTransactionName().equals("contado")) {
+				transactionT.setPayType("contado");
+			}else {
+				transactionT.setPayType("credito");	
+			}
+			transactionT.setTransactionName(converterTranName(sellModel.getTransaction().getTransactionName()));
+			transactionT.setDescription("descripcion DEFAULT");
+			transactionT.setFlow(flowT);
+			transactionT.setDebt(sellModel.getTransaction().getDebt());
+			transactionT.setNetAmount(sellModel.getTransaction().getAmountPaid());
+			System.err.print("\n TRANSACTON 2020" + transactionT);
+			//System.err.print("\n "+ sellModel.getTransaction().ge);
+			System.err.print("\n" + sellModel.getTransaction());
+			//
+			Historial historialT = new Historial();
+			historialT.setIdOfSeller(UserTesting.Users.getIdSeller());
+			historialT.setSeller(sellerService.getSellerById(UserTesting.Users.getIdSeller()));
+			sellModel.getTransaction().setHistorial(historialService.save(historialT, UserTesting.Users.getIdSeller()));
+			
+			Transaction tX = transactionService.createTransaction(sellModel.getTransaction(), flowT.getId());
+			System.err.print("\n" + tX);
+			//
+			System.err.print("\n direccion delv" +sellModel.getDelivery().getDirection());
+			if (!sellModel.getDelivery().getDirection().equals("")
+				&& sellModel.getDelivery().getDescription().equals("")) {
+				// FALTA OBETNER LA FECHA Y HORA
+				System.err.print("EUUUUUUUUUUUUU123123123");
+				//deliveryService.createDelivery(sellModel.getDelivery(), tX.getId());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.print(e.getMessage());
 		}
-		return "redirect:/mystore/clients?id="+UserTesting.Users.getIdSeller();
+		return "redirect:/mystore/clients?id=" + UserTesting.Users.getIdSeller();
 	}
+
 	////////// REGISTRAR SUBS
 	@GetMapping("/newSubscription")
-	public String viewNewSubscription(@RequestParam(name = "id", required = false) int id,Model model) {
+	public String viewNewSubscription(@RequestParam(name = "id", required = false) int id, Model model) {
 		try {
 			Subscription sub = new Subscription();
 			List<Wallet> listW = walletService.getAllBySellerId(UserTesting.Users.getIdSeller());
 			fullInfoResource infoResource = new fullInfoResource();
-			
-			if(listW.size()>0) {
+
+			if (listW.size() > 0) {
 				model.addAttribute("listWallet", listW);
 			}
 			model.addAttribute("sub", sub);
@@ -364,63 +456,99 @@ public class SellersController {
 		}
 		return "mystore/newSubscription";
 	}
+
 	@PostMapping("/newRegisterSub")
-	public String saveNewSubscription(@ModelAttribute("sub") Subscription sub,Model model) {
+	public String saveNewSubscription(@ModelAttribute("sub") Subscription sub, Model model) {
 		try {
 			fullInfoResource infoResource = new fullInfoResource();
-			System.err.print("\n"+sub);
-			System.err.print("\n"+sub.getWallet().getId());
+			System.err.print("\n" + sub);
+			System.err.print("\n" + sub.getWallet().getId());
 			model.addAttribute("infoResource", infoResource);
+			System.err.print("\n" + sub);
+			sub.setSubscriptionPeriodType(converter(sub.getSubscriptionPeriod()));
+			// DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+			Date date = new Date();
+			sub.setCreationDate(date);
+			sub.setExpirationDate(date);
+			System.err.print("\n" + sub.getExpirationDate());
+			subscriptionService.createSubscription(sub, sub.getWallet().getId());
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.print(e.getMessage());
 		}
-		return "redirect:/mystore/clients?id="+UserTesting.Users.getIdSeller();
+		return "redirect:/mystore/clients?id=" + UserTesting.Users.getIdSeller();
 	}
+
 	///////// TERMINAR REG SUB
 	///////// REG payment
 	@GetMapping("/newPayment")
-	public String viewNewPayment(@RequestParam(name = "id", required = false) int id,Model model) {
+	public String viewNewPayment(@RequestParam(name = "id", required = false) int id, Model model) {
 		try {
 			Flow flow = new Flow();
-			NewPaymentResource newT = new NewPaymentResource(); 
+			NewPaymentResource newT = new NewPaymentResource();
 //			Transaction tran = new Transaction();
 //			tran.get
-			//fullInfoResource infoResource = new fullInfoResource();
-			//newT.getTransaction().getPayType();
-			//newT.setWalletId();
-			model.addAttribute("listaCliente", walletService.getAllBySellerId(UserTesting.Users.getIdSeller()));
-			model.addAttribute("tranModel",newT);
-			model.addAttribute("idSession",UserTesting.Users.getIdSeller());
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.print(e.getMessage());
-		}
-		return "mystore/newPayment";
-	}
-	@PostMapping("/registerNewPayment")
-	public String registerNewPayment(@ModelAttribute("transactionModel") NewPaymentResource sub,Model model) {
-		try {
+			// fullInfoResource infoResource = new fullInfoResource();
+			// newT.getTransaction().getPayType();
+			// newT.setWalletId();
+			flow = flowService.getActiveFlow(id);
+			// flowService.getActiveFlow(id);
+			// newT.getFlow().setId(flow.getId());
+			// model.addAttribute("wallet", walletService.getWalletById(id));
+			// newT.setFlow(flowService.getActiveFlow(id));
+			newT.setIdSeller(UserTesting.Users.getIdSeller());
+			newT.setFlowId(flow.getId());
+			newT.setIdWallet(flow.getId());
 			
-			fullInfoResource infoResource = new fullInfoResource();
-			model.addAttribute("infoResource", infoResource);
+			model.addAttribute("infoPayment", newT);
+			model.addAttribute("flowModel", flow);
+			model.addAttribute("idWallet", id);
+			model.addAttribute("flowId", flow.getId());
+			// model.addAttribute("idSession", UserTesting.Users.getIdSeller());
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.print(e.getMessage());
 		}
 		return "mystore/newPayment";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	@PostMapping("/registerNewPayment")
+	public String registerNewPayment(@ModelAttribute("payModel") NewPaymentResource sub, Model model) {
+		try {
+//			fullInfoResource infoResource = new fullInfoResource();
+//			model.addAttribute("infoResource", infoResource);
+			System.err.print("HOLAeeeeeeeee");
+			System.err.print("\n" + sub.getTransaction());
+			System.err.print("\n FLUJO UFFFFFFFFF" + sub.getFlowId());
+//			System.err.print("\n"+sub.getFlow());
+//			System.err.print("\nFLUJO IDDDDDDDDD"+sub.getFlow().getId());
+			System.err.print("\n ID WLALLET " + sub.getIdWallet());
+			System.err.print("\n AMOUNT" + sub.getAmountToPay());
+			System.err.print("\n DESCRP" + sub.getDescription());
+			System.err.print("\n IDD SELLER--- " + sub.getIdSeller() + "\n");
+			Transaction x = new Transaction();
+			String strAmount = sub.getAmountToPay();
+			float amount = Float.parseFloat(strAmount);
+			// or Float.valueOf(string)
+			x.setAmountPaid(amount);
+			x.setDescription(sub.getDescription());
+			x.setTransactionName(converterTranName(sub.getTransactionType()));
+			x.setPayType("contado");
+			Flow xT = flowService.getFlowById(sub.getFlowId());
+			x.setCapitalization(xT.getCapitalization());
+			x.setRatePeriod(xT.getRatePeriod());
+			x.setInterestRate(xT.getInterestRate());
+			Date date = new Date();
+			x.setTransactionDate(date);
+			x.setRateType(xT.getRateType());
+			x.setCapitalizationType(xT.getCapitalizationType());
+			transactionService.createTransaction(x, sub.getFlowId());
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.print(e.getMessage());
+		}
+		return "redirect:/mystore/clients?id=" + sub.getIdSeller();
+	}
 
 	@PostMapping("registrarVentaByWallet")
 	public String registrarVentaByWallet(@ModelAttribute("infoResource") fullInfoResource infoResource,
@@ -506,7 +634,7 @@ public class SellersController {
 		try {
 			Subscription subs = new Subscription();
 			Date current = new Date();
-			subs.setCreationDate(current);
+//			subs.setCreationDate(current);
 			subs.setAmount(infoResource.getSubscription().getAmount());
 			subs.setSubscriptionType(infoResource.getSubscription().getSubscriptionType());
 			subs.setExpirationDate(infoResource.getSubscription().getExpirationDate());
@@ -575,4 +703,3 @@ public class SellersController {
 		return mapper.map(entity, SellerResource.class);
 	}
 }
-

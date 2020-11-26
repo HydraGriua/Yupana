@@ -1,3 +1,4 @@
+
 <html>
 <head>
 <title>Nuevo Pago</title>
@@ -32,46 +33,46 @@
 
 			<section class="page first">
 				<h1>Nueva amortización / Pago de deuda</h1>
-				<form id="frm-newPayment" th:action="@{/mystore/newRegisterPayment}" th:object = "${tranModel}" method="post">
-					<div class="data">
-						 <label for="client"><span>Cliente</span>
-						<select name="client" id="client" th:field="*{walletId}"
-							required>
-							<option th:each="i : ${listaCliente}" th:value="${i.id}"
-									th:text="${i.user.name}" th:selected="${i==1}"></option>
-						</select> 
-						<a id="new-client"
-							th:href="@{'/mystore/newClient?id=' + ${idSession}}"
-							class="color-secondary-bg">Nuevo Cliente</a>
-							</label> 
-							<label>
-							<span>Total	de deuda</span> 
-							<input type="text" size="6" readonly value="S/ (PE)">
-							<input type="number" readonly> 
-							</label> 
-							<label><span>Monto a pagar*</span> 
-							<input type="number"  readonly> <!--button><i class="fas fa-calculator"></i></button-->
-							<label><span>Tipo de Pago</span> 
-							<select name="currency"	id="currency" th:field="*{transaction.payType}" required>
-									<option value="credito">Crédito</option>
-									<option value="contado">Contado</option>
-							</select> <input type="number" required> </label> <label>
-							<span>Descripción</span>
-								<textarea name="description" id="description" th:field="*{transaction.description}" cols="64" rows="2"
-									maxlength="60"></textarea> </label> <label>
-								<span>Monto	restante</span> 
-								<input type="text" size="6" readonly value="S/ (PE)">
-								<input type="number" readonly> </label>
-							<p>
-								<br>*El pago será actualizado al tipo de moneda registrada
-								para el cliente
-							</p>
-					</div>
+				<div class="data">
+					<label> <span>Tipo de Capitalizacion</span> <input
+						type="text" th:value="${flowModel.capitalizationType}" readonly>
+					</label> <br> <label> <span>Línea de Crédito Inicial</span> <input
+						type="text" th:value="${flowModel.creditLine}" readonly>
+					</label> <br> <label> <span>Línea de Crédito Actual</span> <input
+						type="text" th:value="${flowModel.currentCreditLine}" readonly>
+					</label> <br> <label> <span>Tipo de Tasa</span> <input
+						type="text" th:value="${flowModel.rateType}" readonly>
+					</label> <br> <label> <span>Periodo de Pago</span> <input
+						type="text" th:value="${flowModel.ratePeriodType}" readonly>
+					</label> <label> <span>Deuda Total</span> <input type="text"
+						th:value="${flowModel.totalDebt}" readonly>
+					</label> 
+				</div>
+				<form id="frm-newPayment" th:action="@{/mystore/registerNewPayment}"
+					th:object="${infoPayment}" method="post">
+					<br> <label> <span>Monto a pagar</span> <input
+						type="number" th:field="*{amountToPay}">
+					</label> <label><span>Descripción</span> <textarea
+							name="description" id="description" th:field="*{description}"
+							cols="64" rows="2" maxlength="60"></textarea> </label>
+						<label><label><span>Descripción</span>
+						 <select
+						name="registerTypeBy" th:field="*{transactionType}">
+						<!--class="select-3"-->
+						<option value="amortizaciones">Amortizaciones de deuda</option>
+						<option value="mantenimiento">Mantenimiento de cuenta</option>
+					</select></label></label>
+					 <input type="text" style="display: none;" class="frm-newPayment"
+						th:field="*{idWallet}"> <input type="text"
+						style="display: none;" class="frm-newPayment" th:field="*{flowId}">
+					<input type="text" style="display: none;" class="frm-newPayment"
+						th:field="*{idSeller}">
+
 				</form>
 				<div class="footer a2 row">
 					<button name="action" value="cancel" class="close"
 						form="frm-newPayment">Cancelar</button>
-					<button name="action" value="accept" class="next color-accent-bg"
+					<button name="action" type="submit" class="next color-accent-bg"
 						form="frm-newPayment">Aceptar</button>
 				</div>
 			</section>

@@ -9,6 +9,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -26,7 +30,6 @@ public class Subscription {
 	private Float amount;
 	
 	@NotNull
-	@Temporal(TemporalType.DATE)
 	private Date creationDate;
 	
 	@NotNull

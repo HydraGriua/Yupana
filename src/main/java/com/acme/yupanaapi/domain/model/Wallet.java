@@ -9,6 +9,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -44,8 +48,10 @@ public class Wallet {
 
 	@NotNull
 	private Float maintenancePeriod;
+	
 	@NotNull
 	private String maintenancePeriodType;
+	
 	@NotNull
 	private int idOfUser;
 

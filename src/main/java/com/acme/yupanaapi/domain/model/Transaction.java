@@ -6,10 +6,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @NoArgsConstructor
@@ -33,6 +36,9 @@ public class Transaction {
 
 	@NotNull
 	private int capitalization;
+	
+	@NotNull
+	private String capitalizationType;
 
 	@NotNull
 	private String currencyType;

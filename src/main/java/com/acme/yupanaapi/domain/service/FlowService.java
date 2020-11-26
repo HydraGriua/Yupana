@@ -23,5 +23,6 @@ public interface FlowService {
     Flow getLastFlow(int walletId);
     UserWalletResource getData(int walletId);
     List<UserWalletResource> getAllUserTransactionById(List<Wallet> wallets);
+    Flow getActiveFlow(int walletId);
 }
 
