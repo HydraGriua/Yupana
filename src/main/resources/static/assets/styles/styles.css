@@ -376,7 +376,8 @@ table th {
 	padding: 0.33em 1em;
 }
 
-
+.alert { width: fit-content; margin: 0.5em auto; padding: 1em;
+						font-weight: bold; border: 2px solid; }
 @media (max-width: 840px) {
 	form label i { margin-left: -1.25em; }
 }

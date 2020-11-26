@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/mystore/profile/")
 public class ProfileUserController {
-
-
 	
 	@GetMapping
 	public String viewLearnMore() {

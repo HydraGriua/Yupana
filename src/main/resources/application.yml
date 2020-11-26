@@ -23,7 +23,7 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/yup
+    url: jdbc:postgresql://localhost:5432/yupana
     username: postgres
     password: postgres
   jpa:
@@ -35,6 +35,18 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         jdbc.lob.non_contextual_creation: true
-    
+  mail:
+    host: smtp.gmail.com
+    username: nicolvasquesilva@gmail.com
+    password: your_email_password
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true  
 server:
-  port: 8087
+  port: 8088
+  
+ 

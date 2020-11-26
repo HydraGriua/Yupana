@@ -13,9 +13,9 @@ $(document).ready(function() {
     var navHtml = '<header>' +
         '<div id="nav-user">' +
         '<div id="profile-more" class="hide-mobile"><i class="fas fa-user-circle"></i> <span id="t-username">' + user.name + '</span></div>' +
-        '<a href="/mystore/profile"><div class="mobile"><i class="fas fa-user-circle"></i> <span>' + user.name + '<span></div></a>' +
+        '<a th:href="@{/mystore/profile}"><div class="mobile"><i class="fas fa-user-circle"></i> <span>' + user.name + '<span></div></a>' +
         '<div class="more hide-mobile">' +
-        '<a href="profile.html"><div><i class="fas fa-id-badge"></i>Ir a perfil</div></a>' +
+        '<a th:href="@{/mystore/profile}"><div><i class="fas fa-id-badge"></i>Ir a perfil</div></a>' +
         '<a th:href="@{/index}" id="log-out"><div><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión </span></div></a>' +
         '</div>' +
         '</div>' +

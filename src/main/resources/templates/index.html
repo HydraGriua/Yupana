@@ -1,19 +1,35 @@
 <!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="Layout/ResourcesLayout :: head">
-<meta charset="utf-8">
-</head>
-<link th:href="@{/assets/styles/styles-index.css}" rel="stylesheet">
+<head th:fragment="head">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Pagina - Yupana</title>
+<title>Yupana</title>
+<link th:href="@{/assets/images/Yupana-logo_fc_128x128.png}" type="image/png" sizes="32x32 64x64 128x128" rel="icon">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv=”Content-Language” content=”es” />
+<meta name="theme-color" content="#6B597A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" th:href="@{manifest.json}">
 
-
+<!-- Script JS Files -->
+<script th:src="@{/assets/script/contr.js}"></script>
+<script th:src="@{/assets/script/jquery.min.js}"></script>
+<script th:src="@{/assets/script/jquery-3.5.1.min.js}"></script>
+<!-- script th:src="@{/assets/script/jquery-ui.min.js}"></script-->
+<script th:src="@{/assets/script/setting-ui.js}"></script>
+<!-- Google Fonts -->
+<link
+	th:href="@{https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i}"
+	rel="stylesheet">
+<link th:href="@{/assets/styles/styles.css}" rel="stylesheet">
+<link th:href="@{/assets/styles/styles-index.css}" rel="stylesheet">
+</head>
 <body>
 	<div class="content">
+
 		<section class="container main bg-img">
-		
 			<div class="book">
-		
 				<h1>
 					Registra a tus deudores <span class="color-secondary-txt">fácilmente</span>
 				</h1>
@@ -22,31 +38,66 @@
 					permite registrar las deudas de tus clientes, elegir por cada deuda
 					un tipo de interés y verificar el estado de cada deuda.
 				</p>
-				<br /> <img src="" alt="logo" />
+				<br /> <img src="/assets/imgenes/Yupana-logo_fc_128x128.png" alt="logo" />
 			</div>
 		</section>
 
 
 		<section class="container main-frm">
-
+			
 			<div id="p-signin">
 				<h1>REGÍSTRATE</h1>
 				<p>Requeridos*</p>
 				<br />
-				<form action="mystore/profile.html" class="center txt-center"
-					method="post" id="signin">
+				<form th:action="@{/}" th:object="${usuario}" method="post"
+					class="center txt-center" id="signin">
 
 					<label for="username">Nombre de usuario*<br /> <input
-						type="text" name="username" placeholder="usuario" required /></label> <br />
-					<label for="email">Correo electrónico*<br /> <input
+						type="text" name="username" placeholder="usuario"th:field="*{username}" required />
+					</label> <br />
+					<!-- label for="email">Correo electrónico*<br /> <input
 						type="email" name="email" placeholder="correo@ejemplo.com"
-						required /></label> <br /> <label for="password">Contraseña*<br />
-						<input type="password" name="password" pattern=".{5,}" required /></label>
+						required />
+					</label> <br / --> 
+					<label for="password">Contraseña*<br />
+						<input type="password" name="password" pattern=".{5,}" th:field="*{password}"required />
+					</label>
 					<br /> <label for="confirm-password">Confirmar contraseña*<br />
 						<input type="password" name="confirm-password" pattern=".{5,}"
 						required /></label> <span class="color-alert-txt" id="paswderror"></span>
-					<br />
-
+					<br>
+					<label for="email">Correo electrónico*<br/>
+					<input type="email" name="email" placeholder="correo@ejemplo.com" th:field="*{email}"required/></label>
+					<br/> 
+					<label for="nombres"><span>Nombres*</span><br>
+						<input type="text" name="nombres" placeholder="Nombres Completos" th:field="*{user.name}"
+						required />
+					</label> <br /> 
+					<label for="apepat"><span>Apellido
+							Paterno*</span><br> <input type="text" name="apepat" 
+						placeholder="Apellido Paterno"th:field="*{user.firstLastname}"  required />
+					</label> <br /> <label
+						for="apemat"><span>Apellido Materno*</span><br> <input
+						type="text" name="apemat" placeholder="Apellido Materno" th:field="*{user.secondLastname}" required />
+					</label>
+					<br /> 
+					<label for="docTipo"><span>Tipo de documento</span><br>
+						<select name="docTipo" th:field="*{user.documentType}">
+							<option value="dni">DNI</option>
+							<option value="pasaporte">Pasaporte</option>
+							<option value="ce">CE</option>
+					</select > </label> <br />
+					<label for="documento"><span>Número de
+							documento</span><br> <input type="text" name="documento"
+						maxlength="15" th:field="*{user.documentNumber}"/></label> <br /> 
+					<label for="celular"><span>Celular</span><br>
+					<input type="text" name="celular" maxlength="11" th:field="*{user.cellphone}"></label> </br>
+					<label for="business name">Nombre del negocio<br /> <input type="text"
+						placeholder="Nombre del Negocio" required th:field="*{businessName}" />
+					</label> <br />
+					<label>Direccion<br /> <input type="text"
+						placeholder="Dirección del negocio" required th:field="*{storeAdress}" />
+					</label> <br />
 					<p class="txt-center">
 						<button type="submit" value="Submit" id="btn-signin"
 							class="color-accent-bg">
@@ -55,45 +106,22 @@
 					</p>
 				</form>
 
-				<br /> <br />
+				<br />
+				<br />
 				<p class="txt-center">
-					¿Ya tienes cuenta?<br /> <a href="#p-login" id="goto-login"
+					¿Ya tienes cuenta?<br /> <a th:href="@{/login}" id="goto-login"
 						class="a-main">Iniciar sesión</a>
 				</p>
 			</div>
 
-
-			<div id="p-login">
-				<h1>Inicia sesión</h1>
-				<p>Requeridos*</p>
-				<br />
-				<form action="mystore/records.html" autocomplete="on"
-					class="center txt-center" method="post" id="login">
-
-					<label for="username">Nombre de usuario*<br /> <input
-						type="text" name="username" placeholder="username" maxlength="15"
-						required /></label>
-					<!--dentro del input poner propiedad value para enviar el valor del input-->
-					<br /> <label for="password">Contraseña*<br /> <input
-						type="password" name="password" required /></label> <br />
-
-					<p class="txt-center">
-						<button type="submit" value="Submit" id="btn-login"
-							class="color-accent-bg">
-							Iniciar sesión <i class="fas fa-sign-in-alt"></i>
-						</button>
-					</p>
-				</form>
-
-				<br /> <br />
-				<p class="txt-center">
-					¿No tienes cuenta?<br /> <a href="#p-signin" id="goto-signin"
-						class="a-main">Registrarme</a>
-				</p>
-			</div>
-
+			<footer class="main">
+				Al usar esta web aceptas los <strong>Términos y condiciones</strong>
+				del servicio de Yupana.
+			</footer>
 		</section>
+
 	</div>
-	<script>setPageAlternations('#p-signin','#goto-login','#p-login','#goto-signin');</script>
+	<!-- script>setStylishUI('.container');</script -->
+	
 </body>
 </html>

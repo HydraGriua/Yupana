@@ -8,16 +8,21 @@ import com.acme.yupanaapi.domain.service.SellerService;
 import com.acme.yupanaapi.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SellerServiceImpl implements SellerService {
-    @Autowired
-    SellerRepository sellerRepository;
+	
+	@Autowired
+	private  BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
+    private SellerRepository sellerRepository;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
     
     @Transactional(readOnly = true)
     @Override
@@ -52,6 +57,7 @@ public class SellerServiceImpl implements SellerService {
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException(
                 "User", "Id", userId));
         seller.setUser(user);
+        seller.setPassword(passwordEncoder.encode(seller.getPassword()));
         return sellerRepository.save(seller);
     }
 
@@ -62,9 +68,9 @@ public class SellerServiceImpl implements SellerService {
         if(!userRepository.existsById(userId))
             throw  new ResourceNotFoundException("User", "Id", userId);
         return sellerRepository.findById(sellerId).map(seller -> {
+            seller.setUsername(sellerRequest.getUsername());
+            seller.setPassword(sellerRequest.getPassword());
             seller.setEmail(sellerRequest.getEmail());
-            seller.setOldPassword(seller.getActualPassword());
-            seller.setActualPassword(sellerRequest.getActualPassword());
             seller.setStoreAdress(sellerRequest.getStoreAdress());
             seller.setBusinessName(sellerRequest.getBusinessName());
             return sellerRepository.save(seller);
@@ -82,5 +88,39 @@ public class SellerServiceImpl implements SellerService {
         sellerRepository.delete(seller);
         return ResponseEntity.ok().build();
     }
+
+	@Override
+	public Seller getSellerByUsername(String username) {
+		return sellerRepository.findByUsername(username);
+	}
+
+	@Override
+	public void UpdateResetPasswordToken(String token, String email) throws ResourceNotFoundException {
+        Seller seller = sellerRepository.findByEmail(email);
+        if (seller != null) {
+            seller.setResetPasswordToken(token);
+            sellerRepository.save(seller);
+        } else {
+            throw new ResourceNotFoundException("Could not find any customer with the email " + email);
+        }
+    }
+
+	@Override
+	public Seller getByResetPasswordToken(String token) {
+		 return sellerRepository.findByResetPasswordToken(token);
+	}
+
+	@Override
+	public void UpdatePassword(Seller seller, String newPassword) {
+		  BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	        String encodedPassword = passwordEncoder.encode(newPassword);
+	        seller.setPassword(encodedPassword);
+	         
+	        seller.setResetPasswordToken(null);
+	        sellerRepository.save(seller);
+		
+	}
+
+
     
 }

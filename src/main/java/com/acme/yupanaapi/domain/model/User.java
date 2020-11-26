@@ -21,7 +21,6 @@ public class User {
 
     private int id;
 
-
     @NotNull
     private String documentType;
 
@@ -39,7 +38,6 @@ public class User {
 
     @NotNull
     private String cellphone;
-
 
     @NotNull
     private String description;

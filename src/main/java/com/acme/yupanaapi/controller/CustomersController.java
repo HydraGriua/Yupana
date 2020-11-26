@@ -3,7 +3,10 @@ package com.acme.yupanaapi.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.acme.yupanaapi.domain.model.Flow;
+import com.acme.yupanaapi.domain.model.Seller;
 import com.acme.yupanaapi.domain.model.Subscription;
 import com.acme.yupanaapi.domain.model.Transaction;
 import com.acme.yupanaapi.domain.model.User;
@@ -46,11 +50,20 @@ public class CustomersController {
 	UserService userService;
 
 	@GetMapping("/clients")
-	public String viewCustomers(@RequestParam(name = "id", required = false) int idSeller, Model model) {
+	public String viewCustomers( Authentication auth, HttpSession session, Model model) {
 		try {
 			System.err.println("hola como estas");
 
-			List<Wallet> wallets = walletService.getAllBySellerId(1);
+			String username =  auth.getName();
+			int id = 0;
+			if(session.getAttribute("usuario") == null) {
+				Seller seller= sellerService.getSellerByUsername(username);
+				seller.setPassword(null);
+				session.setAttribute("usuario", seller);
+				id= seller.getId();
+				System.out.println(seller.getId());
+			}
+			List<Wallet> wallets = walletService.getAllBySellerId(id);
 			List<UserWalletResource> walletsT = new ArrayList<>();
 			if (wallets.size()>0) {
 				System.err.println("DENTROOOOO");
@@ -85,7 +98,7 @@ public class CustomersController {
 			System.err.println(e.getMessage());
 		}
 
-		return "/mystore/clients";
+		return "/mystore/clients" ;
 	}
 
 	@GetMapping("/client-details")

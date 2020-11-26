@@ -173,4 +173,13 @@ section .cards.c-delivery { min-width: 50%; }
 
 
 /* Forms */
+.content > main.container {
+	margin-left: auto;
+	margin-top: 7.75em;
+}
 main.container form, main.container p { max-width: 42em; }
+
+main.container > section:nth-child(2) .data {
+    width: fit-content;
+    margin: 0px auto;
+}
