@@ -32,45 +32,47 @@ public class ForgotPasswordController {
 	private SellerService sellerservices;
 
 	@GetMapping("/forgot_password")
-	public String showForgotPasswordForm() {
+	public String showForgotPasswordForm(Model model) {
+		
 		 return "/forgot_password";
 	}
 
 	@PostMapping("/forgot_password")
 	public String processForgotPassword(HttpServletRequest request, Model model) throws UnsupportedEncodingException, MessagingException  {
-		 String email = request.getParameter("email");
-		    String token = RandomString.make(30);
+		   String email = request.getParameter("email");
+		   System.err.println(request.getParameter("email"));
+		   String token = RandomString.make(30);
 		    try {
 		    	System.err.println("ENTRO A OLVIDE CONTRASEÑA");
 		    	 sellerservices.UpdateResetPasswordToken(token, email);
-		         String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
+		         String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password_form?token=" + token;
 		         sendEmail(email,resetPasswordLink);
-		         model.addAttribute("message", "We have sent a reset password link to your email. Please check.");
-		         System.out.println(email);
+		         model.addAttribute("message", "Enviamos un mensaje a tu correo. Chequealo*");
+		         System.out.println(email + token);
 		    } catch (ResourceNotFoundException ex) {
 		        model.addAttribute("error", ex.getMessage());
 		    }
 		         
-		    return "redirect:/reset_password_form";
+		    return "/forgot_password";
 	}
 
 	public void sendEmail(String recipientEmail, String link)
-	        throws MessagingException, UnsupportedEncodingException {
+	    throws MessagingException, UnsupportedEncodingException {
 	    MimeMessage message = mailSender.createMimeMessage();              
 	    MimeMessageHelper helper = new MimeMessageHelper(message);
 	    System.err.println("Aqui el correo");
-	    helper.setFrom("nicolvasquesilva@gmail", "Shopme Support");
+	    helper.setFrom("correopruebas2020progra@gmail.com", "Shopme Support");
 	    helper.setTo(recipientEmail);
 	     
-	    String subject = "Here's the link to reset your password";
+	    String subject = "Aquí esta el link para resetar tu contraseña";
 	     
-	    String content = "<p>Hello,</p>"
-	            + "<p>You have requested to reset your password.</p>"
-	            + "<p>Click the link below to change your password:</p>"
-	            + "<p><a href=\"" + link + "\">Change my password</a></p>"
+	    String content = "<p>Hola,</p>"
+	            + "<p>Ha solicitado restablecer su contraseña.</p>"
+	            + "<p>Haga clic en el enlace de abajo para cambiar su contraseña:</p>"
+	            + "<p><a href=\"" + link + "\">Cambiar mi contraseña</a></p>"
 	            + "<br>"
-	            + "<p>Ignore this email if you do remember your password, "
-	            + "or you have not made the request.</p>";
+	            + "<p>Ignore este correo electrónico si recuerda su contraseña, "
+	            + "o no ha realizado la solicitud.</p>";
 	     
 	    helper.setSubject(subject);
 	     
@@ -86,8 +88,8 @@ public class ForgotPasswordController {
 		     
 		    if (seller == null) {
 		    	System.err.println("ENTRO A REEVIARCONTRASEA");
-		        model.addAttribute("message", "Invalid Token");
-		        return "message";
+		        model.addAttribute("message", "Su link ya no esta disponible");
+		        return "/message";
 		    }
 		     
 		    return "/reset_password_form";
@@ -99,17 +101,18 @@ public class ForgotPasswordController {
 	    String password = request.getParameter("password");
 	     
 	    Seller seller = sellerservices.getByResetPasswordToken(token);
-	    model.addAttribute("title", "Reset your password");
+	    System.out.println(token);
+	    model.addAttribute("title", "Resete tu password");
 	     
 	    if (seller == null) {
-	        model.addAttribute("message", "Invalid Token");
-	        return "message";
+	        model.addAttribute("message", "No es Correcto");
+	        return "/reset_password_form";
 	    } else {           
 	        sellerservices.UpdatePassword(seller, password);
 	         
-	        model.addAttribute("message", "You have successfully changed your password.");
+	        model.addAttribute("message", "Se cambio su contraseña correctamente");
 	    }
 	     
-	    return "message";
+	    return "redirect:/login";
 	}
 }

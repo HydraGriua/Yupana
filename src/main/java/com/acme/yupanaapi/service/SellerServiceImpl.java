@@ -98,8 +98,10 @@ public class SellerServiceImpl implements SellerService {
 	public void UpdateResetPasswordToken(String token, String email) throws ResourceNotFoundException {
         Seller seller = sellerRepository.findByEmail(email);
         if (seller != null) {
-            seller.setResetPasswordToken(token);
+            System.out.println(seller);
+        	seller.setResetPasswordToken(token);
             sellerRepository.save(seller);
+            
         } else {
             throw new ResourceNotFoundException("Could not find any customer with the email " + email);
         }

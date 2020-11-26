@@ -39,46 +39,21 @@
 					permite registrar las deudas de tus clientes, elegir por cada deuda
 					un tipo de interés y verificar el estado de cada deuda.
 				</p>
-								<br /> <img src="https://i.ibb.co/3Cx5zWC/Yupana-logo-fc-64x64.png" alt="yupnaLogo" />
+				<br /> <img src="https://i.ibb.co/3Cx5zWC/Yupana-logo-fc-64x64.png"
+					alt="yupnaLogo" />
 			</div>
 		</section>
 
 
 		<section class="container main-frm">
 			<div id="p-login">
-				<h1>Olvidaste tu contraseña</h1>
-				<div th:if="${error != null}">
-					<p class="text-danger">[[${error}]]</p>
-				</div>
-				<div th:if="${message != null}">
-					<p class="text-warning">[[${message}]]</p>
-				</div>
-				<br />
-				<form th:action="@{/forgot_password}" method="post"
-					autocomplete="on" class="center txt-center" id="login">
-					<div class="border border-secondary rounded p-3">
-						<div>
-							<p>Enviaremos un enlace para restablecer su contraseña*</p>
-						</div>
-						<div>
-						<br/>
-							<p>
-								<input type="email" name="email" class="form-control"
-									placeholder="Ingrese su email" required autofocus />
-							</p>
-							<br/>
-							<p class="txt-center">
-								<button type="submit" value="Submit" id="btn-login"
-									class="color-accent-bg">
-									Enviar <i class="fas fa-sign-in-alt"></i>
-								</button>
-							</p>
-							<br/>
-							<a th:href="@{/login}">Inicia Sesion</a>	
-						</div>
-					</div>
-
-				</form>
+				<h1 th:text="${message}"></h1>
+				<p class="txt-center">
+					<a th:href="@{/login}"><button type="submit" value="Submit" id="btn-login"
+						class="color-accent-bg">
+						Inicia Sesion <i class="fas fa-sign-in-alt"></i>
+					</button></a>
+				</p>
 			</div>
 			<footer class="main">
 				Al usar esta web aceptas los <strong>Términos y condiciones</strong>
