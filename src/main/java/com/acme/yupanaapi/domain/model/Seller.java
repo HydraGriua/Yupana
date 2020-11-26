@@ -22,10 +22,7 @@ public class Seller {
     private int id;
 
     @NotNull
-    private String actualPassword;
-
-    @NotNull
-    private String oldPassword;
+    private String password;
 
     @NotNull
     private String storeAdress;
@@ -34,7 +31,12 @@ public class Seller {
     private String businessName;
 
     @NotNull
+    private String username;
+    
+    @NotNull
     private String email;
+    
+    private String resetPasswordToken;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)

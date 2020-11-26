@@ -10,5 +10,9 @@ public interface SellerService {
     Seller createSeller(Seller seller, int userId);
     Seller updateSeller(int sellerId, int userId, Seller sellerRequest);
     ResponseEntity<?> deleteSeller(int sellerId);
+    Seller getSellerByUsername(String username);
+    public void UpdateResetPasswordToken(String token, String email);
+    public Seller getByResetPasswordToken(String token);
+    public void UpdatePassword(Seller seller, String newPassword);
 }
 

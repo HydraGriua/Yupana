@@ -3,7 +3,10 @@ package com.acme.yupanaapi.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.acme.yupanaapi.domain.model.Flow;
+import com.acme.yupanaapi.domain.model.Seller;
 import com.acme.yupanaapi.domain.model.Subscription;
 import com.acme.yupanaapi.domain.model.Transaction;
 import com.acme.yupanaapi.domain.model.User;
@@ -47,9 +51,18 @@ public class CustomersController {
 	UserService userService;
 
 	@GetMapping("/clients")
-	public String viewCustomers(@RequestParam(name = "id", required = false) int idSeller, Model model) {
+	public String viewCustomers( Authentication auth, HttpSession session, Model model) {
 		try {
-			List<Wallet> wallets = walletService.getAllBySellerId(UserTesting.Users.getIdSeller());
+			String username =  auth.getName();
+			int id = 0;
+			if(session.getAttribute("usuario") == null) {
+				Seller seller= sellerService.getSellerByUsername(username);
+				seller.setPassword(null);
+				session.setAttribute("usuario", seller);
+				id= seller.getId();
+				System.out.println(seller.getId());
+			}
+			List<Wallet> wallets = walletService.getAllBySellerId(id);
 			List<UserWalletResource> walletsList = new ArrayList<>();
             if (wallets.size()>0) {
                 UserWalletResource walletT = new UserWalletResource();
@@ -63,37 +76,9 @@ public class CustomersController {
                 	}
                 }
             }
-//			List<Wallet> wallets = walletService.getAllBySellerId(1);
-//			List<UserWalletResource> walletsT = new ArrayList<>();
-//			if (wallets.size()>0) {
-//				System.err.println("DENTROOOOO");
-//				System.err.println("SIZE" + wallets.size());
-//				for (Wallet x : wallets) {
-//					System.out.println(x.getId());
-//					UserWalletResource resource = flowService.getData(x.getId());
-//					System.err.println(resource);
-//					List<Subscription> lista = subscriptionService.getAllByWalletId(x.getId());
-//					System.err.println(lista.get(0));			
-//					if (lista.size() > 0) {
-//						System.err.println("DENTROOOOODENTROLLLLLLLLLLL");
-//							Subscription subscription = lista.get(lista.size() - 1);
-//							if(subscription != null) {
-//								System.err.println("A MIMIRRRRRRRRRRRRRRRRRRRRRRRRRRRRR°!!!!!!!!!!!!!!!!");
-//								System.err.println(subscription);
-//								resource.setSubscriptionId(subscription.getId());
-//								resource.setSAmount(subscription.getAmount());
-//								resource.setSCreationDate(subscription.getCreationDate());
-//								resource.setSExpirationDate(subscription.getExpirationDate());
-//								resource.setSType(subscription.getSubscriptionType());
-//								walletsT.add(resource);
-//							}
-//					}
-//					System.out.println("Id" + walletsT.get(0).getFlowId());
-//				}
-//			}
-//			/// List<Wallet> wallets = walletService.getAllBySellerId(1);
+//			
 			model.addAttribute("wallets", walletsList);
-			model.addAttribute("idSession", idSeller);
+			model.addAttribute("idSession", id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());

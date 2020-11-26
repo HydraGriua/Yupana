@@ -82,6 +82,12 @@
 
 		<main class="container">
 			<h1>Clientes</h1>
+			<span th:if="${session.usuario !=null}">
+						Bienvenido/a <span class="font-italic" th:text="${session.usuario.user.name}"> </span></span>
+				<Form th:action="@{/logout}" method="post" 
+						class="a-main" id="frm-hola">
+				</Form>
+				<button type="submit" class="btn btn-primary mt-6" form ="frm-hola"> Salir </button>
 			<section class="cards" id="c-clients">
 
 				<div class="card easy center" th:each="wallet : ${wallets}">
