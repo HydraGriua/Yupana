@@ -20,9 +20,9 @@ $(document).ready(function() {
         '</div>' +
         '</div>' +
         '<nav><ul>' +
-        '<a th:href="@{/mystore/records}"><li> <i class="fas fa-book"></i> <span>Registros</span></li></a>' +
-        '<a th:href="@{/mystore/clients}"><li> <i class="fas fa-address-book"></i> <span>Clientes</span></li></a>' +
-        '<a th:href="@{/mystore/learn_more}"><li> <i class="fas fa-graduation-cap"></i> <span>Aprende más </span></li></a>' +
+        '<a href="/mystore/records"><li> <i class="fas fa-book"></i> <span>Registros</span></li></a>' +
+        '<a href="/mystore/clients"><li> <i class="fas fa-address-book"></i> <span>Clientes</span></li></a>' +
+        '<a href="/mystore/learn_more"><li> <i class="fas fa-graduation-cap"></i> <span>Aprende más </span></li></a>' +
         '</ul></nav>' +
         '<div class="nav-title">' +
         '<img src="/assets/images/Yupana-logo_w_512x512.png" alt="logo Yupana" class="icon"> <img src="/assets/images/Yupana-txt_w_512x256.png" alt="texto Yupana" class="text">' +
