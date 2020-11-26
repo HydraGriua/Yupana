@@ -108,5 +108,25 @@ public class CustomersController {
 		}
 		return "/mystore/client-details";
 	}
+	@GetMapping("/profile")
+	public String viewProfile() {
+		try {
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+		}
+		return "/mystore/profile";
+	}
 
+	@GetMapping("/learn_more")
+	public String viewLearnMore() {
+		try {
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+		}
+		return "/mystore/learn_more";
+	}
 }

@@ -10,13 +10,13 @@ $(document).ready(function() {
     $('main').append('<footer class="copyright">	&copy; Todos los derechos reservados, Yupana 2020 </footer>');
 
     //Colocando el navegador
-    var navHtml = '<header>' +
+   /* var navHtml = '<header>' +
         '<div id="nav-user">' +
         '<div id="profile-more" class="hide-mobile"><i class="fas fa-user-circle"></i> <span id="t-username">' + user.name + '</span></div>' +
-        '<a th:href="@{/mystore/profile}"><div class="mobile"><i class="fas fa-user-circle"></i> <span>' + user.name + '<span></div></a>' +
+        '<a href="/mystore/profile"><div class="mobile"><i class="fas fa-user-circle"></i> <span>' + user.name + '<span></div></a>' +
         '<div class="more hide-mobile">' +
-        '<a th:href="@{/mystore/profile}"><div><i class="fas fa-id-badge"></i>Ir a perfil</div></a>' +
-        '<a th:href="@{/index}" id="log-out"><div><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión </span></div></a>' +
+        '<a href="/mystore/profile"><div><i class="fas fa-id-badge"></i>Ir a perfil</div></a>' +
+        '<a href="/login" id="logout"><div><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión </span></div></a>' +
         '</div>' +
         '</div>' +
         '<nav><ul>' +
@@ -28,7 +28,7 @@ $(document).ready(function() {
         '<img src="/assets/images/Yupana-logo_w_512x512.png" alt="logo Yupana" class="icon"> <img src="/assets/images/Yupana-txt_w_512x256.png" alt="texto Yupana" class="text">' +
         '</div>' +
         '</header>';
-    $('.content.app').prepend(navHtml);
+    $('.content.app').prepend(navHtml);*/
 
 
     /*
