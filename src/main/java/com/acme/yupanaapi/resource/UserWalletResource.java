@@ -32,7 +32,7 @@ public class UserWalletResource {
     private Float currentInterestRate; // Tasa porcentaje actual 
     private int currentRatePeriod; // periodo de tasa 
     private int currentCapitalization; // periodo capitalizacion 
-    private String currentRateType; // TEA etc
+    private String rateType; // TEA etc
     private Float creditLine; // Inicial que te dan linea de credito 
     private Float currentCreditLine; // Actualizacion del la linea de credito 
     private String currencyType;

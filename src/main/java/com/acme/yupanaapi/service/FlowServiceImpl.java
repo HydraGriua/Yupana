@@ -126,14 +126,13 @@ public class FlowServiceImpl implements FlowService {
 			userWalletResource.setBalance(wallet.getBalance());
 			userWalletResource.setState(wallet.getState());
 			userWalletResource.setType(wallet.getType());
-			//userWalletResource.setTransactionName();
 			userWalletResource.setDeadlineDate(flow.getDeadlineDate());
 			userWalletResource.setLastTransactionDate(flow.getLastTransactionDate());
 			userWalletResource.setCurrentInterestRate(flow.getInterestRate());
 			userWalletResource.setCurrentRatePeriod(flow.getRatePeriod());
 			userWalletResource.setCurrentCapitalization(flow.getCapitalization());
 			userWalletResource.setCapitalizationType(flow.getCapitalizationType());
-			userWalletResource.setCurrentRateType(flow.getRateType());
+			userWalletResource.setRateType(flow.getRateType());
 			userWalletResource.setCreditLine(flow.getCreditLine());
 			userWalletResource.setCurrentCreditLine(flow.getCurrentCreditLine());
 			userWalletResource.setTotalDebt(flow.getTotalDebt());
@@ -141,10 +140,8 @@ public class FlowServiceImpl implements FlowService {
 			
 			List<Subscription> subL = subscriptionRepository.findAllByWalletId(walletId);
 			if(subL.size()>0) {
-				//System.err.print(subL);
 				userWalletResource.setSubscription(subL.get(subL.size()-1));	
 			}
-			//System.err.print("\n"+userWalletResource.getSubscription());
 		}
 		return userWalletResource;
 	}
@@ -179,7 +176,7 @@ public class FlowServiceImpl implements FlowService {
 					userWalletResource.setCurrentInterestRate(flow.getInterestRate());
 					userWalletResource.setCurrentRatePeriod(flow.getRatePeriod());
 					userWalletResource.setCurrentCapitalization(flow.getCapitalization());
-					userWalletResource.setCurrentRateType(flow.getRateType());
+					userWalletResource.setRateType(flow.getRateType());
 					userWalletResource.setCreditLine(flow.getCreditLine());
 					userWalletResource.setCurrentCreditLine(flow.getCurrentCreditLine());
 					userWalletResource.setTotalDebt(flow.getTotalDebt());

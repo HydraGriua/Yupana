@@ -59,7 +59,7 @@ public class TransactionServiceImpl implements TransactionService {
 			int dias = (int) ((transactionEntity.getTransactionDate().getTime()
 					- flow.getLastTransactionDate().getTime()) / 86400000);
 			switch (tipo) {
-			case "simple":
+			case "Tasa de Interés Simple":
 				newQuant = flow.getTotalDebt() * (1 + (flow.getInterestRate() * dias));
 				flow.setTotalDebt(newQuant + transactionEntity.getDebt());
 				break;
@@ -166,6 +166,7 @@ public class TransactionServiceImpl implements TransactionService {
 			System.err.print("Type PAYMENT: " + userWaR.getRateType() + "\n");
 			System.err.print("Type PAYMENT: " + userWaR.getPayType() + "\n");
 			System.err.print("Type PAYMENT: " + userWaR.getTransactionName()+ "\n");
+			System.err.print("Type PAYMENT: " + userWaR.getCurrencyType()+ "\n");
 			// System.out.print("descripcion: " + userWaR.getSale().getDescription()+"\n");
 			if (userWaR.getPayType().equals("contado") && obj.getPayMethodBy().equals("payed")) {
 				if (userWaR.getCurrencyType().toString().equals(obj.getCurrencyBy())) {

@@ -1,6 +1,7 @@
 package com.acme.yupanaapi.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -51,24 +52,26 @@ public class CustomersController {
 	UserService userService;
 
 	@GetMapping("/clients")
-	public String viewCustomers( Authentication auth, HttpSession session, Model model) {
+	public String viewCustomers(Authentication auth, HttpSession session, Model model) {
 		try {
+			
 			String username =  auth.getName();
+			System.err.print("\n username = " + username);
 			int id = 0;
-			if(session.getAttribute("usuario") == null) {
-				Seller seller= sellerService.getSellerByUsername(username);
-				seller.setPassword(null);
+			Seller seller= sellerService.getSellerByUsername(username);
+			id= seller.getId();
+			seller.setPassword(null);
+			if(session.getAttribute("usuario") == null) {	
 				session.setAttribute("usuario", seller);
-				id= seller.getId();
 				System.out.println(seller.getId());
 			}
+			
 			List<Wallet> wallets = walletService.getAllBySellerId(id);
 			List<UserWalletResource> walletsList = new ArrayList<>();
             if (wallets.size()>0) {
                 UserWalletResource walletT = new UserWalletResource();
                 for(Wallet x : wallets) {
-                	System.err.print("\n"+x.getUser().getDescription());
-                	
+                	System.err.print("\n"+x);
                 	UserWalletResource infoWallet = flowService.getData(x.getId());
                 	if(infoWallet!= null) {
                 		System.err.println(infoWallet.getWalletId());
@@ -76,14 +79,12 @@ public class CustomersController {
                 	}
                 }
             }
-//			
 			model.addAttribute("wallets", walletsList);
 			model.addAttribute("idSession", id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
 		}
-		
 		return "/mystore/clients";
 	}
 

@@ -8,8 +8,47 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Clientes</title>
 
-<header th:replace="Layout/MenuLayout :: header"> </header>
+
+<header>
+	<div id="nav-user">
+		<div id="profile-more" class="hide-mobile">
+			<i class="fas fa-user-circle"></i> <span id="t-username">' +
+				user.name + '</span>
+		</div>
+		<a th:href="@{/mystore/profile}"><div class="mobile">
+				<i class="fas fa-user-circle"></i> <span>' + user.name + '<span>
+			</div></a>
+		<div class="more hide-mobile">
+			<a th:href="@{/mystore/profile}"><div>
+					<i class="fas fa-id-badge"></i>Ir a perfil
+				</div></a> <a th:href="@{/index}" id="log-out"><div>
+					<i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión </span>
+				</div></a>
+		</div>
+	</div>
+	<nav>
+		<ul>
+			<a th:href="@{'/mystore/records?id=' +${session.usuario.id} (orderyby=dateLasts,registerTypeBy=all,payMethodBy=all,rateTypeBy=all,currencyBy=soles)}"><li>
+					<i class="fas fa-book"></i> <span>Registros</span>
+			</li></a>
+			<a th:href="@{'/mystore/clients?id='+ ${session.usuario.id}}"><li>
+					<i class="fas fa-address-book"></i> <span>Clientes</span>
+			</li></a>
+			<a th:href="@{/mystore/learn_more}"><li><i
+					class="fas fa-graduation-cap"></i> <span>Aprende más </span></li></a>
+		</ul>
+	</nav>
+	<div class="nav-title">
+		<img src="/assets/images/Yupana-logo_w_512x512.png" alt="logo Yupana"
+			class="icon"> <img
+			src="/assets/images/Yupana-txt_w_512x256.png" alt="texto Yupana"
+			class="text">
+	</div>
+</header>
 <body>
+
+
+
 	<div class="content app">
 
 		<section class="filters">
@@ -65,11 +104,12 @@
 		</section>
 
 		<section class="actions row">
-			 
+
 			<a th:href="@{'newClient?id=' + ${session.usuario.id}}">
-			<button id="newClient">
-				Nuevo cliente<i class="fas fa-plus"></i>
-			</button></a>
+				<button id="newClient">
+					Nuevo cliente<i class="fas fa-plus"></i>
+				</button>
+			</a>
 			<div class="cards row">
 				<button id="view" value="todet">
 					Mostrar detalles <i class="fas fa-eye"></i>
@@ -82,12 +122,12 @@
 
 		<main class="container">
 			<h1>Clientes</h1>
-			<span th:if="${session.usuario !=null}">
-						Bienvenido/a <span class="font-italic" th:text="${session.usuario.id}"> </span></span>
-				<Form th:action="@{/logout}" method="post" 
-						class="a-main" id="frm-hola">
-				</Form>
-				<button type="submit" class="btn btn-primary mt-6" form ="frm-hola"> Salir </button>
+			<span th:if="${session.usuario !=null}"> Bienvenido/a <span
+				class="font-italic" th:text="${session.usuario.id}"> </span></span>
+			<Form th:action="@{/logout}" method="post" class="a-main"
+				id="frm-hola"></Form>
+			<button type="submit" class="btn btn-primary mt-6" form="frm-hola">
+				Salir</button>
 			<section class="cards" id="c-clients">
 
 				<div class="card easy center" th:each="wallet : ${wallets}">
@@ -116,8 +156,8 @@
 								th:text="${wallet.name} + ' '+ ${wallet.firstLastname}+ ' '+ ${wallet.secondLastname}"></a></span>
 						</div>
 						<div class="tInterest tohide">
-							Tipo de interés <span th:text="${wallet.currentRateType}"></span>
-							<span class="subDet"> Capitalización: <span
+							Tipo de interés <span th:text="${wallet.rateType}"></span> <span
+								class="subDet"> Capitalización: <span
 								th:text="${wallet.currentCapitalization} + ' - ' +${wallet.capitalizationType}">
 							</span></span>
 						</div>
@@ -140,41 +180,26 @@
 						<div class="credleft tohide">
 							<!--debt o payment-->
 							<div>
-								Crédito restante 
-								<span>
-								<td th:switch="${wallet.currencyType}"><span
-									th:case="'soles'">S/. </span> <span th:case="'usdollar'">$
-								</span>
-								
-								
-								</span> 
-								
-								<span
-									th:text="${wallet.currentCreditLine}"></span>
+								Crédito restante <span>
+									<td th:switch="${wallet.currencyType}"><span
+										th:case="'soles'">S/. </span> <span th:case="'usdollar'">$
+									</span>
+								</span> <span th:text="${wallet.currentCreditLine}"></span>
 							</div>
 							<div class="subDet">
-								Crédito otorgado 
-								<span>
-								<td th:switch="${wallet.currencyType}"><span
-									th:case="'soles'">S/. </span>
-									<span th:case="'usdollar'">$	</span>
-									</td>
-								</span> 
-								
-								<span th:text="${wallet.creditLine}"></span>
+								Crédito otorgado <span>
+									<td th:switch="${wallet.currencyType}"><span
+										th:case="'soles'">S/. </span> <span th:case="'usdollar'">$
+									</span></td>
+								</span> <span th:text="${wallet.creditLine}"></span>
 							</div>
 						</div>
 						<div class="acum">
 							<div class="money debt">
-								Monto acumulado a cobrar 
+								Monto acumulado a cobrar
 								<td th:switch="${wallet.currencyType}"><span
 									th:case="'soles'">S/. </span> <span th:case="'usdollar'">$
-								</span>
-									</td>
-								
-								
-								 <span
-									th:text="${wallet.totalDebt}"></span>
+								</span></td> <span th:text="${wallet.totalDebt}"></span>
 							</div>
 							<div class="ti tohide">
 								Tasa de interés <span
@@ -187,8 +212,7 @@
 								Precio
 								<td th:switch="${wallet.currencyType}"><span
 									th:case="'soles'">S/. </span> <span th:case="'usdollar'">$
-								</span>
-									</td> <span th:text="${wallet.maintenancePrice}"></span>
+								</span></td> <span th:text="${wallet.maintenancePrice}"></span>
 							</div>
 							<div class="subDet">
 								Próximo pago: <span></span> <span
@@ -207,11 +231,11 @@
 							<span>Editar</span> <i class="fas fa-edit"></i>
 						</button>-->
 						<a th:href="@{'/mystore/newPayment?id=' + ${wallet.walletId}}">
-						<button class="new color-accent-bg">
-							<span>Nuevo registro </span> <i class="fas fa-plus"></i>
-						</button>
-						</a>
-						<a th:href="@{'/mystore/client-details?id=' + ${wallet.walletId}}"><button
+							<button class="new color-accent-bg">
+								<span>Nuevo registro </span> <i class="fas fa-plus"></i>
+							</button>
+						</a> <a
+							th:href="@{'/mystore/client-details?id=' + ${wallet.walletId}}"><button
 								class="receipts color-secondary-bg">
 								Ver detalle <i class="fas fa-clipboard-list"></i>
 							</button></a>

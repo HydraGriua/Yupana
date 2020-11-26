@@ -143,10 +143,6 @@ public class SellersController {
 			model.addAttribute("infoFilter", infoFilter);
 			model.addAttribute("sellerInfo", sellerService.getSellerById(id));
 			model.addAttribute("idSession", UserTesting.Users.getIdSeller());
-			// List<UserWalletResource> x =
-			// flowService.getAllUserTransactionById(walletService.getAllBySellerId(1));
-			// List<UserWalletResource> x =
-			// flowService.getAllUserTransactionById(walletService.getAllBySellerId(1));
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.print(e.getMessage());
@@ -230,11 +226,11 @@ public class SellersController {
 	public String viewNewClient(@RequestParam(name = "id", required = false) int id, Model model) {
 		try {
 			NewClientResource infoClientResource = new NewClientResource();
-			List<Wallet> listW = walletService.getAllBySellerId(UserTesting.Users.getIdSeller());
+			List<Wallet> listW = walletService.getAllBySellerId(id);
 			System.err.print("CLIENTE :;;;;;;;;;;;;");
 			model.addAttribute("clientModel", infoClientResource);
 			model.addAttribute("listaUsuarios", listW);
-			model.addAttribute("idSession", UserTesting.Users.getIdSeller());
+			model.addAttribute("idSession", id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.print(e.getMessage());
@@ -283,24 +279,22 @@ public class SellersController {
 		try {
 			// client.getWallet().getUser().get
 			// client.getFlow().getRatePeriod();
-
+			
 			client.getWallet().setMaintenancePeriodType(converter(client.getWallet().getMaintenancePeriod()));
 			client.getFlow().setCapitalizationType(converter(client.getFlow().getCapitalization()));
 			client.getFlow().setRatePeriodType(converter(client.getFlow().getRatePeriod()));
-
 			// client.getFlow().setRateType(converter(client.getFlow().getRatePeriod()));
 			client.getWallet().setState("ACTIVE");
 			client.getFlow().setCurrentCreditLine(client.getFlow().getCreditLine());
 			client.getFlow().setTotalDebt(0F);
 			//
-			
 			client.getFlow().setRateType(converterTasa(client.getFlow().getRateType()));
 			client.getWallet().setSeller(sellerService.getSellerById(UserTesting.Users.getIdSeller()));
-			client.getWallet().setType("WALLET BODEGA");
+			client.getWallet().setType("BASICO");
 			client.getWallet().setBalance(0F);
-			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+			//DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 			Date date = new Date();
-			System.err.println(dateFormat.format(date));
+			//System.err.println("\n fecha" + date);
 			client.getWallet().setCreationDate(date);
 			System.err.print("CLIENTE :;;;;;;;;;;;;" + client.getWallet().getUser());
 			System.err.print("\nCLIENTE :;;;;;;;;;;;;" + client.getWallet());
@@ -383,11 +377,11 @@ public class SellersController {
 			Transaction tra = new Transaction();
 			Wallet wallet = new Wallet();
 			System.err.print("\n" + sellModel.getWallet());
-
+			
 			System.err.print("\n" + sellModel.getDelivery());
-			model.addAttribute("sellModel", infoSellResource);
-			model.addAttribute("listaUsuarios", listW);
-			model.addAttribute("walletL", wallet);
+//			model.addAttribute("sellModel", infoSellResource);
+//			model.addAttribute("listaUsuarios", listW);
+//			model.addAttribute("walletL", wallet);
 			Flow flowT = flowService.getActiveFlow(sellModel.getWallet().getId());
 			Transaction transactionT = sellModel.getTransaction();
 			System.err.print("\n direccion delv" +sellModel.getDelivery().getDirection());
@@ -411,6 +405,7 @@ public class SellersController {
 			transactionT.setFlow(flowT);
 			transactionT.setDebt(sellModel.getTransaction().getDebt());
 			transactionT.setNetAmount(sellModel.getTransaction().getAmountPaid());
+			transactionT.setCurrencyType(flowT.getWallet().getCurrencyType());
 			System.err.print("\n TRANSACTON 2020" + transactionT);
 			//System.err.print("\n "+ sellModel.getTransaction().ge);
 			System.err.print("\n" + sellModel.getTransaction());
