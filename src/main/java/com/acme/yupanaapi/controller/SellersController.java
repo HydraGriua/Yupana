@@ -207,7 +207,7 @@ public class SellersController {
 		return "mystore/newSell";
 	}
 	public String converterTranName(String string) {
-		if (string.equals("sell")) {
+		if (string.equals("credito")) {
 			return "Registro de venta al crédito";
 		} else if (string.equals("mantenimiento")) {
 			return "Mantenimiento de cuenta";
@@ -252,13 +252,9 @@ public class SellersController {
 			transactionT.setTransactionDate(convertedCurrentDate);
 			transactionT.setRateType(flowT.getRateType());
 			transactionT.setRatePeriod(flowT.getRatePeriod());
-			if(sellModel.getTransaction().getTransactionName().equals("contado")) {
-				transactionT.setPayType("contado");
-			}else {
-				transactionT.setPayType("credito");	
-			}
+			transactionT.setPayType(sellModel.getTransaction().getTransactionName());
 			transactionT.setTransactionName(converterTranName(sellModel.getTransaction().getTransactionName()));
-			transactionT.setDescription("descripcion DEFAULT");
+			transactionT.setDescription("DESCRIPCION TRANSACION");
 			transactionT.setFlow(flowT);
 			transactionT.setDebt(sellModel.getTransaction().getDebt());
 			transactionT.setAmountPaid(sellModel.getTransaction().getAmountPaid());
@@ -277,8 +273,7 @@ public class SellersController {
 		}
 		return "redirect:/mystore/newTicket?id=" + tX.getId();
 	}
-
-
+	
 	///////// REG payment
 	@GetMapping("/newPayment")
 	public String viewNewPayment(@RequestParam(name = "id", required = false) int id, Model model) {
@@ -307,13 +302,13 @@ public class SellersController {
 		try {
 //			fullInfoResource infoResource = new fullInfoResource();
 //			model.addAttribute("infoResource", infoResource);
-			System.err.print("HOLAeeeeeeeee");
-			System.err.print("\n" + sub.getTransaction());
-			System.err.print("\n FLUJO UFFFFFFFFF" + sub.getFlowId());
-			System.err.print("\n ID WLALLET " + sub.getIdWallet());
-			System.err.print("\n AMOUNT" + sub.getAmountToPay());
-			System.err.print("\n DESCRP" + sub.getDescription());
-			System.err.print("\n IDD SELLER--- " + sub.getIdSeller() + "\n");
+//			System.err.print("HOLAeeeeeeeee");
+//			System.err.print("\n" + sub.getTransaction());
+//			System.err.print("\n FLUJO UFFFFFFFFF" + sub.getFlowId());
+//			System.err.print("\n ID WLALLET " + sub.getIdWallet());
+//			System.err.print("\n AMOUNT" + sub.getAmountToPay());
+//			System.err.print("\n DESCRP" + sub.getDescription());
+//			System.err.print("\n IDD SELLER--- " + sub.getIdSeller() + "\n");
 			Transaction x = new Transaction();
 			String strAmount = sub.getAmountToPay();
 			float amount = Float.parseFloat(strAmount);
