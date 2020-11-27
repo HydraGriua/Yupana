@@ -126,4 +126,15 @@ public class CustomersController {
 		}
 		return "/mystore/learn_more";
 	}
+	
+	@GetMapping("/enviarReporte")
+	public String viewEnviarReporte() {
+		try {
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+		}
+		return "/mystore/enviarReporte";
+	}
 }
