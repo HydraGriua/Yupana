@@ -24,7 +24,7 @@ public class RegisterController {
 
 	@GetMapping("login")
 	private String login(Model model) {
-		System.err.println("ESTOY EN EL lOGIN");
+		//System.err.println("ESTOY EN EL lOGIN");
 		Seller seller = new Seller();
 		model.addAttribute("usuario", seller);
 		return "login";
@@ -33,7 +33,7 @@ public class RegisterController {
 	@GetMapping
 	private String registrarform(Model model) {
 		try {
-			System.err.println("DENTROOOO");
+			//System.err.println("DENTROOOO");
 			Seller seller = new Seller();
 			model.addAttribute("usuario", seller);
 			//System.out.println(seller.getEmail());

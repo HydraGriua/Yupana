@@ -25,8 +25,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgres://xhzaiwqdegekjj:6b1d702d9df01f5268d0e84ebeab01a286891c6c474b1c89451df9befaf48625@ec2-34-204-121-199.compute-1.amazonaws.com:5432/de81pn0gv2gun
-    #username: xhzaiwqdegekjj
-    #password: 6b1d702d9df01f5268d0e84ebeab01a286891c6c474b1c89451df9befaf48625
+    username: xhzaiwqdegekjj
+    password: 6b1d702d9df01f5268d0e84ebeab01a286891c6c474b1c89451df9befaf48625
  #para el file
   servlet:
        multipart:
