@@ -82,12 +82,17 @@
                     <br>
                     <h1>Valores de crédito</h1>
                     <p class="center">Estos valores aparecerán por defecto cuando se cree un nuevo registro para este cliente.</p>
+                    
+                    <label for="date"><span>Fecha de Evento</span>
+        					<input type="date" value="now" th:field = "*{creationDate}" required>
+  					 </label>
                     <label for="linea-credit"> <span>Línea de crédito</span>
-                     <input	type="number" th:field="*{flow.creditLine}" name="linea-credit" min="0" step=".10" required> 
+                      
                      <select name="tmoneda" th:field="*{wallet.currencyType}">
 							<option value="soles">Soles PE(S/.)</option>
 							<option value="usdollar">Dólares USA($)</option>
 					</select>
+					<input	type="number" th:field="*{flow.creditLine}" name="linea-credit" min="0" step=".10" required>
 					</label>
                     <label for="ttasa"> <span>Tipo de tasa</span> 
                     <select	name="ttasa" th:field="*{flow.rateType}" tipo="flow-rateType" onchage="hidecap">
@@ -141,7 +146,7 @@
 							<option value="360">Anual</option>
 					</select>
 					</label> <label for="mccobro"> <span>Monto a cobrar</span> <input
-						type="number" min="0" step=".10" th:field = "*{wallet.maintenancePrice}" name="mccobro">
+						type="number" min="0" step=".10" th:field = "*{wallet.maintenancePrice}" name="mccobro" required>
 					</label>
 					</section>
                     <br>
