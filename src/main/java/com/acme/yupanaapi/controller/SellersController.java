@@ -154,7 +154,7 @@ public class SellersController {
 			client.getWallet().setMaintenancePeriodType(converter(client.getWallet().getMaintenancePeriod()));
 			client.getFlow().setCapitalizationType(converter(client.getFlow().getCapitalization()));
 			client.getFlow().setRatePeriodType(converter(client.getFlow().getRatePeriod()));
-			// client.getFlow().setRateType(converter(client.getFlow().getRatePeriod()));
+			client.getFlow().setRatePeriod(client.getFlow().getRatePeriod());
 			client.getWallet().setState("ACTIVE");
 			client.getFlow().setCurrentCreditLine(client.getFlow().getCreditLine());
 			client.getFlow().setTotalDebt(0F);
@@ -252,7 +252,8 @@ public class SellersController {
 			transactionT.setDescription("descripcion DEFAULT");
 			transactionT.setFlow(flowT);
 			transactionT.setDebt(sellModel.getTransaction().getDebt());
-			transactionT.setNetAmount(sellModel.getTransaction().getAmountPaid());
+			transactionT.setAmountPaid(sellModel.getTransaction().getAmountPaid());
+			transactionT.setNetAmount(transactionT.getDebt()+transactionT.getAmountPaid());
 			transactionT.setCurrencyType(flowT.getWallet().getCurrencyType());
 			System.err.print("\n TRANSACTON 2020" + transactionT);
 			//System.err.print("\n "+ sellModel.getTransaction().ge);
@@ -321,11 +322,14 @@ public class SellersController {
 			String strAmount = sub.getAmountToPay();
 			float amount = Float.parseFloat(strAmount);
 			// or Float.valueOf(string)
-			x.setAmountPaid(amount);
+			x.setAmountPaid(amount * (-1));
+			x.setDebt(amount * (-1));
+			x.setNetAmount(amount * (-1));
 			x.setDescription(sub.getDescription());
 			x.setTransactionName(converterTranName(sub.getTransactionType()));
 			x.setPayType("contado");
 			Flow xT = flowService.getFlowById(sub.getFlowId());
+			x.setCurrencyType("soles");
 			x.setCapitalization(xT.getCapitalization());
 			x.setRatePeriod(xT.getRatePeriod());
 			x.setInterestRate(xT.getInterestRate());

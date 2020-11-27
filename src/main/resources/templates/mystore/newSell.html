@@ -57,7 +57,7 @@
 					<div class="data">
 						<label for="client"><span>Cliente</span> <select
 							name="client" id="client" th:field = "*{wallet.id}" required>
-								<option th:each="i : ${listaUsuarios}" th:value="${i.id}" th:text="${i.user.name}" 
+								<option th:each="i : ${listaUsuarios}" th:value="${i.id}" th:text="${i.user.name} +' '+${i.user.firstLastname} +' '+${i.user.secondLastname}"
       								th:selected="${i==1}" ></option>
 						</select> <!--button id="new-client" class="color-secondary-bg">Nuevo Cliente</button-->
 						</label> <label for="client"><span>Tipo de Pago</span> 

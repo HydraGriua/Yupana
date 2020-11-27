@@ -50,7 +50,7 @@ public class TransactionServiceImpl implements TransactionService {
 		if (flow.getCurrentCreditLine() - transactionEntity.getDebt() >= 0) {
 			// Actualizamos los datos del flow
 			String tipo = flow.getRateType();
-			transactionEntity.setNetAmount(transactionEntity.getAmountPaid()+transactionEntity.getDebt());
+			//transactionEntity.setNetAmount(transactionEntity.getAmountPaid()+transactionEntity.getDebt());
 			Float newQuant;
 			int dias = (int) ((transactionEntity.getTransactionDate().getTime()
 					- flow.getLastTransactionDate().getTime()) / 86400000);
