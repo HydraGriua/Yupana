@@ -261,22 +261,30 @@ var setTabs =  function(arrTabs,arrPages) {
 
 	if (arrTabs.length == arrPages.length) {
 		for (var i = 0; i < arrTabs.length; i++) {
-			$(arrTabs[i]).on('click', {eto: arrPages[i]}, function(event) {
-				event.preventDefault();
-				event.stopPropagation();
-				$(event.data.eto).siblings(".active").fadeOut('fast').removeClass('active');
-				$(event.data.eto).fadeIn('fast', function() {$(this).css('display', 'flex');}).addClass('active');
-				$(this).siblings(".active").removeClass('active');
-				$(this).addClass('active');
-			});
+			$(arrTabs[i]).on('click', {eto: arrPages[i], ett:arrTabs[i]}, onlyActive);
+			if ($(arrPages[i] + ' button.next').html() != undefined) {
+				$(arrPages[i] + ' button.next').on('click', {eto: arrPages[i+1], ett: arrTabs[i+1]}, onlyActive);
+			}
+			if ($(arrPages[i] + ' .footer .prev').length > 0) {
+				$(arrPages[i] + ' .footer .prev').on('click', {eto: arrPages[i-1], ett: arrTabs[i-1]}, onlyActive);
+			}
 		}
 	}
 };
 
+var onlyActive = function(event){
+	event.preventDefault();
+	event.stopPropagation();
+	$(event.data.eto).siblings(".active").fadeOut('fast').removeClass('active');
+	$(event.data.eto).fadeIn('fast', function() {$(this).css('display', 'flex');}).addClass('active');
+	$(event.data.ett).siblings(".active").removeClass('active');
+	$(event.data.ett).addClass('active');
+}
+
 
 /*CARDS*/
 //Vista simple a Vista detalle
-var setCard = function() { 
+var setCard = function() {
 	$('.cards .card .tohide').hide();
 	$('.actions .cards button#view').click(function(event) {
 		if ($(this).attr('value') == 'todet') {
@@ -299,6 +307,27 @@ var setCard = function() {
 	});
 };
 
+var setCheckBoxHS = function(idcheckbox, contWhenOn){
+	if(!$('input[type="checkbox"]'+'#'+idcheckbox).checked){
+		$(contWhenOn).hide('fast');
+	}
+	$('input[type="checkbox"]'+'#'+idcheckbox).on('change',{toShow:contWhenOn}, function(event) {
+		if(this.checked){
+			$(event.data.toShow).slideDown('fast')
+			//alert(event.data.toShow);
+		} else {
+			$(event.data.toShow).slideUp('fast');
+		}
+	});
+};
+
+var getTotal = function(arrNumsToOp){
+	var total = 0;
+	for (var i = 0; i < arrNumsToOp.length; i++) {
+		total+= parseFloat(arrNumsToOp[i]);
+	}
+	return total;
+}
 
 var periodos = {
 	d1: 'Diario',

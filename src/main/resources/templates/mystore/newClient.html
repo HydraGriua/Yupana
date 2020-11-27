@@ -19,49 +19,38 @@
 <body>
     <div class="content app">
 <header>
-			<div id="nav-user">
-				<div id="profile-more" class="hide-mobile">
-					<i class="fas fa-user-circle" th:if="${session.usuario !=null}"></i>
-					<span id="t-username" th:text="${session.usuario.user.name}"></span>
-				</div>
-				<a th:href="@{/mystore/profile}"><div class="mobile">
-						<i class="fas fa-user-circle"></i> <span
-							th:text="${session.usuario.user.name}"><span>
-					</div></a>
-				<div class="more hide-mobile">
-					<a th:href="@{/mystore/profile}"><div>
-							<i class="fas fa-id-badge"></i>Ir a perfil
-						</div></a>
-					<Form th:action="@{/logout}" method="post" id="logout"></Form>
-					<button type="submit" form="logout">
+		<div id="nav-user">
+		<div id="profile-more" class="hide-mobile"><i class="fas fa-user-circle" th:if="${session.usuario !=null}"></i> <span id="t-username" th:text="${session.usuario.user.name}"></span></div>
+		<a th:href="@{/mystore/profile}"><div class="mobile"><i class="fas fa-user-circle"></i> <span th:text="${session.usuario.user.name}"><span></div></a> 
+		 <div class="more hide-mobile"> 
+		 <a th:href="@{/mystore/profile}"><div><i class="fas fa-id-badge"></i>Ir a perfil</div></a>
+		 <Form th:action="@{/logout}" method="post"  id="log-out">
+		</Form>
+				<Form th:action="@{/logout}" method="post" id="logout"></Form>
+					<button class="color-secondary-bg" type="submit" form="logout">
 						<i class="fas fa-sign-out-alt"></i> Cerrar Sesion
 					</button>
-				</div>
-			</div>
-			<!-- a th:href="@{/login}" id="logout"><div><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión </span></div></a  -->
-			<nav>
-				<ul>
-					<a th:href="@{/mystore/records}"><li><i
-							class="fas fa-book"></i> <span>Registros</span></li></a>
-					<a th:href="@{/mystore/clients}"><li><i
-							class="fas fa-address-book"></i> <span>Clientes</span></li></a>
-					<a th:href="@{/mystore/learn_more}"><li><i
-							class="fas fa-graduation-cap"></i> <span>Aprende más </span></li></a>
-				</ul>
-			</nav>
-			<div class="nav-title">
-				<img src="/assets/images/Yupana-logo_w_512x512.png"
-					alt="logo Yupana" class="icon"> <img
-					src="/assets/images/Yupana-txt_w_512x256.png" alt="texto Yupana"
-					class="text">
-			</div>
+		</div>
+		</div>
+		 <!-- a th:href="@{/login}" id="logout"><div><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión </span></div></a  -->
+		<nav><ul>
+        <a th:href="@{'/mystore/records?id=' +${session.usuario.id} (orderyby=dateLasts,registerTypeBy=all,payMethodBy=all,rateTypeBy=all,currencyBy=soles)}"><li>
+                    <i class="fas fa-book"></i> <span>Registros</span></li></a>
+        <a th:href="@{/mystore/clients}"><li> <i class="fas fa-address-book"></i> <span>Clientes</span></li></a>
+        <a th:href="@{/mystore/learn_more}"><li> <i class="fas fa-graduation-cap"></i> <span>Aprende más </span></li></a>
+        </ul></nav>
+        <div class="nav-title">
+        <img src="/assets/images/Yupana-logo_w_512x512.png" alt="logo Yupana" class="icon"> <img src="/assets/images/Yupana-txt_w_512x256.png" alt="texto Yupana" class="text">
+        </div>
 		</header>
         <div class="constant">
             <div class="resume">
-                <h1>Nuevo cliente</h1>
+                <h1>Nuevo cliente</h1>	
             </div>
         </div>
+        
         <section id="nc-datosini" class="page first">
+        <p class="color-accent-txt">Aquí ingrese los datos de nuevo cliente para realizar posteriores ventas al crédito.</p>
             <main class="container">
                 <h1>Datos iniciales</h1>
                 <form id="frm-newClient" th:action="@{/mystore/registerNewClient}" method="post" 
@@ -78,30 +67,30 @@
 						<span>Apellido Materno*</span> <input type="text" name="apemat" th:field = "*{wallet.user.secondLastname}"
 						placeholder="Apellido Materno" required />
 					</label> <label for="docTipo"> <span>Tipo de documento</span> <select
-						name="docTipo" th:field = "*{wallet.user.documentType}">
+						name="docTipo" th:field = "*{wallet.user.documentType} ">
 							<option value="dni">DNI</option>
 							<option value="pasaporte">Pasaporte</option>
 							<option value="ce">CE</option>
 					</select>
 					</label> <label for="documento"> <span>Número de documento</span> <input
-						type="text" name="documento" th:field = "*{wallet.user.documentNumber}" maxlength="15" /></label> 
+						type="text" name="documento" th:field = "*{wallet.user.documentNumber}" maxlength="15" placeholder="Número de Documento" /></label> 
 						<label for="celular"><span>Celular</span> 
 						<input type="text"
-						name="celular" th:field = "*{wallet.user.cellphone}" maxlength="11"></label> <label><span>Descripción</span>
+						name="celular" th:field = "*{wallet.user.cellphone}" maxlength="11" placeholder="Número de Celular" ></label> <label><span>Descripción</span>
 						<textarea name="description" id="description" th:field = "*{wallet.user.description}" cols="64" rows="2"
 							maxlength="60"></textarea> </label>
                     <br>
                     <h1>Valores de crédito</h1>
                     <p class="center">Estos valores aparecerán por defecto cuando se cree un nuevo registro para este cliente.</p>
                     <label for="linea-credit"> <span>Línea de crédito</span>
-                     <input	type="number" th:field="*{flow.creditLine}" name="linea-credit"> 
+                     <input	type="number" th:field="*{flow.creditLine}" name="linea-credit" min="0" step=".10" required> 
                      <select name="tmoneda" th:field="*{wallet.currencyType}">
 							<option value="soles">Soles PE(S/.)</option>
 							<option value="usdollar">Dólares USA($)</option>
 					</select>
 					</label>
                     <label for="ttasa"> <span>Tipo de tasa</span> 
-                    <select	name="ttasa" th:field="*{flow.rateType}">
+                    <select	name="ttasa" th:field="*{flow.rateType}" tipo="flow-rateType" onchage="hidecap">
 							<option value="simple">Simple</option>
 							<option value="nominal">Nominal</option>
 							<option value="efectiva">Efectiva</option>
@@ -132,12 +121,11 @@
 							<option value="360">Anual</option>
 					</select>
 					</label> <label for="tinteres"> <span>Tasa de Interés (%)</span> <input
-						type="number" name="tinteres" th:field="*{flow.interestRate}">
+						type="number" min="0" step="0.0000001" name="tinteres" th:field="*{flow.interestRate}">
 					</label>
                     <br>
                     <br>
                     <section id="nc-cuentamant" class="page">
-		<main class="container">
                     <h1>Mantenimiento de cuenta</h1>
                     <label for="mct"> <span>Periodo</span> 
                     <select
@@ -153,15 +141,11 @@
 							<option value="360">Anual</option>
 					</select>
 					</label> <label for="mccobro"> <span>Monto a cobrar</span> <input
-						type="number" th:field = "*{wallet.maintenancePrice}" name="mccobro">
+						type="number" min="0" step=".10" th:field = "*{wallet.maintenancePrice}" name="mccobro">
 					</label>
-					</main>
 					</section>
                     <br>
                     <br>
-				<main class="container">
-                    <h2></h2>
-					</main>
                 </form>
                 	<div class="footer a2 row">
              	   <button name="action" value="cancel" class="close" form="frm-newPayment">Cancelar</button>
@@ -182,6 +166,20 @@
         var tabs = ["nav ul #gt-nc-datosini", "nav ul #gt-nc-creditcond", "nav ul #gt-nc-cuentamant"];
         var tabPages = [".content section#nc-datosini", ".content section#nc-creditcond", ".content section#nc-cuentamant"];
         setTabs(tabs, tabPages);
+
+        //alert($('select[tipo="flow-rateType"]').html());
+        hidecap(){
+        	alert("f");
+		}
+        $('select[tipo="flow-rateType"]').change(function(){
+            alert("f");
+			/*if($('select[name="transaction.payType"]#client option[value="contado"]').attr('selected')==true) {
+        		$('input[name="transaction.debt"]#transaction.debt').attr('readonly','readonly');
+			}
+			else {
+				$('input[name="transaction.debt"]#transaction.debt').removeAttr('readonly','readonly');
+			}*/
+		});
     </script>
 
 </body>

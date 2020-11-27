@@ -21,42 +21,29 @@
 <body>
 	<div class="content app">
 <header>
-			<div id="nav-user">
-				<div id="profile-more" class="hide-mobile">
-					<i class="fas fa-user-circle" th:if="${session.usuario !=null}"></i>
-					<span id="t-username" th:text="${session.usuario.user.name}"></span>
-				</div>
-				<a th:href="@{/mystore/profile}"><div class="mobile">
-						<i class="fas fa-user-circle"></i> <span
-							th:text="${session.usuario.user.name}"><span>
-					</div></a>
-				<div class="more hide-mobile">
-					<a th:href="@{/mystore/profile}"><div>
-							<i class="fas fa-id-badge"></i>Ir a perfil
-						</div></a>
-					<Form th:action="@{/logout}" method="post" id="logout"></Form>
-					<button type="submit" form="logout">
+		<div id="nav-user">
+		<div id="profile-more" class="hide-mobile"><i class="fas fa-user-circle" th:if="${session.usuario !=null}"></i> <span id="t-username" th:text="${session.usuario.user.name}"></span></div>
+		<a th:href="@{/mystore/profile}"><div class="mobile"><i class="fas fa-user-circle"></i> <span th:text="${session.usuario.user.name}"><span></div></a> 
+		 <div class="more hide-mobile"> 
+		 <a th:href="@{/mystore/profile}"><div><i class="fas fa-id-badge"></i>Ir a perfil</div></a>
+		 <Form th:action="@{/logout}" method="post"  id="log-out">
+		</Form>
+				<Form th:action="@{/logout}" method="post" id="logout"></Form>
+					<button class="color-secondary-bg" type="submit" form="logout">
 						<i class="fas fa-sign-out-alt"></i> Cerrar Sesion
 					</button>
-				</div>
-			</div>
-			<!-- a th:href="@{/login}" id="logout"><div><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión </span></div></a  -->
-			<nav>
-				<ul>
-					<a th:href="@{/mystore/records}"><li><i
-							class="fas fa-book"></i> <span>Registros</span></li></a>
-					<a th:href="@{/mystore/clients}"><li><i
-							class="fas fa-address-book"></i> <span>Clientes</span></li></a>
-					<a th:href="@{/mystore/learn_more}"><li><i
-							class="fas fa-graduation-cap"></i> <span>Aprende más </span></li></a>
-				</ul>
-			</nav>
-			<div class="nav-title">
-				<img src="/assets/images/Yupana-logo_w_512x512.png"
-					alt="logo Yupana" class="icon"> <img
-					src="/assets/images/Yupana-txt_w_512x256.png" alt="texto Yupana"
-					class="text">
-			</div>
+		</div>
+		</div>
+		 <!-- a th:href="@{/login}" id="logout"><div><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión </span></div></a  -->
+		<nav><ul>
+        <a th:href="@{'/mystore/records?id=' +${session.usuario.id} (orderyby=dateLasts,registerTypeBy=all,payMethodBy=all,rateTypeBy=all,currencyBy=soles)}"><li>
+                    <i class="fas fa-book"></i> <span>Registros</span></li></a>
+        <a th:href="@{/mystore/clients}"><li> <i class="fas fa-address-book"></i> <span>Clientes</span></li></a>
+        <a th:href="@{/mystore/learn_more}"><li> <i class="fas fa-graduation-cap"></i> <span>Aprende más </span></li></a>
+        </ul></nav>
+        <div class="nav-title">
+        <img src="/assets/images/Yupana-logo_w_512x512.png" alt="logo Yupana" class="icon"> <img src="/assets/images/Yupana-txt_w_512x256.png" alt="texto Yupana" class="text">
+        </div>
 		</header>
 		<div class="constant">
 			<div class="resume">
@@ -68,25 +55,18 @@
 
 			<section class="page first">
 				<h1>Nueva amortización / Pago de deuda</h1>
-				<div class="data">
-					<label> <span>Tipo de Capitalizacion</span> <input
-						type="text" th:value="${flowModel.capitalizationType}" readonly>
-					</label> <br> <label> <span>Línea de Crédito Inicial</span> <input
-						type="text" th:value="${flowModel.creditLine}" readonly>
-					</label> <br> <label> <span>Línea de Crédito Actual</span> <input
-						type="text" th:value="${flowModel.currentCreditLine}" readonly>
-					</label> <br> <label> <span>Tipo de Tasa</span> <input
-						type="text" th:value="${flowModel.rateType}" readonly>
-					</label> <br> <label> <span>Periodo de Pago</span> <input
-						type="text" th:value="${flowModel.ratePeriodType}" readonly>
-					</label> <label> <span>Deuda Total</span> <input type="text"
-						th:value="${flowModel.totalDebt}" readonly>
-					</label> 
-				</div>
+				<form class="data">
+					<label>Tipo de Capitalizacion:  <strong th:text="${flowModel.capitalizationType}"></strong></label><br>
+					<label>Línea de Crédito Inicial: <strong th:text="${flowModel.creditLine}"></strong></label><br>
+					 <label>Línea de Crédito Actual: <strong th:text="${flowModel.currentCreditLine}" ></strong></label><br> 
+					 <label>Tipo de Tasa: <strong th:text="${flowModel.rateType}"></strong></label> <br>
+					 <label>Periodo de Pago: <strong th:text="${flowModel.ratePeriodType}"></strong></label><br>
+					 <label>Deuda Total: <strong th:text="${flowModel.totalDebt}"></strong></label> 
+				</form>
 				<form id="frm-newPayment" th:action="@{/mystore/registerNewPayment}"
 					th:object="${infoPayment}" method="post">
 					<br> <label> <span>Monto a pagar</span> <input
-						type="number" th:field="*{amountToPay}">
+						type="number" min="0" step="any" th:field="*{amountToPay}" required>
 					</label> <label><span>Descripción</span> <textarea
 							name="description" id="description" th:field="*{description}"
 							cols="64" rows="2" maxlength="60"></textarea> </label>

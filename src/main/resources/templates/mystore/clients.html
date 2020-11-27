@@ -15,9 +15,12 @@
 		<a th:href="@{/mystore/profile}"><div class="mobile"><i class="fas fa-user-circle"></i> <span th:text="${session.usuario.user.name}"><span></div></a> 
 		 <div class="more hide-mobile"> 
 		 <a th:href="@{/mystore/profile}"><div><i class="fas fa-id-badge"></i>Ir a perfil</div></a>
-		 <Form th:action="@{/logout}" method="post"  id="logout">
+		 <Form th:action="@{/logout}" method="post"  id="log-out">
 		</Form>
-		<button type="submit" form ="logout"> <i class="fas fa-sign-out-alt"></i> Cerrar Sesion </button>
+				<Form th:action="@{/logout}" method="post" id="logout"></Form>
+					<button class="color-secondary-bg" type="submit" form="logout">
+						<i class="fas fa-sign-out-alt"></i> Cerrar Sesion
+					</button>
 		</div>
 		</div>
 		 <!-- a th:href="@{/login}" id="logout"><div><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión </span></div></a  -->
@@ -31,7 +34,7 @@
         <img src="/assets/images/Yupana-logo_w_512x512.png" alt="logo Yupana" class="icon"> <img src="/assets/images/Yupana-txt_w_512x256.png" alt="texto Yupana" class="text">
         </div>
 		</header>
-		<section class="filters">
+		<!--section class="filters">
 			<div class="row">
 				<h2>Filtros</h2>
 				<button id="close-filters" class="btn-icon">
@@ -53,7 +56,7 @@
 					<label> <span>Tipo de cliente</span> <select
 						name="tiposCliente">
 							<!--class="select-3"-->
-							<option value="all">Todos los tipos de cliente</option>
+							<!--option value="all">Todos los tipos de cliente</option>
 							<option value="sell">Cliente regular</option>
 					</select></label> <label> <span>Tipo de deuda</span> <select
 						name="tiposPago" id="">
@@ -67,7 +70,7 @@
 							<option value="tc">Con Tasa de Interés Compuesta</option>
 							<option value="te">Con Tasa de Interés Efectiva</option>
 					</select></label> <label> <!----> <!--Fechas--> <span>Entre</span>
-						<div>
+						<!--div>
 							<input type="date"> - <input type="date" value="now">
 						</div>
 					</label> <label> <span>Tipo de moneda</span> <select
@@ -80,9 +83,9 @@
 					<span>Filtrar</span> <i class="fas fa-filter"></i>
 				</button>
 			</form>
-		</section>
+		</section-->
 
-		<section class="actions row">
+		<section class="actions row" style="margin-left: 0px; width:100%">
 
 			<a th:href="@{'newClient?id=' + ${session.usuario.id}}">
 				<button id="newClient">
@@ -99,7 +102,7 @@
 			</div>
 		</section>
 
-		<main class="container">
+		<main class="container" style="margin-left: 0px; width:100%">
 			<h1>Clientes</h1>
 			<section class="cards" id="c-clients">
 
@@ -154,12 +157,12 @@
 						</div>
 						<div class="acum">
 							<div class="money debt">
-								Monto acumulado a cobrar
-								<td th:switch="${wallet.currencyType}"><span
-									th:case="'soles'">S/. </span> <span th:case="'usdollar'">$
-								</span></td> <span th:text="${wallet.totalDebt}"></span>
-							</div>
-							<div class="ti tohide">
+                                Monto acumulado a cobrar
+                                <td th:switch="${wallet.currencyType}">
+                                    <span th:case="'soles'" th:text="'S/. ' +${wallet.totalDebt}"></span> 
+                                    <span th:case="'usdollar'" th:text="'$' +${wallet.totalDebt}"></span>
+                                </td>
+                            </div>							<div class="ti tohide">
 								Tasa de interés <span
 									th:text="${wallet.currentInterestRate} +'%'"></span>
 							</div>
@@ -190,9 +193,10 @@
 						</button>-->
 						<a th:href="@{'/mystore/newPayment?id=' + ${wallet.walletId}}">
 							<button class="new color-accent-bg">
-								<span>Nuevo registro </span> <i class="fas fa-plus"></i>
+								<span>Amortización </span> <i class="fas fa-plus"></i>
 							</button>
-						</a> <a
+						</a>
+						<a
 							th:href="@{'/mystore/client-details?id=' + ${wallet.walletId}}"><button
 								class="receipts color-secondary-bg">
 								Ver detalle <i class="fas fa-clipboard-list"></i>

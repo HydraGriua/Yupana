@@ -17,7 +17,7 @@ section.filters {
 	background-color: #fff;
 	height:  100%;
 	/*max-width: 25em;*/
-	max-width: 320px;
+	width: 320px;
 	/*padding: 1em;*/
 	margin-top: 3.25em;
 	z-index: 150;
@@ -274,7 +274,7 @@ section.cards { padding-right: 4em; }
 	align-items: baseline;
 	justify-content: space-between;
 }
-.cards#c-clients .card.easy .client-actions .delete span, .cards#c-clients .card.easy .client-actions .edit span, .cards#c-clients .card.easy .client-actions .new span { display: none; }
+/*.cards#c-clients .card.easy .client-actions .delete span, .cards#c-clients .card.easy .client-actions .edit span, .cards#c-clients .card.easy .client-actions .new span { display: none; }*/
 .cards#c-clients .card.det .client-actions .delete span, .cards#c-clients .card.det .client-actions .edit span, .cards#c-clients .card.det .client-actions .new span { display: block; }
 
 .cards#c-clients .card.easy .details { width: calc(50% - 2em); }
@@ -319,8 +319,8 @@ section.cards { padding-right: 4em; }
 .actions .new {
 	display: none;
 	position: absolute;
-	margin-top: calc(4em * 4);
-	margin-left: -7em;
+	margin-top: 5.5em;
+	margin-left: -20em;
 }
 .actions .new button{
 	display: block;

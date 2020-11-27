@@ -27,7 +27,9 @@
 		 <a th:href="@{/mystore/profile}"><div><i class="fas fa-id-badge"></i>Ir a perfil</div></a>
 		 <Form th:action="@{/logout}" method="post"  id="logout">
 		</Form>
-		<button type="submit" form ="logout"> <i class="fas fa-sign-out-alt"></i> Cerrar Sesion </button>
+		<button class="color-secondary-bg" type="submit" form="logout">
+						<i class="fas fa-sign-out-alt"></i> Cerrar Sesion
+					</button>
 		</div>
 		</div>
 		 <!-- a th:href="@{/login}" id="logout"><div><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión </span></div></a  -->
@@ -72,10 +74,10 @@
 						</select> <!--button id="new-client" class="color-secondary-bg">Nuevo Cliente</button-->
 						
 						</label> <label><span>Monto a crédito</span> <input type="number"
-							th:field ="*{transaction.debt}" required> <!--button><i class="fas fa-calculator"></i></button-->
+							th:field ="*{transaction.debt}" min="0" step=".10" required> <!--button><i class="fas fa-calculator"></i></button-->
 						</label>
 						</label> <label><span>Monto Pagado</span> <input type="number"
-							th:field ="*{transaction.amountPaid}" required> <!--button><i class="fas fa-calculator"></i></button-->
+							th:field ="*{transaction.amountPaid}" min="0" step=".10" required> <!--button><i class="fas fa-calculator"></i></button-->
 						</label>
 						<label> <span>Tipo de registro</span> 
 						<select	name="registerTypeBy" th:field="*{transaction.transactionName}">
