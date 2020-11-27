@@ -149,9 +149,6 @@ public class SellersController {
 	@PostMapping("/registerNewClient")
 	public String registerNewClient(@ModelAttribute("clientModel") NewClientResource client, Model model) {
 		try {
-			// client.getWallet().getUser().get
-			// client.getFlow().getRatePeriod();
-			
 			client.getWallet().setMaintenancePeriodType(converter(client.getWallet().getMaintenancePeriod()));
 			client.getFlow().setCapitalizationType(converter(client.getFlow().getCapitalization()));
 			client.getFlow().setRatePeriodType(converter(client.getFlow().getRatePeriod()));
@@ -169,14 +166,17 @@ public class SellersController {
 			Date date = new Date();
 			//System.err.println("\n fecha" + date);
 			client.getWallet().setCreationDate(date);
-			System.err.print("CLIENTE :;;;;;;;;;;;;" + client.getWallet().getUser());
-			System.err.print("\nCLIENTE :;;;;;;;;;;;;" + client.getWallet());
-			System.err.print("\nCLIENTE :;;;;;;;;;;;;" + client.getFlow());
+			System.err.print("\nCLIENTE :;;;;;;;;;;;;" + client.getWallet().getUser());
+			System.err.print("\nWALLET :;;;;;;;;;;;;" + client.getWallet());
+			System.err.print("\nFLOW :;;;;;;;;;;;;" + client.getFlow());
 			client.getWallet().getUser().setId(0);
 			client.getFlow().setDeadlineDate(date);
 			client.getFlow().setLastTransactionDate(date);
 			client.getFlow().setState("ACTIVO");
 			client.getWallet().getUser().setId(0);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		    Date convertedCurrentDate = sdf.parse(client.getCreationDate());
+			client.getFlow().setLastTransactionDate(convertedCurrentDate);
 			Wallet walletT = walletService.createWallet(client.getWallet(), UserTesting.Users.getIdSeller(),
 					userService.createUser(client.getWallet().getUser()).getId());
 			flowService.createFlow(client.getFlow(), walletT.getId(), UserTesting.Users.getIdSeller());

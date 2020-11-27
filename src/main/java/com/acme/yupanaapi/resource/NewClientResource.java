@@ -10,5 +10,5 @@ import lombok.Setter;
 public class NewClientResource {
 	private Wallet wallet;
 	private Flow flow;
-	private Boolean subscriptionBool;
+	private String creationDate;
 }
