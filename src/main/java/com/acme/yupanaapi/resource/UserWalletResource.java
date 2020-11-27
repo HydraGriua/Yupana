@@ -3,10 +3,8 @@ package com.acme.yupanaapi.resource;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.util.Date;
 
-import com.acme.yupanaapi.domain.model.Subscription;
 import com.acme.yupanaapi.domain.model.Transaction;
 
 @Getter
@@ -43,7 +41,6 @@ public class UserWalletResource {
     private Date sExpirationDate; // expiracion del delivery
     private String sType; // // tipo de delivery
     private Transaction transaction;
-    private Subscription subscription;
     private String userDescription;
     private String transactionName;
 

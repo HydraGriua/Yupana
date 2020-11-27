@@ -73,9 +73,7 @@
 							<!--class="select-3"-->
 							<option value="all">Todos los tipos de registro</option>
 							<option value="sell">Registro de venta al crédito</option>
-							<option value="delivery">R. v. al crédito con Delivery</option>
 							<option value="mantenimiento">Mantenimiento de cuenta</option>
-							<option value="suscripciond">Suscripción a Delivery</option>
 							<option value="amortizaciones">Amortizaciones de deuda</option>
 					</select>
 					</label> <label> <span>Tipo de pago</span> <select name="tiposPago"
@@ -113,12 +111,6 @@
 			<div class="new">
 				<a th:href="@{'newSell?id=' + ${idSession}}"> <button id="newSell"  >
 					Nueva venta <i class="fas fa-cart-plus"></i>
-				</button>
-				</a>
-				<a th:href="@{'newSubscription?id=' + ${idSession}}">
-				<button id="newSuscriptionD" 
-					>
-					Nueva suscripción <i class="fas fa-clipboard"></i>
 				</button>
 				</a>
 			</div>
@@ -168,15 +160,12 @@
 							<!--debt o payment-->
 							<div class="tohide">
 								<div class="subDet">
-									Monto de venta <span th:text="${registro.amountPaid}">s/xx.xx</span>
-								</div>
-								<div class="subDet">
-									Monto de delivery <span>s/xx.xx</span>
+									Monto de venta <span th:text="${registro.netAmount}"></span>
 								</div>
 							</div>
 							<div th:switch="${registro.payType}">
 								<p th:case="'credito'">Monto dado a crédito <span
-									th:text="${registro.amountPaid}"></span></p>
+									th:text="${registro.debt}"></span></p>
 								<p th:case="'contado'">Monto pagado al contado <span
 									th:text="${registro.amountPaid}"></span></p>
 								<p th:case="*">Not specified</p>
@@ -212,8 +201,6 @@
 
 		</div>
 
-
-	</div>
 
 </body>
 </html>

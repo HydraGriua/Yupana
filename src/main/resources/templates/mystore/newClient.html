@@ -159,36 +159,17 @@
 					</section>
                     <br>
                     <br>
-                    <section id="nc-deliverysus" class="page">
 				<main class="container">
-                    <h2><input type="checkbox" name="myBooleanVariable" th:checked="${deliveryBool}"> Suscripción a delivery</h2>
-                    <label for=""> <span>Periodo</span> <select name="dtpago" th:field ="*{subscription.subscriptionPeriod}">
-                    		<option value="0">Seleccionar</option>
-							<option value="1">Diario</option>
-							<option value="1">Diario</option>
-							<option value="7">Semanal</option>
-							<option value="15">Quincenal</option>
-							<option value="30" selected>Mensual</option>
-							<option value="60">Bimestral</option>
-							<option value="90">Trimestral</option>
-							<option value="120">Cuatrimestral</option>
-							<option value="180">Semestral</option>
-							<option value="360">Anual</option>
-					</select>
-
-					</label> <label for="dcobro" > <span>Monto a cobrar</span> <input
-						type="number" th:field="*{subscription.amount}">
-					</label>
+                    <h2></h2>
 					</main>
                 </form>
-            </main>
-             </main>
-            </section>
-           
-            <div class="footer a2 row">
-                <button name="action" value="cancel" class="close" form="frm-newPayment">Cancelar</button>
-                <button type="submit" class="next color-accent-bg" form="frm-newClient" >Registrar</button>
-            </div>
+                	<div class="footer a2 row">
+             	   <button name="action" value="cancel" class="close" form="frm-newPayment">Cancelar</button>
+              		  <button type="submit" class="next color-accent-bg" form="frm-newClient" >Registrar</button>
+           		 </div>
+           </main>
+             <section>
+        </section>
         </section>
 
 
@@ -198,8 +179,8 @@
     </div>
 
       <script type="text/javascript">
-        var tabs = ["nav ul #gt-nc-datosini", "nav ul #gt-nc-creditcond", "nav ul #gt-nc-cuentamant", "nav ul #gt-nc-deliverysus"];
-        var tabPages = [".content section#nc-datosini", ".content section#nc-creditcond", ".content section#nc-cuentamant", ".content section#nc-deliverysus"];
+        var tabs = ["nav ul #gt-nc-datosini", "nav ul #gt-nc-creditcond", "nav ul #gt-nc-cuentamant"];
+        var tabPages = [".content section#nc-datosini", ".content section#nc-creditcond", ".content section#nc-cuentamant"];
         setTabs(tabs, tabPages);
     </script>
 

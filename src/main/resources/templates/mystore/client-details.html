@@ -92,7 +92,7 @@
 						<span>Editar</span> <i class="fas fa-edit"></i>
 					</button>
 					<button class="receipts color-secondary-bg"
-						th:href="@{/mystore/clients/}">
+						th:href="@{/mystore/records/}">
 						Ver datos completos<i class="fas fa-id-card"></i>
 					</button>
 				</div>
@@ -102,10 +102,7 @@
 				<ul>
 					<a id="gt-h-registros" href="#h-registros" class="active"><li><span>Historial
 								de Registros (Flujo de caja) <i class="fas fa-cash-register"></i></li></a>
-					<a id="gt-h-credito" href="#h-credito"><li><span>Historial
-								de Condiciones de crédito <i class="fas fa-credit-card"></i></li></a>
-					<a id="gt-h-delivery" href="#h-delivery"><li><span>Historial
-								de Condiciones de suscripción a delivery <i class="fas fa-truck"></i></li></a>
+					<a id="gt-h-credito" href="#h-credito"><li><span>Detalles de condición de crédito <i class="fas fa-credit-card"></i></li></a>
 				</ul>
 			</nav>
 		</div>
@@ -135,9 +132,7 @@
 								<!--class="select-3"-->
 								<option value="all">Todos los tipos de registro</option>
 								<option value="sell">Registro de venta al crédito</option>
-								<option value="delivery">R. v. al crédito con Delivery</option>
 								<option value="mantenimiento">Mantenimiento de cuenta</option>
-								<option value="suscripciond">Suscripción a Delivery</option>
 								<option value="amortizaciones">Amortizaciones de deuda</option>
 						</select></label> <label> <span>Tipo de pago</span> <select
 							name="tiposPago" id="">
@@ -190,12 +185,6 @@
 						Nueva amortización / pago de deuda <i
 							class="fas fa-hand-holding-usd"></i>
 					</button>
-					<button id="newDelivery">
-						Nuevo delivery <i class="fas fa-truck"></i>
-					</button>
-					<button id="newSuscriptionD">
-						Nueva suscripción a delivery <i class="fas fa-clipboard"></i>
-					</button>
 				</div>
 				<div class="cards row">
 					<button id="view" value="todet">
@@ -223,7 +212,7 @@
 								<div class="r-code">
 									Código de registro <span th:text="${transacion.id}"></span>
 								</div>
-								<h1>Registro de venta al crédito</h1>
+								<h1 th:text="${transacion.transactionName}"> </h1>
 							</div>
 							<div class="date tosmall">
 								<!--tonormal-->
@@ -242,16 +231,16 @@
 								<div class="tohide">
 									<div class="subDet">
 										Monto de venta <span>S/</span><span
-											th:text="${transacion.amount}"></span>
+											th:text="${transacion.netAmount}"></span>
 									</div>
 								</div>
 								<div>
 									Monto a dado a crédito<span>S/</span> <span
-										th:text="${transacion.amount}"> </span>
+										th:text="${transacion.debt}"> </span>
 								</div>
 							</div>
 							<div class="descrip merge tohide">
-								Descripción: <span th:text="${transacion.transactionName}"></span>
+								Descripción: <span th:text="${transacion.description}"></span>
 							</div>
 						</div>
 					</div>
@@ -289,12 +278,6 @@
 					<button id="newPayment">
 						<i class="fas fa-hand-holding-usd"></i> Nueva amortización
 					</button>
-					<button id="newDelivery">
-						<i class="fas fa-truck"></i> Nuevo Delivery
-					</button>
-					<button id="newSuscriptionD">
-						<i class="fas fa-clipboard"></i> Nueva Suscripción D.
-					</button>
 				</div>
 			</div>
 		</section>
@@ -303,7 +286,7 @@
 
 		<section id="h-credito">
 			<main class="container">
-				<h1>Historial de condiciones de crédito</h1>
+				<h1>Detalles de Condición de Crédito</h1>
 				<section class="time-actions">
 					<div class="short-filter">
 						Rango de fecha: <input type="date"> - <input type="date"
@@ -333,24 +316,27 @@
 							<!--det o easy-->
 							<div class="details">
 								<div>
-									Línea de crédito <strong th:text="${flow.creditLine}"></strong>
+									Línea de crédito incial <strong th:text="${flow.creditLine}"></strong>
 								</div>
-								<div class="date">
+								<div class="ti">
 									<!--tonormal-->
-									Fecha de emisión: <span th:text="${flow.wallet.creationDate}"></span>
+									Fecha de emisión: <strong th:text="${flow.wallet.creationDate}"></strong>
 								</div>
-								<div class="tInterest">
-									Tipo de interés <span th:text="${flow.currentRateType}"></span>
-									<span></span>
+								<div class="ti">
+									<!--debt o payment-->
+									Fecha de último movimiento <strong
+										th:text="${flow.lastTransactionDate}"></strong>
+								</div>
+								
+								<div class="ti">
+									Tipo de interés <strong th:text="${flow.rateType}"></strong>
 									<!-- class="subDet">sin capitalización</span>  -->
 								</div>
 								<div class="ti">
-									Tasa de interés <span th:text="${flow.currentInterestRate}"></span>
+									Tasa de interés <strong th:text="${flow.interestRate}"></strong>
 								</div>
-								<div class="money">
-									<!--debt o payment-->
-									Deuda hasta la fecha actual <span
-										th:text="${flow.currentInterestRate}"></span>
+								<div class="ti">
+									Línea de crédito restante<strong th:text="${flow.currentCreditLine}"></strong>
 								</div>
 							</div>
 						</div>
@@ -360,71 +346,11 @@
 				</section>
 			</main>
 		</section>
-		<!--#h-credito-->
-
-
-		<section id="h-delivery">
-			<main class="container">
-				<h1>Historial de condiciones de crédito</h1>
-				<section class="time-actions">
-					<div class="short-filter">
-						Rango de fecha: <input type="date"> - <input type="date"
-							value="now">
-					</div>
-					<button id="export-hc">
-						Exportar <i class="fas fa-download"></i>
-					</button>
-				</section>
-
-				<section class="timeline">
-					<div class="history-line">
-						<div>
-							Actual <span value="now">dd/mm/aaaa</span>
-						</div>
-						<div class="ran-line">
-							<div class="circle"></div>
-							<div class="rectangle"></div>
-							<div class="circle"></div>
-						</div>
-						<div>
-							Inicio <span th:text="${wallets.creationDate}"></span>
-						</div>
-					</div>
-					<!-- history line -->
-
-					<section class="cards c-delivery">
-						<div class="card center" th:each="delivery : ${deliveries}">
-							<!--det o easy-->
-							<div class="details">
-								<div>
-									Suscripción a delivery <strong
-										th:text="${delivery.subscriptionType}"></strong>
-								</div>
-								<div class="date">
-									<!--tonormal-->
-									Fecha de <span>cancelacion</span> <span
-										th:text="${delivery.expirationDate}"></span>
-								</div>
-								<div class="money">
-									<!--debt o payment-->
-									Monto acordado <span th:text="${delivery.amount}"></span>
-								</div>
-							</div>
-						</div>
-						<!-- card -->
-					</section>
-					<!-- cards-->
-				</section>
-			</main>
-		</section>
-		<!--#h-delivery-->
-
-
 	</div>
 
 	<script type="text/javascript">
-	var tabs = ["nav ul #gt-h-registros","nav ul #gt-h-credito", "nav ul #gt-h-delivery"];
-	var tabPages = [".content section#h-registros",".content section#h-credito", ".content section#h-delivery"];
+	var tabs = ["nav ul #gt-h-registros","nav ul #gt-h-credito"];
+	var tabPages = [".content section#h-registros",".content section#h-credito"];
 	setTabs(tabs,tabPages);
 	</script>
 

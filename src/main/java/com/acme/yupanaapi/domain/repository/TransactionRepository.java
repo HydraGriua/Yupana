@@ -6,6 +6,6 @@ import com.acme.yupanaapi.domain.model.Transaction;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Integer>{
 	List<Transaction> findAllByFlowId(int flowId);
-	List<Transaction> findAllByHistorialId(int historialId);
+	List<Transaction> findAllBySellerId(int sellerId);
 	List<Transaction> findAllByTransactionDate(Date saleDate);
 }

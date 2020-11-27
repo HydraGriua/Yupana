@@ -50,10 +50,10 @@ public class Transaction {
 	private String rateType;
 
 	@NotNull
-	private Float netAmount;
+	private Float netAmount; // total de lo que te cuesta la venta
 
 	@NotNull
-	private Float amountPaid;
+	private Float amountPaid; // pagas al contado
 
 	@NotNull
 	private String payType;
@@ -62,7 +62,7 @@ public class Transaction {
 	private String description;
 	
 	@NotNull
-	private Float debt;
+	private Float debt; // esta al credito, deuda al credito
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "flow_id", nullable = false)
@@ -70,7 +70,7 @@ public class Transaction {
 	private Flow flow;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "historial_id", nullable = false)
+	@JoinColumn(name = "seller_id", nullable = false)
 	@JsonIgnore
-	private Historial historial;
+	private Seller seller;
 }

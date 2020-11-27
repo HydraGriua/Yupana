@@ -14,7 +14,7 @@ public interface TransactionService {
 	ResponseEntity<?> deleteTransaction(int transactionId);
 	Transaction getTransactionById(int transactionId);
 	List<Transaction> getAllByFlowId(int flowId);
-	List<Transaction> getAllByHistorialId(int historialId);
+	List<Transaction> getAllBySellerId(int sellerId);
 	List<Transaction> orderByObj(InfoFilter obj, List<Transaction> listAll);
 	List<Transaction> getAllByTransactionDate(Date transactionDate);
 }

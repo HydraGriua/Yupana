@@ -12,9 +12,7 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 import com.acme.yupanaapi.domain.model.Flow;
-import com.acme.yupanaapi.domain.model.Historial;
 import com.acme.yupanaapi.domain.repository.FlowRepository;
-import com.acme.yupanaapi.domain.repository.HistorialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -38,9 +36,6 @@ public class TransactionServiceImpl implements TransactionService {
 	@Autowired
 	FlowRepository flowRepository;
 
-	@Autowired
-	HistorialRepository historialRepository;
-
 	@Transactional
 	@Override
 
@@ -55,6 +50,7 @@ public class TransactionServiceImpl implements TransactionService {
 		if (flow.getCurrentCreditLine() - transactionEntity.getDebt() >= 0) {
 			// Actualizamos los datos del flow
 			String tipo = flow.getRateType();
+			transactionEntity.setNetAmount(transactionEntity.getAmountPaid()+transactionEntity.getDebt());
 			Float newQuant;
 			int dias = (int) ((transactionEntity.getTransactionDate().getTime()
 					- flow.getLastTransactionDate().getTime()) / 86400000);
@@ -63,17 +59,19 @@ public class TransactionServiceImpl implements TransactionService {
 				newQuant = flow.getTotalDebt() * (1 + (flow.getInterestRate() * dias));
 				flow.setTotalDebt(newQuant + transactionEntity.getDebt());
 				break;
-			case "Tasa de Interés Compuesta":
+			case "Tasa de Interés Compuesta": // S=C(×(1+TN/m))^n  /// m=TiempoTasa/TiempoCpatalizacion // n= Plazo/TiempoCapitalizacion
 				newQuant = flow.getTotalDebt() * (float) Math.pow(
 						(1 + (flow.getInterestRate()
 								/ ((float) flow.getRatePeriod() / flow.getCapitalization()))),
 						((float) dias / flow.getCapitalization()));
 				flow.setTotalDebt(newQuant + transactionEntity.getDebt());
+				System.out.println(" REFERENCIA ENCIA REFRENCIA" +  newQuant);
 				break;
 			case "Tasa de Interés Efectiva":
 				newQuant = flow.getTotalDebt() * (float) Math.pow((1 + flow.getInterestRate()),
 						(float) (dias / flow.getRatePeriod()));
 				flow.setTotalDebt(newQuant + transactionEntity.getDebt());
+				break;
 			}
 			flow.setLastTransactionDate(transactionEntity.getTransactionDate());
 			flow.setInterestRate(transactionEntity.getInterestRate());
@@ -85,9 +83,7 @@ public class TransactionServiceImpl implements TransactionService {
 			flowRepository.save(flow);
 			// guardamos la transaccion
 			transactionEntity.setFlow(flow);
-			List<Historial> lista = historialRepository.findBySellerId(flow.getWallet().getSeller().getId());
-			Historial historial = lista.get(lista.size() - 1);
-			transactionEntity.setHistorial(historial);
+			transactionEntity.setSeller(flow.getWallet().getSeller());
 			// if(transactionEntity.getSale() != null)
 			// TODO: agregar la venta en caso exista
 			System.err.print("\n\n FLUJO STAR");
@@ -142,8 +138,8 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Transactional(readOnly =true)
 	@Override
-	public List<Transaction> getAllByHistorialId(int historialId) {
-		return transactionRepository.findAllByHistorialId(historialId);
+	public List<Transaction> getAllBySellerId(int sellerId) {
+		return transactionRepository.findAllBySellerId(sellerId);
 
 	}
 

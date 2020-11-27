@@ -1,6 +1,7 @@
 package com.acme.yupanaapi.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -11,23 +12,18 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.acme.yupanaapi.domain.model.Flow;
 import com.acme.yupanaapi.domain.model.Seller;
-import com.acme.yupanaapi.domain.model.Subscription;
 import com.acme.yupanaapi.domain.model.Transaction;
-import com.acme.yupanaapi.domain.model.User;
 import com.acme.yupanaapi.domain.model.Wallet;
 import com.acme.yupanaapi.domain.service.FlowService;
 import com.acme.yupanaapi.domain.service.SellerService;
-import com.acme.yupanaapi.domain.service.SubscriptionService;
 import com.acme.yupanaapi.domain.service.TransactionService;
 import com.acme.yupanaapi.domain.service.UserService;
 import com.acme.yupanaapi.domain.service.WalletService;
-import com.acme.yupanaapi.helpers.UserTesting;
 import com.acme.yupanaapi.resource.UserWalletResource;
 
 @Controller
@@ -35,9 +31,6 @@ import com.acme.yupanaapi.resource.UserWalletResource;
 public class CustomersController {
 	@Autowired
 	SellerService sellerService;
-
-	@Autowired
-	SubscriptionService subscriptionService;
 
 	@Autowired
 	WalletService walletService;
@@ -54,7 +47,6 @@ public class CustomersController {
 	@GetMapping("/clients")
 	public String viewCustomers(Authentication auth, HttpSession session, Model model) {
 		try {
-			
 			String username =  auth.getName();
 			System.err.print("\n username = " + username);
 			int id = 0;
@@ -65,7 +57,13 @@ public class CustomersController {
 				session.setAttribute("usuario", seller);
 				System.out.println(seller.getId());
 			}
-			
+			Calendar cal = Calendar.getInstance();
+			cal.set(2020, 10, 26);
+			Date date = cal.getTime();
+			cal.set(2020, 11, 26);
+			Date date2 = cal.getTime();
+			int dias = (int) ((date2.getTime()- date.getTime()) / 86400000);
+			System.out.println(dias);
 			List<Wallet> wallets = walletService.getAllBySellerId(id);
 			List<UserWalletResource> walletsList = new ArrayList<>();
             if (wallets.size()>0) {
@@ -95,12 +93,10 @@ public class CustomersController {
 			Wallet walletT = walletService.getWalletById(id);
 			Flow flowT = flowService.getLastFlow(walletT.getId());
 			List<Transaction> transacionesT = transactionService.getAllByFlowId(flowT.getId());
-			List<Subscription> subscripcionesT = subscriptionService.getAllByWalletId(walletT.getId());
 			if (transacionesT != null) {
 				model.addAttribute("wallets", walletT);
 				model.addAttribute("flows", flowT);
 				model.addAttribute("transacionesT", transacionesT);
-				model.addAttribute("deliveries", subscripcionesT);
 			}
 
 		} catch (Exception e) {

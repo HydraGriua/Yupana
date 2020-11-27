@@ -29,8 +29,7 @@ public class FlowServiceImpl implements FlowService {
 
 	@Autowired
 	private TransactionRepository transactionRepository;
-	@Autowired
-	private SubscriptionRepository subscriptionRepository;
+
 
 	@Transactional(readOnly = true)
 	@Override
@@ -136,12 +135,7 @@ public class FlowServiceImpl implements FlowService {
 			userWalletResource.setCreditLine(flow.getCreditLine());
 			userWalletResource.setCurrentCreditLine(flow.getCurrentCreditLine());
 			userWalletResource.setTotalDebt(flow.getTotalDebt());
-			Subscription sub = new Subscription();
-			
-			List<Subscription> subL = subscriptionRepository.findAllByWalletId(walletId);
-			if(subL.size()>0) {
-				userWalletResource.setSubscription(subL.get(subL.size()-1));	
-			}
+
 		}
 		return userWalletResource;
 	}

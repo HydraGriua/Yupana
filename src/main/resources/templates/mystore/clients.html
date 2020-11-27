@@ -55,7 +55,6 @@
 							<!--class="select-3"-->
 							<option value="all">Todos los tipos de cliente</option>
 							<option value="sell">Cliente regular</option>
-							<option value="delivery">Cliente con s. a Delivery</option>
 					</select></label> <label> <span>Tipo de deuda</span> <select
 						name="tiposPago" id="">
 							<option value="all">Incluir clientes sin deuda</option>
@@ -134,21 +133,6 @@
 								class="subDet"> Capitalización: <span
 								th:text="${wallet.currentCapitalization} + ' - ' +${wallet.capitalizationType}">
 							</span></span>
-						</div>
-
-						<div class="delivery tohide">
-							<div th:if="${wallet.subscription != null}">
-								Suscripción Delivery
-								<div class="row">
-									<span>Precio</span> <span
-										th:text="${wallet.subscription.amount}"> </span>
-									<div class="subDet">
-										<!--class="date tosmall" -- tonormal-->
-										Próximo pago: <span th:text="${wallet.sExpirationDate}">
-										</span>
-									</div>
-								</div>
-							</div>
 						</div>
 
 						<div class="credleft tohide">

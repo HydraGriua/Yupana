@@ -1,9 +1,7 @@
 package com.acme.yupanaapi.resource;
 
-import com.acme.yupanaapi.domain.model.Delivery;
 import com.acme.yupanaapi.domain.model.Flow;
 import com.acme.yupanaapi.domain.model.Seller;
-import com.acme.yupanaapi.domain.model.Subscription;
 import com.acme.yupanaapi.domain.model.Transaction;
 import com.acme.yupanaapi.domain.model.Wallet;
 
@@ -13,8 +11,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class fullInfoResource {
-	private Delivery delivery;
-	private Subscription subscription;
 	private Transaction transaction;
 	private Flow flow;
 	//private Sale sale;
