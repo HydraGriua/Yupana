@@ -1,10 +1,13 @@
 package com.acme.yupanaapi.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +15,24 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.acme.yupanaapi.domain.model.Flow;
 import com.acme.yupanaapi.domain.model.Seller;
 import com.acme.yupanaapi.domain.model.Transaction;
+import com.acme.yupanaapi.domain.model.Utility;
 import com.acme.yupanaapi.domain.model.Wallet;
 import com.acme.yupanaapi.domain.service.FlowService;
 import com.acme.yupanaapi.domain.service.SellerService;
 import com.acme.yupanaapi.domain.service.TransactionService;
 import com.acme.yupanaapi.domain.service.UserService;
 import com.acme.yupanaapi.domain.service.WalletService;
+import com.acme.yupanaapi.exception.ResourceNotFoundException;
 import com.acme.yupanaapi.resource.UserWalletResource;
+
+import net.bytebuddy.utility.RandomString;
 
 @Controller
 @RequestMapping("mystore")
@@ -127,14 +135,4 @@ public class CustomersController {
 		return "/mystore/learn_more";
 	}
 	
-	@GetMapping("/enviarReporte")
-	public String viewEnviarReporte() {
-		try {
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println(e.getMessage());
-		}
-		return "/mystore/enviarReporte";
-	}
 }

@@ -113,10 +113,9 @@
 				<!--data-->
 				<div class="footer a2 row">
 					
-					<a><button id="export" ype=”button” value=”Imprimir” onclick="window.print()">
-                    Exportar <i class="fas fa-download"></i></i>
-               	 </button>
-					</a>
+				<button id="export" ype=”button” value=”Imprimir” onclick="window.print()">
+				<a th:href="@{/mystore/enviarReporte}"> Exportar</a> <i class="fas fa-download"></i>
+				</button>
 					<a th:href="@{'/mystore/clients?id=' +${idSession}}"><button class="close color-accent-bg">Ir a Registros</button></a>
 				</div>
 			</section>

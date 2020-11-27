@@ -53,11 +53,12 @@
         <p class="color-accent-txt">Rellene los campos para enviar su registro*</p>
             <main class="container">
                 <h1>Datos iniciales</h1>
-                <form id="frm-enviarmensaje"  method="post" class="center">
+                <form th:action="@{/mystore/enviarReporte}" method="post"
+					autocomplete="on" class="center txt-center" id="frm-enviarmensaje" enctype="multipart/form-data">
                		<label for="email">Correo electrónico*<br/>
 					<input type="email" name="email" placeholder="correo@ejemplo.com"required/></label> <br>
                  		<label for="contenido"><span>Coloque su archivo aquí*</span><input
-                 		type="file" name="recibo" placeholder="Elegir archivo" required></label><br>
+                 		type="file" name="file" placeholder="Elegir archivo" required></label><br>
                 </form>
                 <div class="footer a2 row">
                 <button type="submit" class="next color-accent-bg" form="frm-enviarmensaje" id="frm-enviarmensaje">Enviar</button>              

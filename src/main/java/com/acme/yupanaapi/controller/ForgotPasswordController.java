@@ -7,6 +7,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.repository.query.Param;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -75,11 +76,13 @@ public class ForgotPasswordController {
 	            + "o no ha realizado la solicitud.</p>";
 	     
 	    helper.setSubject(subject);
-	     
+	   
 	    helper.setText(content, true);
-	     
+	//    FileSystemResource file = 
+	  //  helper.addAttachment(file.getFilename, file);
 	    mailSender.send(message);
 	}
+	
 
 	@GetMapping("/reset_password_form")
 	public String showResetPasswordForm(@Param(value = "token") String token, Model model) {
