@@ -24,7 +24,7 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/yupana
+    url: jdbc:postgresql:rgbqjbrqvtdfak:b5ea05e5fa8866109490ef24e93355ab82b57da340601c8a711f1eea4fce0a11@ec2-54-156-149-189.compute-1.amazonaws.com:5432/dae37jvms5dmk7
     username: postgres
     password: postgres
  #para el file
