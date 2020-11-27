@@ -32,8 +32,8 @@
 			<!-- a th:href="@{/login}" id="logout"><div><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión </span></div></a  -->
 			<nav>
 				<ul>
-					<a th:href="@{/mystore/records}"><li><i
-							class="fas fa-book"></i> <span>Registros</span></li></a>
+					<a th:href="@{'/mystore/records?id=' +${session.usuario.id} (orderyby=dateLasts,registerTypeBy=all,payMethodBy=all,rateTypeBy=all,currencyBy=soles)}"><li>
+                    <i class="fas fa-book"></i> <span>Registros</span>
 					<a th:href="@{/mystore/clients}"><li><i
 							class="fas fa-address-book"></i> <span>Clientes</span></li></a>
 					<a th:href="@{/mystore/learn_more}"><li><i

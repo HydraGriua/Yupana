@@ -31,42 +31,6 @@
 <script th:src="@{/assets/script/setting-ui.js}"></script>
 <script th:src="@{/assets/script/view.js}"></script>
 </head>
-<header>
-	<div id="nav-user">
-		<div id="profile-more" class="hide-mobile">
-			<i class="fas fa-user-circle"></i> <span id="t-username">' +
-				user.name + '</span>
-		</div>
-		<a th:href="@{/mystore/profile}"><div class="mobile">
-				<i class="fas fa-user-circle"></i> <span>' + user.name + '<span>
-			</div></a>
-		<div class="more hide-mobile">
-			<a th:href="@{/mystore/profile}"><div>
-					<i class="fas fa-id-badge"></i>Ir a perfil
-				</div></a> <a th:href="@{/index}" id="log-out"><div>
-					<i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión </span>
-				</div></a>
-		</div>
-	</div>
-	<nav>
-		<ul>
-			<a th:href="@{'/mystore/records?id=' +${session.usuario.id} (orderyby=dateLasts,registerTypeBy=all,payMethodBy=all,rateTypeBy=all,currencyBy=soles)}"><li>
-					<i class="fas fa-book"></i> <span>Registros</span>
-			</li></a>
-			<a th:href="@{'/mystore/clients?id='+ ${session.usuario.id}}"><li>
-					<i class="fas fa-address-book"></i> <span>Clientes</span>
-			</li></a>
-			<a th:href="@{/mystore/learn_more}"><li><i
-					class="fas fa-graduation-cap"></i> <span>Aprende más </span></li></a>
-		</ul>
-	</nav>
-	<div class="nav-title">
-		<img src="/assets/images/Yupana-logo_w_512x512.png" alt="logo Yupana"
-			class="icon"> <img
-			src="/assets/images/Yupana-txt_w_512x256.png" alt="texto Yupana"
-			class="text">
-	</div>
-</header>
 <body>
 	<div class="content app">
 <header>

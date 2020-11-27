@@ -63,14 +63,14 @@ public class TransactionServiceImpl implements TransactionService {
 				newQuant = flow.getTotalDebt() * (1 + (flow.getInterestRate() * dias));
 				flow.setTotalDebt(newQuant + transactionEntity.getDebt());
 				break;
-			case "nominal":
+			case "Tasa de Interés Compuesta":
 				newQuant = flow.getTotalDebt() * (float) Math.pow(
 						(1 + (flow.getInterestRate()
 								/ ((float) flow.getRatePeriod() / flow.getCapitalization()))),
 						((float) dias / flow.getCapitalization()));
 				flow.setTotalDebt(newQuant + transactionEntity.getDebt());
 				break;
-			case "efectiva":
+			case "Tasa de Interés Efectiva":
 				newQuant = flow.getTotalDebt() * (float) Math.pow((1 + flow.getInterestRate()),
 						(float) (dias / flow.getRatePeriod()));
 				flow.setTotalDebt(newQuant + transactionEntity.getDebt());

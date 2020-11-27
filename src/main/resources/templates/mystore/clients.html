@@ -8,9 +8,6 @@
 <title>Clientes</title>
 </head>
 <body>
-
-
-
 	<div class="content app">
 		<header>
 		<div id="nav-user">
@@ -25,7 +22,8 @@
 		</div>
 		 <!-- a th:href="@{/login}" id="logout"><div><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión </span></div></a  -->
 		<nav><ul>
-        <a th:href="@{/mystore/records}"><li> <i class="fas fa-book"></i> <span>Registros</span></li></a>
+        <a th:href="@{'/mystore/records?id=' +${session.usuario.id} (orderyby=dateLasts,registerTypeBy=all,payMethodBy=all,rateTypeBy=all,currencyBy=soles)}"><li>
+                    <i class="fas fa-book"></i> <span>Registros</span></li></a>
         <a th:href="@{/mystore/clients}"><li> <i class="fas fa-address-book"></i> <span>Clientes</span></li></a>
         <a th:href="@{/mystore/learn_more}"><li> <i class="fas fa-graduation-cap"></i> <span>Aprende más </span></li></a>
         </ul></nav>
