@@ -1,5 +1,6 @@
 package com.acme.yupanaapi.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -158,6 +159,7 @@ public class SellersController {
 			client.getWallet().setState("ACTIVE");
 			client.getFlow().setCurrentCreditLine(client.getFlow().getCreditLine());
 			client.getFlow().setTotalDebt(0F);
+			System.err.print(client.getFlow());
 			//
 			client.getFlow().setRateType(converterTasa(client.getFlow().getRateType()));
 			client.getWallet().setSeller(sellerService.getSellerById(UserTesting.Users.getIdSeller()));
@@ -217,32 +219,39 @@ public class SellersController {
 			return string;
 		}
 	}
-	
+    @GetMapping("/newTicket")
+    public String viewNewPaymentTicket(@RequestParam(name = "id", required = false) int id, Model model) {
+        try {
+            //GET LAST CLIENT
+            Transaction transaction = transactionService.getTransactionById(id);
+            model.addAttribute("transaction",transaction);
+            model.addAttribute("idSession",transaction.getFlow().getWallet().getSeller().getId());
+        }catch(Exception e){
+            e.printStackTrace();
+            System.err.print(e.getMessage());
+        }
+        return "/mystore/newTicket";
+    }
+    
 	@PostMapping("/registerNewSell")
 	public String registerNewSell(@ModelAttribute("sellModel") NewSellResource sellModel, Model model) {
+		Transaction tX = new Transaction();
 		try {
 			System.out.print(sellModel);
-		//	NewSellResource infoSellResource = new NewSellResource();
-		//	List<Wallet> listW = walletService.getAllBySellerId(1);
-		//Transaction tra = new Transaction();
-		//	Wallet wallet = new Wallet();
 			System.err.print("\n" + sellModel.getWallet());
-			
-//			model.addAttribute("sellModel", infoSellResource);
-//			model.addAttribute("listaUsuarios", listW);
-//			model.addAttribute("walletL", wallet);
+		    System.err.print("\n\nFECHA DE CRECION: " + sellModel.getCreationDate() + "\n");
+		    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		    Date convertedCurrentDate = sdf.parse(sellModel.getCreationDate());
 			Flow flowT = flowService.getActiveFlow(sellModel.getWallet().getId());
 			Transaction transactionT = sellModel.getTransaction();
-			
-		//	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-			Date date = new Date();
-			//System.err.println(dateFormat.format(date));
-			//asignar info del flow al transac
-			transactionT.setTransactionDate(date);
+			//Date date = new Date();
+			//transactionT.setTransactionDate(date);
 			transactionT.setInterestRate(flowT.getInterestRate());
 			transactionT.setCapitalization(flowT.getCapitalization());
 			transactionT.setCapitalizationType(flowT.getCapitalizationType());
+			transactionT.setTransactionDate(convertedCurrentDate);
 			transactionT.setRateType(flowT.getRateType());
+			transactionT.setRatePeriod(flowT.getRatePeriod());
 			if(sellModel.getTransaction().getTransactionName().equals("contado")) {
 				transactionT.setPayType("contado");
 			}else {
@@ -255,20 +264,18 @@ public class SellersController {
 			transactionT.setAmountPaid(sellModel.getTransaction().getAmountPaid());
 			transactionT.setNetAmount(transactionT.getDebt()+transactionT.getAmountPaid());
 			transactionT.setCurrencyType(flowT.getWallet().getCurrencyType());
-			System.err.print("\n TRANSACTON 2020" + transactionT);
-			//System.err.print("\n "+ sellModel.getTransaction().ge);
-			System.err.print("\n" + sellModel.getTransaction());
-			//
-			transactionT.setSeller(sellModel.getWallet().getSeller());;
 			
-			Transaction tX = transactionService.createTransaction(sellModel.getTransaction(), flowT.getId());
+			System.err.print("\n TRANSACTON 2020" + transactionT);
+			System.err.print("\n" + sellModel.getTransaction());
+			
+			transactionT.setSeller(sellModel.getWallet().getSeller());
+			tX = transactionService.createTransaction(sellModel.getTransaction(), flowT.getId());
 			System.err.print("\n" + tX);
-			//
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.print(e.getMessage());
 		}
-		return "redirect:/mystore/clients?id=" + UserTesting.Users.getIdSeller();
+		return "redirect:/mystore/newTicket?id=" + tX.getId();
 	}
 
 
@@ -278,20 +285,10 @@ public class SellersController {
 		try {
 			Flow flow = new Flow();
 			NewPaymentResource newT = new NewPaymentResource();
-//			Transaction tran = new Transaction();
-//			tran.get
-			// fullInfoResource infoResource = new fullInfoResource();
-			// newT.getTransaction().getPayType();
-			// newT.setWalletId();
 			flow = flowService.getActiveFlow(id);
-			// flowService.getActiveFlow(id);
-			// newT.getFlow().setId(flow.getId());
-			// model.addAttribute("wallet", walletService.getWalletById(id));
-			// newT.setFlow(flowService.getActiveFlow(id));
 			newT.setIdSeller(UserTesting.Users.getIdSeller());
 			newT.setFlowId(flow.getId());
 			newT.setIdWallet(flow.getId());
-			
 			model.addAttribute("infoPayment", newT);
 			model.addAttribute("flowModel", flow);
 			model.addAttribute("idWallet", id);
@@ -306,14 +303,13 @@ public class SellersController {
 
 	@PostMapping("/registerNewPayment")
 	public String registerNewPayment(@ModelAttribute("payModel") NewPaymentResource sub, Model model) {
+		Transaction newT = new Transaction();
 		try {
 //			fullInfoResource infoResource = new fullInfoResource();
 //			model.addAttribute("infoResource", infoResource);
 			System.err.print("HOLAeeeeeeeee");
 			System.err.print("\n" + sub.getTransaction());
 			System.err.print("\n FLUJO UFFFFFFFFF" + sub.getFlowId());
-//			System.err.print("\n"+sub.getFlow());
-//			System.err.print("\nFLUJO IDDDDDDDDD"+sub.getFlow().getId());
 			System.err.print("\n ID WLALLET " + sub.getIdWallet());
 			System.err.print("\n AMOUNT" + sub.getAmountToPay());
 			System.err.print("\n DESCRP" + sub.getDescription());
@@ -321,8 +317,7 @@ public class SellersController {
 			Transaction x = new Transaction();
 			String strAmount = sub.getAmountToPay();
 			float amount = Float.parseFloat(strAmount);
-			// or Float.valueOf(string)
-			x.setAmountPaid(amount * (-1));
+			x.setAmountPaid(amount);
 			x.setDebt(amount * (-1));
 			x.setNetAmount(amount * (-1));
 			x.setDescription(sub.getDescription());
@@ -337,11 +332,12 @@ public class SellersController {
 			x.setTransactionDate(date);
 			x.setRateType(xT.getRateType());
 			x.setCapitalizationType(xT.getCapitalizationType());
-			transactionService.createTransaction(x, sub.getFlowId());
+			newT = transactionService.createTransaction(x, sub.getFlowId());
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.print(e.getMessage());
 		}
-		return "redirect:/mystore/clients?id=" + sub.getIdSeller();
+		return "redirect:/mystore/newTicket?id=" + newT.getId();
+		
 	}
 }

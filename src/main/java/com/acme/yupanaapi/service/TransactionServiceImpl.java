@@ -149,6 +149,7 @@ public class TransactionServiceImpl implements TransactionService {
 		 return transactionRepository.findAllByTransactionDate(saleDate);
 	}
 
+
 	@Override
 	public List<Transaction> orderByObj(InfoFilter obj, List<Transaction> listAll) {
 		List<Transaction> listAux = new ArrayList<Transaction>();

@@ -95,6 +95,8 @@ public class FlowServiceImpl implements FlowService {
 		List<Flow> lista = flowRepository.findAllByWalletId(walletId);
 		return lista.get(lista.size() - 1);
 	}
+	
+	
 
 	@Override
 	public UserWalletResource getData(int walletId) {

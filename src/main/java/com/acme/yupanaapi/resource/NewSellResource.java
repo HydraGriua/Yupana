@@ -12,4 +12,5 @@ public class NewSellResource {
 	private int idWallet;
 	private Transaction transaction;
 	private Wallet wallet;
+    private String creationDate;
 }
