@@ -61,7 +61,8 @@
 					 <label>Línea de Crédito Actual: <strong th:text="${flowModel.currentCreditLine}" ></strong></label><br> 
 					 <label>Tipo de Tasa: <strong th:text="${flowModel.rateType}"></strong></label> <br>
 					 <label>Periodo de Pago: <strong th:text="${flowModel.ratePeriodType}"></strong></label><br>
-					 <label>Deuda Total: <strong th:text="${flowModel.totalDebt}"></strong></label> 
+					 <label>Deuda Total: <strong th:text="${flowModel.totalDebt}"></strong></label>
+					<Label>Costo de mantenimiento:<strong th:text="${flowModel.getWallet().maintenancePrice}"></strong></Label>
 				</form>
 				<form id="frm-newPayment" th:action="@{/mystore/registerNewPayment}"
 					th:object="${infoPayment}" method="post">
@@ -77,6 +78,9 @@
 						<option value="amortizaciones">Amortizaciones de deuda</option>
 						<option value="mantenimiento">Mantenimiento de cuenta</option>
 					</select></label></label>
+					<label for="date"><span>Fecha de Evento</span>
+						<input type="date" value="now" th:field = "*{creationDate}" required>
+					</label>
 					 <input type="text" style="display: none;" class="frm-newPayment"
 						th:field="*{idWallet}" > <input type="text"
 						style="display: none;" class="frm-newPayment" th:field="*{flowId}">

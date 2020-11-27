@@ -244,12 +244,13 @@ public class SellersController {
 		    Date convertedCurrentDate = sdf.parse(sellModel.getCreationDate());
 			Flow flowT = flowService.getActiveFlow(sellModel.getWallet().getId());
 			Transaction transactionT = sellModel.getTransaction();
+			transactionT.setTransactionDate(convertedCurrentDate);
 			//Date date = new Date();
+
 			//transactionT.setTransactionDate(date);
 			transactionT.setInterestRate(flowT.getInterestRate());
 			transactionT.setCapitalization(flowT.getCapitalization());
 			transactionT.setCapitalizationType(flowT.getCapitalizationType());
-			transactionT.setTransactionDate(convertedCurrentDate);
 			transactionT.setRateType(flowT.getRateType());
 			transactionT.setRatePeriod(flowT.getRatePeriod());
 			transactionT.setPayType(sellModel.getTransaction().getTransactionName());
@@ -297,7 +298,7 @@ public class SellersController {
 	}
 
 	@PostMapping("/registerNewPayment")
-	public String registerNewPayment(@ModelAttribute("payModel") NewPaymentResource sub, Model model) {
+	public String registerNewPayment(@ModelAttribute("infoPayment") NewPaymentResource sub, Model model) {
 		Transaction newT = new Transaction();
 		try {
 //			fullInfoResource infoResource = new fullInfoResource();
@@ -312,6 +313,10 @@ public class SellersController {
 			Transaction x = new Transaction();
 			String strAmount = sub.getAmountToPay();
 			float amount = Float.parseFloat(strAmount);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date convertedCurrentDate = sdf.parse(sub.getCreationDate());
+			System.err.println(sub.getCreationDate());
+			x.setTransactionDate(convertedCurrentDate);
 			x.setAmountPaid(amount);
 			x.setDebt(amount * (-1));
 			x.setNetAmount(amount * (-1));
@@ -323,8 +328,6 @@ public class SellersController {
 			x.setCapitalization(xT.getCapitalization());
 			x.setRatePeriod(xT.getRatePeriod());
 			x.setInterestRate(xT.getInterestRate());
-			Date date = new Date();
-			x.setTransactionDate(date);
 			x.setRateType(xT.getRateType());
 			x.setCapitalizationType(xT.getCapitalizationType());
 			newT = transactionService.createTransaction(x, sub.getFlowId());
