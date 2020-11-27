@@ -24,9 +24,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/yup
+    url: jdbc:postgresql://localhost:5432/yupana
     username: postgres
-    password: postgres
+    password: Kingjinx18
  #para el file
   servlet:
        multipart:
