@@ -13,6 +13,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.thymeleaf.standard.expression.MessageExpression;
@@ -24,6 +25,7 @@ import com.acme.yupanaapi.exception.ResourceNotFoundException;
 
 import net.bytebuddy.utility.RandomString;
 
+@CrossOrigin
 @Controller
 public class ForgotPasswordController {
 	@Autowired

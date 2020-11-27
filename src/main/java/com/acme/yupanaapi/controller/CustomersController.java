@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.acme.yupanaapi.domain.model.Flow;
 import com.acme.yupanaapi.domain.model.Seller;
@@ -34,6 +31,7 @@ import com.acme.yupanaapi.resource.UserWalletResource;
 
 import net.bytebuddy.utility.RandomString;
 
+@CrossOrigin
 @Controller
 @RequestMapping("mystore")
 public class CustomersController {
