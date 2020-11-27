@@ -89,14 +89,14 @@
 					</select > </label> <br />
 					<label for="documento"><span>Número de
 							documento</span><br> <input type="text" name="documento"
-						maxlength="15" th:field="*{user.documentNumber}"/></label> <br /> 
+						maxlength="15" th:field="*{user.documentNumber}" required/></label> <br /> 
 					<label for="celular"><span>Celular</span><br>
-					<input type="text" name="celular" maxlength="11" th:field="*{user.cellphone}"></label> </br>
+					<input type="text" name="celular" maxlength="11" th:field="*{user.cellphone}" required></label> </br>
 					<label for="business name">Nombre del negocio<br /> <input type="text"
-						placeholder="Nombre del Negocio" required th:field="*{businessName}" />
+						placeholder="Nombre del Negocio" required th:field="*{businessName}" required />
 					</label> <br />
 					<label>Direccion<br /> <input type="text"
-						placeholder="Dirección del negocio" required th:field="*{storeAdress}" />
+						placeholder="Dirección del negocio" required th:field="*{storeAdress}" required />
 					</label> <br />
 					<p class="txt-center">
 						<button type="submit" value="Submit" id="btn-signin"

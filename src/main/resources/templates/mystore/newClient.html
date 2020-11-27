@@ -73,12 +73,12 @@
 							<option value="ce">CE</option>
 					</select>
 					</label> <label for="documento"> <span>Número de documento</span> <input
-						type="text" name="documento" th:field = "*{wallet.user.documentNumber}" maxlength="15" placeholder="Número de Documento" /></label> 
+						type="text" name="documento" th:field = "*{wallet.user.documentNumber}" maxlength="15" placeholder="Número de Documento" required /></label> 
 						<label for="celular"><span>Celular</span> 
 						<input type="text"
-						name="celular" th:field = "*{wallet.user.cellphone}" maxlength="11" placeholder="Número de Celular" ></label> <label><span>Descripción</span>
+						name="celular" th:field = "*{wallet.user.cellphone}" maxlength="11" placeholder="Número de Celular" required></label> <label><span>Descripción</span>
 						<textarea name="description" id="description" th:field = "*{wallet.user.description}" cols="64" rows="2"
-							maxlength="60"></textarea> </label>
+							maxlength="60" required></textarea> </label>
                     <br>
                     <h1>Valores de crédito</h1>
                     <p class="center">Estos valores aparecerán por defecto cuando se cree un nuevo registro para este cliente.</p>
@@ -126,7 +126,7 @@
 							<option value="360">Anual</option>
 					</select>
 					</label> <label for="tinteres"> <span>Tasa de Interés (%)</span> <input
-						type="number" min="0" step="0.0000001" name="tinteres" th:field="*{flow.interestRate}">
+						type="number" min="0" step="0.0000001" name="tinteres" th:field="*{flow.interestRate}" required>
 					</label>
                     <br>
                     <br>

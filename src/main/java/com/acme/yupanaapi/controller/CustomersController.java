@@ -114,8 +114,10 @@ public class CustomersController {
 		return "/mystore/client-details";
 	}
 	@GetMapping("/profile")
-	public String viewProfile() {
+	public String viewProfile(@RequestParam(name = "id", required = false) int id, Model model) {
 		try {
+			Seller seller = sellerService.getSellerById(id);
+			model.addAttribute("usuario", seller);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

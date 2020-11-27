@@ -76,51 +76,45 @@
 		</header>
 <main class="container">
 	<h1>Perfil</h1>
-	<p>Requeridos*</p><br>
+	<p>Tus datos de usuario*</p><br>
 
 	<h2>Datos de usuario</h2>
 	<form action="" method="PUT" class="center" id="user_data">
-		<label for="nombres"><span>Nombres*</span>
-		<input type="text" name="nombres" placeholder="Nombres Completos" required/></label>
+		<label for="nombres"><span>Nombres</span>
+		<input type="text" name="nombres" placeholder="Nombres Completos" th:text="${usuario.user.name}" readonly/></label>
 		<br/>
-		<label for="apepat"><span>Apellido Paterno*</span>
-		<input type="text" name="apepat" placeholder="Apellido Paterno" required/></label>
+		<label for="apepat"><span>Apellido Paterno</span>
+		<input type="text" name="apepat" placeholder="Apellido Paterno" th:text="${usuario.user.firstname}" readonly/></label>
 		<br/>
 		<label for="apemat"><span>Apellido Materno*</span>
-		<input type="text" name="apemat" placeholder="Apellido Materno" required/></label>
+		<input type="text" name="apemat" placeholder="Apellido Materno" th:text="${usuario.user.lastname}"readonly/></label>
 		<br/>
 		<label for="docTipo"><span>Tipo de documento</span>
-			<select name="docTipo">
-				<option value="dni">DNI</option>
-				<option value="pasaporte">Pasaporte</option>
-				<option value="ce">CE</option>
-			</select>
+		<input type="text" name="apemat" placeholder="Apellido Materno" th:text="${usuario.user.documentType}"readonly/></label>
 		</label>
 		<br/>
 		<label for="documento"><span>Número de documento</span>
-		<input type="text" name="documento" maxlength="15" /></label>
+		<input type="text" name="documento" maxlength="15"  th:text="${usuario.user.documentNumber}"readonly /></label>
 		<br/>
 		<label for="celular"><span>Celular</span>
-		<input type="text" name="celular" maxlength="11"></label>
+		<input type="text" name="celular" maxlength="11"  th:text="${usuario.user.cellphone}"readonly></label>
 
-		<br/><br/><p class="txt-center"><button class="color-accent-bg">Guardar cambios</button></p>
+		<br/><br/><p class="txt-center"><button class="color-accent-bg" >Guardar cambios</button></p>
 	</form>
 
 	<hr>
 
 	<h2>Datos de cuenta</h2>
 	<form action="" method="put" class="center">
-		<label for="username"><span>Nombre de usuario*</span>
-			<input type="text" name="username" placeholder="usuario" required/></label>
+		<label for="username"><span>Nombre de usuario</span>
+			<input type="text" name="username"  th:text="${usuario.username}" readonly/></label>
 			<br/>
-			<label for="email"><span>Correo electrónico*</span>
-			<input type="email" name="email" placeholder="correo@ejemplo.com" required/></label>
+			<label for="email"><span>Correo electrónico</span>
+			<input type="email" name="email" th:text="${usuario.email}" readonly/></label>
 			<br/>
-			<label for="password"><span>Contraseña*</span>
-			<input type="password" name="password" pattern=".{5,}" required/></label>
+			<label for="password"><span>Contraseña</span>
+			<input type="password" name="password" pattern=".{5,}" th:text="${usuario.password}"readonly/></label>
 			<br/>
-			<label for="confirm-password" ><span>Confirmar contraseña*</span>
-			<input type="password"  name="confirm-password" pattern=".{5,}" required/></label>
 			
 			<br/><br/><p class="txt-center"><button class="color-accent-bg">Guardar cambios</button></p>
 	</form>

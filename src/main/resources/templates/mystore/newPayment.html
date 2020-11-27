@@ -69,7 +69,7 @@
 						type="number" min="0" step="any" th:field="*{amountToPay}" required>
 					</label> <label><span>Descripción</span> <textarea
 							name="description" id="description" th:field="*{description}"
-							cols="64" rows="2" maxlength="60"></textarea> </label>
+							cols="64" rows="2" maxlength="60" ></textarea> </label>
 						<label><label><span>Descripción</span>
 						 <select
 						name="registerTypeBy" th:field="*{transactionType}">
@@ -78,7 +78,7 @@
 						<option value="mantenimiento">Mantenimiento de cuenta</option>
 					</select></label></label>
 					 <input type="text" style="display: none;" class="frm-newPayment"
-						th:field="*{idWallet}"> <input type="text"
+						th:field="*{idWallet}" > <input type="text"
 						style="display: none;" class="frm-newPayment" th:field="*{flowId}">
 					<input type="text" style="display: none;" class="frm-newPayment"
 						th:field="*{idSeller}">
@@ -99,7 +99,7 @@
 						<div class="top">
 							<h1>Recibo generado por Yupana</h1>
 							<div class="r-code">
-								Código de registro <span>NM18239812</span>
+								Código de registro <span></span>
 							</div>
 						</div>
 						<div class="subTop">
