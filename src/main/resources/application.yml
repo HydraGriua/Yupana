@@ -57,9 +57,5 @@ spring:
           starttls.enable: true
    # Fin de configuracion del SMTP GMAL 
    #File
- 
-   
-server:
-  port: 8088
-  
+
  
