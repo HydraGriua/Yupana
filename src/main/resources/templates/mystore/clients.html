@@ -11,18 +11,24 @@
 	<div class="content app">
 		<header>
 		<div id="nav-user">
-		<div id="profile-more" class="hide-mobile"><i class="fas fa-user-circle" th:if="${session.usuario !=null}"></i> <span id="t-username" th:text="${session.usuario.user.name}"></span></div>
-		<a th:href="@{/mystore/profile}"><div class="mobile"><i class="fas fa-user-circle"></i> <span th:text="${session.usuario.user.name}"><span></div></a> 
-		 <div class="more hide-mobile"> 
-		 <a th:href="@{/mystore/profile}"><div><i class="fas fa-id-badge"></i>Ir a perfil</div></a>
-		 <Form th:action="@{/logout}" method="post"  id="log-out">
-		</Form>
-				<Form th:action="@{/logout}" method="post" id="logout"></Form>
+				<div id="profile-more" class="hide-mobile">
+					<i class="fas fa-user-circle" th:if="${session.usuario !=null}"></i>
+					<span id="t-username" th:text="${session.usuario.user.name}"></span>
+				</div>
+				<a th:href="@{/mystore/profile}"><div class="mobile">
+						<i class="fas fa-user-circle"></i> <span
+							th:text="${session.usuario.user.name}"><span>
+					</div></a>
+				<div class="more hide-mobile">
+					<a th:href="@{'/mystore/profile?id=' +${session.usuario.id}}"><div>
+							<i class="fas fa-id-badge"></i>Ir a perfil
+						</div></a>
+					<Form th:action="@{/logout}" method="post" id="logout"></Form>
 					<button class="color-secondary-bg" type="submit" form="logout">
 						<i class="fas fa-sign-out-alt"></i> Cerrar Sesion
 					</button>
-		</div>
-		</div>
+				</div>
+			</div>
 		 <!-- a th:href="@{/login}" id="logout"><div><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión </span></div></a  -->
 		<nav><ul>
         <a th:href="@{'/mystore/records?id=' +${session.usuario.id} (orderyby=dateLasts,registerTypeBy=all,payMethodBy=all,rateTypeBy=all,currencyBy=soles)}"><li>

@@ -20,7 +20,7 @@
 							th:text="${session.usuario.user.name}"><span>
 					</div></a>
 				<div class="more hide-mobile">
-					<a th:href="@{/mystore/profile}"><div>
+					<a th:href="@{'/mystore/profile?id=' +${session.usuario.id}}"><div>
 							<i class="fas fa-id-badge"></i>Ir a perfil
 						</div></a>
 					<Form th:action="@{/logout}" method="post" id="logout"></Form>

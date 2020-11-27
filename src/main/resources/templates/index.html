@@ -60,7 +60,7 @@
 						required />
 					</label> <br / --> 
 					<label for="password">Contraseña*<br />
-						<input type="password" name="password" pattern=".{5,}" th:field="*{password}"required />
+						<input type="password" name="password" pattern=".{5,}" th:field="*{password}" required/>
 					</label>
 					<br /> <label for="confirm-password">Confirmar contraseña*<br />
 						<input type="password" name="confirm-password" pattern=".{5,}"
@@ -71,7 +71,7 @@
 					<br/> 
 					<label for="nombres"><span>Nombres*</span><br>
 						<input type="text" name="nombres" placeholder="Nombres Completos" th:field="*{user.name}"
-						required />
+						 required />
 					</label> <br /> 
 					<label for="apepat"><span>Apellido
 							Paterno*</span><br> <input type="text" name="apepat" 
@@ -93,10 +93,10 @@
 					<label for="celular"><span>Celular</span><br>
 					<input type="text" name="celular" maxlength="11" th:field="*{user.cellphone}" required></label> </br>
 					<label for="business name">Nombre del negocio<br /> <input type="text"
-						placeholder="Nombre del Negocio" required th:field="*{businessName}" required />
+						placeholder="Nombre del Negocio" th:field="*{businessName}" required />
 					</label> <br />
 					<label>Direccion<br /> <input type="text"
-						placeholder="Dirección del negocio" required th:field="*{storeAdress}" required />
+						placeholder="Dirección del negocio" th:field="*{storeAdress}" required />
 					</label> <br />
 					<p class="txt-center">
 						<button type="submit" value="Submit" id="btn-signin"

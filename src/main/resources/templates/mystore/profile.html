@@ -47,7 +47,7 @@
 							th:text="${session.usuario.user.name}"><span>
 					</div></a>
 				<div class="more hide-mobile">
-					<a th:href="@{/mystore/profile}"><div>
+					<a th:href="@{'/mystore/profile?id=' +${session.usuario.id}}"><div>
 							<i class="fas fa-id-badge"></i>Ir a perfil
 						</div></a>
 					<Form th:action="@{/logout}" method="post" id="logout"></Form>
@@ -59,12 +59,10 @@
 			<!-- a th:href="@{/login}" id="logout"><div><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión </span></div></a  -->
 			<nav>
 				<ul>
-					<a th:href="@{/mystore/records}"><li><i
-							class="fas fa-book"></i> <span>Registros</span></li></a>
-					<a th:href="@{/mystore/clients}"><li><i
-							class="fas fa-address-book"></i> <span>Clientes</span></li></a>
-					<a th:href="@{/mystore/learn_more}"><li><i
-							class="fas fa-graduation-cap"></i> <span>Aprende más </span></li></a>
+					<a th:href="@{'/mystore/records?id=' +${session.usuario.id} (orderyby=dateLasts,registerTypeBy=all,payMethodBy=all,rateTypeBy=all,currencyBy=soles)}"><li>
+                    <i class="fas fa-book"></i> <span>Registros</span></li></a>
+        <a th:href="@{/mystore/clients}"><li> <i class="fas fa-address-book"></i> <span>Clientes</span></li></a>
+        <a th:href="@{/mystore/learn_more}"><li> <i class="fas fa-graduation-cap"></i> <span>Aprende más </span></li></a>
 				</ul>
 			</nav>
 			<div class="nav-title">
@@ -81,25 +79,23 @@
 	<h2>Datos de usuario</h2>
 	<form action="" method="PUT" class="center" id="user_data">
 		<label for="nombres"><span>Nombres</span>
-		<input type="text" name="nombres" placeholder="Nombres Completos" th:text="${usuario.user.name}" readonly/></label>
+		<input type="text" name="nombres" placeholder="Nombres Completos" th:value="${usuario.user.name}" readonly/></label>
 		<br/>
 		<label for="apepat"><span>Apellido Paterno</span>
-		<input type="text" name="apepat" placeholder="Apellido Paterno" th:text="${usuario.user.firstname}" readonly/></label>
+		<input type="text" name="apepat" placeholder="Apellido Paterno" th:value="${usuario.user.firstLastname}" readonly/></label>
 		<br/>
 		<label for="apemat"><span>Apellido Materno*</span>
-		<input type="text" name="apemat" placeholder="Apellido Materno" th:text="${usuario.user.lastname}"readonly/></label>
+		<input type="text" name="apemat" placeholder="Apellido Materno" th:value="${usuario.user.secondLastname}"readonly/></label>
 		<br/>
 		<label for="docTipo"><span>Tipo de documento</span>
-		<input type="text" name="apemat" placeholder="Apellido Materno" th:text="${usuario.user.documentType}"readonly/></label>
+		<input type="text" name="apemat" placeholder="Apellido Materno" th:value="${usuario.user.documentType}"readonly/></label>
 		</label>
 		<br/>
 		<label for="documento"><span>Número de documento</span>
-		<input type="text" name="documento" maxlength="15"  th:text="${usuario.user.documentNumber}"readonly /></label>
+		<input type="text" name="documento" maxlength="15"  th:value="${usuario.user.documentNumber}" readonly /></label>
 		<br/>
 		<label for="celular"><span>Celular</span>
-		<input type="text" name="celular" maxlength="11"  th:text="${usuario.user.cellphone}"readonly></label>
-
-		<br/><br/><p class="txt-center"><button class="color-accent-bg" >Guardar cambios</button></p>
+		<input type="text" name="celular" maxlength="11"  th:value="${usuario.user.cellphone}" readonly></label>
 	</form>
 
 	<hr>
@@ -107,16 +103,14 @@
 	<h2>Datos de cuenta</h2>
 	<form action="" method="put" class="center">
 		<label for="username"><span>Nombre de usuario</span>
-			<input type="text" name="username"  th:text="${usuario.username}" readonly/></label>
+			<input type="text" name="username"  th:value="${usuario.username}" readonly/></label>
 			<br/>
 			<label for="email"><span>Correo electrónico</span>
-			<input type="email" name="email" th:text="${usuario.email}" readonly/></label>
+			<input type="email" name="email" th:value="${usuario.email}" readonly/></label>
 			<br/>
 			<label for="password"><span>Contraseña</span>
-			<input type="password" name="password" pattern=".{5,}" th:text="${usuario.password}"readonly/></label>
+			<input type="password" name="password" pattern=".{5,}" th:value="${usuario.password}"readonly/></label>
 			<br/>
-			
-			<br/><br/><p class="txt-center"><button class="color-accent-bg">Guardar cambios</button></p>
 	</form>
 
 </main>

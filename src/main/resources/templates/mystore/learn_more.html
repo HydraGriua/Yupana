@@ -40,7 +40,7 @@
 		<div id="profile-more" class="hide-mobile"><i class="fas fa-user-circle" th:if="${session.usuario !=null}"></i> <span id="t-username" th:text="${session.usuario.user.name}"></span></div>
 		<a th:href="@{/mystore/profile}"><div class="mobile"><i class="fas fa-user-circle"></i> <span th:text="${session.usuario.user.name}"><span></div></a> 
 		 <div class="more hide-mobile"> 
-		 <a th:href="@{/mystore/profile}"><div><i class="fas fa-id-badge"></i>Ir a perfil</div></a>
+		 <a th:href="@{'/mystore/profile?id=' +${session.usuario.id}}"><div><i class="fas fa-id-badge"></i>Ir a perfil</div></a>
 		 <Form th:action="@{/logout}" method="post"  id="logout">
 		</Form>
 		<button class="color-secondary-bg" type="submit" form="logout">

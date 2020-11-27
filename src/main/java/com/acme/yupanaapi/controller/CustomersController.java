@@ -116,7 +116,11 @@ public class CustomersController {
 	@GetMapping("/profile")
 	public String viewProfile(@RequestParam(name = "id", required = false) int id, Model model) {
 		try {
+			
+			System.out.print("HOLA AAAAAAAAAAA");
+			
 			Seller seller = sellerService.getSellerById(id);
+			System.err.print("\n SELERRRRRRRRR"+seller);
 			model.addAttribute("usuario", seller);
 			
 		} catch (Exception e) {
