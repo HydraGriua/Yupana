@@ -68,10 +68,19 @@ public class TransactionServiceImpl implements TransactionService {
 				System.out.println(" REFERENCIA ENCIA REFRENCIA" +  newQuant);
 				break;
 			case "Tasa de Interés Efectiva":
-				newQuant = flow.getTotalDebt() * (float) Math.pow((1 + flow.getInterestRate()),
-						(float) (dias / flow.getRatePeriod()));
-				flow.setTotalDebt(newQuant + transactionEntity.getDebt());
-				break;
+
+                System.out.println("\n REFERENCIA ENCIA REFRENCIA" +  flow.getTotalDebt());
+                System.out.print("ENTREEE");
+
+                newQuant = flow.getTotalDebt() * (float) Math.pow((1 + flow.getTotalDebt()),
+                        ((float) dias / flow.getRatePeriod()));
+                flow.setTotalDebt(newQuant + transactionEntity.getDebt());
+
+                System.out.println("\n REFERENCIA ENCIA REFRENCIA" +  newQuant);
+                System.out.println("\n REFERENCIA ENCIA REFRENCIA" +  flow.getTotalDebt());
+                System.out.println("\n REFERENCIA ENCIA REFRENCIA" +  flow.getRatePeriod());
+
+                break;
 			}
 			flow.setLastTransactionDate(transactionEntity.getTransactionDate());
 			flow.setInterestRate(transactionEntity.getInterestRate());
